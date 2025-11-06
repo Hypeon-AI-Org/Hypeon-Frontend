@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth;
+  background: linear-gradient(to bottom right, #2e026d, #6d28d9, #db2777);
+  min-height: 100vh;
+}
+
+/* Card hover effect */
+.pricing-card:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+}

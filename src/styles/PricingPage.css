@@ -1,0 +1,200 @@
+/* ==========================
+   Global Page Styles
+========================== */
+
+.pricing-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1e0c3b, #2a0f53, #be007e);
+  color: white;
+  font-family: var(--font-geist-sans), sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+/* ==========================
+   Billing Toggle (Monthly/Yearly)
+========================== */
+.billing-toggle {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.billing-toggle button {
+  padding: 0.5rem 2rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: #ddd;
+}
+
+.billing-toggle button.active {
+  background: linear-gradient(to right,  #be007e);
+  color: rgb(240, 238, 238);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+/* ==========================
+   Pricing Cards
+========================== */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .pricing-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pricing-card {
+  /* Gradient background */
+  background: linear-gradient(to bottom, #5e1eb9, #be007e);
+  
+  border: 1px solid #a78bfa;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.pricing-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.pricing-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #f9a8d4;
+}
+
+.pricing-card p.price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fbb6ce;
+}
+
+.pricing-card p {
+  margin-bottom: 1rem;
+}
+
+.pricing-card ul {
+  color: #e5e7eb;
+  margin-bottom: 2rem;
+  padding-left: 1.25rem;
+}
+
+.pricing-card li {
+  margin-bottom: 0.5rem;
+  list-style: disc;
+}
+
+.pricing-card a.cta-button {
+  display: inline-block;
+  background: linear-gradient(to right, #f472b6, #a78bfa);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.pricing-card a.cta-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ==========================
+   FAQ Section
+========================== */
+.faq-section {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto 5rem;
+  padding: 0 1rem;
+}
+
+.faq-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #f9a8d4;
+  text-align: left;
+}
+
+.faq-item {
+  padding: 1rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover h3 {
+  color: #f472b6;
+}
+
+.faq-item h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  color: #d1d5db;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  text-align: left;
+}
+
+.faq-answer.open {
+  max-height: 500px;
+  padding-top: 0.5rem;
+}
+
+/* Line between questions */
+.faq-item + .faq-item::before {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #a78bfa;
+  margin: 0.5rem 0;
+}
+
+/* ==========================
+   Responsive Adjustments
+========================== */
+@media (max-width: 640px) {
+  .pricing-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .pricing-card p.price {
+    font-size: 2rem;
+  }
+
+  .faq-section h2 {
+    font-size: 2rem;
+  }
+}
+/* ==========================
+   Footer Styles
+========================== */
