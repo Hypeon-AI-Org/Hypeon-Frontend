@@ -1,4 +1,4 @@
-// File: c:\Users\umarf\Desktop\Code_base\Hypeon-Frontend\src\app\page.tsx
+// File: C:\Users\HP\Hypeon-Frontend\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
