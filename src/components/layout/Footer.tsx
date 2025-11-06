@@ -1,92 +1,51 @@
-import Link from 'next/link';
-import { Linkedin, Twitter, Github } from 'lucide-react';
+"use client";
+
+import Link from "next/link";
+import "../styles/footer.css"; 
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          {/* Left - Brand */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-violet-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">H</span>
-              </div>
-              <span className="text-gray-900 font-bold text-xl">Hypeon AI</span>
-            </div>
-            <p className="text-gray-600 text-sm max-w-md">
-              Powered by AI. Built for trendsetters.
-            </p>
-          </div>
+    <footer className="footer-bg text-gray-300 mt-20 py-12 relative overflow-hidden">
+      {/* Animated gradient background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-700 to-indigo-800 opacity-70 animate-gradient"></div>
 
-          {/* Center - Links */}
-          <div className="md:text-center">
-            <h3 className="text-gray-900 font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-600 hover:text-violet-600 text-sm transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/features" className="text-gray-600 hover:text-violet-600 text-sm transition-colors">
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-600 hover:text-violet-600 text-sm transition-colors">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-600 hover:text-violet-600 text-sm transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/login" className="text-gray-600 hover:text-violet-600 text-sm transition-colors">
-                  Login
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Right - Social Icons */}
-          <div className="md:text-right">
-            <h3 className="text-gray-900 font-semibold mb-4">Connect</h3>
-            <div className="flex gap-4 md:justify-end">
-              <a
-                href="#"
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-violet-600 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-violet-600 hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 hover:bg-violet-600 hover:text-white transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-          <p className="text-gray-600 text-sm">
-            © 2025 Hypeon AI. All rights reserved.
+      <div className="relative max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-10 z-10">
+        {/* About */}
+        <div>
+          <h3 className="text-2xl font-semibold text-pink-300 mb-4">About Hypeon AI</h3>
+          <p className="leading-relaxed">
+            Your AI-powered engine to predict viral products, insights, and growth strategies for the next-gen e-commerce brands.
           </p>
         </div>
+
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-2xl font-semibold text-pink-300 mb-4">Quick Links</h3>
+          <ul className="space-y-3">
+            <li><Link href="/" className="hover:text-white transition-colors duration-300">Home</Link></li>
+            <li><Link href="/pricing" className="hover:text-white transition-colors duration-300">Pricing</Link></li>
+            <li><Link href="/signup" className="hover:text-white transition-colors duration-300">Sign Up</Link></li>
+            <li><Link href="/contact" className="hover:text-white transition-colors duration-300">Contact</Link></li>
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <h3 className="text-2xl font-semibold text-pink-300 mb-4">Contact</h3>
+          <p>Email: <a href="mailto:support@hypeon.ai" className="hover:text-white">support@hypeon.ai</a></p>
+          <p>Phone: +91 123 456 7890</p>
+          <div className="flex space-x-5 mt-5">
+            <Link href="#" className="hover:text-white transition-transform transform hover:scale-110">Twitter</Link>
+            <Link href="#" className="hover:text-white transition-transform transform hover:scale-110">LinkedIn</Link>
+            <Link href="#" className="hover:text-white transition-transform transform hover:scale-110">Instagram</Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative text-center mt-10 border-t border-gray-700 pt-4 text-sm z-10">
+        &copy; {new Date().getFullYear()} Hypeon AI. All rights reserved.
       </div>
     </footer>
   );
 }
+
