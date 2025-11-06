@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/layout/Navbar";
+
 import Link from "next/link";
 import { useState } from "react";
 import "../../styles/PricingPage.css";
@@ -75,7 +75,7 @@ export default function PricingPage() {
 
   return (
     <div className="pricing-page flex flex-col min-h-screen bg-gradient-to-b from-purple-950 via-purple-900 to-pink-900 text-white">
-      <Navbar />
+
 
       <section className="py-20 px-8 max-w-7xl mx-auto text-center">
         <h1 className="text-5xl font-bold mb-6 text-pink-300">Pricing Plans</h1>

@@ -1,8 +1,8 @@
 // File: C:\Users\HP\Hypeon-Frontend\src\app\features\page.tsx
-import * as entry from '../../../../src/app/features/page.js'
+import * as entry from '../../../../src/app/features/features.jsx'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../src/app/features/page.js')
+type TEntry = typeof import('../../../../src/app/features/features.jsx')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{
