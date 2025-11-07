@@ -1,0 +1,280 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #be007e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  margin-bottom: -90px;
+  overflow: hidden;
+}
+
+.cardWrapper {
+  width: 900px;
+  height: 500px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.6s ease-in-out;
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+
+/* === FORM SECTION === */
+.formSection {
+  width: 50%;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: 0.6s ease-in-out;
+}
+
+.formSection h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.form input::placeholder {
+  color: #ddd;
+}
+
+.primaryBtn {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  color: #6a11cb;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primaryBtn:hover {
+  background: #f3f3f3;
+}
+
+.switchText {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.link {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* === OVERLAY SECTION === */
+.overlaySection {
+  width: 50%;
+  background: linear-gradient(135deg, #6a11cb, #be007e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 0.6s ease-in-out;
+}
+
+.overlayContent {
+  width: 80%;
+}
+
+.overlayContent h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.overlayContent p {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.overlayBtn {
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.overlayBtn:hover {
+  background: #fff;
+  color: #6a11cb;
+}
+
+/* === Circular Overlay Animation === */
+.circleTransition {
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #5516b4, #be007e);
+  transform: translateY(-50%);
+  transition: all 0.8s ease-in-out;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Expands from left */
+.circleExpandLeft {
+  left: 0;
+  width: 1400px;
+  height: 1400px;
+}
+
+/* Expands from right */
+.circleExpandRight {
+  right: 0;
+  width: 1400px;
+  height: 1400px;
+}
+
+/* === SOCIAL LOGIN === */
+.socialLogin {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #ccc;
+}
+
+.socialLogin p {
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.googleBtn,
+.facebookBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid #666;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.googleBtn:hover {
+  background: #db4437;
+  border-color: #db4437;
+}
+
+.facebookBtn:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Tablet (992px and below) */
+@media (max-width: 992px) {
+  .cardWrapper {
+    width: 95%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .formSection,
+  .overlaySection {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .overlaySection {
+    order: -1; /* move overlay to top */
+    min-height: 200px;
+  }
+
+  .formSection h1 {
+    font-size: 1.6rem;
+  }
+
+  .overlayContent h2 {
+    font-size: 1.6rem;
+  }
+
+  .primaryBtn {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
+/* Mobile (600px and below) */
+@media (max-width: 600px) {
+  .container {
+    height: auto;
+    padding: 40px 0;
+  }
+
+  .cardWrapper {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+  .formSection {
+    padding: 25px 15px;
+  }
+
+  .formSection h1 {
+    font-size: 1.4rem;
+  }
+
+  .form input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .overlaySection {
+    display: none; /* hide side overlay for small screens for better UX */
+  }
+
+  .socialIcons {
+    flex-direction: column;
+  }
+
+  .googleBtn,
+  .facebookBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .switchText {
+    font-size: 0.85rem;
+  }
+}

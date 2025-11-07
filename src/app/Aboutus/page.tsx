@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import styles from "../../styles/AboutUs.css";
+import styles from "../../styles/AboutUs.module.css";
 import Image from "next/image";
 
 export default function AboutPage() {
