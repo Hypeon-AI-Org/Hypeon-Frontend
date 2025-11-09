@@ -1,123 +1,116 @@
-'use client';
+"use client";
+import Image from "next/image";
+import "../../styles/features.css";
 
-import { motion } from 'framer-motion';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  MessageSquare, 
-  LineChart,
-  Award
-} from 'lucide-react';
+import step1 from "@/public/images/step1.png";
+import step2 from "@/public/images/step2.png";
+import step3 from "@/public/images/step3.jpg";
 
 export default function FeaturesPage() {
-  const features = [
-    {
-      icon: <BarChart3 className="w-10 h-10" />,
-      title: 'Engagement Analytics',
-      description: 'Tracks engagement from social platforms (Reddit, TikTok) and product listings (Amazon, Shopify).',
-      benefit: 'Identify which products or niches get real audience attention before investing in ads or inventory.',
-      example: 'See which TikTok trends correlate with product sales spikes.',
-    },
-    {
-      icon: <TrendingUp className="w-10 h-10" />,
-      title: 'Growth Rate Analysis',
-      description: 'Measures weekly and monthly growth patterns across platforms.',
-      benefit: 'Detect momentum early — before competitors saturate the niche.',
-      example: 'Spot upward-trending products with fast sales acceleration.',
-    },
-    {
-      icon: <MessageSquare className="w-10 h-10" />,
-      title: 'Sentiment Intelligence',
-      description: 'Analyzes thousands of Reddit and TikTok comments for positive, negative, or neutral sentiment.',
-      benefit: 'Understand real user perception — which features people love or complain about.',
-      example: 'Discover if "eco-friendly" or "minimalist" trends are gaining love in your category.',
-    },
-    {
-      icon: <LineChart className="w-10 h-10" />,
-      title: 'Trend Index',
-      description: 'Quantifies trend momentum by combining engagement, mentions, and sales velocity.',
-      benefit: 'Acts as an early warning system for what\'s becoming "hot" or "declining."',
-      example: 'Find niches that are trending up before ad costs explode.',
-    },
-    {
-      icon: <Award className="w-10 h-10" />,
-      title: 'Hype Score',
-      description: 'Aggregates social engagement, sentiment, and growth data into one unified metric.',
-      benefit: 'Gives D2C operators a simple, at-a-glance way to rank opportunities.',
-      example: 'Compare the hype score of two similar products to decide where to focus.',
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Simple Header */}
-      <section className="px-4 py-16 sm:py-20 bg-gray-50">
-        <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
-            Hypeon AI <span className="text-violet-600">Features</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our platform provides five core analytics modules designed to help D2C brands and dropshippers make data-driven product decisions.
-          </p>
+    <div className="features-container">
+      
+      {/* ===== Header Section ===== */}
+      <header className="features-header fade-in">
+        <h1 className="gradient-title">hypeon.ai Features</h1>
+        <p className="gradient-subtitle">
+          21.4M+ data points analyzed daily to predict viral trends
+        </p>
+      </header>
+
+      {/* ===== Steps Section ===== */}
+      <section className="steps-section fade-in-up">
+        <div className="step-card step1 float">
+          <div className="image-wrapper">
+            <Image
+              src={step1}
+              alt="Step 1"
+              width={300}
+              height={180}
+            />
+          </div>
+          <h3>Step 1</h3>
+          <p>Access precise data for trending products in your niche</p>
+        </div>
+
+        <div className="step-card step2 float-delay">
+          <div className="image-wrapper">
+            <Image
+              src={step2}
+              alt="Step 2"
+              width={300}
+              height={180}
+            />
+          </div>
+          <h3>Step 2</h3>
+          <p>See the connected searchwords they are ranking on</p>
+        </div>
+
+        <div className="step-card step3 float-delay2">
+          <div className="image-wrapper">
+            <Image
+              src={step3}
+              alt="Step 3"
+              width={300}
+              height={180}
+            />
+          </div>
+          <h3>Step 3</h3>
+          <p>Find the best performing ad creatives for each product</p>
         </div>
       </section>
 
-      {/* Features List */}
-      <section className="px-4 py-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="space-y-12">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white border-2 border-gray-200 rounded-2xl p-8 md:p-10 hover:border-violet-300 hover:shadow-lg transition-all"
-              >
-                <div className="flex flex-col md:flex-row gap-6">
-                  {/* Icon */}
-                  <div className="flex-shrink-0">
-                    <div className="w-20 h-20 bg-violet-100 rounded-xl flex items-center justify-center text-violet-600">
-                      {feature.icon}
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
-                      {feature.title}
-                    </h2>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">What it does</h3>
-                        <p className="text-gray-700 leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-sm font-semibold text-violet-600 uppercase tracking-wide mb-2">Why it matters</h3>
-                        <p className="text-gray-700 leading-relaxed">
-                          {feature.benefit}
-                        </p>
-                      </div>
-                      
-                      <div className="bg-gray-50 border-l-4 border-violet-600 p-4 rounded">
-                        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Example</h3>
-                        <p className="text-gray-700 text-sm italic">
-                          {feature.example}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+      {/* ===== Content Section ===== */}
+      <section className="content-box fade-in-up-delay">
+        <h2>Products: Trend Identification (Current & Future)</h2>
+        <p>
+          Our product feature showcases two types of products: first, spotting
+          current trending products that are experiencing current demand to
+          capture immediate sales.
+        </p>
+        <p>
+          The second product feature is accurately forecasting future trending
+          products to inform long-term strategy, secure optimal inventory, and
+          gain a first-mover advantage.
+        </p>
+        <p>
+          Both trend prediction products use data analysis of sales velocity,
+          search volume, and social media buzz to categorize items, ensuring
+          that ecommerce shops can align their product catalog with both
+          established and emerging consumer desires for different products.
+        </p>
+
+        <h2>Keywords: Trending keywords per product</h2>
+        <p>
+          Keywords are the linguistic bridge connecting consumers to a product,
+          and identifying the right trending ones is crucial for visibility.
+          This feature isolates the most searched and relevant terms for a
+          specific product, enabling ecommerce shops to optimize their product
+          titles, descriptions, and Pay-Per-Click (PPC) campaigns.
+        </p>
+        <p>
+          By focusing on trending keywords with high purchase intent, businesses
+          can significantly increase their product’s organic search ranking and
+          ad relevance, driving targeted traffic that converts into sales.
+        </p>
+
+        <h2>Ad Creatives: Winning ad creatives per product</h2>
+        <p>
+          Ad creatives are the visual and narrative elements that ultimately
+          persuade a customer to purchase. Finding the winning ad creatives
+          involves analyzing which images, videos, headlines, and
+          calls-to-action (CTAs) are currently performing best across various
+          platforms.
+        </p>
+        <p>
+          Trend prediction products provide insights into high-converting
+          formats such as short, authentic video ads or user-generated content
+          (UGC) styles, helping advertisers replicate successful strategies,
+          reduce testing costs, and quickly scale campaigns for the identified
+          trending products.
+        </p>
       </section>
+ 
     </div>
   );
 }
