@@ -1,93 +1,148 @@
+/* ---------- Base Container ---------- */
 .container {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #6a11cb, #be007e);
+  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Poppins", sans-serif;
   color: #fff;
   margin-bottom: -90px;
-  overflow: hidden;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
+/* ---------- Card Wrapper ---------- */
 .cardWrapper {
   width: 900px;
   height: 500px;
   display: flex;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
+  background: linear-gradient(135deg, #d21e83, #7e22ce);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.6s ease-in-out;
-  backdrop-filter: blur(12px);
+  color: #fff;
   position: relative;
+  animation: fadeInUp 1s ease-in-out;
 }
 
-/* === FORM SECTION === */
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Form Section ---------- */
 .formSection {
   width: 50%;
   padding: 40px;
-  background: rgba(0, 0, 0, 0.3);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   transition: 0.6s ease-in-out;
+  color: #333;
+  animation: slideInLeft 1s ease both;
 }
 
 .formSection h1 {
   font-size: 1.8rem;
   margin-bottom: 20px;
+  background: linear-gradient(90deg, #d21e83, #7e22ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .form input {
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #d21e83;
+  box-shadow: 0 0 8px rgba(210, 30, 131, 0.3);
 }
 
 .form input::placeholder {
-  color: #ddd;
+  color: #999;
 }
 
+/* ---------- Primary Button ---------- */
 .primaryBtn {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 6px;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
-  background: #fff;
-  color: #6a11cb;
-  font-weight: bold;
+  background: linear-gradient(90deg, #d21e83, #7e22ce);
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .primaryBtn:hover {
-  background: #f3f3f3;
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 
 .switchText {
   margin-top: 15px;
   font-size: 0.9rem;
+  color: #555;
 }
 
 .link {
-  color: #fff;
-  cursor: pointer;
+  color: #7e22ce;
+  font-weight: 500;
   text-decoration: underline;
+  cursor: pointer;
 }
 
-/* === OVERLAY SECTION === */
+/* ---------- Overlay Section ---------- */
 .overlaySection {
   width: 50%;
   background: linear-gradient(135deg, #6a11cb, #be007e);
@@ -96,6 +151,8 @@
   align-items: center;
   text-align: center;
   transition: 0.6s ease-in-out;
+  color: #fff;
+  animation: slideInRight 1s ease both;
 }
 
 .overlayContent {
@@ -128,44 +185,44 @@
   color: #6a11cb;
 }
 
-/* === Circular Overlay Animation === */
+/* ---------- Circular Overlay ---------- */
 .circleTransition {
   position: absolute;
   top: 50%;
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: linear-gradient(180deg, #5516b4, #be007e);
+  background: linear-gradient(180deg, #7e22ce, #d21e83);
   transform: translateY(-50%);
   transition: all 0.8s ease-in-out;
   z-index: 5;
   pointer-events: none;
+  opacity: 0.9;
 }
 
-/* Expands from left */
 .circleExpandLeft {
   left: 0;
   width: 1400px;
   height: 1400px;
 }
 
-/* Expands from right */
 .circleExpandRight {
   right: 0;
   width: 1400px;
   height: 1400px;
 }
 
-/* === SOCIAL LOGIN === */
+/* ---------- Social Login ---------- */
 .socialLogin {
   text-align: center;
   margin-top: 1.5rem;
-  color: #ccc;
+  color: #666;
 }
 
 .socialLogin p {
   margin-bottom: 0.8rem;
   font-size: 0.9rem;
+  color: #777;
 }
 
 .socialIcons {
@@ -179,12 +236,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: 1px solid #666;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #333;
   padding: 0.5rem 1.2rem;
   border-radius: 25px;
   font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -192,19 +251,21 @@
 .googleBtn:hover {
   background: #db4437;
   border-color: #db4437;
+  color: #fff;
 }
 
 .facebookBtn:hover {
   background: #1877f2;
   border-color: #1877f2;
+  color: #fff;
 }
 
-/* === RESPONSIVE DESIGN === */
+/* ---------- RESPONSIVE DESIGN ---------- */
 
-/* Tablet (992px and below) */
-@media (max-width: 992px) {
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
   .cardWrapper {
-    width: 95%;
+    width: 90%;
     height: auto;
     flex-direction: column;
   }
@@ -212,69 +273,86 @@
   .formSection,
   .overlaySection {
     width: 100%;
-    padding: 30px 20px;
+    padding: 3rem 2rem;
+    height: auto;
   }
 
   .overlaySection {
-    order: -1; /* move overlay to top */
-    min-height: 200px;
-  }
-
-  .formSection h1 {
-    font-size: 1.6rem;
-  }
-
-  .overlayContent h2 {
-    font-size: 1.6rem;
-  }
-
-  .primaryBtn {
-    font-size: 1rem;
-    padding: 12px;
-  }
-}
-
-/* Mobile (600px and below) */
-@media (max-width: 600px) {
-  .container {
-    height: auto;
-    padding: 40px 0;
-  }
-
-  .cardWrapper {
-    flex-direction: column;
-    width: 90%;
-    height: auto;
+    order: -1;
+    animation: fadeInUp 1s ease both;
   }
 
   .formSection {
-    padding: 25px 15px;
+    animation: fadeInUp 1s ease both;
+  }
+}
+
+/* Mobiles (≤768px) */
+@media (max-width: 768px) {
+  .cardWrapper {
+    width: 95%;
+    flex-direction: column;
+    border-radius: 15px;
   }
 
-  .formSection h1 {
+  .formSection,
+  .overlaySection {
+    padding: 2rem 1.5rem;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .overlayContent h2 {
     font-size: 1.4rem;
   }
 
-  .form input {
-    padding: 8px;
+  .overlayContent p {
+    font-size: 0.85rem;
+  }
+
+  .primaryBtn {
+    padding: 10px;
     font-size: 0.9rem;
-  }
-
-  .overlaySection {
-    display: none; /* hide side overlay for small screens for better UX */
-  }
-
-  .socialIcons {
-    flex-direction: column;
   }
 
   .googleBtn,
   .facebookBtn {
-    width: 100%;
-    justify-content: center;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
   }
 
-  .switchText {
+  .socialIcons {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+}
+
+/* Small Mobiles (≤480px) */
+@media (max-width: 480px) {
+  .cardWrapper {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .formSection,
+  .overlaySection {
+    padding: 1.5rem 1rem;
+  }
+
+  .form input {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .formSection h1 {
+    font-size: 1.3rem;
+  }
+
+  .overlayContent h2 {
+    font-size: 1.3rem;
+  }
+
+  .overlayBtn {
+    padding: 8px 18px;
     font-size: 0.85rem;
   }
 }
