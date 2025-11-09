@@ -4,15 +4,13 @@
 
 .pricing-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #1e0c3b, #2a0f53, #be007e);
+  background: linear-gradient(180deg, white);
   color: white;
   font-family: var(--font-geist-sans), sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 4rem;
-  margin-top: -70px;
-  margin-bottom: -80px;
 }
 
 /* ==========================
@@ -33,7 +31,7 @@
   font-weight: 600;
   transition: all 0.3s ease;
   background: transparent;
-  color: #ddd;
+  color: #711313;
 }
 
 .billing-toggle button.active {
@@ -64,7 +62,7 @@
 
 .pricing-card {
   /* Gradient background */
-  background: linear-gradient(to bottom, #5e1eb9, #be007e);
+ background: linear-gradient(180deg, #1e0c3b, #2a0f53, #be007e);
   
   border: 1px solid #a78bfa;
   border-radius: 1.5rem;
@@ -85,6 +83,7 @@
   color: #f9a8d4;
 }
 
+
 .pricing-card p.price {
   font-size: 2.5rem;
   font-weight: bold;
@@ -99,13 +98,14 @@
 .pricing-card ul {
   color: #e5e7eb;
   margin-bottom: 2rem;
-  padding-left: 1.25rem;
+  padding-left: 0; /* remove left padding */
+  list-style: none; /* remove dots */
 }
 
 .pricing-card li {
   margin-bottom: 0.5rem;
-  list-style: disc;
 }
+
 
 .pricing-card a.cta-button {
   display: inline-block;
@@ -130,13 +130,14 @@
   width: 100%;
   margin: 0 auto 5rem;
   padding: 0 1rem;
+  color:  #7E22CE;
 }
 
 .faq-section h2 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 2rem;
-  color: #f9a8d4;
+  color: #D21E83;
   text-align: left;
 }
 
@@ -146,9 +147,6 @@
   transition: all 0.3s ease;
 }
 
-.faq-item:hover h3 {
-  color: #f472b6;
-}
 
 .faq-item h3 {
   display: flex;
@@ -161,9 +159,10 @@
 }
 
 .faq-answer {
+ 
   max-height: 0;
   overflow: hidden;
-  color: #d1d5db;
+  color: #5c139c;
   transition: max-height 0.4s ease, padding 0.4s ease;
   text-align: left;
 }
@@ -197,6 +196,70 @@
     font-size: 2rem;
   }
 }
-/* ==========================
-   Footer Styles
-========================== */
+
+
+/* Hide on desktop */
+.view-more-btn {
+  display: none;
+}
+
+/* Show only on mobile */
+@media (max-width: 768px) {
+  .view-more-btn {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 1rem auto;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: 1.5px solid #f9a8d4;
+    color: #f9a8d4;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .view-more-btn:hover {
+    background: linear-gradient(90deg, #d21e83, #7e22ce);
+    color: #fff;
+    border-color: transparent;
+    transform: translateY(-1px);
+  }
+
+  .view-more-btn:active {
+    transform: scale(0.97);
+  }
+   .faq-section h2 {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .faq-item h3 {
+    font-size: 1.05rem;
+  }
+
+  .faq-answer {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  
+
+  .faq-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+ 
+
+  .faq-section {
+    padding: 0 1.5rem;
+  }
+}
