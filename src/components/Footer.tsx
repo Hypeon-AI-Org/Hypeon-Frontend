@@ -29,7 +29,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-4">Product</h4>
+            <h4 className="text-slate-900 mb-4">Product</h4>
             <ul className="space-y-2 text-sm text-slate-500">
               <li>
                 <a href="#" className="hover:text-brand-600 transition-colors">
@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-4">Resources</h4>
+            <h4 className="text-slate-900 mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-slate-500">
               <li>
                 <a href="#" className="hover:text-brand-600 transition-colors">
@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-slate-900 font-bold mb-4">Company</h4>
+            <h4 className="text-slate-900 mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-slate-500">
               <li>
                 <a href="#" className="hover:text-brand-600 transition-colors">

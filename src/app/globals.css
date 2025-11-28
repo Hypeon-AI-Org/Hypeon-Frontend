@@ -2,15 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* LL ivory Font */
+@font-face {
+  font-family: "LL ivory";
+  src: local("LL ivory");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background-color: #f8fafc;
   color: #0f172a;
   overflow-x: hidden;
+  font-family: "LL ivory", Georgia, sans-serif;
+  line-height: 150%;
+  font-weight: 400;
+}
+
+/* Paragraphs */
+p {
+  font-weight: 400;
+  line-height: 150%;
+}
+
+/* Headings - Reduced weights */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: "LL ivory", Georgia, sans-serif;
+  font-weight: 400; /* Reduced from 600 */
+}
+
+h1, h2 {
+  font-weight: 500; /* Reduced from 700 */
+}
+
+/* Buttons and Labels - Reduced weights */
+button,
+a[class*="button"],
+.font-medium {
+  font-weight: 400; /* Reduced from 500 */
+}
+
+.font-semibold {
+  font-weight: 500; /* Reduced from 600 */
 }
 
 /* Glassmorphism Light */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -18,17 +58,17 @@ body {
 
 /* Pill-shaped transparent navbar */
 .glass-nav-pill {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -37,11 +77,11 @@ body {
   background: rgba(255, 255, 255, 0.9);
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
-  border-color: rgba(20, 184, 166, 0.3);
+  border-color: rgba(236, 72, 153, 0.3);
 }
 
 .text-gradient {
-  background: linear-gradient(to right, #0d9488, #4f46e5);
+  background: linear-gradient(to right, #db2777, #4f46e5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -191,7 +231,7 @@ body {
 /* Gradient animation on scroll */
 .reveal-gradient {
   opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.2), transparent);
   background-size: 200% 100%;
   background-position: -200% 0;
   transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
@@ -211,7 +251,7 @@ body {
 
 /* Gradient Orb Animation */
 .gradient-orb {
-  background: radial-gradient(circle, rgba(20,184,166,0.15) 0%, rgba(99,102,241,0.15) 100%);
+  background: radial-gradient(circle, rgba(236,72,153,0.25) 0%, rgba(99,102,241,0.25) 100%);
   filter: blur(60px);
 }
 

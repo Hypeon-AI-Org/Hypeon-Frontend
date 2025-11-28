@@ -9,7 +9,7 @@ export default function ValueProp() {
       <section className="py-24 bg-white relative z-10 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-6">
+            <h2 className="text-3xl md:text-5xl font-display text-slate-900 mb-6">
               You're Looking in the <span className="text-brand-600">Rearview Mirror.</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
@@ -83,7 +83,7 @@ export default function ValueProp() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Column: Steps */}
             <div className="reveal-left">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-display text-slate-900 mb-6">
                 From "I have no idea" to <br />
                 <span className="text-brand-600">Market Leader in 5 minutes.</span>
               </h2>
@@ -94,7 +94,7 @@ export default function ValueProp() {
                     1
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-slate-900">Select Your Niche</h4>
+                    <h4 className="text-lg text-slate-900">Select Your Niche</h4>
                     <p className="text-slate-600 mt-1">
                       Simply tell HypeOn AI your category (e.g., "Home Decor") and target region.
                     </p>
@@ -121,7 +121,7 @@ export default function ValueProp() {
                     3
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-slate-900">Launch with Confidence</h4>
+                    <h4 className="text-lg text-slate-900">Launch with Confidence</h4>
                     <p className="text-slate-600 mt-1">
                       Use our generated ad copy and creative briefs to launch ads that actually
                       convert.
@@ -145,7 +145,7 @@ export default function ValueProp() {
             {/* Right Column: Trend Analysis Card */}
             <div className="relative reveal-rotate">
               {/* Background glow effect */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[100px] pointer-events-none parallax-slow"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-500/20 rounded-full blur-[100px] pointer-events-none parallax-slow"></div>
               
               {/* Card */}
               <div className="glass-card p-6 rounded-2xl border-slate-200 relative z-10 animate-float">
@@ -155,7 +155,7 @@ export default function ValueProp() {
                     <div className="text-xs text-slate-500 uppercase tracking-wide font-bold mb-1">
                       TREND ANALYSIS
                     </div>
-                    <div className="text-xl font-bold text-slate-900">Sunset Projection Lamp</div>
+                    <div className="text-xl text-slate-900">Sunset Projection Lamp</div>
                   </div>
                   <div className="text-right">
                     <div className="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-sm font-bold inline-flex items-center gap-1">
@@ -170,8 +170,8 @@ export default function ValueProp() {
                   <div className="w-1/6 bg-brand-500/30 rounded-t h-[35%]"></div>
                   <div className="w-1/6 bg-brand-500/50 rounded-t h-[40%]"></div>
                   <div className="w-1/6 bg-brand-500/70 rounded-t h-[60%]"></div>
-                  <div className="w-1/6 bg-brand-500 rounded-t h-[85%] shadow-[0_0_15px_rgba(20,184,166,0.3)]"></div>
-                  <div className="w-1/6 bg-brand-500 rounded-t h-[100%] shadow-[0_0_15px_rgba(20,184,166,0.3)]"></div>
+                  <div className="w-1/6 bg-brand-500 rounded-t h-[85%] shadow-[0_0_15px_rgba(236,72,153,0.3)]"></div>
+                  <div className="w-1/6 bg-brand-500 rounded-t h-[100%] shadow-[0_0_15px_rgba(236,72,153,0.3)]"></div>
                 </div>
 
                 {/* Footer Details */}

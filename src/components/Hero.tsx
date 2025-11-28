@@ -107,30 +107,19 @@ export default function Hero() {
 
         {/* Headline */}
         <h1
-          className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6 text-slate-900 leading-[1.1] animate-fade-up"
+          className="text-3xl md:text-5xl font-display tracking-tight mb-6 text-slate-900 leading-[1.1] animate-fade-up"
           style={{ animationDelay: '0.1s' }}
         >
-          Discover Viral Products <br className="hidden md:block" />
-          <span className="text-gradient relative inline-block">
-            3 Weeks Before
-            <svg
-              className="absolute w-full h-3 -bottom-1 left-0 text-brand-200 -z-10"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
-            >
-              <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-            </svg>
-          </span>{' '}
-          Everyone Else.
+          Your end-to-end <br className="hidden md:block" />
+          AI growth partner for D2C brands
         </h1>
 
         <p
           className="mt-6 max-w-2xl mx-auto text-xl text-slate-500 mb-10 animate-fade-up"
           style={{ animationDelay: '0.2s' }}
         >
-          The AI co-founder for D2C brands. We analyze{' '}
-          <span className="text-slate-900 font-semibold">20M+ daily signals</span> from TikTok,
-          Reddit, and Amazon to tell you exactly what to sell next.
+          Powered by our <span className="text-slate-900 font-semibold">Hype Score</span>, we analyze{' '}
+          <span className="text-slate-900 font-semibold">20M+ signals</span> to uncover product trends, high-value keywords, and winning ad creatives before your competition even knows they exist.
         </p>
 
         {/* CTA Buttons */}
@@ -234,7 +223,7 @@ export default function Hero() {
                 <div className="col-span-12 md:col-span-9 p-8 bg-white text-left overflow-y-auto">
                   {/* Copilot Chat Area */}
                   <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-4">Ask HypeOn AI Copilot</h3>
+                    <h3 className="text-2xl text-slate-900 mb-4">Ask HypeOn AI Copilot</h3>
                     <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex gap-4 items-start">
                       <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-400 to-blue-500 flex-shrink-0 flex items-center justify-center shadow-sm">
                         <Bot className="w-5 h-5 text-white" />

@@ -8,18 +8,21 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
-        display: ['var(--font-display)', 'sans-serif'],
+        sans: ['"LL ivory"', 'Georgia', 'sans-serif'],
+        display: ['"LL ivory"', 'Georgia', 'sans-serif'],
+      },
+      letterSpacing: {
+        'tight-heading': '-0.01em', // -1% for headings
       },
       colors: {
         brand: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          900: '#134e4a',
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#db2777',
+          900: '#831843',
           accent: '#6366f1',
           dark: '#0f172a',
         }
