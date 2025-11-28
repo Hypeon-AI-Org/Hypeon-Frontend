@@ -1,29 +1,35 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import type { Metadata } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
+import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({ 
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
-  title: 'Hypeon AI - AI Trend Intelligence for D2C Brands',
-  description: 'Analyze hype, sentiment, and trends across Amazon, Shopify, Reddit, and TikTok with AI-powered trend intelligence for modern brands',
+  title: "HypeOn AI - The Future of D2C Trend Intelligence",
+  description: "Discover winning products and viral trends 3 weeks before your competitors. The #1 AI Trend Intelligence Platform for D2C.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-white text-gray-900`}>
-        <Navbar />
-        <main className="min-h-screen pt-16">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.variable} ${plusJakarta.variable} antialiased selection:bg-brand-500 selection:text-white relative font-sans`}>
+        <ScrollRevealSetup />
+        {children}
       </body>
     </html>
   );

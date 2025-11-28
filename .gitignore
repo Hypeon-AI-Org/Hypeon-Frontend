@@ -4,20 +4,84 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
 # testing
 /coverage
+*.log
 
 # production
 /build
+/out
+out/
+
+# Next.js - Comprehensive patterns
+.next/
+.next
+/.next
+.next/**
+.next/*
+*.next
+.next/cache/
+.next/server/
+.next/static/
+.next/trace
 
 # misc
 .DS_Store
-.env.local
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# vercel
+.vercel
+.vercel/*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Optional: Keep assets folder but ignore large files if needed
+# Uncomment if you want to ignore large assets
+# /assets/*.mp4
+# /assets/*.mov
+# /assets/*.avi
