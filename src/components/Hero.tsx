@@ -148,7 +148,7 @@ export default function Hero() {
           style={{ animationDelay: '0.3s' }}
         >
           <a
-            href="#"
+            href="https://app.hypeon.ai/login"
             className="w-full sm:w-auto px-8 py-4 bg-slate-900 rounded-xl text-white font-bold text-lg shadow-xl shadow-slate-900/20 hover:shadow-slate-900/30 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group"
           >
             <Zap className="w-5 h-5 group-hover:text-yellow-400 transition-colors" />

@@ -40,11 +40,11 @@ function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
+          <a href="https://app.hypeon.ai/login" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Log in
           </a>
           <a
-            href="#"
+            href="https://app.hypeon.ai/login"
             className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all"
           >
             Start Free Demo
@@ -89,7 +89,7 @@ function Navbar() {
               Pricing
             </a>
             <a
-              href="#"
+              href="https://app.hypeon.ai/login"
               className="block w-full text-center mt-4 px-5 py-3 rounded-full font-semibold bg-slate-900 text-white hover:bg-slate-800"
               onClick={() => setMobileMenuOpen(false)}
             >

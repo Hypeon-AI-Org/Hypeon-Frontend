@@ -33,7 +33,7 @@ export default function Pricing() {
               </li>
             </ul>
             <a
-              href="#"
+              href="https://app.hypeon.ai/login"
               className="block w-full py-3 px-6 text-center rounded-full bg-white border-2 border-slate-200 text-slate-900 font-bold hover:border-slate-300 transition-all"
             >
               Start Trial
@@ -63,7 +63,7 @@ export default function Pricing() {
               </li>
             </ul>
             <a
-              href="#"
+              href="https://app.hypeon.ai/login"
               className="block w-full py-3 px-6 text-center rounded-full bg-brand-500 text-white font-bold hover:bg-brand-600 transition-all"
             >
               Get Started

@@ -1,6 +1,6 @@
 'use client';
 
-import { Twitter, Linkedin, Github } from 'lucide-react';
+import { Linkedin, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 
@@ -96,25 +96,22 @@ export default function Footer() {
           <p className="text-slate-400 text-sm">© 2025 HypeOn AI Inc. All rights reserved.</p>
           <div className="flex gap-4">
             <a
-              href="#"
-              className="text-slate-400 hover:text-slate-900 transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter className="w-5 h-5" />
-            </a>
-            <a
-              href="#"
+              href="https://www.linkedin.com/company/hypeonai"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-slate-400 hover:text-slate-900 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/hypeon.ai?igsh=MWtzc2FuYW42Ynhyeg=="
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-slate-400 hover:text-slate-900 transition-colors"
-              aria-label="GitHub"
+              aria-label="Instagram"
             >
-              <Github className="w-5 h-5" />
+              <Instagram className="w-5 h-5" />
             </a>
           </div>
         </div>
