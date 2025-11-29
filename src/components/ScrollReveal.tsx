@@ -16,10 +16,15 @@ export default function ScrollReveal({ children, className = '' }: ScrollRevealP
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
+            // Unobserve after animation to improve performance
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '50px' // Start animation slightly before element is visible
+      }
     );
 
     const currentRef = ref.current;

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 
-export default function Navbar() {
+function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -101,3 +101,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default memo(Navbar);

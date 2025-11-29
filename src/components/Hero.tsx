@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback, memo } from 'react';
 import {
   Zap,
   PlayCircle,
@@ -56,35 +56,55 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    // 3D Tilt Effect for Hero Dashboard
+    // 3D Tilt Effect for Hero Dashboard - Optimized with throttling
     const heroSection = heroSectionRef.current;
     const dashboard = dashboardRef.current;
 
     if (!heroSection || !dashboard) return;
 
-    // Only active on desktop for performance
-    const handleMouseMove = (e: MouseEvent) => {
-      if (window.matchMedia("(min-width: 768px)").matches) {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        // Limit rotation
-        const clampX = Math.max(-10, Math.min(10, xAxis));
-        const clampY = Math.max(-10, Math.min(10, yAxis));
+    let rafId: number | null = null;
+    let lastX = 0;
+    let lastY = 0;
 
-        dashboard.style.transform = `rotateY(${clampX}deg) rotateX(${clampY}deg)`;
+    // Throttled mouse move handler using requestAnimationFrame
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
+
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+          const clampX = Math.max(-10, Math.min(10, xAxis));
+          const clampY = Math.max(-10, Math.min(10, yAxis));
+
+          // Only update if values changed significantly
+          if (Math.abs(clampX - lastX) > 0.1 || Math.abs(clampY - lastY) > 0.1) {
+            dashboard.style.transform = `rotateY(${clampX}deg) rotateX(${clampY}deg)`;
+            lastX = clampX;
+            lastY = clampY;
+          }
+          rafId = null;
+        });
       }
     };
 
     const handleMouseLeave = () => {
-      if (dashboard) {
-        dashboard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
       }
+      dashboard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      lastX = 0;
+      lastY = 0;
     };
 
-    heroSection.addEventListener('mousemove', handleMouseMove);
+    heroSection.addEventListener('mousemove', handleMouseMove, { passive: true });
     heroSection.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
       heroSection.removeEventListener('mousemove', handleMouseMove);
       heroSection.removeEventListener('mouseleave', handleMouseLeave);
     };

@@ -106,121 +106,140 @@ a[class*="button"],
   transform: translateZ(0px);
 }
 
-/* Scroll Animations */
+/* Scroll Animations - Optimized with GPU acceleration */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
-/* Fade in with scale */
+/* Fade in with scale - GPU optimized */
 .reveal-scale {
   opacity: 0;
-  transform: scale(0.9) translateY(20px);
-  transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translate3d(0, 20px, 0) scale(0.9);
+  transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-scale.active {
   opacity: 1;
-  transform: scale(1) translateY(0);
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
 }
 
-/* Slide in from left */
+/* Slide in from left - GPU optimized */
 .reveal-left {
   opacity: 0;
-  transform: translateX(-50px);
-  transition: all 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transform: translate3d(-50px, 0, 0);
+  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-left.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
-/* Slide in from right */
+/* Slide in from right - GPU optimized */
 .reveal-right {
   opacity: 0;
-  transform: translateX(50px);
-  transition: all 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transform: translate3d(50px, 0, 0);
+  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-right.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
-/* Fade in with blur */
+/* Fade in with blur - GPU optimized */
 .reveal-blur {
   opacity: 0;
   filter: blur(10px);
-  transform: translateY(20px);
-  transition: all 1.5s cubic-bezier(0.5, 0, 0, 1);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 1.5s cubic-bezier(0.5, 0, 0, 1), filter 1.5s cubic-bezier(0.5, 0, 0, 1), transform 1.5s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, filter, transform;
 }
 
 .reveal-blur.active {
   opacity: 1;
   filter: blur(0);
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
-/* Rotate and fade */
+/* Rotate and fade - GPU optimized */
 .reveal-rotate {
   opacity: 0;
-  transform: rotate(-5deg) scale(0.95);
-  transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translate3d(0, 0, 0) rotate(-5deg) scale(0.95);
+  transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-rotate.active {
   opacity: 1;
-  transform: rotate(0deg) scale(1);
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  will-change: auto;
 }
 
-/* Stagger animation for children */
+/* Stagger animation for children - GPU optimized */
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.9s cubic-bezier(0.5, 0, 0, 1), transform 0.9s cubic-bezier(0.5, 0, 0, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-stagger.active > *:nth-child(1) {
   transition-delay: 0.15s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(2) {
   transition-delay: 0.3s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(3) {
   transition-delay: 0.45s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(4) {
   transition-delay: 0.6s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(5) {
   transition-delay: 0.75s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(6) {
   transition-delay: 0.9s;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 /* Parallax effect */
