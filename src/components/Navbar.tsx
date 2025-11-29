@@ -28,10 +28,10 @@ export default function Navbar() {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-8">
           <a href="#features" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Features
+            Solutions
           </a>
           <a href="#how-it-works" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Methodology
+            Company
           </a>
           <a href="#pricing" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Pricing
@@ -72,14 +72,14 @@ export default function Navbar() {
               className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-white/50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Features
+              Solutions
             </a>
             <a
               href="#how-it-works"
               className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-white/50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Methodology
+              Company
             </a>
             <a
               href="#pricing"

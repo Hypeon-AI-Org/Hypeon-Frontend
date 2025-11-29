@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, TrendingUp, Video, Clock, BarChart2, Frown, Zap, PenTool, XCircle, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, TrendingUp, Video, Clock, BarChart2, Frown, Zap, PenTool, XCircle, CheckCircle2, MessageSquare, Rocket } from 'lucide-react';
 
 export default function ValueProp() {
   return (
@@ -13,24 +13,22 @@ export default function ValueProp() {
               You're Looking in the <span className="text-brand-600">Rearview Mirror.</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Tools like JungleScout show you what sold <em>last month</em>. By the time you launch,
-              the trend is dead. HypeOn AI uses predictive AI to show you what will sell{' '}
-              <em>next month</em>.
+              Traditional tools show you what sold <em>last month</em>. By the time you launch, the trend is dead. HypeOn AI uses predictive AI to show you what to sell, when to sell it, and how to market it..
             </p>
           </div>
 
           {/* Comparison Grid */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-stretch">
             {/* Old Way */}
-            <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 opacity-70 hover:opacity-100 transition-opacity reveal-left">
+            <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 opacity-70 hover:opacity-100 transition-opacity reveal-left flex flex-col">
               <div className="flex items-center gap-3 mb-6 text-red-500 font-bold">
-                <XCircle className="w-5 h-5" /> The Old Way
+                <XCircle className="w-5 h-5" /> Old Way
               </div>
-              <ul className="space-y-4 text-slate-600">
+              <ul className="space-y-4 text-slate-600 flex-grow">
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 mt-1 text-slate-400 flex-shrink-0" />
                   <span>
-                    Manual research across 6 different tools (Google Trends, Ad Library, Amazon).
+                    Manual research between multiple tools for products, keywords, and ad research.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -39,39 +37,54 @@ export default function ValueProp() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Frown className="w-5 h-5 mt-1 text-slate-400 flex-shrink-0" />
-                  <span>Guessing ad angles and wasting budget on testing.</span>
+                  <span>Guessing ad creatives and wasting budget on testing.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MessageSquare className="w-5 h-5 mt-1 text-slate-400 flex-shrink-0" />
+                  <span>Using ChatGPT/Gemini for trends but with no real-time data or trend evidence.</span>
                 </li>
               </ul>
             </div>
 
-            {/* HypeOn AI Way */}
-            <div className="p-8 rounded-2xl bg-white border-2 border-brand-100 shadow-xl shadow-brand-100/50 relative transform scale-105 reveal-right">
-              <div className="absolute -top-4 -right-4 bg-brand-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                The HypeOn AI Advantage
+            {/* HypeOn Way */}
+            <div className="relative reveal-right">
+              {/* Badge - Outside the box */}
+              <div className="absolute -top-6 -right-6 bg-gradient-to-r from-brand-500 to-brand-600 text-white px-6 py-2.5 rounded-full text-base font-bold shadow-2xl shadow-brand-500/50 z-20 transform rotate-3 border-2 border-white/80 hover:scale-105 transition-transform">
+                <span className="drop-shadow-sm">The HypeOn AI Advantage</span>
               </div>
-              <div className="flex items-center gap-3 mb-6 text-brand-600 font-bold">
-                <CheckCircle2 className="w-5 h-5" /> The AI Way
+              
+              <div className="p-8 rounded-2xl bg-gradient-to-br from-white via-brand-50/30 to-brand-100/20 border-2 border-brand-200 shadow-2xl shadow-brand-500/20 relative flex flex-col overflow-hidden group">
+                {/* Animated background glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="flex items-center gap-3 mb-6 text-brand-600 font-bold relative z-10">
+                <div className="p-1.5 bg-brand-100 rounded-full">
+                  <CheckCircle2 className="w-5 h-5 text-brand-600" />
+                </div>
+                <span className="text-lg">HypeOn Way</span>
               </div>
-              <ul className="space-y-4 text-slate-800 font-medium">
+              
+              <ul className="space-y-4 text-slate-800 font-medium flex-grow relative z-10">
                 <li className="flex items-start gap-3">
-                  <div className="p-1 bg-brand-100 rounded-full text-brand-600 flex-shrink-0">
+                  <div className="p-2 bg-gradient-to-br from-brand-400 to-brand-600 rounded-lg text-white flex-shrink-0 shadow-md">
                     <Zap className="w-4 h-4" />
                   </div>
-                  <span>One dashboard combining Trends + Keywords + Creatives.</span>
+                  <span className="font-semibold">One dashboard combining Trends + Keywords + Creatives.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="p-1 bg-brand-100 rounded-full text-brand-600 flex-shrink-0">
+                  <div className="p-2 bg-gradient-to-br from-brand-400 to-brand-600 rounded-lg text-white flex-shrink-0 shadow-md">
                     <TrendingUp className="w-4 h-4" />
                   </div>
-                  <span>Real-time velocity signals (72-hour lead time).</span>
+                  <span className="font-semibold">Real-time velocity signals (72-hour lead time).</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="p-1 bg-brand-100 rounded-full text-brand-600 flex-shrink-0">
-                    <PenTool className="w-4 h-4" />
+                  <div className="p-2 bg-gradient-to-br from-brand-400 to-brand-600 rounded-lg text-white flex-shrink-0 shadow-md">
+                    <Rocket className="w-4 h-4" />
                   </div>
-                  <span>AI-generated hooks and creative briefs ready to launch.</span>
+                  <span className="font-semibold">Launch-ready insights that replace guesswork with confident decisions.</span>
                 </li>
               </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -96,7 +109,7 @@ export default function ValueProp() {
                   <div>
                     <h4 className="text-lg text-slate-900">Select Your Niche</h4>
                     <p className="text-slate-600 mt-1">
-                      Simply tell HypeOn AI your category (e.g., "Home Decor") and target region.
+                      Simply tell HypeOn AI your niche (e.g., 'Home Decor') and target region.
                     </p>
                   </div>
                 </div>
@@ -109,8 +122,7 @@ export default function ValueProp() {
                   <div>
                     <h4 className="text-lg font-bold text-slate-900">Get Validated Winners</h4>
                     <p className="text-slate-600 mt-1">
-                      Receive a curated list of products with rising search volume and low ad
-                      competition.
+                      Receive a curated list of top products, keywords, and creatives..
                     </p>
                   </div>
                 </div>
@@ -123,8 +135,7 @@ export default function ValueProp() {
                   <div>
                     <h4 className="text-lg text-slate-900">Launch with Confidence</h4>
                     <p className="text-slate-600 mt-1">
-                      Use our generated ad copy and creative briefs to launch ads that actually
-                      convert.
+                      Add the winners to your store or campaigns and move faster than competitors.
                     </p>
                   </div>
                 </div>

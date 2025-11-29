@@ -10,7 +10,7 @@ export default function Pricing() {
           <h2 className="text-3xl md:text-5xl font-display text-slate-900 mb-6">
             Simple Pricing, <span className="text-brand-600">Massive ROI</span>
           </h2>
-          <p className="text-slate-500 text-lg">Pay for the tool with your first winning product launch.</p>
+          <p className="text-slate-500 text-lg">Pay for Hypeon with the profit from your first winning product.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
