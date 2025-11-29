@@ -24,8 +24,8 @@ export default function Home() {
       <Hero />
       <ValueProp />
       <Features />
-      <Pricing />
       <Partners />
+      <Pricing />
       <Footer />
     </main>
   );
