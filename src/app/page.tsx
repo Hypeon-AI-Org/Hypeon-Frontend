@@ -13,6 +13,7 @@ const Features = dynamic(() => import('@/components/Features'), {
 const Pricing = dynamic(() => import('@/components/Pricing'), {
   loading: () => <div className="min-h-screen" />,
 });
+const Partners = dynamic(() => import('@/components/Partners'));
 const Footer = dynamic(() => import('@/components/Footer'));
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       <ValueProp />
       <Features />
       <Pricing />
+      <Partners />
       <Footer />
     </main>
   );
