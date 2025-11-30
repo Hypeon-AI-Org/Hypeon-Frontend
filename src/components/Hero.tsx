@@ -128,24 +128,26 @@ export default function Hero() {
         {/* Headline */}
         <h1
           className="text-3xl md:text-5xl font-display tracking-tight mb-6 text-slate-900 leading-[1.1] animate-fade-up"
-          style={{ animationDelay: '0.1s' }}
+          style={{ animationDelay: '0.05s' }}
         >
           Your end-to-end <br className="hidden md:block" />
           AI Copilot for D2C Growth
         </h1>
 
         <p
-          className="mt-6 max-w-2xl mx-auto text-xl text-slate-500 mb-10 animate-fade-up"
-          style={{ animationDelay: '0.2s' }}
+          className="mt-6 mx-auto text-xl text-slate-500 mb-10 animate-fade-up"
+          style={{ animationDelay: '0.1s', maxWidth: '80rem', lineHeight: '1.4' }}
         >
           Powered by our <span className="text-slate-900 font-semibold">Hype Score</span>, we analyze{' '}
-          <span className="text-slate-900 font-semibold">20M+ signals</span> to uncover product trends, high-value keywords, and winning ad creatives before your competition even knows they exist.
+          <span className="text-slate-900 font-semibold">20M+ signals</span> to uncover
+          <br />
+          product trends, high-value keywords, and winning ad creatives before your competition even knows they exist.
         </p>
 
         {/* CTA Buttons */}
         <div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24 animate-fade-up"
-          style={{ animationDelay: '0.3s' }}
+          style={{ animationDelay: '0.15s' }}
         >
           <a
             href="https://app.hypeon.ai/login"
@@ -260,7 +262,7 @@ export default function Hero() {
                   {/* Results Area - Hidden initially, revealed after typing */}
                   <div
                     ref={resultsAreaRef}
-                    className="opacity-0 transition-opacity duration-1000 grid grid-cols-1 md:grid-cols-2 gap-4"
+                    className="opacity-0 transition-opacity duration-500 grid grid-cols-1 md:grid-cols-2 gap-4"
                     id="results-area"
                   >
                     {/* Result 1: Calming Pet Bed */}

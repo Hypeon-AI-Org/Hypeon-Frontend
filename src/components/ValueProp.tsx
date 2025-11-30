@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, TrendingUp, Video, Clock, BarChart2, Frown, Zap, PenTool, XCircle, CheckCircle2, MessageSquare, Rocket } from 'lucide-react';
+import { ArrowRight, TrendingUp, Video, Clock, BarChart2, Frown, Zap, PenTool, XCircle, CheckCircle2, MessageSquare, Rocket, BrainCircuit } from 'lucide-react';
 
 export default function ValueProp() {
   return (
@@ -50,12 +50,12 @@ export default function ValueProp() {
             <div className="relative reveal-right">
               {/* Badge - Outside the box */}
               <div className="absolute -top-6 -right-6 bg-gradient-to-r from-brand-500 to-brand-600 text-white px-6 py-2.5 rounded-full text-base font-bold shadow-2xl shadow-brand-500/50 z-20 transform rotate-3 border-2 border-white/80 hover:scale-105 transition-transform">
-                <span className="drop-shadow-sm">The HypeOn AI Advantage</span>
+                <span className="drop-shadow-sm">HypeOn AI Advantage</span>
               </div>
               
               <div className="p-8 rounded-2xl bg-gradient-to-br from-white via-brand-50/30 to-brand-100/20 border-2 border-brand-200 shadow-2xl shadow-brand-500/20 relative flex flex-col overflow-hidden group">
                 {/* Animated background glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
               <div className="flex items-center gap-3 mb-6 text-brand-600 font-bold relative z-10">
                 <div className="p-1.5 bg-brand-100 rounded-full">
@@ -76,6 +76,12 @@ export default function ValueProp() {
                     <TrendingUp className="w-4 h-4" />
                   </div>
                   <span className="font-semibold">Real-time velocity signals (72-hour lead time).</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="p-2 bg-gradient-to-br from-brand-400 to-brand-600 rounded-lg text-white flex-shrink-0 shadow-md">
+                    <BrainCircuit className="w-4 h-4" />
+                  </div>
+                  <span className="font-semibold">Hype Scores with historical memory and future prediction.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="p-2 bg-gradient-to-br from-brand-400 to-brand-600 rounded-lg text-white flex-shrink-0 shadow-md">
@@ -120,7 +126,7 @@ export default function ValueProp() {
                     2
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-slate-900">Get Validated Winners</h4>
+                    <h4 className="text-lg text-slate-900">Get Validated Winners</h4>
                     <p className="text-slate-600 mt-1">
                       Receive a curated list of top products, keywords, and creatives..
                     </p>

@@ -10,9 +10,6 @@ const ValueProp = dynamic(() => import('@/components/ValueProp'), {
 const Features = dynamic(() => import('@/components/Features'), {
   loading: () => <div className="min-h-screen" />,
 });
-const Pricing = dynamic(() => import('@/components/Pricing'), {
-  loading: () => <div className="min-h-screen" />,
-});
 const Partners = dynamic(() => import('@/components/Partners'));
 const Footer = dynamic(() => import('@/components/Footer'));
 
@@ -23,9 +20,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ValueProp />
-      <Features />
       <Partners />
-      <Pricing />
+      <Features />
       <Footer />
     </main>
   );

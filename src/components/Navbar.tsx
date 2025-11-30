@@ -33,9 +33,6 @@ function Navbar() {
           <a href="#how-it-works" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Company
           </a>
-          <a href="#pricing" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Pricing
-          </a>
         </div>
 
         {/* CTA */}
@@ -80,13 +77,6 @@ function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Company
-            </a>
-            <a
-              href="#pricing"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-white/50"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Pricing
             </a>
             <a
               href="https://app.hypeon.ai/login"

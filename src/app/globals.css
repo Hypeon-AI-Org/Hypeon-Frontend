@@ -110,7 +110,7 @@ a[class*="button"],
 .reveal {
   opacity: 0;
   transform: translate3d(0, 30px, 0);
-  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
   will-change: opacity, transform;
 }
 
@@ -138,7 +138,7 @@ a[class*="button"],
 .reveal-left {
   opacity: 0;
   transform: translate3d(-50px, 0, 0);
-  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
   will-change: opacity, transform;
 }
 
@@ -152,7 +152,7 @@ a[class*="button"],
 .reveal-right {
   opacity: 0;
   transform: translate3d(50px, 0, 0);
-  transition: opacity 1.2s cubic-bezier(0.5, 0, 0, 1), transform 1.2s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
   will-change: opacity, transform;
 }
 
@@ -167,7 +167,7 @@ a[class*="button"],
   opacity: 0;
   filter: blur(10px);
   transform: translate3d(0, 20px, 0);
-  transition: opacity 1.5s cubic-bezier(0.5, 0, 0, 1), filter 1.5s cubic-bezier(0.5, 0, 0, 1), transform 1.5s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.75s cubic-bezier(0.5, 0, 0, 1), filter 0.75s cubic-bezier(0.5, 0, 0, 1), transform 0.75s cubic-bezier(0.5, 0, 0, 1);
   will-change: opacity, filter, transform;
 }
 
@@ -196,47 +196,47 @@ a[class*="button"],
 .reveal-stagger > * {
   opacity: 0;
   transform: translate3d(0, 20px, 0);
-  transition: opacity 0.9s cubic-bezier(0.5, 0, 0, 1), transform 0.9s cubic-bezier(0.5, 0, 0, 1);
+  transition: opacity 0.45s cubic-bezier(0.5, 0, 0, 1), transform 0.45s cubic-bezier(0.5, 0, 0, 1);
   will-change: opacity, transform;
 }
 
 .reveal-stagger.active > *:nth-child(1) {
-  transition-delay: 0.15s;
+  transition-delay: 0.075s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(2) {
-  transition-delay: 0.3s;
+  transition-delay: 0.15s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(3) {
-  transition-delay: 0.45s;
+  transition-delay: 0.225s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(4) {
-  transition-delay: 0.6s;
+  transition-delay: 0.3s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(5) {
-  transition-delay: 0.75s;
+  transition-delay: 0.375s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
 
 .reveal-stagger.active > *:nth-child(6) {
-  transition-delay: 0.9s;
+  transition-delay: 0.45s;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   will-change: auto;
@@ -253,7 +253,7 @@ a[class*="button"],
   background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.2), transparent);
   background-size: 200% 100%;
   background-position: -200% 0;
-  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+  transition: all 0.4s cubic-bezier(0.5, 0, 0, 1);
 }
 
 .reveal-gradient.active {

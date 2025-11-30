@@ -38,11 +38,6 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-brand-600 transition-colors">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
                   Chrome Extension
                 </a>
               </li>

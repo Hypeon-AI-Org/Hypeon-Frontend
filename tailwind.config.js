@@ -28,10 +28,10 @@ module.exports = {
         }
       },
       animation: {
-        'blob': 'blob 10s infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 6s ease-in-out 3s infinite',
-        'fade-up': 'fadeUp 0.8s ease-out forwards',
+        'blob': 'blob 5s infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'float-delayed': 'float 3s ease-in-out 1.5s infinite',
+        'fade-up': 'fadeUp 0.4s ease-out forwards',
       },
       keyframes: {
         blob: {
