@@ -68,7 +68,7 @@ export default function TrendingProducts() {
               Product
             </p>
             <p className="mt-2 font-display text-sm">
-              Product Title
+              portable blende
             </p>
             <p className="mt-1 text-xs text-slate-500">
               Identified early before peak demand
