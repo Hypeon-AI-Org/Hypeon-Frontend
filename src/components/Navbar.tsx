@@ -4,7 +4,7 @@ import { useState, memo } from 'react';
 import { Menu, X, Brain, Bot } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
-
+import Link from "next/link";
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
@@ -24,12 +24,18 @@ function Navbar() {
 
           {/* LOGO */}
           <div className="flex items-center gap-2 cursor-pointer">
-            <Image src={logo} alt="HypeOn AI Logo" width={32} height={32} />
-            <span className="font-display font-bold text-lg text-slate-900">
-              HypeOn<span className="text-brand-600"> AI</span>
-            </span>
-          </div>
-
+  <Link href="/" className="flex items-center gap-2">
+    <Image
+      src={logo}
+      alt="HypeOn AI Logo"
+      width={32}
+      height={32}
+    />
+    <span className="font-display font-bold text-lg text-slate-900">
+      HypeOn<span className="text-brand-600"> AI</span>
+    </span>
+  </Link>
+</div>
           {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center h-full gap-10">
 
