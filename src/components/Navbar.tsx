@@ -1,95 +1,195 @@
 'use client';
 
 import { useState, memo } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Brain, Bot } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
+
+  const scrollToCopilot = () => {
+    const el = document.getElementById('copilot');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4 sm:px-6 lg:px-8" id="navbar">
-      <div className="glass-nav-pill rounded-full px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <Image
-            src={logo}
-            alt="HypeOn AI Logo"
-            width={32}
-            height={32}
-            className="w-8 h-8 object-contain"
-          />
-          <span className="font-display font-bold text-lg tracking-tight text-slate-900">
-            HypeOn<span className="text-brand-600"> AI</span>
-          </span>
-        </div>
+    <>
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl px-4">
+        <div className="glass-nav-pill h-14 rounded-full px-6 flex items-center justify-between">
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center space-x-8">
-          <a href="#features" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Solutions
-          </a>
-          <a href="#how-it-works" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Company
-          </a>
-        </div>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-6">
-          <a href="https://app.hypeon.ai/login" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
-            Log in
-          </a>
-          <a
-            href="https://app.hypeon.ai/login"
-            className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all"
-          >
-            Start Free Demo
-          </a>
-        </div>
+          {/* LOGO */}
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image src={logo} alt="HypeOn AI Logo" width={32} height={32} />
+            <span className="font-display font-bold text-lg text-slate-900">
+              HypeOn<span className="text-brand-600"> AI</span>
+            </span>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-slate-900 focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
+          {/* DESKTOP NAV */}
+          <div className="hidden md:flex items-center h-full gap-10">
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden mt-2 glass-nav-pill rounded-2xl shadow-xl border border-slate-200/50">
-          <div className="px-4 pt-2 pb-4 space-y-1">
+
+            {/* PRODUCTS DROPDOWN */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900">
+                <a href="/products">Products</a>
+                <svg
+                  className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" />
+                </svg>
+              </button>
+
+              {/* DROPDOWN */}
+              <div
+                className="
+                  absolute left-1/2 top-full mt-6
+                  -translate-x-1/2
+                  w-[360px]
+                  opacity-0 invisible
+                  group-hover:opacity-100 group-hover:visible
+                  translate-y-2 group-hover:translate-y-0
+                  transition-all duration-200
+                  z-50
+                "
+              >
+                <div className="rounded-2xl bg-white border border-slate-200 shadow-xl p-6">
+                  <div className="flex flex-col gap-4">
+
+                    <MegaItem
+                      icon={<Brain />}
+                      title="HypeOn Intelligence"
+                      desc="Predict demand, niches, and winning products."
+                      onClick={() => (window.location.href = '/products')}
+                    />
+
+                    <MegaItem
+                      icon={<Bot />}
+                      title="HypeOn Copilot"
+                      desc="Ask questions and get instant AI-powered insights."
+                      onClick={scrollToCopilot}
+                    />
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <a
-              href="#features"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-white/50"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Solutions
-            </a>
-            <a
-              href="#how-it-works"
-              className="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-white/50"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/about"
+              className="text-sm font-medium text-slate-700 hover:text-slate-900"
             >
               Company
             </a>
+
+            {/* PRICING */}
+            <button
+              onClick={() => setShowPricing(true)}
+              className="text-sm font-medium text-slate-700 hover:text-slate-900"
+            >
+              Pricing
+            </button>
+          </div>
+
+          {/* CTA */}
+          <div className="hidden md:flex items-center gap-6">
+            <a href="https://app.hypeon.ai/login" className="text-sm font-medium text-slate-700">
+              Log in
+            </a>
             <a
               href="https://app.hypeon.ai/login"
-              className="block w-full text-center mt-4 px-5 py-3 rounded-full font-semibold bg-slate-900 text-white hover:bg-slate-800"
-              onClick={() => setMobileMenuOpen(false)}
+              className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-semibold"
             >
               Start Free Demo
             </a>
           </div>
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="md:hidden text-slate-700"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </nav>
+
+      {/* PRICING MODAL */}
+      {showPricing && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+          onClick={() => setShowPricing(false)}
+        >
+          <div
+            className="relative w-full max-w-md mx-4 rounded-2xl bg-white p-8 shadow-2xl text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* CLOSE */}
+            <button
+              onClick={() => setShowPricing(false)}
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-700"
+            >
+              ✕
+            </button>
+
+            <h3 className="text-2xl font-display font-semibold text-slate-900">
+              Pricing
+            </h3>
+
+            <p className="mt-3 text-slate-600">
+              Flexible pricing plans are on the way.
+            </p>
+
+            <div className="mt-6 inline-block rounded-full bg-brand-600/10 px-5 py-2 text-brand-600 font-medium">
+               Coming Soon
+            </div>
+          </div>
         </div>
       )}
-    </nav>
+    </>
   );
 }
 
 export default memo(Navbar);
+
+/* ================= MEGA ITEM ================= */
+
+function MegaItem({
+  icon,
+  title,
+  desc,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="
+        w-full text-left
+        flex gap-4 p-4 rounded-xl
+        hover:bg-slate-50
+        transition
+      "
+    >
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600/10 text-brand-600">
+        {icon}
+      </div>
+      <div>
+        <p className="font-semibold text-slate-900">{title}</p>
+        <p className="text-sm text-slate-600 leading-snug">{desc}</p>
+      </div>
+    </button>
+  );
+}

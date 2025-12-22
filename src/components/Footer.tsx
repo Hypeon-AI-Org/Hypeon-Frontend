@@ -32,13 +32,13 @@ export default function Footer() {
             <h4 className="text-slate-900 mb-4">Product</h4>
             <ul className="space-y-2 text-sm text-slate-500">
               <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
-                  Features
+                <a href="/products" className="hover:text-brand-600 transition-colors">
+                  HypeOn Intelligence
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
-                  Chrome Extension
+                <a href="/products" className="hover:text-brand-600 transition-colors">
+                  HypeOn Copilot
                 </a>
               </li>
             </ul>
@@ -69,7 +69,7 @@ export default function Footer() {
             <h4 className="text-slate-900 mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-slate-500">
               <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
+                <a href="/about" className="hover:text-brand-600 transition-colors">
                   About Us
                 </a>
               </li>
