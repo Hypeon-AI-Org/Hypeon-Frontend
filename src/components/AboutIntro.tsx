@@ -22,7 +22,7 @@ export default function AboutIntro() {
         </p>
 
         <p className="mt-3 text-xl font-display">
-          What to sell, how to sell it, and when.
+          What to sell, how to sell it, and what price.
         </p>
       </div>
     </section>

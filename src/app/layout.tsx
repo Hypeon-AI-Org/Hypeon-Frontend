@@ -4,7 +4,11 @@ import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 
 export const metadata: Metadata = {
   title: "HypeOn AI - The Future of D2C Trend Intelligence",
-  description: "Discover winning products and viral trends 3 weeks before your competitors. The #1 AI Trend Intelligence Platform for D2C.",
+  description:
+    "Discover winning products and viral trends 3 weeks before your competitors. The #1 AI Trend Intelligence Platform for D2C.",
+  icons: {
+    icon: "/favicon.ico",           
+  },
 };
 
 export default function RootLayout({
