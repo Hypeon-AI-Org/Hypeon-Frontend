@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, memo } from 'react';
+import { useState, memo, useRef } from 'react';
 import { Menu, X, Brain, Bot } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +9,27 @@ import logo from '../../assets/HypeOn_Logo.png';
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+
+  // hover delay ref
+  const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const clearHoverTimeout = () => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current);
+      hoverTimeout.current = null;
+    }
+  };
+
+  const closeWithDelay = () => {
+    hoverTimeout.current = setTimeout(() => {
+      setProductsOpen(false);
+    }, 120);
+  };
 
   const scrollToCopilot = () => {
+    clearHoverTimeout();
+    setProductsOpen(false);
     setMobileMenuOpen(false);
     const el = document.getElementById('copilot');
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -32,32 +51,62 @@ function Navbar() {
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center gap-10">
-            <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-slate-700">
-                Products
-                <svg className="w-4 h-4 text-slate-400 group-hover:rotate-180 transition" viewBox="0 0 24 24">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" />
-                </svg>
-              </button>
 
-              <div className="absolute left-1/2 top-full mt-6 -translate-x-1/2 w-[360px]
-                opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                translate-y-2 group-hover:translate-y-0 transition z-50">
-                <div className="rounded-2xl bg-white border shadow-xl p-6">
-                  <MegaItem
-                    icon={<Brain />}
-                    title="HypeOn Intelligence"
-                    desc="Predict demand, niches, and winning products."
-                    onClick={() => (window.location.href = '/products')}
-                  />
-                  <MegaItem
-                    icon={<Bot />}
-                    title="HypeOn Copilot"
-                    desc="AI-powered insights instantly."
-                    onClick={scrollToCopilot}
-                  />
+            {/* PRODUCTS (LINK + HOVER DROPDOWN — FIXED) */}
+            <div
+              className="relative flex items-center gap-1"
+              onMouseEnter={() => {
+                clearHoverTimeout();
+                setProductsOpen(true);
+              }}
+              onMouseLeave={closeWithDelay}
+            >
+              {/* Products link */}
+              <Link
+                href="/products"
+                className="text-sm font-medium text-slate-700 hover:text-slate-900"
+              >
+                Products
+              </Link>
+
+              {/* Dropdown arrow */}
+              <svg
+                className={`w-4 h-4 text-slate-400 transition ${
+                  productsOpen ? 'rotate-180' : ''
+                }`}
+                viewBox="0 0 24 24"
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" />
+              </svg>
+
+              {/* DROPDOWN */}
+              {productsOpen && (
+                <div
+                  className="absolute left-1/2 top-full mt-6 -translate-x-1/2 w-[340px] z-50
+                             transition-all duration-200 ease-out"
+                  onMouseEnter={clearHoverTimeout}
+                  onMouseLeave={closeWithDelay}
+                >
+                  <div className="rounded-2xl bg-white border shadow-xl p-6">
+                    <MegaItem
+                      icon={<Brain />}
+                      title="HypeOn Intelligence"
+                      desc="Predict demand, niches, and winning products."
+                      onClick={() => {
+                        clearHoverTimeout();
+                        setProductsOpen(false);
+                        window.location.href = '/products';
+                      }}
+                    />
+                    <MegaItem
+                      icon={<Bot />}
+                      title="HypeOn Copilot"
+                      desc="AI-powered insights instantly."
+                      onClick={scrollToCopilot}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <Link href="/about" className="text-sm font-medium text-slate-700">
@@ -74,7 +123,10 @@ function Navbar() {
 
           {/* DESKTOP CTA */}
           <div className="hidden md:flex items-center gap-6">
-            <a href="https://app.hypeon.ai/login" className="text-sm font-medium text-slate-700">
+            <a
+              href="https://app.hypeon.ai/login"
+              className="text-sm font-medium text-slate-700"
+            >
               Log in
             </a>
             <a
@@ -98,17 +150,13 @@ function Navbar() {
       {/* ================= MOBILE MENU ================= */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          {/* Overlay */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          {/* Menu */}
-          <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] max-w-sm
-            rounded-2xl bg-white shadow-2xl p-6">
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[90%] max-w-sm rounded-2xl bg-white shadow-2xl p-6">
             <div className="flex flex-col gap-5">
-
               <Link href="/products" onClick={() => setMobileMenuOpen(false)}>
                 Products
               </Link>
@@ -137,7 +185,6 @@ function Navbar() {
               >
                 Start Free Demo
               </a>
-
             </div>
           </div>
         </div>
@@ -199,5 +246,5 @@ function MegaItem({
         <p className="text-sm text-slate-600">{desc}</p>
       </div>
     </button>
-  );
+  );
 }
