@@ -5,16 +5,16 @@ import { useState, memo } from 'react';
 import { Menu, X, Brain, Bot } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
 
-  const scrollToCopilot = () => {
-    const el = document.getElementById('copilot');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const router = useRouter();
+
+  const goToCopilot = () => {
+    router.push("/products#copilot");
   };
 
   return (
@@ -81,7 +81,7 @@ function Navbar() {
                       icon={<Bot />}
                       title="HypeOn Copilot"
                       desc="Ask questions and get instant AI-powered insights."
-                      onClick={scrollToCopilot}
+                      onClick={goToCopilot}
                     />
 
                   </div>

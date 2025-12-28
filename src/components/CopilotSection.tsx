@@ -1,6 +1,6 @@
 export default function CopilotSection() {
   return (
-    <section className="relative py-32 overflow-hidden border-t border-slate-100">
+    <section id="copilot" className="relative py-32 overflow-hidden border-t border-slate-100">
       {/* Soft background */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
