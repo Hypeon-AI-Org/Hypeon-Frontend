@@ -3,67 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 
-
+/* ================= COUNTRY CODES ================= */
 const COUNTRY_CODES = [
-  { code: "+93", label: "AF", flag: "🇦🇫" },
-  { code: "+355", label: "AL", flag: "🇦🇱" },
-  { code: "+213", label: "DZ", flag: "🇩🇿" },
-  { code: "+376", label: "AD", flag: "🇦🇩" },
-  { code: "+244", label: "AO", flag: "🇦🇴" },
-  { code: "+54", label: "AR", flag: "🇦🇷" },
-  { code: "+374", label: "AM", flag: "🇦🇲" },
-  { code: "+61", label: "AU", flag: "🇦🇺" },
-  { code: "+43", label: "AT", flag: "🇦🇹" },
-  { code: "+994", label: "AZ", flag: "🇦🇿" },
-  { code: "+973", label: "BH", flag: "🇧🇭" },
-  { code: "+880", label: "BD", flag: "🇧🇩" },
-  { code: "+32", label: "BE", flag: "🇧🇪" },
-  { code: "+55", label: "BR", flag: "🇧🇷" },
-  { code: "+1", label: "US", flag: "🇺🇸" },
-  { code: "+1", label: "CA", flag: "🇨🇦" },
-  { code: "+86", label: "CN", flag: "🇨🇳" },
-  { code: "+45", label: "DK", flag: "🇩🇰" },
-  { code: "+20", label: "EG", flag: "🇪🇬" },
-  { code: "+33", label: "FR", flag: "🇫🇷" },
-  { code: "+49", label: "DE", flag: "🇩🇪" },
   { code: "+91", label: "IN", flag: "🇮🇳" },
-  { code: "+62", label: "ID", flag: "🇮🇩" },
-  { code: "+98", label: "IR", flag: "🇮🇷" },
-  { code: "+964", label: "IQ", flag: "🇮🇶" },
-  { code: "+353", label: "IE", flag: "🇮🇪" },
-  { code: "+972", label: "IL", flag: "🇮🇱" },
-  { code: "+39", label: "IT", flag: "🇮🇹" },
-  { code: "+81", label: "JP", flag: "🇯🇵" },
-  { code: "+254", label: "KE", flag: "🇰🇪" },
-  { code: "+965", label: "KW", flag: "🇰🇼" },
-  { code: "+60", label: "MY", flag: "🇲🇾" },
-  { code: "+52", label: "MX", flag: "🇲🇽" },
-  { code: "+977", label: "NP", flag: "🇳🇵" },
-  { code: "+31", label: "NL", flag: "🇳🇱" },
-  { code: "+64", label: "NZ", flag: "🇳🇿" },
-  { code: "+234", label: "NG", flag: "🇳🇬" },
-  { code: "+47", label: "NO", flag: "🇳🇴" },
-  { code: "+92", label: "PK", flag: "🇵🇰" },
-  { code: "+63", label: "PH", flag: "🇵🇭" },
-  { code: "+48", label: "PL", flag: "🇵🇱" },
-  { code: "+351", label: "PT", flag: "🇵🇹" },
-  { code: "+7", label: "RU", flag: "🇷🇺" },
-  { code: "+966", label: "SA", flag: "🇸🇦" },
-  { code: "+65", label: "SG", flag: "🇸🇬" },
-  { code: "+27", label: "ZA", flag: "🇿🇦" },
-  { code: "+82", label: "KR", flag: "🇰🇷" },
-  { code: "+34", label: "ES", flag: "🇪🇸" },
-  { code: "+94", label: "LK", flag: "🇱🇰" },
-  { code: "+46", label: "SE", flag: "🇸🇪" },
-  { code: "+41", label: "CH", flag: "🇨🇭" },
-  { code: "+66", label: "TH", flag: "🇹🇭" },
-  { code: "+90", label: "TR", flag: "🇹🇷" },
-  { code: "+971", label: "AE", flag: "🇦🇪" },
+  { code: "+1", label: "US", flag: "🇺🇸" },
   { code: "+44", label: "UK", flag: "🇬🇧" },
-  { code: "+84", label: "VN", flag: "🇻🇳" },
+  { code: "+971", label: "AE", flag: "🇦🇪" },
+  { code: "+61", label: "AU", flag: "🇦🇺" },
 ];
 
-
+/* ================= COMPONENT ================= */
 export default function AboutCTA() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -99,7 +48,7 @@ export default function AboutCTA() {
       setTimeout(() => {
         setOpen(false);
         setSuccess(false);
-      }, 1800);
+      }, 1500);
     } catch {
       alert("Something went wrong. Try again.");
     } finally {
@@ -118,8 +67,8 @@ export default function AboutCTA() {
           </h2>
 
           <p className="mt-5 text-slate-600 max-w-2xl mx-auto">
-            Built for Shopify founders, TikTok sellers, and performance marketers
-            who are tired of guessing what to launch next.
+            Built for founders & performance marketers who want certainty
+            before they scale.
           </p>
 
           <div className="mt-12 flex justify-center gap-5 flex-wrap">
@@ -157,77 +106,102 @@ export default function AboutCTA() {
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl animate-[scaleIn_.25s_ease]"
           >
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute right-4 top-4 text-slate-400 hover:text-slate-600"
-            >
-              ✕
-            </button>
-
-            <h3 className="text-2xl font-semibold text-slate-900">
-              Join Beta Program
-            </h3>
-            <p className="mt-1 text-sm text-slate-500">
-              Get early access before public launch
-            </p>
-
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-              <input
-                name="name"
-                placeholder="Full Name"
-                required
-                className="w-full rounded-lg border px-4 py-2.5 text-sm focus:border-brand-600 focus:outline-none"
-              />
-
-              <input
-                name="email"
-                type="email"
-                placeholder="Email Address"
-                required
-                className="w-full rounded-lg border px-4 py-2.5 text-sm focus:border-brand-600 focus:outline-none"
-              />
-
-              {/* PHONE */}
-              <div className="flex items-center gap-2">
-                <select
-                  name="countryCode"
-                  defaultValue="+91"
-                  className="h-[42px] w-[90px] rounded-lg border px-2 text-sm bg-white focus:border-brand-600 focus:outline-none"
-                >
-                  {COUNTRY_CODES.map((c) => (
-                    <option key={`${c.label}-${c.code}`} value={c.code}>
-                      {c.label} {c.code}
-                    </option>
-                  ))}
-                </select>
-
-                <input
-                  name="contactNumber"
-                  placeholder="Phone number"
-                  className="flex-1 h-[42px] rounded-lg border px-4 text-sm focus:border-brand-600 focus:outline-none"
-                />
-              </div>
-
-              <textarea
-                name="message"
-                rows={3}
-                placeholder="Message (optional)"
-                className="w-full rounded-lg border px-4 py-2.5 text-sm focus:border-brand-600 focus:outline-none"
-              />
-
+            {!success && (
               <button
-                type="submit"
-                disabled={loading}
-                className="w-full rounded-xl bg-brand-600 py-3 text-sm font-medium text-white hover:shadow-lg disabled:opacity-60"
+                onClick={() => setOpen(false)}
+                className="absolute right-4 top-4 text-slate-400 hover:text-slate-600"
               >
-                {loading ? "Submitting..." : "Request Beta Access"}
+                ✕
               </button>
-            </form>
+            )}
 
-            {success && (
-              <p className="mt-4 text-center text-sm text-green-600">
-                 Request submitted successfully!
-              </p>
+            {/* ===== SUCCESS STATE ===== */}
+            {success ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+                  <svg
+                    className="h-9 w-9 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+
+                <p className="mt-4 text-lg font-semibold text-slate-900">
+                  Request Submitted!
+                </p>
+                <p className="mt-1 text-sm text-slate-500">
+                  We’ll reach out shortly 
+                </p>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-2xl font-semibold text-slate-900">
+                  Join Beta Program
+                </h3>
+                <p className="mt-1 text-sm text-slate-500">
+                  Get early access before public launch
+                </p>
+
+                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <input
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                    className="w-full rounded-lg border px-4 py-2.5 text-sm focus:border-brand-600 focus:outline-none"
+                  />
+
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    required
+                    className="w-full rounded-lg border px-4 py-2.5 text-sm focus:border-brand-600 focus:outline-none"
+                  />
+
+                  <div className="flex gap-2">
+                    <select
+                      name="countryCode"
+                      defaultValue="+91"
+                      className="h-[42px] w-[90px] rounded-lg border px-2 text-sm bg-white"
+                    >
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={c.label} value={c.code}>
+                          {c.label} {c.code}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input
+                      name="contactNumber"
+                      placeholder="Phone number"
+                      className="flex-1 h-[42px] rounded-lg border px-4 text-sm"
+                    />
+                  </div>
+
+                  <textarea
+                    name="message"
+                    rows={3}
+                    placeholder="Message (optional)"
+                    className="w-full rounded-lg border px-4 py-2.5 text-sm"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full rounded-xl bg-brand-600 py-3 text-sm font-medium text-white disabled:opacity-60"
+                  >
+                    {loading ? "Submitting..." : "Request Beta Access"}
+                  </button>
+                </form>
+              </>
             )}
           </div>
         </div>
