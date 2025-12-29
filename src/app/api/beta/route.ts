@@ -5,6 +5,13 @@ export async function POST(req: Request) {
   try {
     const { name, email, contact, message } = await req.json();
 
+    if (!name || !email) {
+      return NextResponse.json(
+        { success: false, error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -15,21 +22,29 @@ export async function POST(req: Request) {
       },
     });
 
+   
+    await transporter.verify();
+
     await transporter.sendMail({
       from: `"Hypeon Beta" <${process.env.EMAIL_USER}>`,
       to: "info@hypeon.ai",
-      subject: " New Join Beta Request",
+      replyTo: email, 
+      subject: "New Join Beta Request",
       html: `
         <h3>New Beta User</h3>
         <p><b>Name:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
-        <p><b>Phone:</b> ${contact}</p>
+        <p><b>Phone:</b> ${contact || "—"}</p>
         <p><b>Message:</b> ${message || "—"}</p>
       `,
     });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    return NextResponse.json({ success: false }, { status: 500 });
+  } catch (err: any) {
+    console.error("EMAIL ERROR:", err); 
+    return NextResponse.json(
+      { success: false, error: err?.message || "Email failed" },
+      { status: 500 }
+    );
   }
 }
