@@ -4,7 +4,7 @@ import Image from 'next/image';
 import googleStartups from '../../assets/Google_Startups.png';
 import openAIBG from '../../assets/OpenAI_BG.png';
 import awsStartups from '../../assets/AWS_STUPS.png';
-import nividia from '../../assets/nvidia-logo.png'
+import nividia from '../../assets/nvidia-logo1.png'
 
 export default function Partners() {
   return (
@@ -50,7 +50,7 @@ export default function Partners() {
             <Image
               src={nividia}
               alt="Nvidiafor Startups"
-              width={200}
+              width={250}
               height={80}
               className="h-auto max-w-full object-contain"
             />
