@@ -52,11 +52,7 @@ export default function Footer() {
                   Trend Report 2025
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
-                  Case Studies
-                </a>
-              </li>
+              
               <li>
                 <a href="#" className="hover:text-brand-600 transition-colors">
                   Help Center
@@ -79,7 +75,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
+                <a href="/privacy-policy" className="hover:text-brand-600 transition-colors">
                   Privacy
                 </a>
               </li>
