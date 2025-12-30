@@ -327,11 +327,11 @@ export default function PrivacyPolicyPage() {
 </p>
 
 <p className="mt-3">
-  📧 info@hypeon.ai
+   info@hypeon.ai
 </p>
 
 <p className="mt-3">
-  📍 HYPEON INC<br />
+   HYPEON INC<br />
   28 Geary St, Ste 650<br />
   Suite #167<br />
   San Francisco, CA 94108
