@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
 
       {/* Main Content */}
       <main className="flex-1 pt-24 pb-24">
-        <section className="max-w-4xl mx-auto px-6 py-16 bg-white text-slate-600 leading-relaxed">
+              <section className="max-w-4xl mx-auto px-6 py-16 bg-[#f8f9fa] text-slate-600 leading-relaxed">
 
           <h1 className="text-3xl font-semibold text-slate-900">
             Privacy <span className="text-brand-600">Policy</span>
