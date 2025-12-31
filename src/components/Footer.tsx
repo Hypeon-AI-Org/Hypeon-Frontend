@@ -69,11 +69,7 @@ export default function Footer() {
                   About Us
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-brand-600 transition-colors">
-                  Contact
-                </a>
-              </li>
+           
               <li>
                 <a href="/privacy-policy" className="hover:text-brand-600 transition-colors">
                   Privacy
