@@ -13,9 +13,10 @@ function Navbar() {
 
   const router = useRouter();
 
-  const goToCopilot = () => {
-    router.push("/products#copilot");
-  };
+ const goToCopilot = () => {
+  window.location.href = "/products#copilot";
+};
+
 
   return (
     <>
@@ -25,7 +26,14 @@ function Navbar() {
 
           {/* LOGO */}
           <div className="flex items-center gap-2 cursor-pointer">
-  <Link href="/" className="flex items-center gap-2">
+  <a
+    href="/"
+    onClick={(e) => {
+      e.preventDefault();
+      window.location.href = "/";
+    }}
+    className="flex items-center gap-2"
+  >
     <Image
       src={logo}
       alt="HypeOn AI Logo"
@@ -35,8 +43,9 @@ function Navbar() {
     <span className="font-display font-bold text-lg text-slate-900">
       HypeOn<span className="text-brand-600"> AI</span>
     </span>
-  </Link>
+  </a>
 </div>
+
           {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center h-full gap-10">
 
