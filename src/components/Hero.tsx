@@ -17,6 +17,10 @@ import {
   Lock,
   BarChart3,
 } from 'lucide-react';
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap"
+  rel="stylesheet"
+/>
 
 export default function Hero() {
   const dashboardRef = useRef<HTMLDivElement>(null);
@@ -146,24 +150,21 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24 animate-fade-up"
-          style={{ animationDelay: '0.15s' }}
-        >
-          <a
-            href="https://app.hypeon.ai/login"
-            className="w-full sm:w-auto px-8 py-4 bg-slate-900 rounded-xl text-white font-bold text-lg shadow-xl shadow-slate-900/20 hover:shadow-slate-900/30 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group"
-          >
-            <Zap className="w-5 h-5 group-hover:text-yellow-400 transition-colors" />
-            Find My Next Winner
-          </a>
-          <a
-            href="#"
-            className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-slate-300 rounded-xl text-slate-700 font-semibold text-lg transition-all flex items-center justify-center gap-2 hover:bg-slate-50"
-          >
-            <PlayCircle className="w-5 h-5 text-brand-600" />
-            Watch 1-Min Demo
-          </a>
-        </div>
+  className="cta-wrapper animate-fade-up"
+  style={{ animationDelay: "0.15s" }}
+>
+  <a href="https://app.hypeon.ai/login" className="try-hypeon-btn">
+  <span className="zap-wrap">
+    <Zap className="zap-icon" />
+  </span>
+    Try HypeOn
+
+    <span className="beta-badge">
+  <span className="beta-text">Beta</span>
+</span>
+
+  </a>
+</div>
 
         {/* AI Interface Demo with Copilot Preview */}
         <div className="relative max-w-5xl mx-auto reveal" id="hero-dashboard">

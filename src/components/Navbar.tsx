@@ -115,17 +115,44 @@ function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-6">
-            <a href="https://app.hypeon.ai/login" className="text-sm font-medium text-slate-700">
-              Log in
-            </a>
-            <a
-              href="https://app.hypeon.ai/login"
-              className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-semibold"
-            >
-              Start Free Demo
-            </a>
-          </div>
+        <div className="hidden md:flex items-center gap-6">
+  <a
+    href="https://app.hypeon.ai/login"
+    className="text-sm font-medium text-slate-600 hover:text-slate-900 transition"
+  >
+    Log in
+  </a>
+
+  <a
+    href="https://app.hypeon.ai/login"
+    className="relative inline-flex items-center justify-center
+               px-7 py-2.5 rounded-full
+               text-sm font-medium text-white
+               bg-slate-900
+               shadow-[0_6px_18px_rgba(0,0,0,0.25)]
+               hover:shadow-[0_10px_26px_rgba(0,0,0,0.35)]
+               transition-all overflow-visible"
+  >
+    Try HypeOn
+
+    <span
+      className="absolute -top-2 right-2
+                 bg-white
+                 text-[11px] font-semibold
+                 px-2 py-0.1 rounded-full
+                 shadow-sm"
+    >
+      <span
+        className="bg-clip-text text-transparent
+                   bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500"
+      >
+        Beta
+      </span>
+    </span>
+  </a>
+</div>
+
+
 
           {/* MOBILE TOGGLE */}
           <button

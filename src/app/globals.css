@@ -469,3 +469,122 @@ margin-top: 100px;
 .animate-fade-slide {
   animation: fadeSlide 0.6s ease-out both;
 }
+/* CTA wrapper */
+.cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 640px) {
+  .cta-wrapper {
+    flex-direction: row;
+  }
+}
+
+/* Main button */
+.try-hypeon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ↓ reduced size */
+  padding: 14px 36px;
+  border-radius: 10px;
+
+  font-size: 1.05rem; /* smaller than 1.25rem */
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+
+  background: linear-gradient(
+    to bottom,
+    #243044,
+    #0e1626
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  transition: all 0.3s ease;
+}
+
+.try-hypeon-btn::after {
+  content: "";
+  position: absolute;
+  inset: -10px; /* slightly tighter glow */
+  border-radius: inherit;
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.06),
+    transparent 65%
+  );
+  z-index: -1;
+}
+
+.try-hypeon-btn:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 16px 22px rgba(15, 23, 42, 0.28),
+    0 6px 8px rgba(15, 23, 42, 0.25);
+}
+
+.beta-badge {
+  position: absolute;
+  top: -12px;
+  right: 8px;
+ 
+  background: #ffffff;        /* ALWAYS WHITE */
+  padding: 2px 9px;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+font-family: "Playfair Display", serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gradient text ONLY */
+.beta-text {
+  background-image: linear-gradient(
+      90deg,
+      #2563eb,   /* blue */
+      #7c3aed,   /* purple */
+      #ec4899    /* pink */
+    );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+/* Hide icon by default */
+
+/* Icon style */
+.zap-icon {
+  width: 20px;
+  height: 20px;
+  color: #fffffd;
+  filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.45));
+
+  margin-right: 8px; /* ← gap */
+}
+
+
+/* Show icon on hover */
+.hero-cta:hover .zap-wrap {
+  width: 24px;
+  opacity: 1;
+  transform: translateX(-2px);
+}

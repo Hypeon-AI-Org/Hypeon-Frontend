@@ -86,7 +86,7 @@ export default function AboutCTA() {
               onClick={() => openForm("beta")}
               className="rounded-xl bg-brand-600 px-8 py-3 text-white text-sm font-medium"
             >
-              Join our beta
+              Contact Us
             </button>
 
             <button
@@ -142,7 +142,7 @@ export default function AboutCTA() {
                 {/* ===== HEADINGS ===== */}
                 {formType === "beta" && (
                   <>
-                    <h3 className="text-2xl font-semibold">Join Beta Program</h3>
+                    <h3 className="text-2xl font-semibold">Contact Us</h3>
                     <p className="text-sm text-slate-500">
                       Get early access before public launch
                     </p>
@@ -273,7 +273,7 @@ export default function AboutCTA() {
                       ? "Let’s explore partnership"
                       : formType === "invest"
                       ? "Start the conversation"
-                      : "Request Beta Access"}
+                      : " Submit"}
                   </button>
                 </form>
               </>

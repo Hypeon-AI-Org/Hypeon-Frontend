@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-
+import AboutCTA from "../components/AboutCTA";
 // Lazy load below-the-fold components
 const ValueProp = dynamic(() => import('@/components/ValueProp'), {
   loading: () => <div className="min-h-screen" />,
@@ -22,6 +22,7 @@ export default function Home() {
       <ValueProp />
       <Partners />
       <Features />
+      <AboutCTA/>
       <Footer />
     </main>
   );
