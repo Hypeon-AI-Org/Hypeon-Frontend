@@ -187,7 +187,7 @@ function Navbar() {
             </h3>
 
             <p className="mt-3 text-slate-600">
-              Flexible pricing plans are on the way.
+            pricing plans are on the way.
             </p>
 
             <div className="mt-6 inline-block rounded-full bg-brand-600/10 px-5 py-2 text-brand-600 font-medium">

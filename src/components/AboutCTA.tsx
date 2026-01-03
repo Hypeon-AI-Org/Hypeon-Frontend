@@ -1,20 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useContactModal } from "@/context/ContactModalContext";
 
 type FormType = "beta" | "partner" | "invest";
 
 /* ================= COMPONENT ================= */
 export default function AboutCTA() {
-  const [open, setOpen] = useState(false);
-  const [formType, setFormType] = useState<FormType>("beta");
+  const { open, formType, openForm, closeForm } = useContactModal();
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  const openForm = (type: FormType) => {
-    setFormType(type);
-    setOpen(true);
-  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -57,8 +53,8 @@ export default function AboutCTA() {
       form.reset();
 
       setTimeout(() => {
-        setOpen(false);
         setSuccess(false);
+        closeForm();
       }, 1500);
     } catch {
       alert("Something went wrong. Try again.");
@@ -110,7 +106,7 @@ export default function AboutCTA() {
       {open && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
-          onClick={() => setOpen(false)}
+          onClick={closeForm}
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -118,7 +114,7 @@ export default function AboutCTA() {
           >
             {!success && (
               <button
-                onClick={() => setOpen(false)}
+                onClick={closeForm}
                 className="absolute right-4 top-4 text-slate-400"
               >
                 ✕
@@ -178,7 +174,6 @@ export default function AboutCTA() {
                     className="w-full rounded-lg border px-4 py-2.5 text-sm"
                   />
 
-                  {/* ===== PARTNER FIELDS ===== */}
                   {formType === "partner" && (
                     <>
                       <input
@@ -187,13 +182,11 @@ export default function AboutCTA() {
                         placeholder="Company name"
                         className="w-full rounded-lg border px-4 py-2.5 text-sm"
                       />
-
                       <input
                         name="website"
                         placeholder="Company website"
                         className="w-full rounded-lg border px-4 py-2.5 text-sm"
                       />
-
                       <select
                         name="partnershipType"
                         required
@@ -211,7 +204,6 @@ export default function AboutCTA() {
                     </>
                   )}
 
-                  {/* ===== INVEST FIELDS ===== */}
                   {formType === "invest" && (
                     <>
                       <select
@@ -256,7 +248,7 @@ export default function AboutCTA() {
                       formType === "partner"
                         ? "What’s the main value you see in partnering with HypeOn AI? (Optional)"
                         : formType === "invest"
-                        ? "Anything you’d like us to know? "
+                        ? "Anything you’d like us to know?"
                         : "Message (optional)"
                     }
                     className="w-full rounded-lg border px-4 py-2.5 text-sm"
@@ -273,7 +265,7 @@ export default function AboutCTA() {
                       ? "Let’s explore partnership"
                       : formType === "invest"
                       ? "Start the conversation"
-                      : " Submit"}
+                      : "Submit"}
                   </button>
                 </form>
               </>
