@@ -58,10 +58,10 @@ export default function AboutCoreLayers() {
               p-14
               shadow-[0_20px_50px_rgba(15,23,42,0.08)]
               transition-all duration-700
-              ease-[cubic-bezier(0.22,1,0.36,1)]
               hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(15,23,42,0.12)]
               ${visible ? 'opacity-100 translate-x-0 animate-float-slow' : 'opacity-0 -translate-x-12'}
             `}
+            style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)' }}
           >
             <span className="absolute left-0 top-6 h-[85%] w-[4px] rounded-full bg-pink-500/80" />
 
@@ -98,11 +98,10 @@ export default function AboutCoreLayers() {
               p-12
               shadow-[0_20px_50px_rgba(15,23,42,0.08)]
               transition-all duration-700
-              ease-[cubic-bezier(0.22,1,0.36,1)]
               hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(15,23,42,0.12)]
               ${visible ? 'opacity-100 translate-x-0 animate-float-slower' : 'opacity-0 translate-x-12'}
             `}
-            style={{ transitionDelay: '120ms' }}
+            style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)', transitionDelay: '120ms' }}
           >
             <span className="absolute left-0 top-6 h-[85%] w-[4px] rounded-full bg-pink-500/80" />
 

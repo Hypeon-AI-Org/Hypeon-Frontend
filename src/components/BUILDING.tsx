@@ -78,11 +78,10 @@ export default function WhoWeAreBuildingFor() {
                 p-8
                 shadow-[0_20px_60px_rgba(15,23,42,0.08)]
                 transition-all duration-700
-                ease-[cubic-bezier(0.22,1,0.36,1)]
                 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(15,23,42,0.14)]
                 ${visible ? 'opacity-100 translate-y-0 animate-float-slow' : 'opacity-0 translate-y-6'}
               `}
-              style={{ animationDelay: `${i * 0.7}s` }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)', animationDelay: `${i * 0.7}s` }}
             >
               {/* Accent bar */}
               <span className="absolute left-0 top-6 h-[70%] w-[3px] rounded-full bg-pink-500/80" />

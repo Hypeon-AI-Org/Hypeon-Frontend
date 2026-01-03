@@ -5,11 +5,6 @@ export default function ProductsIntro() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 text-center reveal">
-        {/* Badge */}
-        <span className="inline-flex items-center gap-2 mb-6 rounded-full border px-4 py-1 text-xs backdrop-blur-sm bg-white/60">
-           Products
-        </span>
-
         {/* Headline */}
         <h1 className="text-5xl md:text-6xl font-display leading-tight">
           HypeOn{" "}

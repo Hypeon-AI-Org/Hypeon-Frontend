@@ -68,13 +68,12 @@ export default function AboutDecisionLayer() {
                 px-6 py-5 pl-9
                 shadow-[0_6px_20px_rgba(0,0,0,0.04)]
                 transition-all duration-700
-                ease-[cubic-bezier(0.22,1,0.36,1)]
                 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]
                 ${visible
                   ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-10'}
               `}
-              style={{ transitionDelay: `${i * 140}ms` }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)', transitionDelay: `${i * 140}ms` }}
             >
               {/* LEFT ACCENT BAR */}
               <span className="absolute left-0 top-4 h-[60%] w-[4px] rounded-full bg-pink-500/80" />

@@ -99,6 +99,13 @@ function Navbar() {
             </div>
 
             <a
+              href="/solutions"
+              className="text-sm font-medium text-slate-700 hover:text-slate-900"
+            >
+              Solutions
+            </a>
+
+            <a
               href="/about"
               className="text-sm font-medium text-slate-700 hover:text-slate-900"
             >

@@ -5,11 +5,6 @@ export default function CopilotSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-6 text-center reveal">
-        {/* Badge */}
-        <span className="inline-flex items-center gap-2 mb-6 rounded-full border border-slate-200 px-4 py-1 text-xs bg-white/70 backdrop-blur">
-          ⚡ AI Copilot for Commerce
-        </span>
-
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-display leading-tight">
           HypeOn <span className="text-brand-600">Copilot</span>
@@ -25,7 +20,7 @@ export default function CopilotSection() {
         <div className="mt-20 grid md:grid-cols-2 gap-12 items-stretch">
 
   {/* BASIC */}
-  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr_auto]">
+  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr]">
     <div>
       <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
         HypeOn Basic
@@ -56,14 +51,10 @@ export default function CopilotSection() {
         <li>• “What should I sell?” type queries</li>
       </ul>
     </div>
-
-    <p className="mt-8 text-xs text-slate-500 self-end">
-      Powerful — but not domain-specialized.
-    </p>
   </div>
 
   {/* PRO */}
-  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr_auto] border border-brand-200 relative overflow-hidden">
+  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr] border border-brand-200 relative overflow-hidden">
     
     {/* Curved glow */}
     <div className="absolute -top-32 -right-32 w-80 h-80 bg-brand-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -98,10 +89,6 @@ export default function CopilotSection() {
         <span className="feature-pill">Creative angles</span>
       </div>
     </div>
-
-    <p className="mt-8 text-xs text-slate-500 self-end">
-      This is what makes HypeOn truly unique.
-    </p>
   </div>
 </div>
 

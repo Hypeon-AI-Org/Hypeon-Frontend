@@ -88,13 +88,12 @@ export default function AboutWhatWeDo() {
                 px-6 py-5 pl-9
                 shadow-sm
                 transition-all duration-700
-                ease-[cubic-bezier(0.22,1,0.36,1)]
                 hover:-translate-y-1 hover:shadow-lg
                 ${visible
                   ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-10'}
               `}
-              style={{ transitionDelay: `${i * 140}ms` }}
+              style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)', transitionDelay: `${i * 140}ms` }}
             >
               {/* LEFT ACCENT BAR */}
               <span className="absolute left-0 top-5 h-[55%] w-[4px] rounded-full bg-pink-500/80" />
