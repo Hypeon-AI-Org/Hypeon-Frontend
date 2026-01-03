@@ -6,7 +6,7 @@ export default function ProductsIntro() {
 
       <div className="relative max-w-7xl mx-auto px-6 text-center reveal">
         {/* Headline */}
-        <h1 className="text-5xl md:text-6xl font-display leading-tight">
+        <h1 className="text-5xl md:text-5xl font-display leading-tight">
           HypeOn{" "}
           <span className="text-brand-600">Intelligence</span>
          

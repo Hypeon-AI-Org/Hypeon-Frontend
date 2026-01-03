@@ -72,8 +72,55 @@ const employees: Employee[] = [
   lat: 19.7515,   
   lng: 75.7139,
 },
+{
+  id: 'Taha',
+  name: 'Taha Ansari',
+  role: 'Marketing Strategist',
+  country: 'United Arab Emirates',
+  bio: 'The mind behind the message - turning data, creativity, and insight into strategies that make Hypeon.AI impossible to ignore.',
+  image: '/team/Taha.png',
+  lat: 25.2048,   // Dubai latitude
+  lng: 55.2708,   // Dubai longitude
+},
+{
+  id: 'aditya',
+  name: 'Aditya Karer',
+  role: 'Product Manager',
+  country: 'Sweden',
+  bio: 'Building products that solve real problems, scale with purpose, and deliver measurable value.',
+  image: '/team/Aditya.png',
+  lat: 59.3293,   // Stockholm latitude
+  lng: 18.0686,   // Stockholm longitude
+},
+
+{
+  id: 'xinyi',
+  name: 'Xinyi Lu',
+  role: 'Business Data Analyst ',
+  country: 'Sweden',
+  bio: 'Experience working with e-commerce and consumer platform data to support product, growth, and operational insights.',
+  image: '/team/xinyi.jpeg',
+  lat: 60.1282,   // Sweden (country-level center)
+  lng: 18.6435,
+}
 
 ];
+/* ---------- OFFSET NEARBY MARKERS ---------- */
+function getOffsetPosition(
+  emp: Employee,
+  index: number
+): [number, number] {
+  // Offset only for dense regions (like Sweden)
+  if (emp.country === 'Sweden') {
+    const OFFSET = 0.35;
+    return [
+      emp.lat + index * OFFSET,
+      emp.lng + index * OFFSET,
+    ];
+  }
+
+  return [emp.lat, emp.lng];
+}
 
 
 /* ---------- CUSTOM PHOTO PIN ---------- */
@@ -163,7 +210,7 @@ function MapController({
 /* ---------- COMPONENT ---------- */
 export default function TeamGlobalMap() {
   const [active, setActive] = useState<Employee | null>(null);
-  const markerRefs = useRef<Record<string, L.Marker>>({}); // ✅ FIX
+  const markerRefs = useRef<Record<string, L.Marker>>({}); 
 
   return (
     <section className="py-32 bg-gradient-to-br from-pink-50/40 via-white to-indigo-50/40">
@@ -194,56 +241,61 @@ export default function TeamGlobalMap() {
 
             <MapController active={active} markerRefs={markerRefs} />
 
-            {employees.map((emp) => (
-              <Marker
-                key={emp.id}
-                position={[emp.lat, emp.lng]}
-                icon={employeePin(emp)}
-                ref={(ref) => {
-                  if (ref) markerRefs.current[emp.id] = ref;
-                }}
-                eventHandlers={{ click: () => setActive(emp) }}
-              >
-                {active?.id === emp.id && (
-                  <Popup closeButton={false} autoClose={false}>
-                    <div className="relative w-64">
-                      <button
-                        onClick={() => setActive(null)}
-                        className="absolute right-2 top-2 text-slate-400 hover:text-slate-700"
-                      >
-                        ✕
-                      </button>
+            {employees.map((emp, index) => {
+  const [lat, lng] = getOffsetPosition(emp, index);
 
-                      <div className="flex items-center gap-3">
-                        <Image
-                          src={emp.image}
-                          alt={emp.name}
-                          width={48}
-                          height={48}
-                          className="rounded-full"
-                        />
-                        <div>
-                          <p className="font-medium text-slate-900">
-                            {emp.name}
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            {emp.role}
-                          </p>
-                        </div>
-                      </div>
+  return (
+    <Marker
+      key={emp.id}
+      position={[lat, lng]}
+      icon={employeePin(emp)}
+      ref={(ref) => {
+        if (ref) markerRefs.current[emp.id] = ref;
+      }}
+      eventHandlers={{ click: () => setActive(emp) }}
+    >
+      {active?.id === emp.id && (
+        <Popup closeButton={false} autoClose={false}>
+          <div className="relative w-64">
+            <button
+              onClick={() => setActive(null)}
+              className="absolute right-2 top-2 text-slate-400 hover:text-slate-700"
+            >
+              ✕
+            </button>
 
-                      <p className="mt-3 text-sm text-slate-600">
-                        {emp.bio}
-                      </p>
+            <div className="flex items-center gap-3">
+              <Image
+                src={emp.image}
+                alt={emp.name}
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+              <div>
+                <p className="font-medium text-slate-900">
+                  {emp.name}
+                </p>
+                <p className="text-xs text-slate-500">
+                  {emp.role}
+                </p>
+              </div>
+            </div>
 
-                      <p className="mt-2 text-xs text-slate-400">
-                        {emp.country}
-                      </p>
-                    </div>
-                  </Popup>
-                )}
-              </Marker>
-            ))}
+            <p className="mt-3 text-sm text-slate-600">
+              {emp.bio}
+            </p>
+
+            <p className="mt-2 text-xs text-slate-400">
+              {emp.country}
+            </p>
+          </div>
+        </Popup>
+      )}
+    </Marker>
+  );
+})}
+
           </MapContainer>
         </div>
       </div>

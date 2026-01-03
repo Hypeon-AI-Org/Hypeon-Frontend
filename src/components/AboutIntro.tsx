@@ -6,7 +6,7 @@ export default function AboutIntro() {
 
       <div className="relative max-w-5xl mx-auto px-6 text-center reveal">
         {/* Headline */}
-        <h1 className="text-5xl md:text-6xl font-display leading-tight">
+        <h1 className="text-5xl md:text-5xl font-display leading-tight">
           Predict what’s next. <br />
           <span className="text-brand-600">Build what sells.</span>
         </h1>

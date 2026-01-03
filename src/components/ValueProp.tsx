@@ -150,10 +150,10 @@ export default function ValueProp() {
               {/* CTA Link */}
               <div className="mt-10">
                 <a
-                  href="/products"
+                  href="/solutions"
                   className="text-brand-600 font-semibold hover:text-brand-700 flex items-center gap-2 group"
                 >
-                  Explore all features{' '}
+                  Explore all Solutions{' '}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>

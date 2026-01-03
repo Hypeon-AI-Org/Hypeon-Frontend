@@ -65,8 +65,8 @@ export default function SolutionsProblems() {
     <section className="py-24 bg-white relative z-10 border-y border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-          <h2 className="text-3xl md:text-5xl font-display text-slate-900 mb-6">
-            The <span className="text-red-500">Normal Process</span> is Broken
+          <h2 className="text-3xl md:text-4xl font-display text-slate-900 mb-6">
+            The <span className="text-brand-600">Normal Process</span> is Broken
           </h2>
           <p className="text-lg text-slate-600 leading-relaxed">
             Traditional e-commerce and marketing workflows waste time, money, and opportunity. 
@@ -80,11 +80,12 @@ export default function SolutionsProblems() {
             return (
               <div
                 key={index}
-                className="p-6 rounded-xl bg-slate-50 border border-slate-200 hover:border-red-200 hover:bg-red-50/30 transition-all reveal-scale"
+                className="relative p-6 rounded-xl bg-white border-2 border-brand-200 hover:border-brand-400 hover:shadow-xl hover:shadow-brand-500/10 transition-all reveal-scale group"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-red-600" />
+     
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-md">
+                      <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-slate-900 mb-2">
