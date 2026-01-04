@@ -12,28 +12,33 @@ export default function AboutStory() {
             Our <span className="text-brand-600">Story</span>
           </h2>
 
-          <div className="mt-10 space-y-6 text-slate-600 leading-relaxed max-w-xl">
-            <p>
-              After <span className="font-display text-slate-900">5+ years in eCommerce</span>,
-              we realized most ad tests fail — not because of creatives,
-              but because the product was never meant to work.
-            </p>
+        <div className="mt-10 space-y-6 text-slate-600 leading-relaxed max-w-xl">
+  <p>
+    After years in eCommerce and performance marketing, we kept seeing the same mistakes repeated.
+  </p>
 
-            <p>
-              Existing tools look backward. We built HypeOn AI
-              to show what’s coming next.
-            </p>
+  <p>
+    Months of research, expensive tools, endless testing  and still the wrong product,
+    wrong price, wrong keyword, wrong message.
+  </p>
 
-            <p>
-              Instead of dashboards, HypeOn starts with your niche
-              and predicts what to launch.
-            </p>
-          </div>
+  <p>
+    Teams fight CPCs and CPAs instead of fixing the real problem.  
+    We built <span className="font-medium text-slate-800">HypeOn AI</span> to end that cycle.
+  </p>
 
-          {/* Query chip */}
-          <div className="mt-10 inline-flex items-center gap-2 rounded-2xl border bg-white/80 px-6 py-3 text-sm font-display backdrop-blur shadow-sm">
-            “Pet accessories in Germany”
-          </div>
+  <p>
+    Our goal is simple: <span className="font-medium text-slate-800">profitable growth</span>.
+  </p>
+
+  <p>
+    HypeOn helps you decide what to launch, how to price it, which keywords customers
+    actually buy from, and which ad creatives already convert —
+    <span className="font-medium text-slate-800"> before you spend a dollar</span>.
+  </p>
+</div>
+
+         
         </div>
 
         {/* RIGHT — FLOATING OUTPUT CARD */}
