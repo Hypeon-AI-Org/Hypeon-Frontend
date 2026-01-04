@@ -79,7 +79,7 @@ const employees: Employee[] = [
   country: 'United Arab Emirates',
   bio: 'The mind behind the message - turning data, creativity, and insight into strategies that make Hypeon.AI impossible to ignore.',
   image: '/team/Taha.png',
-  lat: 25.2048,   // Dubai latitude
+  lat: 20.2048,   // Dubai latitude
   lng: 55.2708,   // Dubai longitude
 },
 {
@@ -88,7 +88,7 @@ const employees: Employee[] = [
   role: 'Marketing Strategist',
   country: 'United Arab Emirates',
   bio: 'Leading Hypeon’s digital marketing vision, turning insight and innovation into scalable growth',
-  image: '/team/Taha.png',
+  image: '/team/Doaa.png',
   lat: 25.2048,   // Dubai latitude
   lng: 55.2708,   // Dubai longitude
 },
@@ -99,7 +99,7 @@ const employees: Employee[] = [
   country: 'Sweden',
   bio: 'Building products that solve real problems, scale with purpose, and deliver measurable value.',
   image: '/team/Aditya.png',
-  lat: 59.3293,   // Stockholm latitude
+  lat: 58.3293,   // Stockholm latitude
   lng: 18.0686,   // Stockholm longitude
 },
 
