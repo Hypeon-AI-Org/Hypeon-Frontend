@@ -83,6 +83,16 @@ const employees: Employee[] = [
   lng: 55.2708,   // Dubai longitude
 },
 {
+  id: 'Doaa',
+  name: 'Doaa Kamal',
+  role: 'Marketing Strategist',
+  country: 'United Arab Emirates',
+  bio: 'Leading Hypeon’s digital marketing vision, turning insight and innovation into scalable growth',
+  image: '/team/Taha.png',
+  lat: 25.2048,   // Dubai latitude
+  lng: 55.2708,   // Dubai longitude
+},
+{
   id: 'aditya',
   name: 'Aditya Karer',
   role: 'Product Manager',
