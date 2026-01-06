@@ -13,6 +13,9 @@ import {
   ShoppingBag,
   Package,
   Music2,
+    DollarSign,
+  Users,
+  Briefcase,
   Facebook,
   Lock,
   BarChart3,
@@ -226,19 +229,24 @@ export default function Hero() {
                       <div className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors">
                         <Video className="w-4 h-4" /> Ad Creatives
                       </div>
+                      
+                       <div className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors">
+        <DollarSign className="w-4 h-4" />
+        Pricing Intelligence
+      </div>
+
+      <div className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors">
+        <Users className="w-4 h-4" />
+        Competitor Analysis
+      </div>
+
+      <div className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors">
+        <Briefcase className="w-5 h-5" />
+        Find the Right Marketing Expert
+      </div>
                     </div>
 
-                    <div className="pt-6 border-t border-slate-200">
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-                        Saved Launches
-                      </p>
-                      <div className="flex items-center gap-3 px-3 py-2 text-slate-600">
-                        <div className="w-2 h-2 rounded-full bg-purple-500"></div> Project Alpha
-                      </div>
-                      <div className="flex items-center gap-3 px-3 py-2 text-slate-600">
-                        <div className="w-2 h-2 rounded-full bg-blue-500"></div> Summer Drop
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
 
