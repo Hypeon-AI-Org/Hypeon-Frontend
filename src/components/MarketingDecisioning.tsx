@@ -8,8 +8,7 @@ export default function MarketingDecisioning() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto reveal-blur">
           <h2 className="text-4xl md:text-5xl font-display text-slate-900 mb-6">
-            Make better marketing decisions on{" "}
-            <span className="text-brand-600">HypeOn</span>
+            Make better marketing decisions
           </h2>
           
           <div className="mt-8 p-8 rounded-[32px] bg-white border border-slate-100 shadow-sm max-w-3xl mx-auto">
