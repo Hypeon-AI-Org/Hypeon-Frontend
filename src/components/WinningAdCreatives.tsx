@@ -22,7 +22,7 @@ const ScoreIcon = () => (
   </svg>
 );
 
-/* ---------- VIDEO CARD ---------- */
+/* ---------- VIDEO CARD ----------*/
 
 function VideoCard({
   video,
