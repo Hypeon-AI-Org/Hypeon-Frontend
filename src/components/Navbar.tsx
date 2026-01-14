@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, memo } from 'react';
-import { Menu, X, Brain, Bot } from 'lucide-react';
+import { Menu, X, Brain, Bot, BarChart3 } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import { useRouter } from "next/navigation";
@@ -91,6 +91,13 @@ function Navbar() {
                       title="HypeOn Copilot"
                       desc="Ask questions and get instant AI-powered insights."
                       onClick={goToCopilot}
+                    />
+
+                    <MegaItem
+                      icon={<BarChart3 />}
+                      title="HypeOn Analytics"
+                      desc="Cross-channel attribution, CAC, ROI, and actionable growth insights."
+                      onClick={() => (window.location.href = '/products#analytics')}
                     />
 
                   </div>

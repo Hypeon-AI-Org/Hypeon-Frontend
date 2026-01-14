@@ -7,6 +7,8 @@ import SolutionsIntro from "../../components/SolutionsIntro";
 import SolutionsProblems from "../../components/SolutionsProblems";
 import SolutionsSolutions from "../../components/SolutionsSolutions";
 import SolutionsFeatures from "../../components/SolutionsFeatures";
+import SolutionsIntelligence from "../../components/SolutionsIntelligence";
+import SolutionsAnalytics from "../../components/SolutionsAnalytics";
 
 export default function SolutionsPage() {
   return (
@@ -17,8 +19,10 @@ export default function SolutionsPage() {
       <main className="relative z-10">
         <SolutionsIntro />
         <SolutionsProblems />
+        <SolutionsIntelligence />
         <SolutionsSolutions />
         <SolutionsFeatures />
+        <SolutionsAnalytics />
       </main>
 
       <Footer />
