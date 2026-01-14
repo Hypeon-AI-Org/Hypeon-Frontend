@@ -11,6 +11,7 @@ import HighValueKeywords from "../../components/HighValueKeywords";
 import WinningAdCreatives from "../../components/WinningAdCreatives";
 import CopilotSection from "../../components/CopilotSection";
 import HypeOnAnalytics from "../../components/HypeOnAnalytics";
+import MarketingDecisioning from "../../components/MarketingDecisioning";
 import ProductsCTA from "../../components/ProductsCTA";
 
 export default function ProductsPage() {
@@ -27,7 +28,7 @@ export default function ProductsPage() {
         <WinningAdCreatives />
         <CopilotSection />
         <HypeOnAnalytics />
-       
+        <MarketingDecisioning />
       </main>
 
       <Footer />

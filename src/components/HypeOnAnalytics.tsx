@@ -26,49 +26,6 @@ import {
 } from 'lucide-react';
 
 export default function HypeOnAnalytics() {
-  const problems = [
-    {
-      icon: Layers,
-      title: "Fragmented Data",
-      description: "Marketing data is scattered across multiple platforms with no single source of truth."
-    },
-    {
-      icon: BarChart3,
-      title: "Double Attribution",
-      description: "Double counting across platforms inflates performance numbers and misleading ROAS."
-    },
-    {
-      icon: Activity,
-      title: "Growth Blindspots",
-      description: "No clear visibility into which channel actually drives incremental growth."
-    },
-    {
-      icon: DollarSign,
-      title: "Budget Guesswork",
-      description: "Difficulty deciding how much budget to allocate per channel without real attribution."
-    },
-    {
-      icon: PieChart,
-      title: "Unclear Economics",
-      description: "Unclear CAC, ROI, and real profit per channel making scaling decisions risky."
-    },
-    {
-      icon: Target,
-      title: "Channel Role Confusion",
-      description: "No understanding of each channel's specific role in Awareness, Traffic, or Revenue."
-    },
-    {
-      icon: Rocket,
-      title: "Optimization Struggle",
-      description: "Hard to identify best channels for launches, new vs returning users, or product fit."
-    },
-    {
-      icon: LayoutDashboard,
-      title: "Static Dashboards",
-      description: "Dashboards show historical data, but don't answer: 'What should we do next?'"
-    }
-  ];
-
   const solutions = [
     {
       icon: Brain,
@@ -114,46 +71,6 @@ export default function HypeOnAnalytics() {
 
   return (
     <div id="analytics" className="relative">
-      {/* Problems Section */}
-      <section className="py-24 bg-white relative z-10 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-            <h2 className="text-3xl md:text-4xl font-display text-slate-900 mb-6">
-              Marketing Analytics <span className="text-red-600">Problems</span>
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Traditional analytics are fragmented, delayed, and misleading. 
-              Here is why most D2C brands struggle to see their true performance:
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
-            {problems.map((problem, index) => {
-              const Icon = problem.icon;
-              return (
-                <div
-                  key={index}
-                  className="relative p-8 rounded-[32px] bg-slate-50 border border-slate-200 hover:border-red-200 hover:bg-white hover:shadow-xl hover:shadow-red-500/5 transition-all reveal-scale group"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-6 group-hover:bg-red-50 group-hover:border-red-100 transition-all duration-500">
-                    <Icon className="w-6 h-6 text-slate-400 group-hover:text-red-500" />
-                  </div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
-                    <h3 className="text-base font-bold text-slate-900 leading-tight">
-                      {problem.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {problem.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Solutions Section */}
       <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
