@@ -1,21 +1,37 @@
 
 'use client';
 
-import { useState, memo } from 'react';
-import { Menu, X, Brain, Bot, BarChart3 } from 'lucide-react';
+import { useState, memo, useEffect } from 'react';
+import { Menu, X, Brain, Bot, BarChart3, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
+  const [mobileDropdown, setMobileDropdown] = useState<'products' | null>(null);
 
   const router = useRouter();
 
- const goToCopilot = () => {
-  window.location.href = "/products#copilot";
-};
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  const goToCopilot = () => {
+    window.location.href = "/products#copilot";
+  };
+
+  const closeMobile = () => setMobileMenuOpen(false);
 
 
   return (
@@ -172,11 +188,150 @@ function Navbar() {
           <button
             className="md:hidden text-slate-700"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </nav>
+
+      {/* MOBILE MENU BACKDROP */}
+      <div
+        className={`fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
+          mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMobile}
+        aria-hidden
+      />
+
+      {/* MOBILE MENU SHUTTER PANEL */}
+      <div
+        className={`fixed inset-y-0 left-0 z-[60] w-[min(320px,85vw)] bg-white shadow-xl md:hidden flex flex-col transition-transform duration-300 ease-out ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        onClick={(e) => e.stopPropagation()}
+        aria-modal="true"
+        aria-label="Mobile menu"
+      >
+        {/* Panel header: logo + close */}
+        <div className="flex items-center justify-between h-14 px-4 shrink-0 border-b border-slate-100">
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              closeMobile();
+              window.location.href = '/';
+            }}
+            className="flex items-center gap-2"
+          >
+            <Image src={logo} alt="HypeOn AI Logo" width={32} height={32} />
+            <span className="font-display font-bold text-lg text-slate-900">
+              HypeOn<span className="text-brand-600"> AI</span>
+            </span>
+          </a>
+          <button
+            onClick={closeMobile}
+            className="p-2 text-slate-500 hover:text-slate-800 rounded-full hover:bg-slate-100"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Nav links + dropdowns */}
+        <nav className="flex-1 overflow-y-auto py-4">
+          <div className="flex flex-col border-t border-slate-100">
+            {/* Products (expandable) */}
+            <div className="border-b border-slate-100">
+              <button
+                type="button"
+                className="w-full flex items-center justify-between py-4 px-4 text-left text-sm font-medium text-slate-700 hover:text-slate-900"
+                onClick={() => setMobileDropdown((d) => (d === 'products' ? null : 'products'))}
+              >
+                Products
+                <ChevronDown
+                  className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
+                    mobileDropdown === 'products' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {mobileDropdown === 'products' && (
+                <div className="pb-2 px-4 space-y-1 bg-slate-50/50">
+                  <MobileProductLink
+                    icon={<Brain />}
+                    title="HypeOn Intelligence"
+                    desc="Predict demand, niches, and winning products."
+                    onClick={() => {
+                      closeMobile();
+                      window.location.href = '/products';
+                    }}
+                  />
+                  <MobileProductLink
+                    icon={<Bot />}
+                    title="HypeOn Copilot"
+                    desc="Ask questions and get instant AI-powered insights."
+                    onClick={() => {
+                      closeMobile();
+                      goToCopilot();
+                    }}
+                  />
+                  <MobileProductLink
+                    icon={<BarChart3 />}
+                    title="HypeOn Analytics"
+                    desc="Cross-channel attribution, CAC, ROI, and actionable growth insights."
+                    onClick={() => {
+                      closeMobile();
+                      window.location.href = '/products#analytics';
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <a
+              href="/solutions"
+              onClick={closeMobile}
+              className="block py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
+            >
+              Solutions
+            </a>
+            <a
+              href="/about"
+              onClick={closeMobile}
+              className="block py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
+            >
+              Company
+            </a>
+            <button
+              onClick={() => {
+                setShowPricing(true);
+                closeMobile();
+              }}
+              className="w-full text-left py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
+            >
+              Pricing
+            </button>
+          </div>
+        </nav>
+
+        {/* CTA buttons at bottom */}
+        <div className="shrink-0 p-4 flex gap-3 border-t border-slate-100">
+          <a
+            href="https://app.hypeon.ai/login"
+            onClick={closeMobile}
+            className="flex-1 inline-flex items-center justify-center py-2.5 rounded-full text-sm font-medium text-slate-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+          >
+            Log in
+          </a>
+          <a
+            href="https://app.hypeon.ai/login"
+            onClick={closeMobile}
+            className="flex-1 inline-flex items-center justify-center py-2.5 rounded-full text-sm font-medium text-white bg-slate-900 shadow-md hover:bg-slate-800"
+          >
+            Try HypeOn
+          </a>
+        </div>
+      </div>
 
       {/* PRICING MODAL */}
       {showPricing && (
@@ -246,6 +401,36 @@ function MegaItem({
       <div>
         <p className="font-semibold text-slate-900">{title}</p>
         <p className="text-sm text-slate-600 leading-snug">{desc}</p>
+      </div>
+    </button>
+  );
+}
+
+/* ================= MOBILE PRODUCT LINK ================= */
+
+function MobileProductLink({
+  icon,
+  title,
+  desc,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full text-left flex gap-3 p-3 rounded-xl hover:bg-white transition"
+    >
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600/10 text-brand-600">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <p className="font-medium text-slate-900 text-sm">{title}</p>
+        <p className="text-xs text-slate-600 leading-snug">{desc}</p>
       </div>
     </button>
   );
