@@ -37,7 +37,7 @@ function Navbar() {
   return (
     <>
       <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-7xl px-4">
-        <div className="glass-nav-pill h-14 rounded-full px-6 flex items-center justify-between">
+        <div className="glass-nav-pill h-14 rounded-full px-5 pr-4 md:px-6 flex items-center justify-between">
 
 
           {/* LOGO */}
@@ -186,7 +186,7 @@ function Navbar() {
 
           {/* MOBILE TOGGLE */}
           <button
-            className="md:hidden text-slate-700"
+            className="md:hidden text-slate-700 p-2 -mr-1 min-w-[44px] min-h-[44px] flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >

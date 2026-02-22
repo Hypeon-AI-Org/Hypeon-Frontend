@@ -122,7 +122,7 @@ export default function Hero() {
       ref={heroSectionRef}
       className="relative pt-32 pb-24 lg:pt-48 lg:pb-40 z-10 perspective-container"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 text-center overflow-x-hidden">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-medium mb-8 animate-fade-up hover:border-brand-400 transition-colors cursor-default">
           <span className="relative flex h-2 w-2">
@@ -134,7 +134,7 @@ export default function Hero() {
 
         {/* Headline */}
         <h1
-          className="text-3xl md:text-5xl font-display tracking-tight mb-6 text-slate-900 leading-[1.1] animate-fade-up"
+          className="text-3xl md:text-5xl font-display tracking-tight mb-6 text-slate-900 leading-[1.1] animate-fade-up break-words max-w-full"
           style={{ animationDelay: '0.05s' }}
         >
           Your end-to-end <br className="hidden md:block" />
@@ -142,8 +142,8 @@ export default function Hero() {
         </h1>
 
         <p
-          className="mt-6 mx-auto text-xl text-slate-500 mb-10 animate-fade-up"
-          style={{ animationDelay: '0.1s', maxWidth: '80rem', lineHeight: '1.4' }}
+          className="mt-6 mx-auto text-xl text-slate-500 mb-10 animate-fade-up break-words max-w-full"
+          style={{ animationDelay: '0.1s', maxWidth: 'min(80rem, 100%)', lineHeight: '1.4' }}
         >
           Powered by our <span className="text-slate-900 font-semibold">Hype Score</span>, we analyze{' '}
           <span className="text-slate-900 font-semibold">20M+ signals</span> to uncover
