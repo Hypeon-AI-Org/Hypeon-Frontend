@@ -314,8 +314,40 @@ function Navbar() {
       </div>
 
     </div>
-  </div>
-</div>
+    </div>
+    </div>
+  {/* PRICING MODAL */}
+  {showPricing && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+          onClick={() => setShowPricing(false)}
+        >
+          <div
+            className="relative w-full max-w-md mx-4 rounded-2xl bg-white p-8 shadow-2xl text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* CLOSE */}
+            <button
+              onClick={() => setShowPricing(false)}
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-700"
+            >
+              ✕
+            </button>
+
+            <h3 className="text-2xl font-display font-semibold text-slate-900">
+              Pricing
+            </h3>
+
+            <p className="mt-3 text-slate-600">
+            pricing plans are on the way.
+            </p>
+
+            <div className="mt-6 inline-block rounded-full bg-brand-600/10 px-5 py-2 text-brand-600 font-medium">
+               Coming Soon
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
