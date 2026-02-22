@@ -196,175 +196,126 @@ function Navbar() {
       </nav>
 
       {/* MOBILE MENU BACKDROP */}
-      <div
-        className={`fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
-          mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={closeMobile}
-        aria-hidden
-      />
+      
+      <div className="md:hidden fixed top-[76px] left-1/2 -translate-x-1/2 z-40 w-full max-w-md px-4">
+  <div
+    className={`
+      bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl
+      transform origin-top
+      transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+      ${mobileMenuOpen
+        ? "scale-y-100 opacity-100 translate-y-0"
+        : "scale-y-95 opacity-0 -translate-y-2 pointer-events-none"}
+    `}
+  >
+    <div className="px-5 py-5 space-y-3">
+      {/* Products */}
+      <div>
+        <button
+          className="w-full flex items-center justify-between py-3 text-sm font-medium text-slate-700"
+          onClick={() =>
+            setMobileDropdown((d) =>
+              d === "products" ? null : "products"
+            )
+          }
+        >
+          Products
+          <ChevronDown
+            className={`w-4 h-4 transition-transform duration-200 ${
+              mobileDropdown === "products" ? "rotate-180" : ""
+            }`}
+          />
+        </button>
 
-      {/* MOBILE MENU SHUTTER PANEL */}
-      <div
-        className={`fixed inset-y-0 left-0 z-[60] w-[min(320px,85vw)] bg-white shadow-xl md:hidden flex flex-col transition-transform duration-300 ease-out ${
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-        onClick={(e) => e.stopPropagation()}
-        aria-modal="true"
-        aria-label="Mobile menu"
-      >
-        {/* Panel header: logo + close */}
-        <div className="flex items-center justify-between h-14 px-4 shrink-0 border-b border-slate-100">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              closeMobile();
-              window.location.href = '/';
-            }}
-            className="flex items-center gap-2"
-          >
-            <Image src={logo} alt="HypeOn AI Logo" width={32} height={32} />
-            <span className="font-display font-bold text-lg text-slate-900">
-              HypeOn<span className="text-brand-600"> AI</span>
-            </span>
-          </a>
-          <button
-            onClick={closeMobile}
-            className="p-2 text-slate-500 hover:text-slate-800 rounded-full hover:bg-slate-100"
-            aria-label="Close menu"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Nav links + dropdowns */}
-        <nav className="flex-1 overflow-y-auto py-4">
-          <div className="flex flex-col border-t border-slate-100">
-            {/* Products (expandable) */}
-            <div className="border-b border-slate-100">
-              <button
-                type="button"
-                className="w-full flex items-center justify-between py-4 px-4 text-left text-sm font-medium text-slate-700 hover:text-slate-900"
-                onClick={() => setMobileDropdown((d) => (d === 'products' ? null : 'products'))}
-              >
-                Products
-                <ChevronDown
-                  className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                    mobileDropdown === 'products' ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              {mobileDropdown === 'products' && (
-                <div className="pb-2 px-4 space-y-1 bg-slate-50/50">
-                  <MobileProductLink
-                    icon={<Brain />}
-                    title="HypeOn Intelligence"
-                    desc="Predict demand, niches, and winning products."
-                    onClick={() => {
-                      closeMobile();
-                      window.location.href = '/products';
-                    }}
-                  />
-                  <MobileProductLink
-                    icon={<Bot />}
-                    title="HypeOn Copilot"
-                    desc="Ask questions and get instant AI-powered insights."
-                    onClick={() => {
-                      closeMobile();
-                      goToCopilot();
-                    }}
-                  />
-                  <MobileProductLink
-                    icon={<BarChart3 />}
-                    title="HypeOn Analytics"
-                    desc="Cross-channel attribution, CAC, ROI, and actionable growth insights."
-                    onClick={() => {
-                      closeMobile();
-                      window.location.href = '/products#analytics';
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-
-            <a
-              href="/solutions"
-              onClick={closeMobile}
-              className="block py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
-            >
-              Solutions
-            </a>
-            <a
-              href="/about"
-              onClick={closeMobile}
-              className="block py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
-            >
-              Company
-            </a>
-            <button
+        <div
+          className={`transition-all duration-300 overflow-hidden ${
+            mobileDropdown === "products"
+              ? "max-h-60 opacity-100"
+              : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="pl-3 pt-2 space-y-2">
+            <MobileProductLink
+              icon={<Brain />}
+              title="HypeOn Intelligence"
+              desc="Predict demand and winning products."
               onClick={() => {
-                setShowPricing(true);
                 closeMobile();
+                window.location.href = "/products";
               }}
-              className="w-full text-left py-4 px-4 text-sm font-medium text-slate-700 hover:text-slate-900 border-b border-slate-100"
-            >
-              Pricing
-            </button>
+            />
+            <MobileProductLink
+              icon={<Bot />}
+              title="HypeOn Copilot"
+              desc="AI-powered insights instantly."
+              onClick={() => {
+                closeMobile();
+                goToCopilot();
+              }}
+            />
+            <MobileProductLink
+              icon={<BarChart3 />}
+              title="HypeOn Analytics"
+              desc="ROI, CAC and growth insights."
+              onClick={() => {
+                closeMobile();
+                window.location.href = "/products#analytics";
+              }}
+            />
           </div>
-        </nav>
-
-        {/* CTA buttons at bottom */}
-        <div className="shrink-0 p-4 flex gap-3 border-t border-slate-100">
-          <a
-            href="https://app.hypeon.ai/login"
-            onClick={closeMobile}
-            className="flex-1 inline-flex items-center justify-center py-2.5 rounded-full text-sm font-medium text-slate-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-          >
-            Log in
-          </a>
-          <a
-            href="https://app.hypeon.ai/login"
-            onClick={closeMobile}
-            className="flex-1 inline-flex items-center justify-center py-2.5 rounded-full text-sm font-medium text-white bg-slate-900 shadow-md hover:bg-slate-800"
-          >
-            Try HypeOn
-          </a>
         </div>
       </div>
+      <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-      {/* PRICING MODAL */}
-      {showPricing && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
-          onClick={() => setShowPricing(false)}
+      {/* Other Links */}
+      <a
+        href="/solutions"
+        onClick={closeMobile}
+        className="block py-3 text-sm font-medium text-slate-700"
+      >
+        Solutions
+      </a>
+      <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+      <a
+        href="/about"
+        onClick={closeMobile}
+        className="block py-3 text-sm font-medium text-slate-700"
+      >
+        Company
+      </a>
+      <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+      <button
+        onClick={() => {
+          setShowPricing(true);
+          closeMobile();
+        }}
+        className="block py-3 text-sm font-medium text-slate-700"
+      >
+        Pricing
+      </button>
+      <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+      {/* CTA */}
+      <div className="pt-4 flex gap-3">
+        <a
+          href="https://app.hypeon.ai/login"
+          className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-sm font-medium"
         >
-          <div
-            className="relative w-full max-w-md mx-4 rounded-2xl bg-white p-8 shadow-2xl text-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* CLOSE */}
-            <button
-              onClick={() => setShowPricing(false)}
-              className="absolute right-4 top-4 text-slate-400 hover:text-slate-700"
-            >
-              ✕
-            </button>
+          Log in
+        </a>
+        <a
+          href="https://app.hypeon.ai/login"
+          className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-sm font-medium"
+        >
+          Try HypeOn
+        </a>
+      </div>
 
-            <h3 className="text-2xl font-display font-semibold text-slate-900">
-              Pricing
-            </h3>
-
-            <p className="mt-3 text-slate-600">
-            pricing plans are on the way.
-            </p>
-
-            <div className="mt-6 inline-block rounded-full bg-brand-600/10 px-5 py-2 text-brand-600 font-medium">
-               Coming Soon
-            </div>
-          </div>
-        </div>
-      )}
+    </div>
+  </div>
+</div>
     </>
   );
 }
