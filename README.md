@@ -2,7 +2,7 @@
 
 A modern Next.js application for HypeOn AI, the AI-powered trend intelligence platform for D2C brands.
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 ### Prerequisites
 - Node.js 18.0.0 or higher
