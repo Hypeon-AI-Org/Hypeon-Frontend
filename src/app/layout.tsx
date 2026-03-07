@@ -19,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="antialiased selection:bg-brand-500 selection:text-white relative font-sans">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased selection:bg-brand-500 selection:text-white relative font-sans ">
         <ContactModalProvider>
           <ScrollRevealSetup />
           {children}

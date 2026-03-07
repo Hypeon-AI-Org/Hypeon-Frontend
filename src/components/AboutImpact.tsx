@@ -8,7 +8,6 @@ export default function AboutImpact() {
 
   useEffect(() => {
     if (!ref.current) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -18,7 +17,6 @@ export default function AboutImpact() {
       },
       { threshold: 0.3 }
     );
-
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -47,7 +45,7 @@ export default function AboutImpact() {
   ];
 
   return (
-    <section ref={ref} className="py-28 bg-white overflow-hidden">
+    <section ref={ref} className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* HEADER */}
@@ -55,17 +53,14 @@ export default function AboutImpact() {
           className={`max-w-3xl mx-auto text-center transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <h2 className="text-3xl md:text-4xl font-display text-brand-600">
-            Impact
+          <p className="section-label mb-4">Impact</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+            Built around outcomes, not opinions.
           </h2>
-          <p className="mt-3 text-slate-600">
-            Hypeon AI is built around outcomes, not opinions.
-          </p>
         </div>
 
         {/* GRID */}
-        <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
-
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((item, i) => (
             <div
               key={item.title}
@@ -75,47 +70,31 @@ export default function AboutImpact() {
                 p-8
                 transition-all duration-700
                 hover:-translate-y-2 hover:shadow-md
-                ${visible ? 'opacity-100 translate-y-0 animate-impact-float' : 'opacity-0 translate-y-6'}
+                ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
               `}
-              style={{ animationDelay: `${i * 0.8}s` }}
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              {/* Accent line */}
-              <span className="absolute left-0 top-6 h-10 w-[3px] bg-pink-500 rounded-full" />
+              {/* Accent line — neutral */}
+              <span className="absolute left-0 top-6 h-10 w-[3px] bg-slate-900 rounded-full" />
 
               {/* Metric */}
-              <div className="text-3xl font-display font-semibold text-slate-900">
+              <div className="text-3xl font-bold text-slate-900">
                 {item.value}
               </div>
 
               {/* Title */}
-              <h3 className="mt-3 font-medium text-slate-900">
+              <h3 className="mt-3 font-semibold text-slate-900 text-sm">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2 text-sm text-slate-500 leading-relaxed">
                 {item.desc}
               </p>
             </div>
           ))}
-
         </div>
       </div>
-
-      {/* FLOATING */}
-      <style jsx global>{`
-        @keyframes impactFloat {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-6px);
-          }
-        }
-        .animate-impact-float {
-          animation: impactFloat 4s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

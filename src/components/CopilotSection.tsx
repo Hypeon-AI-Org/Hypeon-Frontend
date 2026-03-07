@@ -1,97 +1,120 @@
-export default function CopilotSection() {
+"use client"; // Required for Framer Motion in Next.js App Router
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { 
+  TrendingUp, 
+  ShoppingCart, 
+  Globe, 
+  Rocket, 
+  Zap, 
+  BarChart3 
+} from 'lucide-react';
+
+const iconSize = 18; // Matches text-xl (~1.25rem) for visual alignment with title
+const features = [
+  { 
+    icon: TrendingUp, // Better for "margin" and "opportunities"
+    title: "DTC Brand Owner", 
+    description: "Spending on paid ads and fighting for margin. You need to know what to sell next and where the real opportunities are — before your competitors do." 
+  },
+  { 
+    icon: ShoppingCart, // More specific to the "Amazon/Retail" vibe
+    title: "Amazon Seller", 
+    description: "Built on Amazon, thinking beyond it. Find trending products, track competitor moves, and discover which keywords are rising across every platform." 
+  },
+  { 
+    icon: Globe, // Represents "Everywhere" and "Multi-channel"
+    title: "Multi-Channel Brand", 
+    description: "Selling everywhere, clarity nowhere. Intelligence that works across your own site, Amazon, TikTok Shop and marketplaces — in one place." 
+  },
+  { 
+    icon: Rocket, // Standard for "Growth-Stage" and "Scale"
+    title: "Growth-Stage Brand", 
+    description: "Revenue growing, decisions getting harder. Stop relying on the same research tools as everyone else and start seeing signals weeks ahead." 
+  },
+  { 
+    icon: Zap, // Represents "Sharp/Resourceful" and "Fast" action
+    title: "Bootstrapped Founder", 
+    description: "Sharp, resourceful, allergic to wasting money. Get the intelligence that used to require a six-person research team — without the six-person budget." 
+  },
+  { 
+    icon: BarChart3, // Represents "Data/Reporting" for clients
+    title: "Marketing Agency", 
+    description: "Managing multiple brands and need trend data that's actually current. Give every client a competitive edge — and prove your value with signals they can't find anywhere else." 
+  }
+];
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Delay between each card's animation
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.5, ease: "easeOut" } 
+  },
+};
+
+export default function FeatureGrid() {
   return (
-    <section id="copilot" className="relative py-32 overflow-hidden border-t border-slate-100">
-      {/* Soft background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
+    <section className="bg-white py-14 px-6 overflow-hidden">
+      <div className="max-w-5xl mx-auto text-center">
+        
+        {/* Header Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-slate-900 mb-6 tracking-tight max-w-3xl mx-auto leading-tight">
+            Intelligence for how you actually sell.
+          </h2>
 
-      <div className="relative max-w-6xl mx-auto px-6 text-center reveal">
-        {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-display leading-tight">
-          HypeOn <span className="text-brand-600">Copilot</span>
-        </h2>
+          <p className="text-slate-500 text-[15px] max-w-2xl mx-auto mb-14 leading-relaxed">
+            Whether you're on your own site, Amazon, TikTok Shop, or all three — HypeOn Intelligence works the way your business works.
+          </p>
+        </motion.div>
 
-        {/* Subheading */}
-        <p className="mt-6 max-w-3xl mx-auto text-lg text-slate-600">
-          A conversational intelligence layer for insights, predictions,
-          and confident decision-making.
-        </p>
-
-        {/* Cards */}
-        <div className="mt-20 grid md:grid-cols-2 gap-12 items-stretch">
-
-  {/* BASIC */}
-  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr]">
-    <div>
-      <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
-        HypeOn Basic
-      </span>
-
-      <h3 className="mt-2 text-2xl font-display text-slate-900">
-        Generalised Chatbot Brain
-      </h3>
-
-      <p className="mt-4 text-sm leading-relaxed text-slate-600 max-w-md">
-        A multi-model AI built for ideation, exploration,
-        and high-level market understanding.
-      </p>
-    </div>
-
-    <div className="mt-8">
-      <p className="text-xs text-slate-500 mb-3">Powered by</p>
-      <div className="flex gap-2 mb-6">
-        <span className="pill">GPT</span>
-        <span className="pill">Gemini</span>
-        <span className="pill">Claude</span>
-      </div>
-
-      <ul className="space-y-3 text-sm text-slate-700">
-        <li>• Brainstorming & ideation</li>
-        <li>• General market questions</li>
-        <li>• High-level insights</li>
-        <li>• “What should I sell?” type queries</li>
-      </ul>
-    </div>
-  </div>
-
-  {/* PRO */}
-  <div className="glass-card rounded-[32px] p-10 text-left grid grid-rows-[auto_auto_1fr] border border-brand-200 relative overflow-hidden">
-    
-    {/* Curved glow */}
-    <div className="absolute -top-32 -right-32 w-80 h-80 bg-brand-500/15 rounded-full blur-3xl pointer-events-none" />
-
-    <div>
-      <span className="text-xs font-semibold tracking-wide text-brand-600 uppercase">
-        HypeOn Pro
-      </span>
-
-      <h3 className="mt-2 text-2xl font-display text-slate-900">
-        E-Commerce Prediction Brain
-      </h3>
-
-      <p className="mt-4 text-sm leading-relaxed text-slate-600 max-w-md">
-        A proprietary AI trained on real e-commerce ecosystems
-        to predict what actually works.
-      </p>
-    </div>
-
-    <div className="mt-8">
-      <ul className="space-y-3 text-sm text-slate-700 mb-6">
-        <li>• Top niche e-commerce sites</li>
-        <li>• Amazon & Shopify stores</li>
-        <li>• Pinterest trend signals</li>
-        <li>• Walmart listings</li>
-      </ul>
-
-      <div className="grid grid-cols-2 gap-3 max-w-md">
-        <span className="feature-pill">Niche prediction</span>
-        <span className="feature-pill">Country insights</span>
-        <span className="feature-pill">Keyword performance</span>
-        <span className="feature-pill">Creative angles</span>
-      </div>
-    </div>
-  </div>
-</div>
-
+        {/* Grid Animation */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }} // Triggers slightly before the element hits center
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+{features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+            <motion.div 
+              key={index} 
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="border border-slate-500 rounded-2xl p-6 text-left bg-white shadow-sm hover:shadow-md hover:border-slate-400 transition-all duration-300"
+            >
+              <div className="inline-flex items-center justify-center w-10 h-8 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
+                <Icon size={iconSize} strokeWidth={1.75} />
+              </div>
+              <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
+                {feature.title}
+              </h3>
+              <p className="text-slate-500 text-[14px] leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

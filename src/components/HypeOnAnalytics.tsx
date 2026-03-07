@@ -1,121 +1,84 @@
-'use client';
+"use client";
 
-import { 
-  BarChart3, 
-  Layers, 
-  TrendingUp, 
-  DollarSign, 
-  Users, 
-  CheckCircle2,
-  XCircle,
-  Zap,
-  PieChart,
-  Brain,
-  Link2,
-  Filter,
-  Package,
-  UserCheck,
-  MessageSquare,
-  Lightbulb,
-  Plug,
-  Activity,
-  Target,
-  Rocket,
-  Search,
-  LayoutDashboard
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
-export default function HypeOnAnalytics() {
-  const solutions = [
-    {
-      icon: Brain,
-      title: "AI-Powered Intelligence",
-      description: "Autonomous AI agents analyze cross-channel performance and calculate true CAC, ROI, and profit per channel."
-    },
-    {
-      icon: Link2,
-      title: "Unified Cross-Channel View",
-      description: "Google Ads, Meta Ads, TikTok, Pinterest, and GA4 in one single source of truth with unified metrics."
-    },
-    {
-      icon: Filter,
-      title: "Clean Attribution",
-      description: "Last-click attribution removes double counting with clear separation of awareness and conversion impact."
-    },
-    {
-      icon: Package,
-      title: "Product Intelligence",
-      description: "Product-level performance by channel to identify best fits for awareness, traffic, and launches."
-    },
-    {
-      icon: UserCheck,
-      title: "User Lifecycle Insights",
-      description: "Channel effectiveness by user type with smarter budget allocation for new vs returning customers."
-    },
-    {
-      icon: MessageSquare,
-      title: "Conversational Analytics",
-      description: "Ask questions in plain English and get instant answers, summaries, or reports directly in chat."
-    },
-    {
-      icon: Lightbulb,
-      title: "Actionable Recommendations",
-      description: "Specific channels to scale, optimize, or pause with budget reallocation suggestions for growth."
-    },
-    {
-      icon: Plug,
-      title: "Zero-Code Integration",
-      description: "Plug-and-play integrations with fully automated insights and reporting. No developers required."
-    }
-  ];
+const faqs = [
+  { question: "What is HypeOn and who is it for?", answer: "MarketerHypeOn is a prediction and attribution intelligence platform built specifically for e-commerce founders and brand owners. It combines HypeOn Intelligence (what to sell, what keywords to target, what creatives to run, where competitors are weak) with HypeOn Analytics (exactly which marketing channel drove every sale, with no double counting). It's for anyone running a Shopify store spending £5K–£500K+/month on ads who is tired of guessing." },
+  { question: "How is HypeOn different from Jungle Scout or AdSpy?", answer: "Jungle Scout focuses only on Amazon product research. AdSpy focuses only on ad creative tracking. Neither tells you which channel actually drove your revenue, what your true CAC is by channel, or where competitors are gaining traffic. HypeOn is the only platform that covers trend discovery, keyword intelligence, creative analysis, competitor intelligence, GEO analysis, AND marketing attribution — all in one place, all connected, with an AI Copilot to make it actionable.ds, retailers, and marketers looking for a data-driven edge." },
+  { question: "What does attribution without double counting actually mean?", answer: "Every ad platform (Google, Meta, TikTok) takes 100% credit for every sale it touched. So if a customer clicked a Google ad on Monday and a Facebook ad on Thursday before buying, both platforms claim that sale. Your real ROAS looks 2–4× better than it is. HypeOn's last-click attribution assigns every Shopify order to exactly ONE channel — the last touchpoint before purchase — using GA4 identity data and cross-device email bridging. You see reality, not platform propaganda. offer seamless API integrations with most major retail and marketing platforms." },
+  { question: "Do I need a developer to set up HypeOn Analytics?", answer: "The Hype Score is a proprietary 0–100 metric updated daily for every product and keyword in our database. It combines four signals: Demand Momentum (how fast demand is rising), Seasonal Fit (whether timing amplifies or limits demand right now), Margin Potential (estimated profitability), and Competition Pressure (how saturated the market is). A score above 70 means early-stage, high-potential opportunity. Above 85 means breaking out now. It's designed to tell you whether to launch, wait, or skip — before you've spent a penny.nlike agencies, we provide real-time, AI-driven software tools that you control." },
+  { question: "How accurate is the attribution coverage?", answer: "OHypeOn achieves 80–85% attribution coverage on average. The remaining 15–20% is technically unavoidable without mandatory login — it covers customers who browse incognito, use iOS ITP, or switch devices without providing an email. Any tool claiming 100% attribution is using probabilistic modelling (guessing) or is inaccurate. We believe in transparent, honest attribution with confidence levels — so you know exactly how much to trust each data point.ur suite includes trend forecasting, customer sentiment analysis, and revenue-driving insights." },
+  { question: "Can I use HypeOn for multiple brands or stores?", answer: "Yes. The Agency / Enterprise plan supports multi-brand and multi-store setups with separate data environments for each brand. Agencies can manage multiple clients from a single dashboard with white-label reporting. Contact us for custom pricing based on the number of brands and combined ad spend.Book demo" },
+  { question: "How do you ensure scalability?", answer: "Our infrastructure is built on elastic cloud systems to handle data for any brand size." },
+  { question: "Is my data secure with HypeOn?", answer: "Yes, we use enterprise-grade encryption and comply with all major data protection standards." }
+];
+
+export default function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div id="analytics" className="relative">
-      {/* Solutions Section */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-            <h2 className="text-4xl md:text-5xl font-display text-slate-900 mb-6">
-              HypeOn <span className="text-brand-600">Analytics</span>
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              HypeOn Analytics uses ML-powered AI agents and conversational analytics to show where 
-              your real marketing growth comes from—and what to do next.
-            </p>
-          </div>
+    <section className="bg-white py-14 px-6 font-sans">
+      <div className="max-w-6xl mx-auto bg-[#111111] rounded-[32px] p-8 md:p-12 flex flex-col md:flex-row gap-16">
+        
+        {/* Left Side: Header – scroll reveal */}
+        <motion.div
+          className="md:w-1/2"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <h2 className="text-white text-3xl md:text-4xl font-display font-semibold mb-6 tracking-tight">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-gray-400 text-[16px] leading-relaxed max-w-md">
+            Read some of the most asked questions around Hypeon. If you cannot find your answer, reach out to us using the chat in the bottom-right corner!
+          </p>
+        </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
-            {solutions.map((solution, index) => {
-              const Icon = solution.icon;
-              return (
-                <div
-                  key={index}
-                  className="relative p-8 rounded-[32px] bg-white border border-slate-100 shadow-sm hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/10 transition-all reveal-scale group overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-brand-500/5 rounded-full blur-2xl -mr-12 -mt-12 group-hover:bg-brand-500/10 transition-colors" />
-                  
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center mb-6 border border-brand-100 group-hover:scale-110 transition-transform duration-500">
-                      <Icon className="w-6 h-6 text-brand-600" />
+        {/* Right Side: Accordion – scroll reveal */}
+        <motion.div
+          className="md:w-1/2 border-t border-gray-800"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+        >
+          {faqs.map((faq, index) => (
+            <div key={index} className="border-b border-gray-800">
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full py-4 flex justify-between items-center text-left text-white group"
+              >
+                <span className="text-[15px] font-medium pr-4">{faq.question}</span>
+                <ChevronDown 
+                  className={`text-gray-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
+                  size={18} 
+                />
+              </button>
+              
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pb-6 text-gray-400 leading-relaxed text-[14px]">
+                      {faq.answer}
                     </div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <CheckCircle2 className="w-4 h-4 text-brand-600 flex-shrink-0" />
-                      <h3 className="text-base font-bold text-slate-900 leading-tight">
-                        {solution.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-slate-500 leading-relaxed">
-                      {solution.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
+
 }
-
-

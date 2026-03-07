@@ -13,8 +13,9 @@ import CopilotSection from "../../components/CopilotSection";
 import HypeOnAnalytics from "../../components/HypeOnAnalytics";
 import MarketingDecisioning from "../../components/MarketingDecisioning";
 import ProductsCTA from "../../components/ProductsCTA";
-
+import TechnologySection from "../../components/techonoly";
 export default function ProductsPage() {
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <Background />
@@ -22,13 +23,15 @@ export default function ProductsPage() {
 
       <main className="relative z-10">
         <ProductsIntro />
-        <HypeScoreSection />
+
         <TrendingProducts />
         <HighValueKeywords />
         <WinningAdCreatives />
         <CopilotSection />
-        <HypeOnAnalytics />
+        <TechnologySection />
         <MarketingDecisioning />
+        <HypeOnAnalytics />
+
       </main>
 
       <Footer />

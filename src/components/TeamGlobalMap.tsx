@@ -143,7 +143,7 @@ function employeePin(emp: Employee) {
         flex-direction:column;
         align-items:center;
         transform: translateY(-4px);
-        font-family: Inter, system-ui;
+        font-family: "LL ivory", Georgia, sans-serif;
       ">
         <div style="
           position: relative;
@@ -176,7 +176,7 @@ function employeePin(emp: Employee) {
           box-shadow:0 10px 30px rgba(15,23,42,.12);
           white-space:nowrap;
         ">
-          <div style="font-size:13px;font-weight:600;color:#0f172a;">
+          <div style="font-size:13px;font-weight:400;color:#0f172a;">
             ${emp.name}
           </div>
           <div style="font-size:11px;color:#64748b;">

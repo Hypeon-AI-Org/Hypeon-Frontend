@@ -1,121 +1,144 @@
-/* ---------- ICONS ---------- */
+'use client';
 
-const ProductIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="18" height="18" rx="3" />
-    <path d="M7 7h10M7 12h10M7 17h6" />
-  </svg>
-);
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const HypeScoreIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 12l5-3" />
-    <circle cx="12" cy="12" r="1" fill="currentColor" />
-  </svg>
-);
+const features = [
+  {
+    id: 'Market Gap Finder',
+    title: 'Market Gap Finder',
+    image: '/images/marketfinder.png',
+    description:
+      'AI reads millions of competitor reviews across Amazon, Trustpilot and Google — then ranks the unmet needs customers keep asking for.',
+  },
+  {
+    id: 'Competitor Intelligence',
+    title: 'Competitor Intelligence',
+    image: '/images/competitoro.png',
+    description:
+      'Track product launches, pricing changes, creator partnerships and SKU additions in real time — across every channel they sell on.',
+  },
+  {
+    id: 'Traffic Intelligence',
+    title: 'Traffic Intelligence',
+    image: '/images/Traffic.png',
+    description:
+      'See where competitor traffic actually comes from. Paid, organic, social, referral — updated weekly.',
+  },
+  {
+    id: 'GEO Intelligence',
+    title: 'GEO Intelligence',
+    image: '/images/Geo.png',
+    description:
+      'Find countries where demand is rising fast, competition is near zero, and nobody is collecting that revenue yet.',
+  },
+];
 
-const WeeklyGrowthIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 17l6-6 4 4 7-7" />
-    <path d="M14 4h7v7" />
-  </svg>
-);
+export default function HypeScoreSection() {
+  const [activeId, setActiveId] = useState('Market Gap Finder');
+  const activeFeature = features.find((f) => f.id === activeId) ?? features[0];
 
-const MonthlyGrowthIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 19V5" />
-    <path d="M10 19V9" />
-    <path d="M16 19V3" />
-  </svg>
-);
-
-/* ---------- SECTION ---------- */
-
-export default function TrendingProducts() {
   return (
-    <section className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
+    <section className="py-14 bg-white font-sans">
+      <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-[1fr_420px] gap-12 items-start">
 
-        {/* LEFT — CONTENT */}
-        <div className="reveal">
-          <h2 className="text-3xl font-display">
-            Trending <span className="text-brand-600">Products</span>
+        {/* LEFT CONTENT – scroll reveal */}
+        <div className="reveal-left">
+
+          <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-medium mb-4">
+            USE CASES
+          </p>
+
+          <h2 className="text-3xl text-[#0f172a] leading-[1.1] mb-6 max-w-xl font-semibold">
+            Know what they're doing. Know what they're missing.
           </h2>
 
-          <p className="mt-4 text-slate-600">
-            Find winning products before they go viral.
+          <p className="text-slate-500 text-[14px] leading-relaxed max-w-md mb-8">
+            Track competitors, find market gaps, discover untapped countries,
+            and understand where traffic is really coming from — all from one place.
           </p>
 
-          <p className="mt-4 text-slate-600 leading-relaxed">
-            HypeOn AI scans millions of data points across TikTok, Amazon,
-            Shopify, and social platforms to detect early-stage demand.
-            Launch before competitors — not after.
-          </p>
+          {/* FEATURE LIST – staggered scroll reveal */}
+          <div className="border-t border-slate-200 reveal-stagger">
+
+            {features.map((feature) => {
+              const isActive = feature.id === activeId;
+
+              return (
+                <motion.div
+                  layout
+                  key={feature.id}
+                  className="border-b border-slate-200"
+                >
+                  <button
+                    onClick={() => setActiveId(feature.id)}
+                    className="w-full text-left py-4 group relative"
+                  >
+
+                    {/* Title */}
+                    <span
+                      className={`block text-[16px] font-semibold transition-colors duration-300 ${
+                        isActive
+                          ? 'text-slate-900'
+                          : 'text-slate-400 group-hover:text-slate-700'
+                      }`}
+                    >
+                      {feature.title}
+                    </span>
+
+                    {/* Active underline */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeIndicator"
+                        className="absolute left-0 bottom-0 h-[2px] w-16 bg-black rounded"
+                      />
+                    )}
+
+                    {/* Description animation */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.25 }}
+                          className="text-slate-500 text-[13px] leading-relaxed mt-3 max-w-sm"
+                        >
+                          {feature.description}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+
+                  </button>
+                </motion.div>
+              );
+            })}
+
+          </div>
         </div>
 
-        {/* RIGHT — INSIGHT GRID */}
-        <div className="grid grid-cols-2 gap-6 reveal-stagger">
+        {/* RIGHT IMAGE – scroll reveal */}
+        <div className="sticky top-28 flex justify-end reveal-right">
 
-          {/* Product */}
-           <div className="glass-card p-6 rounded-3xl float-card ">
-            <p className="text-xs text-slate-500 flex items-center gap-2">
-              <ProductIcon />
-              Product
-            </p>
-            <p className="mt-2 font-display text-sm">
-              portable blende
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
-              Identified early before peak demand
-            </p>
-          </div>
-
-          {/* Hype Score */}
-         <div className="glass-card p-6 rounded-3xl float-card delay-1">
-            <p className="text-xs text-slate-500 flex items-center gap-2">
-              <HypeScoreIcon />
-              Hype Score 
-            </p>
-            <p className="mt-2 font-display text-2xl text-brand-600">
-              82
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
-              Strong upward momentum this week
-            </p>
-          </div>
-
-          {/* Weekly Growth */}
-           <div className="glass-card p-6 rounded-3xl float-card delay-1">
-            <p className="text-xs text-slate-500 flex items-center gap-2">
-              <WeeklyGrowthIcon />
-              Weekly Growth
-            </p>
-            <p className="mt-2 font-display text-sm">
-              +97%
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
-              Rapid acceleration detected
-            </p>
-          </div>
-
-          {/* Monthly Growth */}
-           <div className="glass-card p-6 rounded-3xl float-card delay-1">
-            <p className="text-xs text-slate-500 flex items-center gap-2">
-              <MonthlyGrowthIcon />
-              Monthly Growth
-            </p>
-            <p className="mt-2 font-display text-sm">
-              +98%
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
-              Sustained trend expansion
-            </p>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeFeature.id}
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -20 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="relative w-full md:h-[420px]"
+            >
+              <Image
+                src={activeFeature.image || '/images/dashboard.png'}
+                alt={activeFeature.title}
+                fill
+                priority
+                className="object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.12)]"
+              />
+            </motion.div>
+          </AnimatePresence>
 
         </div>
       </div>

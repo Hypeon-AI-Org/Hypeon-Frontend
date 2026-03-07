@@ -1,5 +1,3 @@
-import dynamic from "next/dynamic";
-
 import Background from "@/components/Background";
 import AboutIntro from "../../components/AboutIntro";
 import AboutStory from "../../components/AboutStory";
@@ -14,12 +12,7 @@ import GrowthTimeline from "../../components/GrowthTimeline";
 import BUILDING from "../../components/BUILDING";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-//  FIX: dynamic import (SSR disabled)
-const TeamGlobalMap = dynamic(
-  () => import("../../components/TeamGlobalMap"),
-  { ssr: false }
-);
+import TeamGlobalMapClient from "@/components/TeamGlobalMapClient";
 
 export default function AboutPage() {
   return (
@@ -39,7 +32,7 @@ export default function AboutPage() {
       <BUILDING />
 
       
-      <TeamGlobalMap />
+      <TeamGlobalMapClient />
 
       <AboutCTA />
       <Footer />

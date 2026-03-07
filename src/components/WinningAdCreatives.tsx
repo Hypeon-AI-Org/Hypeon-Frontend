@@ -1,144 +1,157 @@
-import { useRef, useState } from "react";
+'use client';
 
-/* ---------- ICONS ---------- */
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
-const PlayIcon = () => (
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M8 5v14l11-7z" />
-  </svg>
-);
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+};
 
-const ScoreIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 12l4-2" />
-  </svg>
-);
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
 
-/* ---------- VIDEO CARD ----------*/
-
-function VideoCard({
-  video,
-  score,
-}: {
-  video: string;
-  score: number;
-}) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.muted = false;
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
+export default function TikTokScrollSection() {
 
   return (
-    <div
-      className="group glass-card p-6 rounded-3xl
-                 transition-all duration-500
-                 hover:-translate-y-1
-                 hover:shadow-2xl hover:shadow-pink-500/20"
-    >
-      {/* Video */}
-      <div
-        className="relative aspect-[9/16] rounded-2xl overflow-hidden
-                   bg-slate-100 cursor-pointer"
-        onClick={togglePlay}
-      >
-        <video
-          ref={videoRef}
-          src={video}
-          playsInline
-          loop
-          className="absolute inset-0 w-full h-full object-cover
-                     transition-transform duration-700
-                     group-hover:scale-105"
-        />
+    <section className="relative  bg-white py-14 overflow-hidden font-sans">
 
-        <div className="absolute inset-0 bg-gradient-to-br from-black/25 to-black/0" />
+      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center">
 
-        {!isPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex items-center gap-2 text-white text-xs
-                            bg-black/40 px-3 py-1.5 rounded-full
-                            backdrop-blur-sm animate-soft-pulse">
-              <PlayIcon />
-            </div>
-          </div>
-        )}
+        {/* LEFT TEXT */}
+        <motion.div className="z-20 bg-white lg:pl-6"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
 
-        <span className="absolute top-3 left-3 px-3 py-1 rounded-full
-                         bg-emerald-500 text-white text-xs">
-          ● Active
-        </span>
-      </div>
 
-      {/* Score */}
-      <div className="mt-4 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <ScoreIcon />
-          Hype Score
+          <motion.p variants={item} className="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
+            Winning creatives
+          </motion.p>
+
+          <motion.h2
+            variants={item}
+            className="text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg"
+          >
+            We understand and <br /> analyze Ads so <br />
+            <span className="opacity-40">you don&apos;t have to.</span>
+          </motion.h2>
+
+          <motion.p
+            variants={item}
+            className="text-[#757575] text-[13px] leading-relaxed max-w-md mb-6"
+          >
+            Our Ads Insights tool, powered by proprietary AI, offers a unique
+            ability to track and capitalize on Ads trends.
+          </motion.p>
+
+          <motion.div variants={item}>
+            <motion.a
+              href="#"
+              className="btn-primary inline-flex items-center gap-2"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "tween", duration: 0.2 }}
+            >
+              Get Started
+            </motion.a>
+          </motion.div>
+
+        </motion.div>
+
+        {/* AUTO SCROLL GRID */}
+        <div className="relative flex gap-6 h-[620px] overflow-hidden">
+
+          {/* COLUMN 1 */}
+          <motion.div
+            animate={{ y: ["0%", "-50%"] }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="flex flex-col gap-6 w-1/2"
+          >
+
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex flex-col gap-6">
+
+                <VideoItem height="h-[260px]" src="/images/image.png" isVideo />
+                <VideoItem height="h-[260px]" src="/images/wallpaper.png" isVideo />
+                <VideoItem height="h-[260px]" src="/images/diy.png" isVideo />
+
+              </div>
+            ))}
+
+          </motion.div>
+
+
+          {/* COLUMN 2 */}
+          <motion.div
+            animate={{ y: ["0%", "-50%"] }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="flex flex-col gap-4 w-1/2 pt-20"
+          >
+
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex flex-col gap-6">
+
+                <VideoItem height="h-[260px]" src="/images/tech (1).png" isVideo />
+                <VideoItem height="h-[260px]" src="/images/curtains.png" isVideo />
+                <VideoItem height="h-[260px]" src="/images/image.png" isVideo />
+
+              </div>
+            ))}
+
+          </motion.div>
+
         </div>
-        <span className="font-display text-brand-600">{score}</span>
+
       </div>
 
-      <div className="mt-2 h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"
-          style={{ width: `${score}%` }}
-        />
-      </div>
-    </div>
+    </section>
   );
 }
 
-/* ---------- SECTION ---------- */
 
-export default function WinningAdCreatives() {
-  const items = [
-    { video: "/images/wallpaper ad.mp4", score: 86 },
-    { video: "/images/carpet ad.mp4", score: 79 },
-    { video: "/images/curtains ad.mp4", score: 91 },
-  ];
-
+function VideoItem({ height, src, isVideo = false }: { height: string; src: string; isVideo?: boolean }) {
   return (
-    <section className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={`relative w-full ${height} rounded-[2rem] overflow-hidden bg-gray-100 border shadow-sm`}
+    >
 
-        <div className="max-w-3xl">
-          <h2 className="text-3xl font-display">
-            Winning <span className="text-brand-600">Ad Creatives</span>
-          </h2>
-          <p className="mt-3 text-slate-600">
-            See which creatives are performing across platforms — before they saturate.
-          </p>
-        </div>
+      <img src={src} className="w-full h-full object-cover" alt="TikTok Content" />
 
-        <div className="mt-14 grid md:grid-cols-3 gap-8">
-          {items.map((item, i) => (
-            <VideoCard
-              key={i}
-              video={item.video}
-              score={item.score}
-            />
-          ))}
+      {isVideo && (
+        <div className="absolute inset-0 flex items-center justify-center">
+
+          <div className="w-14 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center">
+
+            <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[10px] border-l-white border-b-[8px] border-b-transparent ml-1" />
+
+          </div>
+
         </div>
-      </div>
-    </section>
+      )}
+
+    </motion.div>
   );
 }

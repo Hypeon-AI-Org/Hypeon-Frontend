@@ -1,57 +1,64 @@
-'use client';
+"use client";
 
-import { Brain, Link2, Zap } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-export default function MarketingDecisioning() {
+export default function CTASection() {
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white border-y border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto reveal-blur">
-          <h2 className="text-4xl md:text-5xl font-display text-slate-900 mb-6">
-            Make better marketing decisions
-          </h2>
-          
-          <div className="mt-8 p-8 rounded-[32px] bg-white border border-slate-100 shadow-sm max-w-3xl mx-auto">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center border border-brand-100">
-                <Brain className="w-6 h-6 text-brand-600" />
-              </div>
-              <div className="text-left">
-                <p className="text-lg text-slate-700 leading-relaxed">
-                  <span className="font-medium text-slate-900">AI-powered marketing decisioning.</span>{" "}
-                  Connect data, analyze results with agents, and orchestrate actions across your stack.
-                </p>
-              </div>
-            </div>
-          </div>
+    <section className="bg-white py-16 px-6 font-sans">
+      <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+        
+        {/* Animated Heading */}
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-3xl md:text-5xl font-sans text-gray-900 leading-[1.1] tracking-tight mb-6"
+        >
+          Stop researching with yesterday's <br className="hidden md:block" /> data.
+        </motion.h2>
 
-          {/* Feature highlights */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto reveal-stagger">
-            <div className="p-6 rounded-2xl bg-white/60 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4 border border-brand-100">
-                <Link2 className="w-5 h-5 text-brand-600" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-900 mb-2">Connect Data</h3>
-              <p className="text-xs text-slate-600">Unified view across all your marketing platforms</p>
-            </div>
-            
-            <div className="p-6 rounded-2xl bg-white/60 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4 border border-brand-100">
-                <Brain className="w-5 h-5 text-brand-600" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-900 mb-2">Analyze with Agents</h3>
-              <p className="text-xs text-slate-600">AI agents process and interpret your results</p>
-            </div>
-            
-            <div className="p-6 rounded-2xl bg-white/60 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4 border border-brand-100">
-                <Zap className="w-5 h-5 text-brand-600" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-900 mb-2">Orchestrate Actions</h3>
-              <p className="text-xs text-slate-600">Automate decisions across your entire stack</p>
-            </div>
-          </div>
-        </div>
+        {/* Animated Subtext */}
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-gray-500 text-[15px] md:text-lg max-w-2xl leading-relaxed mb-8"
+        >
+          The day you connect HypeOn Intelligence, you start seeing 
+          the signals your competitors haven't found yet. That's the 
+          only edge that matters.
+        </motion.p>
+
+        {/* Animated Button */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <button className="bg-[#0A0A0A] text-white px-7 py-3 rounded-xl font-semibold text-[15px] hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95">
+            Show me what I'm missing
+          </button>
+        </motion.div>
+
+        {/* Animated Footer Tags */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-5 flex flex-wrap justify-center gap-2 text-gray-400 text-[13px] md:text-sm font-medium"
+        >
+          <span>Free to start</span>
+          <span className="text-gray-300">•</span>
+          <span>10 minute setup</span>
+          <span className="text-gray-300">•</span>
+          <span>No credit card required</span>
+        </motion.div>
+        
       </div>
     </section>
   );
