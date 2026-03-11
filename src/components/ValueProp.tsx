@@ -68,9 +68,9 @@ const features = [
 
 export default function ComparisonBlackWhite() {
   return (
-    <section className="relative py-16 bg-white overflow-hidden">
+    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden  ">
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6  ">
 
         {/* Heading */}
         <motion.div
@@ -94,7 +94,7 @@ export default function ComparisonBlackWhite() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)] overflow-x-auto"
+          className="relative rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)] "
         >
           <table className="min-w-full text-sm">
 

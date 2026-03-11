@@ -47,23 +47,23 @@ export default function Products() {
   }, []);
 
   return (
-    <section className="relative min-h-[900px] py-[100px] overflow-hidden bg-[#fdfdfd] font-sans flex items-center">
+    <section className="relative min-h-[650px] py-[70px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans flex items-center">
 
       {/* Container */}
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center -mt-20">
+      <div className="max-w-6xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center -mt-10">
 
         {/* LEFT CONTENT */}
-        <div className="reveal-left space-y-4 lg:pr-12">
+        <div className="reveal-left space-y-4 lg:pr-12 lg:ml-20">
 
           <span className="inline-block px-3 py-1 rounded-full border border-slate-200 text-[11px] font-semibold text-slate-900 bg-white shadow-sm">
             Attribution reporting that
           </span>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl tracking-tight text-neutral-900 leading-tight">
             Attribution reporting that <br /> <span className="text-brand-600">shows you the truth.</span>
           </h2>
 
-          <ul className="space-y-3 pt-2">
+          <ul className="space-y-2 pt-2">
             {[
               { icon: "target", text: "Set company wide goals" },
               { icon: "schedule", text: "Save hours managing growth at scale" },
@@ -72,7 +72,7 @@ export default function Products() {
             ].map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-center gap-2 text-slate-600 font-semibold text-sm"
+                className="flex items-center gap-2 text-slate-600 font-semibold text-[13px]"
               >
                 <span className="material-symbols-outlined text-slate-900 text-lg">
                   {item.icon}
@@ -83,11 +83,11 @@ export default function Products() {
           </ul>
 
           <div className="flex items-center gap-4 pt-4">
-            <button className="bg-black hover:bg-black text-white px-6 py-2.5 rounded-full text-xs font-bold transition-all shadow-md">
-              Book demo
-            </button>
+            <a href="https://app.hypeon.ai/login" className="bg-black hover:bg-black text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block">
+              Get the demo
+            </a>
 
-           
+
           </div>
         </div>
 
@@ -97,33 +97,23 @@ export default function Products() {
       </div>
 
       {/* DASHBOARD IMAGE */}
-      <div className="hidden lg:block absolute bottom-0 right-[-300px] w-[1100px] z-0">
-          <div className="rounded-2xl border border-gray-200  overflow-hidden">
+      <div className="hidden lg:block absolute bottom-0 right-[-90px] w-[800px] z-0">
+        <div className="rounded-2xl border border-gray-200  overflow-hidden">
 
-    <img
-      src="/images/screen.png"
-      alt="Dashboard Preview"
-      className="w-full max-h-[680px] "
-    />
- </div>
-</div>
+          <img
+            src="/images/screen.png"
+            alt="Dashboard Preview"
+            className="w-full max-h-[550px] "
+          />
+        </div>
+      </div>
 
       {/* RIGHT FADE (optional SaaS effect) */}
       <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#fdfdfd] to-transparent pointer-events-none"></div>
 
-      {/* MOBILE VERSION */}
-      <div className="lg:hidden w-full px-6 mt-12 overflow-hidden shadow-2xl rounded-2xl border border-slate-100">
-        <div className="bg-white p-6 rounded-2xl">
-          <h3 className="font-bold text-lg mb-4">Dashboard Preview</h3>
 
-          <img
-  src="/images/dashboard.png"
-  alt="Dashboard Preview"
-  className="w-full h-full object-cover"
-/>
-        </div>
-      </div>
 
-    </section>
+
+    </section >
   );
 }

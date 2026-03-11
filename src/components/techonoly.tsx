@@ -33,14 +33,14 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <div className="bg-white text-[#111] antialiased text-[14px] font-sans">
+    <div className="bg-[oklch(0.988_0.0041_91.45)] text-[#111] antialiased text-[14px] font-sans">
       <div className="flex flex-col lg:flex-row items-start gap-[40px] py-[60px] px-[16px] lg:px-[40px] max-w-[1100px] mx-auto">
 
         {/* LEFT COPY – scroll reveal */}
         <div className="w-full lg:w-[340px] pt-4 shrink-0 reveal-left">
           <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
           <h2 className="text-[28px] leading-[1.2] tracking-tight text-[#111] mb-[18px]">
-            Understand what your market wants — before it peaks.
+            Understand what your market wants — <span className="text-brand-600">before it peaks.</span>
           </h2>
           <p className="text-[14px] text-[#666] leading-[1.72] mb-7">
             We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
@@ -51,7 +51,7 @@ const TechnologySection = () => {
         </div>
 
         {/* RIGHT PANEL – scroll reveal */}
-       <div className="flex-1 w-full border border-black rounded-[16px] overflow-hidden bg-white min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
+        <div className="flex-1 w-full border border-black rounded-[16px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
 
           {/* TAB GRID */}
           <div className="grid grid-cols-2">
@@ -83,7 +83,7 @@ const TechnologySection = () => {
 
               {/* TOPBAR */}
               <div className="bg-[#f6f6f6] border-b border-[#e2e2e2] p-[8px_14px] flex items-center gap-3">
-                
+
                 <div className="flex items-center gap-[7px]">
                   <div className="w-[22px] h-[22px] bg-[#111] rounded-[6px] flex items-center justify-center text-[11px] font-extrabold text-white tracking-tighter">H</div>
                   <div className="text-[13px] font-semibold text-[#111]">HypeOn</div>

@@ -104,7 +104,7 @@ function AnimatedNumber({
 
 export default function Features() {
   return (
-<section className="relative py-16 bg-gradient-to-b from-white via-neutral-50 to-white overflow-hidden">
+    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -176,9 +176,9 @@ export default function Features() {
           whileHover={{ scale: 1.05 }}
           className="flex justify-center mb-16"
         >
-          <button className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium hover:bg-neutral-800 transition-all">
-            Get Early Access →
-          </button>
+          <a href="https://app.hypeon.ai/login" className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium hover:bg-neutral-800 transition-all inline-block">
+            Get the demo
+          </a>
         </motion.div>
 
         {/* ===== Integrations ===== */}
@@ -189,20 +189,20 @@ export default function Features() {
           viewport={{ once: true }}
           className="grid grid-cols-2 md:grid-cols-8 gap-6 items-center text-center border-t border-neutral-200 pt-12"
         >
-         {integrations.map((item, i) => {
-      const Icon = item.icon
-      return (
-        <div
-          key={i}
-          className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
-        >
-          <Icon className={`w-3.5 h-3.5 ${item.color}`} />
-          <span className="text-sm font-medium">
-            {item.name}
-          </span>
-        </div>
-      )
-    })}
+          {integrations.map((item, i) => {
+            const Icon = item.icon
+            return (
+              <div
+                key={i}
+                className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
+              >
+                <Icon className={`w-3.5 h-3.5 ${item.color}`} />
+                <span className="text-sm font-medium">
+                  {item.name}
+                </span>
+              </div>
+            )
+          })}
         </motion.div>
 
       </div>

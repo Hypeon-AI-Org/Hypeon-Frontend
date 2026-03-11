@@ -1,153 +1,151 @@
-import React from 'react';
-import { ArrowRight, CheckCircle2, BarChart3, Link, Lightbulb, TrendingUp } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Play, Link2, Target, Sparkles, Zap } from 'lucide-react';
 
-const HeroSection = () => {
+const FloatingCard = ({
+  icon: Icon,
+  title,
+  description,
+  className,
+  delay = 0
+}: {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  className?: string;
+  delay?: number;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      card.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+    };
+
+    const handleMouseLeave = () => {
+      card.style.transform = 'translate(0, 0)';
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
-    <section id="hero" className="relative overflow-hidden bg-[#F9FAFB] py-24 lg:py-32 ">
-      {/* Background Mesh Gradients */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/2 right-[25%] h-[50%] w-[60%] -translate-y-1/2 rounded-full bg-pink-600/5 blur-[120px]" />
-        <div className="absolute top-1/4 left-[20%] h-[40%] w-[40%] rounded-full bg-pink-600/5 blur-[100px]" />
-      </div>
-
-      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-
-          {/* Left Column: Content – scroll reveal */}
-          <div className="flex flex-col space-y-8 reveal-left">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white p-1.5 pr-4 shadow-sm reveal">
-                <span className="rounded-full bg-pink-600 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">New</span>
-                <span className="text-sm text-gray-500 font-medium">AI Copilot is now live for all plans</span>
-              </div>
-            </div>
-
-            <h1 className="font-display text-5xl font-extrabold tracking-tighter text-gray-900 sm:text-6xl lg:text-5xl leading-[1.05]">
-              The most honest <br />
-              <span className="text-brand-600">attribution</span> <br />
-              platform for e-commerce
-            </h1>
-
-            <p className="max-w-md text-md leading-relaxed text-gray-500">
-              No more inflated ROAS from platforms marking their own homework. HypeOn cleans, unifies and attributes every sale — giving you one clear, unbiased truth across every channel.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <button className="flex items-center gap-2 rounded-xl bg-gray-900 px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:-translate-y-1 hover:bg-black">
-                Get a demo
-                <ArrowRight size={15} />
-              </button>
-
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 pt-4 text-xs font-medium text-gray-400">
-              <span className="flex items-center gap-2"><CheckCircle2 size={14} className="text-green-600" /> Setup in 10 minutes</span>
-              <span className="flex items-center gap-2"><CheckCircle2 size={14} className="text-green-600" /> Zero code</span>
-              <span className="flex items-center gap-2"><CheckCircle2 size={14} className="text-green-600" /> 2,400+ brands</span>
-            </div>
-          </div>
-
-          {/* Right Column: Dashboard UI – scroll reveal */}
-          <div className="relative reveal-right pl-10">
-            {/* Main Dashboard Card */}
-            <div className="relative z-10 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-2xl">
-              <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-4 py-3">
-                <div className="flex gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-[#FFBD2E]" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-[#28CA41]" />
-                </div>
-                <span className="ml-2 text-xs text-gray-400">HypeOn Analytics — Overview</span>
-              </div>
-
-              <div className="p-5">
-                {/* Metric Grid – staggered scroll reveal */}
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 mb-4 reveal-stagger">
-                  {[
-                    { label: 'Revenue', val: '£284K', delta: '↑ 18.4%', up: true },
-                    { label: 'Blended ROAS', val: '3.71×', delta: '↑ +0.42', up: true },
-                    { label: 'CAC', val: '£24.8', delta: '↓ 6.1%', up: false },
-                    { label: 'Ad Spend', val: '£76.5K', delta: '↑ 4.2%', up: true },
-                  ].map((m, i) => (
-                    <div key={i} className="rounded-xl border border-gray-100 bg-gray-50 p-3">
-                      <p className="text-[10px] font-semibold tracking-wider text-gray-400 uppercase">{m.label}</p>
-                      <p className="font-display text-xl font-bold text-gray-900">{m.val}</p>
-                      <p className={`text-[10px] mt-1 font-medium ${m.up ? 'text-green-600' : 'text-red-500'}`}>{m.delta}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Table Mockup */}
-                <div className="rounded-xl border border-gray-100 bg-gray-50 overflow-hidden mb-4">
-                  <div className="grid grid-cols-4 border-b border-gray-100 px-4 py-2 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
-                    <span>Channel</span>
-                    <span className="text-right">Spend</span>
-                    <span className="text-right">Rev</span>
-                    <span className="text-right">ROAS</span>
-                  </div>
-                  {[
-                    { name: 'Google CPC', s: '£34.2K', r: '£145.6K', roas: '4.26×', color: 'bg-blue-500' },
-                    { name: 'Facebook', s: '£22.0K', r: '£77.0K', roas: '3.50×', color: 'bg-blue-600' },
-                    { name: 'TikTok', s: '£11.4K', r: '£33.2K', roas: '2.91×', color: 'bg-black' },
-                  ].map((ch, i) => (
-                    <div key={i} className="grid grid-cols-4 items-center border-b border-gray-100 last:border-0 px-4 py-2.5 text-xs">
-                      <div className="flex items-center gap-2 font-semibold">
-                        <div className={`h-5 w-5 rounded-md ${ch.color} flex items-center justify-center text-[10px] text-white`}>{ch.name[0]}</div>
-                        {ch.name}
-                      </div>
-                      <span className="text-right text-gray-500">{ch.s}</span>
-                      <span className="text-right text-gray-500">{ch.r}</span>
-                      <span className="text-right font-bold text-green-600">{ch.roas}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* SVG Sparkline */}
-                <div className="rounded-xl border border-gray-100 bg-gray-50 p-3">
-                  <p className="text-[10px] font-semibold tracking-wider text-gray-400 uppercase mb-2">Attribution trend</p>
-                  <svg className="h-12 w-full" viewBox="0 0 280 48" preserveAspectRatio="none">
-                    <path d="M0 40 L40 38 L80 28 L120 26 L160 16 L200 10 L240 6 L280 2 L280 48 L0 48 Z" fill="rgba(37,99,235,0.08)" />
-                    <path d="M0 40 L40 38 L80 28 L120 26 L160 16 L200 10 L240 6 L280 2" fill="none" stroke="#2563EB" strokeWidth="1.5" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating Overlays – scroll reveal */}
-            <div className="absolute -top-6 -right-12 z-20 hidden animate-bounce-slow lg:block reveal-scale">
-              <div className="flex min-w-[180px] items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><Link size={20} /></div>
-                <div>
-                  <h4 className="text-sm font-bold">Connect</h4>
-                  <p className="text-[10px] text-gray-500">All 8 channels. One view.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-6 -left-12 z-20 hidden animate-bounce-slow lg:block [animation-delay:1s] reveal-scale">
-              <div className="flex min-w-[180px] items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-50 text-yellow-600"><Lightbulb size={20} /></div>
-                <div>
-                  <h4 className="text-sm font-bold">Decide</h4>
-                  <p className="text-[10px] text-gray-500">AI Copilot. Live data.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="absolute -bottom-6 -right-12 z-20 hidden animate-bounce-slow lg:block [animation-delay:1s] reveal-scale">
-            <div className="flex min-w-[180px] items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-xl">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-50 text-yellow-600"><Lightbulb size={20} /></div>
-              <div>
-                <h4 className="text-sm font-bold">Attribute</h4>
-                <p className="text-[10px] text-gray-500">Every sale. One channel. No overlap.</p>
-              </div>
-            </div>
-          </div>
+    <div
+      ref={cardRef}
+      className={`absolute bg-white rounded-2xl p-3 shadow-soft-lg border border-gray-200 transition-all duration-500 cursor-pointer ${className} ${isHovered ? 'shadow-soft-xl border-gray-300' : ''
+        }`}
+      style={{
+        animationDelay: `${delay}s`,
+        transition: 'transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="flex items-start gap-3">
+        <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center flex-shrink-0">
+          <Icon className="w-4 h-4" />
+        </div>
+        <div>
+          <h4 className="font-semibold text-black text-[13px]">{title}</h4>
+          <p className="text-gray-500 text-[11px] mt-0.5 leading-relaxed">{description}</p>
         </div>
       </div>
-
-    </section>
+    </div>
   );
 };
 
-export default HeroSection;
+export default function Hero() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <section className="relative min-h-[75vh] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans text-[#111] antialiased">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      </div>
+
+      {/* Navigation */}
+
+
+      {/* Hero Content */}
+      <div className="relative z-10 px-6 lg:px-12 pt-24 pb-14">
+        <div className="max-w-7xl mx-auto">
+          {/* Text Content */}
+          <div className="text-center max-w-3xl mx-auto mb-16 reveal">
+            <h1 className="text-2xl md:text-4xl  text-black mb-6 text-balance tracking-tight">
+              The most True{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-gray-700 to-black">attribution platform</span>{' '}
+              for <span className="text-brand-600">e-commerce</span>
+            </h1>
+
+            <p className="text-[15px] text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              No more inflated ROAS from platforms marking their own homework.
+              HypeOn cleans, unifies and attributes every sale — giving you one clear,
+              unbiased truth across every channel.
+            </p>
+
+
+          </div>
+
+          {/* Dashboard Visual */}
+          <div className="relative max-w-4xl mx-auto reveal-scale">
+            {/* Main Dashboard Image */}
+            <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-soft-xl bg-white">
+              <img
+                src="/images/hero.png"
+                alt="HypeOn Analytics Dashboard"
+                className="w-full h-auto"
+              />
+            </div>
+
+            {/* Floating Cards */}
+            <FloatingCard
+              icon={Link2}
+              title="Connect"
+              description="All 8 channels. One view. No gaps."
+              className="-left-4 lg:-left-20 top-[22%] animate-float"
+              delay={0}
+            />
+
+            <FloatingCard
+              icon={Target}
+              title="Attribute"
+              description="Every sale. One channel. No overlap."
+              className="-right-4 lg:-right-20 top-[28%] animate-float-delayed"
+              delay={2}
+            />
+
+            <FloatingCard
+              icon={Sparkles}
+              title="Decide"
+              description="AI Copilot connected to live marketing data."
+              className="left-1/4 -bottom-6 animate-float-delayed-2"
+              delay={4}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

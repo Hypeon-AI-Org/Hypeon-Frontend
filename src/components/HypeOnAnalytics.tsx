@@ -19,9 +19,9 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-white py-14 px-6 font-sans">
+    <section className="bg-[oklch(0.988_0.0041_91.45)] py-14 px-6 font-sans">
       <div className="max-w-6xl mx-auto bg-[#111111] rounded-[32px] p-8 md:p-12 flex flex-col md:flex-row gap-16">
-        
+
         {/* Left Side: Header – scroll reveal */}
         <motion.div
           className="md:w-1/2"
@@ -53,12 +53,12 @@ export default function FAQSection() {
                 className="w-full py-4 flex justify-between items-center text-left text-white group"
               >
                 <span className="text-[15px] font-medium pr-4">{faq.question}</span>
-                <ChevronDown 
-                  className={`text-gray-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
-                  size={18} 
+                <ChevronDown
+                  className={`text-gray-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
+                  size={18}
                 />
               </button>
-              
+
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div

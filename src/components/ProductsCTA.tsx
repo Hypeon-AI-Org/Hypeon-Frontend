@@ -8,10 +8,10 @@ export default function ProductsCTA() {
       </h2>
 
       <Link
-        href="/signup"
+        href="https://app.hypeon.ai/login"
         className="inline-block mt-6 rounded-xl bg-white px-6 py-3 text-black text-sm reveal"
       >
-        Start Using HypeOn
+        Get the demo
       </Link>
     </section>
   );

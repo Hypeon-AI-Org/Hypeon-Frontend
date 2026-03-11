@@ -12,7 +12,7 @@ import GrowthTimeline from "../../components/GrowthTimeline";
 import BUILDING from "../../components/BUILDING";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import TeamGlobalMapClient from "@/components/TeamGlobalMapClient";
+import StartToday from "../../components/TeamGlobalMap";
 
 export default function AboutPage() {
   return (
@@ -24,17 +24,13 @@ export default function AboutPage() {
       <AboutDecisionLayer />
       <AboutStory />
       <AboutWhatWeDo />
-      <AboutDataSources />
       <AboutCoreLayers />
+      <AboutDataSources />
       <AboutVision />
-      <AboutImpact />
-      <GrowthTimeline />
       <BUILDING />
-
-      
-      <TeamGlobalMapClient />
-
-      <AboutCTA />
+      <GrowthTimeline />
+      <AboutImpact />
+      <StartToday />
       <Footer />
     </main>
   );

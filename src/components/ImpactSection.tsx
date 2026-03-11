@@ -47,7 +47,7 @@ function AnimatedNumber({
 
 export default function ImpactSection() {
   return (
-    <section className="relative py-16 bg-white">
+    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] ">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -114,9 +114,8 @@ export default function ImpactSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className={`py-8 px-3 ${
-                i !== 3 ? "border-r border-neutral-200" : ""
-              }`}
+              className={`py-8 px-3 ${i !== 3 ? "border-r border-neutral-200" : ""
+                }`}
             >
               {/* Number */}
               <div className="text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">

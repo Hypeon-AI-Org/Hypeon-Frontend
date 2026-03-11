@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
-import { ContactModalProvider } from "@/context/ContactModalContext";
+import { ScaleProvider } from "@/context/ScaleContext";
 
 export const metadata: Metadata = {
   title: "HypeOn AI - The Future of D2C Trend Intelligence",
@@ -24,10 +24,10 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased selection:bg-brand-500 selection:text-white relative font-sans ">
-        <ContactModalProvider>
+        <ScaleProvider>
           <ScrollRevealSetup />
           {children}
-        </ContactModalProvider>
+        </ScaleProvider>
       </body>
     </html>
   );

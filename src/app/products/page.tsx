@@ -23,7 +23,6 @@ export default function ProductsPage() {
 
       <main className="relative z-10">
         <ProductsIntro />
-
         <TrendingProducts />
         <HighValueKeywords />
         <WinningAdCreatives />

@@ -40,7 +40,7 @@ export default function HypeScoreSection() {
   const activeFeature = features.find((f) => f.id === activeId) ?? features[0];
 
   return (
-    <section className="py-14 bg-white font-sans">
+    <section className="py-14 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
       <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-[1fr_420px] gap-12 items-start">
 
         {/* LEFT CONTENT – scroll reveal */}
@@ -51,7 +51,7 @@ export default function HypeScoreSection() {
           </p>
 
           <h2 className="text-3xl text-[#0f172a] leading-[1.1] mb-6 max-w-xl font-semibold">
-            Know what they're doing. Know what they're missing.
+            Know what they're doing.<span className='text-brand-600'>Know what they're missing.</span>
           </h2>
 
           <p className="text-slate-500 text-[14px] leading-relaxed max-w-md mb-8">
@@ -78,11 +78,10 @@ export default function HypeScoreSection() {
 
                     {/* Title */}
                     <span
-                      className={`block text-[16px] font-semibold transition-colors duration-300 ${
-                        isActive
+                      className={`block text-[16px] font-semibold transition-colors duration-300 ${isActive
                           ? 'text-slate-900'
                           : 'text-slate-400 group-hover:text-slate-700'
-                      }`}
+                        }`}
                     >
                       {feature.title}
                     </span>

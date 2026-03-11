@@ -37,7 +37,7 @@ export default function HighValueKeywords() {
   ]
 
   return (
-    <section className="py-16 bg-white font-sans pr-20">
+    <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans pr-20">
 
       <div className="max-w-5xl mx-auto px-5 grid md:grid-cols-[1fr_360px] gap-8 items-center pl-20">
 
@@ -51,7 +51,7 @@ export default function HighValueKeywords() {
           <h2 className="text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg">
             One number. Updated every 24 hours.
             <br />
-            <span className="text-[#757575]">
+            <span className="text-brand-600">
               That's your answer.
             </span>
           </h2>
@@ -74,55 +74,55 @@ export default function HighValueKeywords() {
 
         {/* RIGHT SCORE CARD – scroll reveal (same as TrendingProducts) */}
         <div className="reveal-right">
-        <motion.div
-          className="relative w-full max-w-[300px] rounded-2xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm"
-        >
+          <motion.div
+            className="relative w-full max-w-[300px] rounded-2xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm"
+          >
 
-          {/* Score */}
-          <div className="flex flex-col items-center">
+            {/* Score */}
+            <div className="flex flex-col items-center">
 
-            <div className="text-2xl md:text-3xl font-semibold text-[#1a1a1a]">
-              <AnimatedNumber value={78} />
+              <div className="text-2xl md:text-3xl font-semibold text-[#1a1a1a]">
+                <AnimatedNumber value={78} />
+              </div>
+
+              <p className="mt-1.5 text-xs text-[#757575]">
+                Hype Score
+              </p>
+
             </div>
 
-            <p className="mt-1.5 text-xs text-[#757575]">
-              Hype Score
-            </p>
+            {/* Divider */}
+            <div className="my-4 h-px bg-slate-200" />
 
-          </div>
+            {/* Metrics – staggered scroll reveal */}
+            <div className="space-y-3 reveal-stagger">
 
-          {/* Divider */}
-          <div className="my-4 h-px bg-slate-200" />
+              {metrics.map((metric, i) => (
+                <div key={metric.label}>
 
-          {/* Metrics – staggered scroll reveal */}
-          <div className="space-y-3 reveal-stagger">
+                  <div className="flex justify-between text-xs text-[#757575] mb-1">
+                    <span>{metric.label}</span>
+                    <span>{metric.value}</span>
+                  </div>
 
-            {metrics.map((metric, i) => (
-              <div key={metric.label}>
+                  <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
 
-                <div className="flex justify-between text-xs text-[#757575] mb-1">
-                  <span>{metric.label}</span>
-                  <span>{metric.value}</span>
-                </div>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${metric.value}%` }}
+                      transition={{ delay: i * 0.15, duration: 0.8 }}
+                      viewport={{ once: true }}
+                      className="h-full bg-[#1a1a1a] rounded-full"
+                    />
 
-                <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${metric.value}%` }}
-                    transition={{ delay: i * 0.15, duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="h-full bg-[#1a1a1a] rounded-full"
-                  />
+                  </div>
 
                 </div>
+              ))}
 
-              </div>
-            ))}
+            </div>
 
-          </div>
-
-        </motion.div>
+          </motion.div>
         </div>
 
       </div>

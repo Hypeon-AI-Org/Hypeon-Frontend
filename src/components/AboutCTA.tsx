@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function StartToday() {
   return (
-    <section className="relative py-16 bg-gradient-to-b from-white via-neutral-50 to-white overflow-hidden">
+    <section className="font-sans relative py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
@@ -44,21 +44,16 @@ export default function StartToday() {
           className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6"
         >
           {/* Primary CTA */}
-          <motion.button
+          <motion.a
+            href="https://app.hypeon.ai/login"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
             className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:bg-neutral-800 transition-all"
           >
-            Get Early Access — Free Trial →
-          </motion.button>
+            Get the demo
+          </motion.a>
 
-          {/* Secondary CTA */}
-          <motion.button
-            whileHover={{ y: -2 }}
-            className="px-6 py-3 text-black font-medium border border-neutral-300 rounded-full hover:bg-neutral-100 transition-all"
-          >
-            Book a Demo
-          </motion.button>
+
         </motion.div>
 
         {/* Trust Line */}

@@ -20,11 +20,12 @@ import {
   ShoppingBag,
   Package,
   Music2,
-    DollarSign,
+  DollarSign,
   Users,
   Briefcase,
   Facebook,
   BarChart3,
+  Activity
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
@@ -116,20 +117,20 @@ export default function Hero() {
       heroSection.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
-const words = [
-  "Wrong Product.",
-  "Wrong Channel.",
-  "Wrong Ads.",
-  "Wrong Pricing.",
-  "Wrong Markets.",
-  "Wrong Audience.",
-  "Wrong Campaign.",
-  "Wrong Geo.",
-  "Wrong Creative.",
-  "Wrong Trend.",
-  "Wrong Inventory.",
-  "Wrong Customer."
-];
+  const words = [
+    "Wrong Product.",
+    "Wrong Channel.",
+    "Wrong Ads.",
+    "Wrong Pricing.",
+    "Wrong Markets.",
+    "Wrong Audience.",
+    "Wrong Campaign.",
+    "Wrong Geo.",
+    "Wrong Creative.",
+    "Wrong Trend.",
+    "Wrong Inventory.",
+    "Wrong Customer."
+  ];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -140,32 +141,30 @@ const words = [
     return () => clearInterval(interval);
   }, []);
   return (
-    <section ref={heroSectionRef} className="relative pt-24 pb-20 lg:pt-16 lg:pb-32 bg-[#FDFDFC] overflow-hidden perspective-container">
+    <section ref={heroSectionRef} className="relative pt-24 pb-20 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden perspective-container  ">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
 
         {/* ── TOP: TEXT CONTENT ── */}
-        <div className="relative bg-[#FDFDFC] overflow-hidden">
+        <div className="relative  overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-32">
 
             <div className="max-w-5xl text-left pl-0 lg:pl-16">
 
               {/* Badge */}
               <div className="flex items-center gap-3 mb-10">
-                <span className="flex items-center justify-center w-6 h-6 rounded-md bg-green-100 text-green-700">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4" strokeWidth="2">
-                    <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white">
+                  <Activity className="w-3 h-3" />
                 </span>
                 <span className="text-slate-600 font-medium text-sm tracking-tight">
-              Built on millions of data signals
+                  Built on millions of data signals
                 </span>
               </div>
 
               {/* Headline */}
-<h1 className="text-[20px] sm:text-[24px] md:text-[34px] lg:text-[42px] 
+              <h1 className="text-[20px] sm:text-[24px] md:text-[34px] lg:text-[42px] 
 font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                 Stop wasting budget on the {" "} <br />
-                <span className="relative inline-block align-baseline h-[1em] min-w-[240px] sm:min-w-[300px] md:min-w-[360px] lg:min-w-[400px] overflow-hidden">
+                <span className="relative inline-block align-baseline h-[1.3em] min-w-[240px] sm:min-w-[300px] md:min-w-[360px] lg:min-w-[400px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
@@ -198,18 +197,18 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
 
               {/* CTA */}
               <a
-  href="https://app.hypeon.ai/login"
-  className="inline-flex items-center gap-2 pl-2 pr-5 py-2
+                href="https://app.hypeon.ai/login"
+                className="inline-flex items-center gap-2 pl-2 pr-5 py-2
   rounded-full text-[14px] font-medium
   text-white bg-black hover:bg-neutral-900
   transition-all duration-300 shadow-lg
   mt-6"
->
-  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black">
-    <ArrowRight className="w-3 h-3" />
-  </span>
-  Get Early Access
-</a>
+              >
+                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black">
+                  <ArrowRight className="w-3 h-3" />
+                </span>
+                Get the demo
+              </a>
 
             </div>
           </div>
@@ -247,14 +246,14 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                       alt="HypeOn AI Logo"
                       width={28}
                       height={28}
-                      
+
                     />
                   </div>
                   <span className="text-sm font-semibold text-slate-900 tracking-tight">HypeOn Assistant</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-pinks-50 text-pink-700 rounded-full text-xs font-semibold border border-green-100 tracking-wide">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-pinks-50 text-black-700 rounded-full text-xs font-semibold border border-green-100 tracking-wide">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"></div>
                     SYNCED WITH SHOPIFY
                   </div>
                   <button className="text-slate-400 hover:text-slate-900 transition-colors">
@@ -278,7 +277,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                             alt="HypeOn AI Logo"
                             width={60}
                             height={60}
-                          
+
                           />
                         </div>
                       </div>
@@ -305,7 +304,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                           alt="HypeOn AI Logo"
                           width={28}
                           height={28}
-                        
+
                         />
                       </div>
                       <div className="ml-5 flex-1 min-w-0 text-left">
@@ -329,7 +328,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                             {/* AI Intro Text */}
                             <div className="bg-white border border-slate-100 shadow-sm rounded-2xl rounded-tl-sm p-6 w-full">
                               <p className="text-[15px] text-slate-700 leading-relaxed font-medium">
-                                I've analyzed <span className="px-1.5 py-0.5 rounded bg-pink-50 text-pink-700 font-semibold border border-pink-100">
+                                I've analyzed <span className="px-1.5 py-0.5 rounded bg-gray-50 text-slate-900 font-semibold border border-black-100">
                                   12.4M live fashion ad creatives
                                 </span> across Meta & TikTok India.
                                 Here are the top 20 Fashion products ranked by projected profitability and ad velocity.
@@ -379,7 +378,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                                       <td className="py-3 pr-6 text-slate-600">{item[1]}</td>
                                       <td className="py-3 pr-6 text-slate-700">{item[2]}</td>
                                       <td className="py-3 pr-6">
-                                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-pink-50 text-pink-700 border border-pink-100">
+                                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-black-50 text-black-700 border border-black-100">
                                           {item[3]}
                                         </span>
                                       </td>
@@ -434,62 +433,134 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
       </div>
 
       <div className="mt-20 pt-10  reveal">
-          <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8 text-center">
-            Trusted by founders scaling on
-          </p>
-          <div className="marquee-container">
-            <div className="marquee-content">
-              {/* First set of logos */}
-              <div className="flex items-center gap-12 px-8">
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Package className="w-5 h-5 text-orange-500" /> Amazon
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Video className="w-5 h-5 text-black" /> TikTok Shop
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Search className="w-5 h-5 text-blue-500" /> Pinterest
-                </div>
+        <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8 text-center">
+          Trusted by founders scaling on
+        </p>
+        <div className="marquee-container">
+          <div className="marquee-content flex justify-center">
+            {/* First set of logos */}
+            <div className="flex items-center gap-12 px-8">
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
-              {/* Duplicate set for seamless loop */}
-              <div className="flex items-center gap-12 px-8">
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Package className="w-5 h-5 text-orange-500" /> Amazon
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Video className="w-5 h-5 text-black" /> TikTok Shop
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                  <Search className="w-5 h-5 text-blue-500" /> Pinterest
-                </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Package className="w-5 h-5 text-orange-500" /> Amazon
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Video className="w-5 h-5 text-black" /> TikTok Shop
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Search className="w-5 h-5 text-blue-500" /> Pinterest
               </div>
             </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-12 px-8">
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Package className="w-5 h-5 text-orange-500" /> Amazon
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Video className="w-5 h-5 text-black" /> TikTok Shop
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Search className="w-5 h-5 text-blue-500" /> Pinterest
+              </div>
             </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-12 px-8">
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Package className="w-5 h-5 text-orange-500" /> Amazon
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Video className="w-5 h-5 text-black" /> TikTok Shop
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Search className="w-5 h-5 text-blue-500" /> Pinterest
+              </div>
             </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-12 px-8">
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Package className="w-5 h-5 text-orange-500" /> Amazon
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Video className="w-5 h-5 text-black" /> TikTok Shop
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Search className="w-5 h-5 text-blue-500" /> Pinterest
+              </div>
+            </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center gap-12 px-8">
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Package className="w-5 h-5 text-orange-500" /> Amazon
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Video className="w-5 h-5 text-black" /> TikTok Shop
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
+              </div>
+              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+                <Search className="w-5 h-5 text-blue-500" /> Pinterest
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
   );

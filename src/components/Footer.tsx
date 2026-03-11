@@ -2,11 +2,10 @@
 
 import { Linkedin, Instagram } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../assets/HypeOn_Logo.png";
-import { useContactModal } from "@/context/ContactModalContext";
 
 export default function Footer() {
-  const { openForm } = useContactModal();
 
   return (
     <footer className="relative bg-[#0E1116] rounded-t-3xl overflow-hidden mt-0">
@@ -76,7 +75,7 @@ export default function Footer() {
               title: 'Company',
               links: [
                 { label: 'About Us', href: '/about' },
-                { label: null, href: null }, // Contact — handled by modal
+                { label: 'Contact Us', href: 'mailto:info@hypeon.ai' },
                 { label: 'Privacy', href: '/privacy-policy' },
               ],
             },
@@ -86,30 +85,25 @@ export default function Footer() {
                 {col.title}
               </h4>
               <ul className="space-y-3 text-sm text-slate-400">
-                {col.links.map((link, i) => {
-                  if (link.label === null) {
-                    return (
-                      <li key={i}>
-                        <button
-                          onClick={() => openForm("beta")}
-                          className="text-slate-400 hover:text-white transition-colors text-left"
-                        >
-                          Contact Us
-                        </button>
-                      </li>
-                    );
-                  }
-                  return (
-                    <li key={i}>
+                {col.links.map((link, i) => (
+                  <li key={i}>
+                    {link.href!.startsWith('http') || link.href!.startsWith('#') || link.href!.startsWith('mailto:') ? (
                       <a
                         href={link.href!}
                         className="hover:text-white transition-colors"
                       >
                         {link.label}
                       </a>
-                    </li>
-                  );
-                })}
+                    ) : (
+                      <Link
+                        href={link.href!}
+                        className="hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
@@ -121,7 +115,7 @@ export default function Footer() {
             © 2025 HypeOn AI Inc. All rights reserved.
           </p>
           <div className="flex gap-5 items-center text-sm text-slate-500">
-            <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
           </div>
         </div>
       </div>

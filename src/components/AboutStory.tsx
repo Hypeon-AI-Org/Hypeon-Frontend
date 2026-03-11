@@ -1,66 +1,170 @@
-export default function AboutStory() {
-  return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-slate-100" />
-      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+'use client';
 
-        {/* LEFT — STORY */}
-        <div className="reveal-left">
-          <p className="section-label mb-4">Our Story</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight tracking-tight">
-            Built from frustration,{' '}
-            <span className="text-slate-500">refined by data.</span>
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+
+
+const cards = [
+  {
+    title: 'The Problem',
+    description:
+      "Teams pick products on gut, bid on stale keywords, and scale creative because someone 'had a feeling.'",
+    icon: 'target',
+  },
+  {
+    title: 'Our Solution',
+    description:
+      'We connect demand signals, competitor intelligence, pricing data, and attribution into clear decisions.',
+    icon: 'lightning',
+  },
+  {
+    title: 'Decisions, Not Dashboards',
+    description:
+      "Instead of charts, we surface what matters: rising products, wasted spend, and clear opportunities.",
+    icon: 'message',
+  },
+  {
+    title: 'Built to Scale',
+    description:
+      'Built for teams managing hundreds of SKUs where every decision compounds.',
+    icon: 'network',
+  },
+];
+
+function StoryIcon({ name }: { name: string }) {
+  switch (name) {
+    case 'target':
+      return (
+        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      );
+    case 'lightning':
+      return (
+        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      );
+    case 'message':
+      return (
+        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+      );
+    case 'network':
+      return (
+        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+export default function AboutStory() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={ref} className="font-sans py-8 bg-[oklch(0.988_0.0041_91.45)]">
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+
+        {/* LEFT IMAGE */}
+        <div
+          className={`transition-all duration-700 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <div className="relative max-w-md mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/4]">
+  <Image
+    src="/about/story.png"
+    alt="Business analytics and market research"
+    fill
+    className="object-cover"
+  />
+
+  {/* overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+</div>
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div>
+
+          <p
+            className={`text-[11px] tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            Why we exist
+          </p>
+
+          <h2
+            className={`text-2xl md:text-3xl  text-slate-900 leading-tight transition-all ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
+            Every failed launch starts with a bad decision.
           </h2>
 
-          <div className="mt-8 space-y-5 text-slate-500 leading-relaxed">
-            <p>
-              After years in eCommerce and performance marketing, we kept seeing the same mistakes repeated.
-            </p>
-            <p>
-              Months of research, expensive tools, endless testing — and still the wrong product, wrong price, wrong keyword, wrong message.
-            </p>
-            <p>
-              Teams fight CPCs and CPAs instead of fixing the real problem. We built{' '}
-              <span className="font-medium text-slate-800">HypeOn AI</span> to end that cycle.
-            </p>
-            <p>
-              Our goal is simple:{' '}
-              <span className="font-medium text-slate-800">profitable growth</span>.
-            </p>
-            <p>
-              HypeOn helps you decide what to launch, how to price it, which keywords customers actually buy from, and which ad creatives already convert —{' '}
-              <span className="font-medium text-slate-800">before you spend a dollar</span>.
-            </p>
-          </div>
-        </div>
-
-        {/* RIGHT — OUTPUT CARD */}
-        <div className="relative reveal-right">
-          <div
-            className="bg-white rounded-2xl p-10 border border-slate-200 shadow-md animate-float"
+          <p
+            className={`mt-3 text-slate-600 text-sm leading-relaxed transition-all ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
           >
-            <p className="text-xs tracking-widest text-slate-400 uppercase font-medium mb-6">
-              Instant Output
-            </p>
-            <ul className="space-y-4 text-slate-700 text-sm">
-              {[
-                'Trending products',
-                'Rising keywords',
-                'Winning creative angles',
-                'Launch Score (demand × competition)',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-slate-900 flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 pt-6 border-t border-slate-100 text-sm font-semibold text-slate-900">
-              Stop guessing. Start knowing what to launch.
-            </div>
-          </div>
-        </div>
+            Most e-commerce teams don't lose money because they can't execute — 
+            they lose money because they execute on the wrong thing.
+          </p>
 
+          {/* CARDS */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            {cards.map((card, i) => (
+              <div
+                key={card.title}
+                className={`bg-white rounded-lg border border-slate-200 shadow-sm p-4 transition-all hover:shadow-md ${
+                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+                style={{ transitionDelay: `${200 + i * 80}ms` }}
+              >
+                <div className="mb-2">
+                  <StoryIcon name={card.icon} />
+                </div>
+
+                <h3 className="font-semibold text-slate-900 text-sm">
+                  {card.title}
+                </h3>
+
+                <p className="mt-1 text-slate-600 text-xs leading-relaxed">
+                  {card.description}
+                </p>
+              </div>
+            ))}
+
+          </div>
+
+        </div>
       </div>
     </section>
   );

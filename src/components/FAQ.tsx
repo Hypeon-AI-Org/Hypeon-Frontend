@@ -38,7 +38,7 @@ export default function FAQ() {
     };
 
     return (
-        <section className="py-16 bg-[#FDFDFC] border-t border-slate-200">
+        <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-[1fr_2fr] gap-6 lg:gap-12">
 
@@ -93,20 +93,6 @@ export default function FAQ() {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-20 flex justify-center">
-                    <a
-                        href="#"
-                        className="inline-flex items-center gap-3 pl-2 pr-5 py-1.5 rounded-full bg-black text-white hover:bg-neutral-900 transition-colors"
-                    >
-                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="m12 5 7 7-7 7"></path>
-                            </svg>
-                        </span>
-                        <span className="text-[14px] font-medium">Book demo</span>
-                    </a>
-                </div>
 
             </div>
         </section>

@@ -26,68 +26,68 @@ export default function CombinedLayout() {
   return (
     <main>
       {/* 1. PARTNERS SECTION (NOW ON TOP) */}
-      <section className="bg-white border-t border-slate-200">
-      <div className="max-w-7xl mx-auto">
+      <section className="bg-[oklch(0.988_0.0041_91.45)] border-t border-slate-200">
+        <div className="max-w-7xl mx-auto">
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-2 md:grid-cols-5 items-center text-center">
+          {/* Grid Container */}
+          <div className="grid grid-cols-2 md:grid-cols-5 items-center text-center">
 
-          {/* Label Column */}
-          <div className="py-7 px-6 border-b md:border-b-0 md:border-r border-slate-200">
-            <p className="text-slate-700 font-medium">
-              Official partners
-            </p>
+            {/* Label Column */}
+            <div className="py-7 px-6 border-b md:border-b-0 md:border-r border-slate-200">
+              <p className="text-slate-700 font-medium">
+                Official partners
+              </p>
+            </div>
+
+            {/* Google */}
+            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+              <Image
+                src={googleStartups}
+                alt="Google Cloud for Startups"
+                width={110}
+                height={50}
+
+              />
+            </div>
+
+            {/* OpenAI */}
+            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+              <Image
+                src={openAIBG}
+                alt="OpenAI for Startups"
+                width={95}
+                height={50}
+
+              />
+            </div>
+
+            {/* AWS */}
+            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+              <Image
+                src={awsStartups}
+                alt="AWS for Startups"
+                width={95}
+                height={50}
+
+              />
+            </div>
+
+            {/* NVIDIA */}
+            <div className="py-7 px-5 flex items-center justify-center">
+              <Image
+                src={nividia}
+                alt="NVIDIA"
+                width={95}
+                height={50}
+
+              />
+            </div>
+
           </div>
-
-          {/* Google */}
-          <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
-            <Image
-              src={googleStartups}
-              alt="Google Cloud for Startups"
-              width={110}
-              height={50}
-              
-            />
-          </div>
-
-          {/* OpenAI */}
-          <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
-            <Image
-              src={openAIBG}
-              alt="OpenAI for Startups"
-              width={95}
-              height={50}
-             
-            />
-          </div>
-
-          {/* AWS */}
-          <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
-            <Image
-              src={awsStartups}
-              alt="AWS for Startups"
-              width={95}
-              height={50}
-              
-            />
-          </div>
-
-          {/* NVIDIA */}
-          <div className="py-7 px-5 flex items-center justify-center">
-            <Image
-              src={nividia}
-              alt="NVIDIA"
-              width={95}
-              height={50}
-              
-            />
-          </div>
-
         </div>
-      </div>
-    </section>
+      </section>
       {/* 2. FOUNDER SECTION (NOW BELOW) */}
-      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden bg-[#FBFBF9] py-16">
+      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden bg-[oklch(0.988_0.0041_91.45)]  py-16">
 
         {/* Very Light Grid Background */}
         <div
@@ -105,14 +105,14 @@ export default function CombinedLayout() {
 
         {/* Backdrop Overlay */}
         <div
-          className={`fixed inset-0 z-40 bg-[#FBFBF9]/40 backdrop-blur-sm transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 z-20 bg-[#FBFBF9]/40 backdrop-blur-sm transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           onClick={() => setViewState('idle')}
         />
 
         {/* The Card Container */}
         <div className={`
-          relative z-50 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]
+         relative z-30 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]
           ${isExpanded ? 'fixed inset-0 flex items-center justify-center p-4 md:p-8' : 'w-full max-w-[480px] px-4'}
         `}>
 
@@ -145,7 +145,7 @@ export default function CombinedLayout() {
             )}
 
             {/* Letter Content */}
-            <div className="text-left font-mono">
+            <div className="text-left font-mono ">
               <h2 className={`
                 tracking-tight text-[#1A1A1A] font-medium leading-tight transition-all duration-500
                 ${isExpanded ? 'text-[28px] md:text-[36px] mb-16' : 'text-[20px] mb-10'}
@@ -158,24 +158,23 @@ export default function CombinedLayout() {
                 ${isExpanded ? 'text-[15px] md:text-[16px] leading-[1.8] space-y-10' : 'text-[13px] leading-[1.7] space-y-6'}
               `}>
                 <p>
-                Every e-commerce founder I know has the same morning routine. Open five dashboards. See five different revenue numbers. Try to figure out which one is real. None of them are.
+                  Every e-commerce founder I know has the same morning routine. Open five dashboards. See five different revenue numbers. Try to figure out which one is real. None of them are.
                 </p>
-
                 <p>
-                Google takes credit for the sale. Meta takes credit for the same sale. TikTok does too. Add them up and you look like a genius. Check your bank account and the truth is 40–60% lower.
+                  Google takes credit for the sale. Meta takes credit for the same sale. TikTok does too. Add them up and you look like a genius. Check your bank account and the truth is 40–60% lower.
                 </p>
                 {isExpanded && (
                   <>
                     <p>
-                    Meanwhile, you spend months researching a product. Launch it. Nothing happens. Two weeks later, someone else goes viral with the same thing. They saw the signal first. You didn't - because you were using the same tools as everyone else.
+                      Meanwhile, you spend months researching a product. Launch it. Nothing happens. Two weeks later, someone else goes viral with the same thing. They saw the signal first. You didn't - because you were using the same tools as everyone else.
                     </p>
                     <p>
-                    This is the problem I kept running into. Not a lack of tools. A lack of truth. No one could tell me which channel actually made the sale. No one could show me what was about to trend before it peaked. No one could give me a straight answer on where to put my next pound of ad spend.
+                      This is the problem I kept running into. Not a lack of tools. A lack of truth. No one could tell me which channel actually made the sale. No one could show me what was about to trend before it peaked. No one could give me a straight answer on where to put my next pound of ad spend.
                     </p>
                     <p>So we built HypeOn.</p>
                     <p>It scans 20 million signals a day to show you what's coming - weeks before it peaks. It attributes every order to one channel with zero double counting. And it answers your marketing questions in plain English, with specific numbers and specific actions.
-2,400+ founders across 48 countries use it now. We're just getting started.
-</p>
+                      2,400+ founders across 48 countries use it now. We're just getting started.
+                    </p>
                     <div className="pt-12 border-t border-[#F0F0EB]">
                       <p className="font-semibold text-black text-[20px]">Yash Kumar</p>
                       <p className="text-sm opacity-50">founder</p>

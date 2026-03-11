@@ -1,39 +1,49 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Users, Building2 } from 'lucide-react';
+import { User, Users, Building2, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
 
 const TeamsSection = () => {
-  const cards = [
+  const sections = [
     {
       icon: User,
       title: "Brand Founders",
-      desc: "Stop making budget decisions based on unreliable platform data. See real ROAS, real growth.",
+      subtitle: "The clarity to lead with confidence",
+      desc: "Stop making budget decisions based on unreliable platform data. HypeOn gives you one clear, unbiased truth across every channel so you can focus on growth, not guesswork.",
+      image: "/images/founder.png",
       bullets: [
-        "Real ROAS across all channels",
-        "No more double-counted conversions",
-        "Decisions backed by unbiased data"
-      ]
+        "Real-time ROAS across all channels",
+        "Deduplicated conversion tracking",
+        "Profit-first growth metrics"
+      ],
+      reversed: false
     },
     {
       icon: Users,
       title: "Marketing Teams",
-      desc: "Know exactly which channels bring new customers vs returning customers. Scale the right ones.",
+      subtitle: "Precision engineering for your ad spend",
+      desc: "Know exactly which channels bring new customers vs returning customers. Our AI-driven signals help you decide where to scale, hold, or pause in real-time.",
+      image: "/images/marketing.png",
       bullets: [
         "New vs returning attribution split",
-        "Scale / hold / pause signals",
-        "AI Copilot for daily decisions"
-      ]
+        "Automated scale/pause signals",
+        "AI Copilot for data-backed agility"
+      ],
+      reversed: true
     },
     {
       icon: Building2,
       title: "Agencies",
-      desc: "Manage attribution across multiple brands with clear, client-ready reporting that proves results.",
+      subtitle: "Client performance, perfected",
+      desc: "Manage multiple brands with a single source of truth. Deliver client-ready reporting that proves your value with verified data that platforms can't inflate.",
+      image: "/images/agencies.png",
       bullets: [
-        "Multi-brand attribution workspace",
-        "White-label client reporting",
-        "Provable ROAS improvement data"
-      ]
+        "Multi-brand workspace overview",
+        "White-label transparency for clients",
+        "Audit-ready performance data"
+      ],
+      reversed: false
     }
   ];
 
@@ -44,108 +54,139 @@ const TeamsSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="max-w-[1160px] mx-auto px-8">
-        
+    <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden font-sans">
+      <div className="max-w-[1100px] mx-auto px-6 sm:px-12">
+
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.div 
+        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-black-600 font-semibold tracking-wide uppercase text-xs mb-4"
+            className="inline-block px-4 py-1.5 rounded-full bg-gray-100 text-gray-900 font-medium tracking-wide uppercase text-[10px] mb-4"
           >
             Built for every team
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6 font-display"
+            className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-gray-900 mb-6"
           >
             Why brands choose <span className="text-brand-600">HypeOn Analytics</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-gray-500 leading-relaxed"
+            className="text-[15px] md:text-lg text-gray-500 leading-relaxed"
           >
-            Whether you're a founder, media buyer, or agency — HypeOn gives you the clarity to act fast on real data.
+            The ultimate attribution stack for high-growth D2C teams.
           </motion.p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {cards.map((card, idx) => {
-            const Icon = card.icon;
+        {/* Alternating Sections */}
+        <div className="space-y-20 md:space-y-28">
+          {sections.map((item, idx) => {
+            const Icon = item.icon;
             return (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="bg-gray-50 border border-gray-200 rounded-[24px] p-8 transition-shadow hover:shadow-xl hover:shadow-gray-200/50"
+                className={`flex flex-col lg:items-center gap-8 lg:gap-12 ${item.reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gray-200/80 text-gray-900">
-                  <Icon className="h-6 w-6" strokeWidth={1.75} />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 font-display">{card.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-8">{card.desc}</p>
+                {/* Text Content */}
+                <div className="w-full lg:w-1/2 space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, x: item.reversed ? 30 : -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="space-y-6"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-900 text-white shadow-lg shadow-gray-200">
+                        <Icon className="h-6 w-6" strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest">{item.title}</h3>
+                        <p className="text-xl font-semibold text-gray-900">{item.subtitle}</p>
+                      </div>
+                    </div>
 
-                <ul className="space-y-4">
-                  {card.bullets.map((bullet, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[13px] text-gray-700 font-medium">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-pink-600">
-                          <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+                    <p className="text-[15px] text-gray-600 leading-relaxed">
+                      {item.desc}
+                    </p>
+
+                    <ul className="space-y-4">
+                      {item.bullets.map((bullet, i) => (
+                        <li key={i} className="flex items-center gap-3 text-sm text-gray-700 font-medium">
+                          <CheckCircle2 className="h-5 w-5 text-gray-900" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                </div>
+
+                {/* Dashboard Image Visual */}
+                <div className="w-full lg:w-1/2">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: item.reversed ? -30 : 30 }}
+                    whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-tr from-gray-100 to-transparent rounded-[24px] -m-4 md:-m-6 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
+                    <div className="relative rounded-[24px] overflow-hidden border border-gray-200 shadow-2xl bg-white shadow-gray-200/50">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={800}
+                        height={500}
+                        className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
             );
           })}
         </div>
 
         {/* Premium Stat Callout */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gray-900 rounded-[32px] p-8 md:p-12 relative overflow-hidden"
+          className="mt-20 md:mt-28 bg-gray-900 rounded-[32px] p-6 md:p-10 relative overflow-hidden text-center lg:text-left"
         >
-          {/* Subtle Background Glow */}
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-500/10 blur-[120px]" />
-          
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="max-w-md text-center lg:text-left">
-              <h3 className="text-white text-3xl md:text-4xl font-bold font-display leading-tight mb-4">
-                +26% average ROAS increase
+          <div className="absolute bottom-0 left-0 w-1/2 h-full bg-pink-500/5 blur-[120px]" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+            <div className="max-w-xl">
+              <h3 className="text-white text-2xl md:text-4xl  tracking-tight leading-tight mb-6">
+                Deliver <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">+26% average ROAS</span> increase across the board
               </h3>
-              <p className="text-gray-400 text-sm">
-                Across 2,400+ brands · 48 countries · First 90 days
+              <p className="text-gray-400 text-lg">
+                The data doesn't lie. Across 2,400+ brands, HypeOn Analytics consistently reveals untapped profitability in the first 90 days.
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 lg:gap-16 w-full lg:w-auto">
               {stats.map((stat, i) => (
-                <div key={i} className="text-center">
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5 + (i * 0.1) }}
-                    className="text-white text-4xl font-bold font-display tracking-tight"
+                <div key={i} className="space-y-2">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + (i * 0.1) }}
+                    className="text-white text-3xl md:text-4xl  tracking-tighter"
                   >
                     {stat.num}
                   </motion.div>
-                  <div className="text-gray-500 text-xs uppercase tracking-widest mt-2">
+                  <div className="text-gray-500 text-[10px] uppercase tracking-[0.2em] ">
                     {stat.label}
                   </div>
                 </div>

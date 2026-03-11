@@ -29,7 +29,8 @@ function Navbar() {
   }, [mobileMenuOpen]);
 
   const goToCopilot = () => {
-    window.location.href = "/products#copilot";
+    closeMobile();
+    router.push("/products#copilot");
   };
 
   const closeMobile = () => setMobileMenuOpen(false);
@@ -40,6 +41,7 @@ function Navbar() {
       setIsScrolled(window.scrollY > 60);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -64,7 +66,7 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[52px] px-4 bg-white/80 backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              ? "h-[52px] px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
               : "h-[64px] px-6 bg-transparent border-transparent shadow-none"
             }
   `}
@@ -72,12 +74,8 @@ function Navbar() {
 
           {/* LOGO */}
           <div className="flex items-center gap-2 cursor-pointer pl-1">
-            <a
+            <Link
               href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "/";
-              }}
               className="flex items-center gap-3"
             >
               <div className=" rounded-full h-[26px] w-[26px] flex items-center justify-center overflow-hidden">
@@ -86,13 +84,13 @@ function Navbar() {
                   alt="HypeOn AI Logo"
                   width={32}
                   height={32}
-                
+
                 />
               </div>
               <span className="font-semibold text-[15px] text-black tracking-tight flex items-start">
                 HypeOn AI<span className="text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* DESKTOP NAV */}
@@ -101,10 +99,10 @@ function Navbar() {
 
             {/* PRODUCTS DROPDOWN */}
             <div className="group flex items-center h-full">
-              <button className="flex items-center gap-1.5 text-[14px] font-medium text-black hover:opacity-70 transition-opacity">
-                <a href="/products">Products</a>
+              <Link href="/products" className="flex items-center gap-1.5 text-[14px] font-medium text-black hover:opacity-70 transition-opacity">
+                Products
                 <ChevronDown className="w-3.5 h-3.5 text-black group-hover:rotate-180 transition-transform duration-200" />
-              </button>
+              </Link>
 
               {/* DROPDOWN */}
               <div
@@ -118,26 +116,26 @@ function Navbar() {
                   z-50
                 "
               >
-                <div className="rounded-3xl bg-white border border-slate-100 shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3">
+                <div className="rounded-3xl bg-[oklch(0.988_0.0041_91.45)] border border-slate-100 shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3">
                   <div className="flex gap-3 h-[220px] hover:h-[380px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
 
                     <MegaItem
-                      icon={<Brain className="w-5 h-5" />}
+                      icon={<Sparkles className="w-5 h-5" />}
                       title="HypeOn Intelligence"
                       desc="Predict demand, niches, and winning products."
-                      onClick={() => (window.location.href = '/products')}
+                      href="/products"
                       iconBg="bg-[#65D48C]"
                       iconColor="text-black"
                       illustration={<CopilotIllustration />}
                     />
 
-                    
+
 
                     <MegaItem
                       icon={<BarChart3 className="w-5 h-5" />}
                       title="HypeOn Analytics"
                       desc="Cross-channel attribution, CAC, ROI, and actionable growth insights."
-                      onClick={() => (window.location.href = '/analytics')}
+                      href="/analytics"
                       iconBg="bg-[#241C1A]"
                       iconColor="text-[#E66245]"
                       illustration={<AnalyticsIllustration short />}
@@ -153,19 +151,14 @@ function Navbar() {
               Pricing
             </button>
 
-            <a
+            <Link
               href="/about"
               className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity"
             >
               Company
-            </a>
+            </Link>
 
-            <a
-              href="/success-stories"
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity"
-            >
-              Success Stories
-            </a>
+
 
           </div>
 
@@ -182,7 +175,7 @@ function Navbar() {
               href="https://app.hypeon.ai/login"
               className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[14px] font-semibold text-white bg-black hover:bg-black/80 transition-colors"
             >
-              Get Early Access
+              Get the demo
             </a>
           </div>
 
@@ -243,7 +236,7 @@ function Navbar() {
                     desc="Predict demand and winning products."
                     onClick={() => {
                       closeMobile();
-                      window.location.href = "/products";
+                      router.push("/products");
                     }}
                   />
                   <MobileProductLink
@@ -251,7 +244,6 @@ function Navbar() {
                     title="HypeOn Copilot"
                     desc="AI-powered insights instantly."
                     onClick={() => {
-                      closeMobile();
                       goToCopilot();
                     }}
                   />
@@ -261,7 +253,7 @@ function Navbar() {
                     desc="ROI, CAC and growth insights."
                     onClick={() => {
                       closeMobile();
-                      window.location.href = "/products#analytics";
+                      router.push("/products#analytics");
                     }}
                   />
                 </div>
@@ -270,22 +262,22 @@ function Navbar() {
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             {/* Other Links */}
-            <a
+            <Link
               href="/solutions"
               onClick={closeMobile}
               className="block py-3 text-base font-medium text-slate-700"
             >
               Solutions
-            </a>
+            </Link>
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-            <a
+            <Link
               href="/about"
               onClick={closeMobile}
               className="block py-3 text-base font-medium text-slate-700"
             >
               Company
-            </a>
+            </Link>
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             <button
@@ -311,7 +303,7 @@ function Navbar() {
                 href="https://app.hypeon.ai/login"
                 className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-base font-medium"
               >
-                Try HypeOn
+                Get the demo
               </a>
             </div>
 
@@ -362,7 +354,7 @@ function MegaItem({
   icon,
   title,
   desc,
-  onClick,
+  href,
   iconBg,
   iconColor,
   illustration,
@@ -373,7 +365,7 @@ function MegaItem({
   icon: React.ReactNode;
   title: string;
   desc: string;
-  onClick: () => void;
+  href: string;
   iconBg?: string;
   iconColor?: string;
   illustration?: React.ReactNode;
@@ -382,9 +374,8 @@ function MegaItem({
   isInactive?: boolean;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <Link
+      href={href}
       className={`
         group/card relative
         text-left
@@ -395,7 +386,7 @@ function MegaItem({
         h-full
         flex-1 hover:flex-[1.1]
         overflow-hidden
-        ${isActive ? 'min-w-[60%] ring-1 ring-slate-200 shadow-md bg-white' : 'bg-white'}
+        ${isActive ? 'min-w-[60%] ring-1 ring-slate-200 shadow-md bg-[oklch(0.988_0.0041_91.45)]' : 'bg-[oklch(0.988_0.0041_91.45)]'}
         ${isInactive ? 'opacity-40 hover:opacity-100' : ''}
       `}
     >
@@ -421,7 +412,7 @@ function MegaItem({
         <p className="font-semibold text-[13px] tracking-tight text-slate-900">{title}</p>
         <p className={`text-[13px] text-slate-500 leading-snug mt-1.5 transition-all duration-500 ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
       </div>
-    </button>
+    </Link>
   );
 }
 
@@ -476,11 +467,15 @@ const IntelligenceIllustration = ({ short }: { short?: boolean }) => {
         mt-2
       `}
     >
-      <Image
+      <video
         src="/images/video.mp4"
-        alt="HypeOn Intelligence Dashboard"
+        title="HypeOn Intelligence Dashboard"
         width={800}
         height={600}
+        autoPlay
+        muted
+        loop
+        playsInline
         className="w-full h-auto object-cover"
       />
 
@@ -550,25 +545,24 @@ const CopilotIllustration = ({ short }: { short?: boolean }) => {
         <p className="text-[14px] text-slate-700 tracking-tight leading-relaxed flex items-center flex-wrap">
           {visibleText}
           <span
-            className={`inline-block w-0.5 h-4 ml-0.5 bg-slate-400 align-middle ${
-              isComplete ? 'animate-pulse' : ''
-            }`}
+            className={`inline-block w-0.5 h-4 ml-0.5 bg-slate-400 align-middle ${isComplete ? 'animate-pulse' : ''
+              }`}
             aria-hidden
           />
         </p>
       </div>
 
       <div className="flex items-center gap-2 px-3 pb-3 pt-4 mt-auto">
-        <button className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
           <Paperclip className="w-4 h-4" />
-        </button>
-        <button className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+        </div>
+        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
           <PlusIcon className="w-4 h-4" />
-        </button>
+        </div>
         <div className="flex-1"></div>
-        <button className="h-9 w-9 flex items-center justify-center rounded-xl bg-black text-white hover:bg-slate-800 transition-colors">
+        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-black text-white hover:bg-slate-800 transition-colors">
           <ArrowUp className="w-4 h-4" />
-        </button>
+        </div>
       </div>
     </div>
   );

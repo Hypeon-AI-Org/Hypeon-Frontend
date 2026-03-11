@@ -6,6 +6,7 @@ import Products from '@/components/Products';
 import AboutCTA from "../components/AboutCTA";
 import FAQ from "../components/FAQ";
 import FounderDecisionMap from '../components/FounderDecisionMap';
+import MarketerSteps from '../components/steps';
 
 import ImpactSection from '../components/ImpactSection';
 // Lazy load below-the-fold components
@@ -18,6 +19,7 @@ const Features = dynamic(() => import('@/components/Features'), {
 const Partners = dynamic(() => import('@/components/Partners'));
 const Footer = dynamic(() => import('@/components/Footer'));
 
+
 export default function Home() {
   return (
     <main className="relative">
@@ -25,12 +27,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Products />
-  
       <ValueProp />
       <ImpactSection />
       <FounderDecisionMap />
       <Partners />
       <Features />
+      <MarketerSteps />
       <AboutCTA />
       <FAQ />
       <Footer />

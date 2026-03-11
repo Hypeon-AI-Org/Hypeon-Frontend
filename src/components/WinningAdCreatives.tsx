@@ -23,12 +23,12 @@ const item = {
 export default function TikTokScrollSection() {
 
   return (
-    <section className="relative  bg-white py-14 overflow-hidden font-sans">
+    <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-14 overflow-hidden font-sans">
 
       <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center">
 
         {/* LEFT TEXT */}
-        <motion.div className="z-20 bg-white lg:pl-6"
+        <motion.div className="z-20 bg-[oklch(0.988_0.0041_91.45)] lg:pl-6"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -45,7 +45,7 @@ export default function TikTokScrollSection() {
             className="text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg"
           >
             We understand and <br /> analyze Ads so <br />
-            <span className="opacity-40">you don&apos;t have to.</span>
+            <span className="text-brand-600">you don&apos;t have to.</span>
           </motion.h2>
 
           <motion.p
@@ -86,9 +86,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-[260px]" src="/images/image.png" isVideo />
-                <VideoItem height="h-[260px]" src="/images/wallpaper.png" isVideo />
-                <VideoItem height="h-[260px]" src="/images/diy.png" isVideo />
+                <VideoItem height="h-70px" src="/images/image.png" isVideo />
+                <VideoItem height="h-70px" src="/images/wallpaper.png" isVideo />
+                <VideoItem height="h-70px" src="/images/diy.png" isVideo />
 
               </div>
             ))}
@@ -110,9 +110,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-[260px]" src="/images/tech (1).png" isVideo />
-                <VideoItem height="h-[260px]" src="/images/curtains.png" isVideo />
-                <VideoItem height="h-[260px]" src="/images/image.png" isVideo />
+                <VideoItem height="h-70px" src="/images/tech (1).png" isVideo />
+                <VideoItem height="h-70px" src="/images/curtains.png" isVideo />
+                <VideoItem height="h-70px" src="/images/image.png" isVideo />
 
               </div>
             ))}
