@@ -10,7 +10,7 @@ const features = [
   },
   {
     name: "Cross-platform keyword intelligence",
-    values: ["yes", "partial", "no", "no", "no"]
+    values: ["yes", "yes", "no", "no", "no"]
   },
   {
     name: "Winning ad creative analysis",
@@ -18,39 +18,39 @@ const features = [
   },
   {
     name: "Pricing intelligence & recommendations",
-    values: ["yes", "partial", "no", "no", "no"]
+    values: ["yes", "no", "no", "no", "no"]
   },
   {
     name: "Brand review & market gap analysis",
-    values: ["yes", "no", "no", "no", "no"]
+    values: ["yes", "no", "no", "no", "partial"]
   },
   {
     name: "Competitor social media analysis",
-    values: ["yes", "no", "partial", "no", "no"]
+    values: ["yes", "no", "yes", "no", "partial"]
   },
   {
     name: "Competitor website traffic analysis",
-    values: ["yes", "no", "no", "no", "no"]
+    values: ["yes", "yes", "no", "no", "yes"]
   },
   {
     name: "GEO demand analysis by country",
-    values: ["yes", "no", "no", "no", "no"]
+    values: ["yes", "partial", "no", "no", "yes"]
   },
   {
     name: "Last-click attribution",
-    values: ["yes", "no", "no", "yes", "no"]
+    values: ["yes", "no", "no", "yes", "yes"]
   },
   {
     name: "Cross-device identity resolution",
-    values: ["yes", "no", "no", "partial", "no"]
+    values: ["yes", "no", "no", "yes", "yes"]
   },
   {
     name: "New vs returning customer by channel",
-    values: ["yes", "no", "no", "partial", "no"]
+    values: ["yes", "no", "no", "yes", "yes"]
   },
   {
     name: "Product-channel fit analysis",
-    values: ["yes", "no", "no", "no", "no"]
+    values: ["yes", "no", "no", "no", "partial"]
   },
   {
     name: "AI Copilot (plain English queries)",
@@ -58,11 +58,11 @@ const features = [
   },
   {
     name: "Actionable budget recommendations",
-    values: ["yes", "no", "no", "partial", "no"]
+    values: ["yes", "no", "no", "partial", "partial"]
   },
   {
     name: "Zero-code integrations",
-    values: ["yes", "yes", "yes", "yes", "no"]
+    values: ["yes", "yes", "yes", "yes", "yes"]
   }
 ]
 
