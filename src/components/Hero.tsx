@@ -2,34 +2,26 @@
 
 import { useEffect, useRef, useState } from 'react';
 import {
-  Bot,
   ArrowUp,
   PanelLeft,
-  User,
-  Zap,
   TrendingDown,
-  ChevronRight,
   ArrowRight,
   Lock,
-  PlayCircle,
-  TrendingUp,
-  Sparkles,
-  Search,
-  Video,
-  Instagram,
-  ShoppingBag,
-  Package,
-  Music2,
-  DollarSign,
-  Users,
-  Briefcase,
-  Facebook,
-  BarChart3,
   Activity
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
+
+const PLATFORM_LOGOS = [
+  { name: 'Meta Ads', src: '/logos/meta.png' },
+  { name: 'Google Trends', src: '/logos/google.png' },
+  { name: 'Shopify', src: '/logos/shopify.png' },
+  { name: 'Amazon', src: '/logos/amazon.png' },
+  { name: 'TikTok Shop', src: '/logos/tiktok.webp' },
+  { name: 'Instagram', src: '/logos/instagram.png' },
+  { name: 'Pinterest', src: '/logos/pinterest.png' },
+] as const;
 
 export default function Hero() {
   const dashboardRef = useRef<HTMLDivElement>(null);
@@ -446,126 +438,27 @@ font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
         </p>
         <div className="marquee-container overflow-x-hidden">
           <div className="marquee-content flex justify-center">
-            {/* First set of logos */}
-            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
-              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
-                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
+            {[...Array(5)].map((_, setIndex) => (
+              <div key={setIndex} className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+                {PLATFORM_LOGOS.map(({ name, src }) => (
+                  <div
+                    key={src}
+                    className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap"
+                  >
+                    <span className="relative w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0 rounded flex items-center justify-center bg-white border border-slate-100 overflow-hidden p-0.5">
+                      <Image
+                        src={src}
+                        alt=""
+                        width={28}
+                        height={28}
+                        className="object-contain w-5 h-5 sm:w-6 sm:h-6"
+                      />
+                    </span>
+                    {name}
+                  </div>
+                ))}
               </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500" /> Amazon
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Video className="w-5 h-5 text-black" /> TikTok Shop
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Search className="w-5 h-5 text-blue-500" /> Pinterest
-              </div>
-            </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
-              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
-                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500" /> Amazon
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Video className="w-5 h-5 text-black" /> TikTok Shop
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Search className="w-5 h-5 text-blue-500" /> Pinterest
-              </div>
-            </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
-              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
-                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500" /> Amazon
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Video className="w-5 h-5 text-black" /> TikTok Shop
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Search className="w-5 h-5 text-blue-500" /> Pinterest
-              </div>
-            </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
-              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
-                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500" /> Amazon
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Video className="w-5 h-5 text-black" /> TikTok Shop
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Search className="w-5 h-5 text-blue-500" /> Pinterest
-              </div>
-            </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
-              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
-                <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <BarChart3 className="w-5 h-5 text-blue-500" /> Google Trends
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <ShoppingBag className="w-5 h-5 text-green-600" /> Shopify
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Package className="w-5 h-5 text-orange-500" /> Amazon
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Video className="w-5 h-5 text-black" /> TikTok Shop
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Instagram className="w-5 h-5 text-pink-600" /> Instagram
-              </div>
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
-                <Search className="w-5 h-5 text-blue-500" /> Pinterest
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
