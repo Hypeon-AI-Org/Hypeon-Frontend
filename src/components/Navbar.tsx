@@ -243,36 +243,20 @@ function Navbar() {
                       router.push("/products");
                     }}
                   />
-                  <MobileProductLink
-                    icon={<Bot />}
-                    title="HypeOn Copilot"
-                    desc="AI-powered insights instantly."
-                    onClick={() => {
-                      goToCopilot();
-                    }}
-                  />
+                 
                   <MobileProductLink
                     icon={<BarChart3 />}
                     title="HypeOn Analytics"
                     desc="ROI, CAC and growth insights."
                     onClick={() => {
                       closeMobile();
-                      router.push("/products#analytics");
+                      router.push("analytics");
                     }}
                   />
                 </div>
               </div>
             </div>
-            <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-            {/* Other Links */}
-            <Link
-              href="/solutions"
-              onClick={closeMobile}
-              className="block min-h-[44px] flex items-center py-3 text-base font-medium text-slate-700 cursor-pointer"
-            >
-              Solutions
-            </Link>
+            
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             <Link

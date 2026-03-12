@@ -59,8 +59,8 @@ export default function Footer() {
               title: 'Product',
               links: [
                 { label: 'HypeOn Intelligence', href: '/products' },
-                { label: 'HypeOn Copilot', href: '/products' },
-                { label: 'HypeOn Analytics', href: '/products#analytics' },
+                
+                { label: 'HypeOn Analytics', href: '/analytics' },
               ],
             },
             {
@@ -68,7 +68,7 @@ export default function Footer() {
               links: [
                 { label: 'Trend Report 2025', href: '#' },
                 { label: 'Help Center', href: '#' },
-                { label: 'Solutions', href: '/solutions' },
+               
               ],
             },
             {
