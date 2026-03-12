@@ -114,7 +114,7 @@ export default function AboutStory() {
         <div>
 
           <p
-            className={`text-[11px] tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
+            className={`text-xs tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -130,7 +130,7 @@ export default function AboutStory() {
           </h2>
 
           <p
-            className={`mt-3 text-slate-600 text-sm leading-relaxed transition-all ${
+            className={`mt-3 text-slate-600 text-[15px] leading-relaxed transition-all ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -153,11 +153,11 @@ export default function AboutStory() {
                   <StoryIcon name={card.icon} />
                 </div>
 
-                <h3 className="font-semibold text-slate-900 text-sm">
+                <h3 className="font-semibold text-slate-900 text-base">
                   {card.title}
                 </h3>
 
-                <p className="mt-1 text-slate-600 text-xs leading-relaxed">
+                <p className="mt-1 text-slate-600 text-sm leading-relaxed">
                   {card.description}
                 </p>
               </div>

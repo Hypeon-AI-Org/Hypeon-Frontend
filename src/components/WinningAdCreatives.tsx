@@ -37,7 +37,7 @@ export default function TikTokScrollSection() {
         >
 
 
-          <motion.p variants={item} className="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
+          <motion.p variants={item} className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
             Winning creatives
           </motion.p>
 
@@ -51,7 +51,7 @@ export default function TikTokScrollSection() {
 
           <motion.p
             variants={item}
-            className="text-[#757575] text-[13px] leading-relaxed max-w-md mb-6"
+            className="text-[#757575] text-[15px] leading-relaxed max-w-md mb-6"
           >
             Our Ads Insights tool, powered by proprietary AI, offers a unique
             ability to track and capitalize on Ads trends.

@@ -137,7 +137,7 @@ export default function Features() {
                 {stat.title}
               </p>
 
-              <p className="mt-2 text-[13px] text-neutral-500">
+              <p className="mt-2 text-sm text-neutral-500">
                 {stat.subtitle}
               </p>
             </motion.div>

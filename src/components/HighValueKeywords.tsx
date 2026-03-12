@@ -44,7 +44,7 @@ export default function HighValueKeywords() {
         {/* LEFT CONTENT – scroll reveal */}
         <div className="reveal-left">
 
-          <p className="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
             HYPE SCORE
           </p>
 
@@ -56,7 +56,7 @@ export default function HighValueKeywords() {
             </span>
           </h2>
 
-          <p className="text-[#757575] text-[13px] leading-relaxed max-w-md mb-3">
+          <p className="text-[#757575] text-[15px] leading-relaxed max-w-md mb-3">
             The Hype Score combines demand momentum, seasonal fit, margin
             potential, and competition pressure into a single number from
             0 to 100.

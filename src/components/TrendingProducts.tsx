@@ -46,7 +46,7 @@ export default function HypeScoreSection() {
         {/* LEFT CONTENT – scroll reveal */}
         <div className="reveal-left">
 
-          <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 font-medium mb-4">
+          <p className="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium mb-4">
             USE CASES
           </p>
 
@@ -54,7 +54,7 @@ export default function HypeScoreSection() {
             Know what they're doing.<span className='text-brand-600'>Know what they're missing.</span>
           </h2>
 
-          <p className="text-slate-500 text-[14px] leading-relaxed max-w-md mb-8">
+          <p className="text-slate-500 text-[15px] leading-relaxed max-w-md mb-8">
             Track competitors, find market gaps, discover untapped countries,
             and understand where traffic is really coming from — all from one place.
           </p>
@@ -102,7 +102,7 @@ export default function HypeScoreSection() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
                           transition={{ duration: 0.25 }}
-                          className="text-slate-500 text-[13px] leading-relaxed mt-3 max-w-sm"
+                          className="text-slate-500 text-[15px] leading-relaxed mt-3 max-w-sm"
                         >
                           {feature.description}
                         </motion.p>

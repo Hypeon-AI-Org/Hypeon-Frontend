@@ -50,7 +50,7 @@ export default function CTASection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-5 flex flex-wrap justify-center gap-2 text-gray-400 text-[13px] md:text-sm font-medium"
+          className="mt-5 flex flex-wrap justify-center gap-2 text-gray-400 text-sm font-medium"
         >
           <span>Free to start</span>
           <span className="text-gray-300">•</span>

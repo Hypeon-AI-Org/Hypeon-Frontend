@@ -19,7 +19,7 @@ export default function AboutIntro() {
         <h1 className="text-2xl md:text-4xl  text-slate-900 tracking-tight leading-tight mb-4">
         Scale Smarter. Scale Faster.
         </h1>
-        <p className="text-[17px] text-gray-500 max-w-xl mx-auto mb-6">
+        <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
         HypeOn AI helps e-commerce teams figure out what to sell next{' '}
           <span className="font-medium text-gray-500">how to sell it better</span>
           <span className="font-medium text-gray-500">and where to put their budget for the highest return using real-time signals.</span>.

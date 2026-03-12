@@ -48,7 +48,7 @@ export default function WhoWeAreBuildingFor() {
             ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'}
           `}
         >
-          <p className="text-[11px] tracking-[0.25em] uppercase font-semibold text-gray-500">
+          <p className="text-xs tracking-[0.25em] uppercase font-semibold text-gray-500">
             Our Mission
           </p>
 

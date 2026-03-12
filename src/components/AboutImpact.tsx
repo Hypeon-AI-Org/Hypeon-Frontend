@@ -111,7 +111,7 @@ export default function AboutImpact() {
               className={`transition-all duration-700 delay-100
               ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-500">
+              <p className="text-xs font-semibold tracking-[0.25em] uppercase text-slate-500">
                 Built by
               </p>
 

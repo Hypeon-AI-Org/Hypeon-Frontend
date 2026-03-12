@@ -21,7 +21,7 @@ export default function TrendalyticsSection() {
           See what's coming.<br />
           <span className='text-brand-600'>Weeks before anyone else.</span>
         </h1>
-        <p className="text-[17px] text-gray-500 max-w-xl mx-auto mb-6">
+        <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
           HypeOn Intelligence scans 20M+ signals daily across TikTok, Amazon, Google, Reddit, Pinterest and 90+ sources — and tells you what products will trend, which keywords convert, and which markets are wide open. Before your competitors see it...
         </p>
         <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-full text-[14px] inline-block">

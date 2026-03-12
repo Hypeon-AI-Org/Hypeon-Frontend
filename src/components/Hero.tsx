@@ -161,7 +161,7 @@ export default function Hero() {
               </div>
 
               {/* Headline */}
-              <h1 className="text-[20px] sm:text-[24px] md:text-[34px] lg:text-[42px] 
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
 font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                 Stop wasting budget on the {" "} <br />
                 <span className="relative inline-block align-baseline h-[1.3em] min-w-[240px] sm:min-w-[300px] md:min-w-[360px] lg:min-w-[400px] overflow-hidden">
@@ -226,7 +226,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                 <TrendingDown className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-0.5">ROAS ALERT</div>
+                <div className="text-xs font-bold text-slate-400 tracking-wider uppercase mb-0.5">ROAS ALERT</div>
                 <div className="text-sm font-medium text-slate-900">Ad spend inefficiency detected. Need me to adjust it?</div>
               </div>
             </div>
@@ -340,7 +340,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
 
                               <table className="min-w-full text-left text-sm">
                                 <thead>
-                                  <tr className="border-b border-slate-100 text-slate-500 uppercase text-[11px] tracking-wider">
+                                  <tr className="border-b border-slate-100 text-slate-500 uppercase text-xs tracking-wider">
                                     <th className="py-3 pr-6">Product</th>
                                     <th className="py-3 pr-6">Brand</th>
                                     <th className="py-3 pr-6">Price</th>
@@ -418,7 +418,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
                       <ArrowUp className="w-4 h-4" strokeWidth={2.5} />
                     </button>
                   </div>
-                  <div className="flex justify-center mt-3 text-[11px] font-semibold tracking-wide text-slate-400 space-x-1.5">
+                  <div className="flex justify-center mt-3 text-xs font-semibold tracking-wide text-slate-400 space-x-1.5">
                     <Lock className="w-3 h-3" />
                     <span>256-BIT SECURE CONNECTION TO STORE</span>
                   </div>

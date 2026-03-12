@@ -60,8 +60,8 @@ const FloatingCard = ({
           <Icon className="w-4 h-4" />
         </div>
         <div>
-          <h4 className="font-semibold text-black text-[13px]">{title}</h4>
-          <p className="text-gray-500 text-[11px] mt-0.5 leading-relaxed">{description}</p>
+          <h4 className="font-semibold text-black text-sm">{title}</h4>
+          <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{description}</p>
         </div>
       </div>
     </div>

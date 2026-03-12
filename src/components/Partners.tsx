@@ -155,7 +155,7 @@ export default function CombinedLayout() {
 
               <div className={`
                 text-[#5E5E5C] transition-all duration-500
-                ${isExpanded ? 'text-[15px] md:text-[16px] leading-[1.8] space-y-10' : 'text-[13px] leading-[1.7] space-y-6'}
+                ${isExpanded ? 'text-[15px] md:text-[16px] leading-[1.8] space-y-10' : 'text-sm leading-[1.7] space-y-6'}
               `}>
                 <p>
                   Every e-commerce founder I know has the same morning routine. Open five dashboards. See five different revenue numbers. Try to figure out which one is real. None of them are.

@@ -63,7 +63,7 @@ const TeamsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 rounded-full bg-gray-100 text-gray-900 font-medium tracking-wide uppercase text-[10px] mb-4"
+            className="inline-block px-4 py-1.5 rounded-full bg-gray-100 text-gray-900 font-medium tracking-wide uppercase text-xs mb-4"
           >
             Built for every team
           </motion.div>
@@ -186,7 +186,7 @@ const TeamsSection = () => {
                   >
                     {stat.num}
                   </motion.div>
-                  <div className="text-gray-500 text-[10px] uppercase tracking-[0.2em] ">
+                  <div className="text-gray-500 text-xs uppercase tracking-[0.2em] ">
                     {stat.label}
                   </div>
                 </div>

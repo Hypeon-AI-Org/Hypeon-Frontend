@@ -141,7 +141,7 @@ export default function AboutCoreLayers() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-white/40 to-transparent rounded-2xl" />
 
                 <span
-                  className={`inline-block px-3 py-1 rounded-md text-[11px] font-semibold tracking-wide uppercase ${style.tag}`}
+                  className={`inline-block px-3 py-1 rounded-md text-xs font-semibold tracking-wide uppercase ${style.tag}`}
                 >
                   {layer.tag}
                 </span>

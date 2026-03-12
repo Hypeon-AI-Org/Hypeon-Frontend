@@ -56,7 +56,7 @@ export default function AboutWhatWeDo() {
             30%
           </p>
 
-          <p className="mt-4 text-gray-200 text-sm leading-relaxed max-w-lg mx-auto">
+          <p className="mt-4 text-gray-200 text-[15px] leading-relaxed max-w-lg mx-auto">
             The average e-commerce brand wastes 30% of their ad budget on channels
             that claim credit but deliver nothing. HypeOn shows you exactly where
             that money goes — and where to move it.

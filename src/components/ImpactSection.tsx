@@ -129,7 +129,7 @@ export default function ImpactSection() {
               </p>
 
               {/* Subtitle */}
-              <p className="mt-1 text-[13px] text-neutral-500">
+              <p className="mt-1 text-sm text-neutral-500">
                 {stat.subtitle}
               </p>
             </motion.div>

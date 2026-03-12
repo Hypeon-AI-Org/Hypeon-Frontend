@@ -409,8 +409,8 @@ function MegaItem({
       )}
 
       <div className={`mt-14 relative z-10 transition-transform duration-500 ${isActive ? 'translate-y-2 opacity-0' : 'translate-y-0 opacity-100'}`}>
-        <p className="font-semibold text-[13px] tracking-tight text-slate-900">{title}</p>
-        <p className={`text-[13px] text-slate-500 leading-snug mt-1.5 transition-all duration-500 ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
+        <p className="font-semibold text-sm tracking-tight text-slate-900">{title}</p>
+        <p className={`text-sm text-slate-500 leading-snug mt-1.5 transition-all duration-500 ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
       </div>
     </Link>
   );
@@ -573,7 +573,7 @@ const AnalyticsIllustration = ({ short }: { short?: boolean }) => (
     <div className={`${short ? 'w-8' : 'w-10'} bg-[#241C1A]/10 rounded-t-md transition-all duration-500 ease-out h-[30%] ${!short && 'animate-[grow_1s_ease-out_forwards]'}`}></div>
     <div className={`${short ? 'w-8' : 'w-10'} bg-[#241C1A]/20 rounded-t-md transition-all duration-500 ease-out h-[50%] ${!short && 'animate-[grow_1s_ease-out_0.1s_forwards]'}`}></div>
     <div className={`${short ? 'w-8' : 'w-10'} bg-[#E66245] rounded-t-md transition-all duration-500 ease-out h-[80%] relative flex justify-center ${!short && 'animate-[grow_1s_ease-out_0.2s_forwards]'}`}>
-      <div className={`absolute ${short ? '-top-6 text-[11px]' : '-top-7 text-[13px]'} font-bold text-[#E66245] ${!short && 'opacity-0 animate-[fade-in_0.5s_ease-out_0.8s_forwards]'}`}>{!short && '+48%'}</div>
+      <div className={`absolute ${short ? '-top-6 text-xs' : '-top-7 text-sm'} font-bold text-[#E66245] ${!short && 'opacity-0 animate-[fade-in_0.5s_ease-out_0.8s_forwards]'}`}>{!short && '+48%'}</div>
     </div>
   </div>
 );

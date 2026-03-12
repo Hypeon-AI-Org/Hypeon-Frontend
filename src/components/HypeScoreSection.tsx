@@ -35,7 +35,7 @@ export default function HypeScoreSection() {
         
         {/* LEFT – Text + feature list */}
         <div className="reveal-left">
-          <p className="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
             TECHNOLOGY
           </p>
           <h2 className="text-3xl md:text-4xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg">

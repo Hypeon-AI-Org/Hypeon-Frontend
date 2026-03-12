@@ -237,7 +237,7 @@ export default function AboutVision() {
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
-      <p className="text-[11px] tracking-[0.2em] uppercase font-medium text-gray-500 mb-2">
+      <p className="text-xs tracking-[0.2em] uppercase font-medium text-gray-500 mb-2">
         What HypeOn Does
       </p>
 

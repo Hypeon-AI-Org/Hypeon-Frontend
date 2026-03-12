@@ -62,7 +62,7 @@ export default function GrowthTimeline() {
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
     >
-      <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+      <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
       The Road Ahead
       </p>
 
@@ -116,7 +116,7 @@ export default function GrowthTimeline() {
               className="w-full bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
               hover:shadow-md hover:-translate-y-1 transition-all"
             >
-              <p className="text-[11px] font-bold tracking-wider text-gray-500 uppercase">
+              <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
                 {m.year}
               </p>
 

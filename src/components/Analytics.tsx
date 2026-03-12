@@ -56,7 +56,7 @@ export default function Products() {
         {/* LEFT CONTENT */}
         <div className="reveal-left space-y-4 lg:pr-12 lg:ml-20">
 
-          <span className="inline-block px-3 py-1 rounded-full border border-slate-200 text-[11px] font-semibold text-slate-900 bg-white shadow-sm">
+          <span className="inline-block px-3 py-1 rounded-full border border-slate-200 text-xs font-semibold text-slate-900 bg-white shadow-sm">
             Attribution reporting that
           </span>
 
@@ -73,7 +73,7 @@ export default function Products() {
             ].map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-center gap-2 text-slate-600 font-semibold text-[13px]"
+                className="flex items-center gap-2 text-slate-600 font-semibold text-sm"
               >
                 <span className="material-symbols-outlined text-slate-900 text-lg">
                   {item.icon}

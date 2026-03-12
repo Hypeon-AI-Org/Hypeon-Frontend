@@ -41,7 +41,7 @@ const Integrations = () => {
 
         {/* Top Label & Line */}
         <div className="flex items-center gap-8 mb-12">
-          <span className="text-[11px] uppercase tracking-[0.2em] text-gray-900 whitespace-nowrap">
+          <span className="text-xs uppercase tracking-[0.2em] text-gray-900 whitespace-nowrap">
             Powerful Integrations
           </span>
           <div className="h-[1px] flex-1 bg-gray-100" />
