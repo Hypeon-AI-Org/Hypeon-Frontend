@@ -88,7 +88,7 @@ function Navbar() {
 
                 />
               </div>
-              <span className="font-semibold text-[13px] sm:text-[15px] text-black tracking-tight flex items-start">
+              <span className="font-semibold text-sm sm:text-base text-black tracking-tight flex items-start">
                 HypeOn AI<span className="text-[11px] sm:text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
               </span>
             </Link>
@@ -100,7 +100,7 @@ function Navbar() {
 
             {/* PRODUCTS DROPDOWN */}
             <div className="group flex items-center h-full">
-              <Link href="/products" className="flex items-center gap-1.5 text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer">
+              <Link href="/products" className="flex items-center gap-1.5 text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer">
                 Products
                 <ChevronDown className="w-3.5 h-3.5 text-black group-hover:rotate-180 transition-transform duration-200" />
               </Link>
@@ -148,14 +148,14 @@ function Navbar() {
             <button
               type="button"
               onClick={() => setShowPricing(true)}
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
+              className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Pricing
             </button>
 
             <Link
               href="/about"
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
+              className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Company
             </Link>
@@ -168,14 +168,14 @@ function Navbar() {
           <div className="hidden lg:flex items-center gap-5 pr-1">
             <a
               href="https://app.hypeon.ai/login"
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
+              className="text-base font-semibold text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Login
             </a>
 
             <a
               href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-              className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[14px] font-semibold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-base font-bold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer"
             >
               Get the demo
             </a>
@@ -300,13 +300,13 @@ function Navbar() {
             <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
               <a
                 href="https://app.hypeon.ai/login"
-                className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-sm sm:text-base font-medium min-h-[44px] flex items-center justify-center cursor-pointer"
+                className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-base font-semibold min-h-[44px] flex items-center justify-center cursor-pointer"
               >
                 Log in
               </a>
               <a
                 href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-sm sm:text-base font-medium min-h-[44px] flex items-center justify-center cursor-pointer"
+                className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-base font-bold min-h-[44px] flex items-center justify-center cursor-pointer"
               >
                 Get the demo
               </a>

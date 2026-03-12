@@ -22,7 +22,7 @@ export default function SolutionsProblems() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
           <p className="section-label mb-4">The Problem</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-5 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 tracking-tighter">
             The Normal Process is{' '}
             <span className="text-slate-500">Broken</span>
           </h2>

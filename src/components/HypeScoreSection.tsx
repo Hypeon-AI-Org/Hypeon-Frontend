@@ -38,7 +38,7 @@ export default function HypeScoreSection() {
           <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
             TECHNOLOGY
           </p>
-          <h2 className="text-3xl md:text-4xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg tracking-tighter">
             The signals your current tools aren&apos;t showing you.
           </h2>
           <p className="text-[#757575] text-xs md:text-sm leading-relaxed max-w-md mb-10">

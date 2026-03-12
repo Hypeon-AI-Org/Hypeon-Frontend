@@ -14,7 +14,7 @@ export default function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-3xl md:text-5xl font-sans text-gray-900 leading-[1.1] tracking-tight mb-6"
+          className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold text-gray-900 leading-[1.1] tracking-tighter mb-6"
         >
           Stop researching with <span className="text-brand-600">yesterday's</span> <br className="text-brand-600" /> data.
         </motion.h2>

@@ -43,7 +43,7 @@ export default function TikTokScrollSection() {
 
           <motion.h2
             variants={item}
-            className="text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg tracking-tighter"
           >
             We understand and <br /> analyze Ads so <br />
             <span className="text-brand-600">you don&apos;t have to.</span>

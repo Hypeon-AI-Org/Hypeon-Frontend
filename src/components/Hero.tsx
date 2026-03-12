@@ -128,7 +128,7 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 1500); // faster cycle on mobile/tablet
+    }, 2800); // slower cycle so each word is readable longer
 
     return () => clearInterval(interval);
   }, []);
@@ -147,23 +147,22 @@ export default function Hero() {
                 <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white flex-shrink-0">
                   <Activity className="w-3 h-3" />
                 </span>
-                <span className="text-slate-600 font-medium text-xs sm:text-sm tracking-tight">
+                <span className="text-slate-600 font-medium text-sm sm:text-base tracking-tight">
                   Built on millions of data signals
                 </span>
               </div>
 
-              {/* Headline */}
-              <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
-font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
+              {/* Headline: 36–40px mobile, 64–72px desktop; normal weight; animation scales with font */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
                 Stop wasting budget on the {" "} <br className="sm:hidden" />
-                <span className="relative inline-block align-baseline h-[1.3em] min-w-[200px] sm:min-w-[280px] md:min-w-[340px] lg:min-w-[400px] overflow-hidden">
+                <span className="relative inline-block align-baseline h-[1.3em] min-w-[260px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
                       initial={{
                         opacity: 0,
-                        y: 30,
-                        filter: "blur(8px)"
+                        y: "0.4em",
+                        filter: "blur(0.15em)"
                       }}
                       animate={{
                         opacity: 1,
@@ -172,14 +171,15 @@ font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
                       }}
                       exit={{
                         opacity: 0,
-                        y: -30,
-                        filter: "blur(8px)"
+                        y: "-0.4em",
+                        filter: "blur(0.15em)"
                       }}
                       transition={{
-                        duration: 0.8,
-                        ease: [0.16, 1, 0.3, 1] // premium easing
+                        duration: 1,
+                        ease: [0.16, 1, 0.3, 1]
                       }}
                       className="absolute left-0 top-0 whitespace-nowrap"
+                      style={{ fontFamily: "inherit", fontSize: "inherit", fontWeight: "inherit" }}
                     >
                       {words[index]}
                     </motion.span>
@@ -199,7 +199,7 @@ font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
                   }
                 }}
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 pl-2 pr-4 sm:pr-5 py-1.5 sm:py-2 min-h-[44px] sm:min-h-0
-  rounded-full text-xs sm:text-sm md:text-[14px] font-medium
+  rounded-full text-base font-semibold
   text-white bg-black hover:bg-neutral-900
   transition-all duration-300 shadow-lg cursor-pointer pointer-events-auto
   mt-4 sm:mt-6 relative z-10 select-none touch-manipulation"

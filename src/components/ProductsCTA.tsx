@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ProductsCTA() {
   return (
     <section className="py-20 bg-black text-white text-center">
-      <h2 className="text-2xl md:text-3xl font-display reveal">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tighter reveal">
         Turn intelligence into winning decisions
       </h2>
 

@@ -21,7 +21,7 @@ const MarketerSteps = () => {
         <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 font-sans text-black ">
 
             {/* Header */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-8 sm:mb-10 lg:mb-14 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-10 lg:mb-14 tracking-tighter">
                 It's easy to start growing <br /> with <span className='text-brand-600'>Hypeon.</span>
             </h2>
 

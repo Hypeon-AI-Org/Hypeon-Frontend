@@ -44,7 +44,7 @@ export default function FAQ() {
 
                     {/* Left Column: Heading and Context */}
                     <div className="flex flex-col">
-                        <h2 className="text-3xl md:text-4xl lg:text-[44px] leading-none font-medium text-slate-900 tracking-[-0.02em] mb-8">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter mb-8">
                             FA<span className="text-brand-600">Q</span>
                         </h2>
 

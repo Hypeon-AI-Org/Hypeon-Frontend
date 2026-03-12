@@ -26,7 +26,7 @@ export default function Footer() {
                 HypeOn <span className="text-slate-300">AI</span>
               </span>
             </div>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            <p className="text-slate-400 text-sm leading-relaxed">
             HypeOn AI helps e-commerce teams figure out what to sell next, how to sell it better, and where to put their budget for the highest return using real-time signals
             </p>
 
@@ -84,7 +84,7 @@ export default function Footer() {
               <h4 className="text-white mb-5 text-sm font-semibold tracking-wide">
                 {col.title}
               </h4>
-              <ul className="space-y-3 text-sm text-slate-400">
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-400">
                 {col.links.map((link, i) => (
                   <li key={i}>
                     {link.href!.startsWith('http') || link.href!.startsWith('#') || link.href!.startsWith('mailto:') ? (
@@ -111,10 +111,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-500 text-xs sm:text-sm">
             © 2025 HypeOn AI Inc. All rights reserved.
           </p>
-          <div className="flex gap-5 items-center text-sm text-slate-500">
+          <div className="flex gap-5 items-center text-xs sm:text-sm text-slate-500">
             <Link href="/privacy-policy" className="hover:text-white transition-colors min-h-[44px] flex items-center cursor-pointer">Privacy Policy</Link>
           </div>
         </div>
