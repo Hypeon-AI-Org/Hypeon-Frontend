@@ -6,18 +6,19 @@ import {
   useSpring,
   useInView
 } from "framer-motion"
-import {
-  BarChart3,
-  ShoppingBag,
-  Package,
-  Video,
-  Instagram,
-  Facebook,
-  Mail,
-  BarChart2,
-  Pin
-} from "lucide-react"
+import { BarChart2 } from "lucide-react"
+import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
+
+const PLATFORM_LOGOS = [
+  { name: "Google Trends", src: "/logos/google.png" },
+  { name: "Shopify", src: "/logos/shopify.png" },
+  { name: "Amazon", src: "/logos/amazon.png" },
+  { name: "TikTok", src: "/logos/tiktok.webp" },
+  { name: "Instagram", src: "/logos/instagram.png" },
+  { name: "Pinterest", src: "/logos/pinterest.png" },
+  { name: "Meta Ads", src: "/logos/meta.png" },
+] as const
 
 /* ---------------- Stats Data ---------------- */
 
@@ -50,15 +51,8 @@ const stats = [
 ]
 
 const integrations = [
-  { name: "Google Trends", icon: BarChart3, color: "text-blue-400" },
-  { name: "Shopify", icon: ShoppingBag, color: "text-green-500" },
-  { name: "Amazon", icon: Package, color: "text-orange-500" },
-  { name: "TikTok ", icon: Video, color: "text-black" },
-  { name: "Instagram", icon: Instagram, color: "text-pink-500" },
-  { name: "Pinterest", icon: Pin, color: "text-red-500" },
-  { name: "Meta Ads", icon: Facebook, color: "text-blue-500" },
-
-  { name: "GA4", icon: BarChart2, color: "text-yellow-500" }
+  ...PLATFORM_LOGOS,
+  { name: "GA4", icon: BarChart2, color: "text-yellow-500" },
 ]
 /* ---------------- Animated Number ---------------- */
 
@@ -189,20 +183,29 @@ export default function Features() {
           viewport={{ once: true }}
           className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6 items-center text-center border-t border-neutral-200 pt-8 sm:pt-10 lg:pt-12"
         >
-          {integrations.map((item, i) => {
-            const Icon = item.icon
-            return (
-              <div
-                key={i}
-                className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
-              >
-                <Icon className={`w-3.5 h-3.5 flex-shrink-0 ${item.color}`} />
-                <span className="text-xs sm:text-sm font-medium text-center sm:text-left">
-                  {item.name}
+          {integrations.map((item, i) => (
+            <div
+              key={i}
+              className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
+            >
+              {'src' in item ? (
+                <span className="relative w-6 h-6 flex-shrink-0 rounded flex items-center justify-center bg-white border border-neutral-100 overflow-hidden p-0.5">
+                  <Image
+                    src={item.src}
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="object-contain w-5 h-5"
+                  />
                 </span>
-              </div>
-            )
-          })}
+              ) : (
+                <item.icon className={`w-3.5 h-3.5 flex-shrink-0 ${item.color}`} />
+              )}
+              <span className="text-xs sm:text-sm font-medium text-center sm:text-left">
+                {item.name}
+              </span>
+            </div>
+          ))}
         </motion.div>
 
       </div>
