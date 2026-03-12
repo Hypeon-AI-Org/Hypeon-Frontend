@@ -8,28 +8,28 @@ const features = [
   {
     id: 'Market Gap Finder',
     title: 'Market Gap Finder',
-    image: '/images/marketfinder.png',
+    image: '/images/marketfinder.webp',
     description:
       'AI reads millions of competitor reviews across Amazon, Trustpilot and Google — then ranks the unmet needs customers keep asking for.',
-  },
+  },  
   {
     id: 'Competitor Intelligence',
     title: 'Competitor Intelligence',
-    image: '/images/competitoro.png',
+    image: '/images/competitoro.webp',
     description:
       'Track product launches, pricing changes, creator partnerships and SKU additions in real time — across every channel they sell on.',
   },
   {
     id: 'Traffic Intelligence',
     title: 'Traffic Intelligence',
-    image: '/images/Traffic.png',
+    image: '/images/Traffic.webp',
     description:
       'See where competitor traffic actually comes from. Paid, organic, social, referral — updated weekly.',
   },
   {
     id: 'GEO Intelligence',
     title: 'GEO Intelligence',
-    image: '/images/Geo.png',
+    image: '/images/Geo.webp',
     description:
       'Find countries where demand is rising fast, competition is near zero, and nobody is collecting that revenue yet.',
   },

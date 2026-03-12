@@ -32,7 +32,7 @@ export default function WhoWeAreBuildingFor() {
           `}
         >
           <Image
-            src="/about/mission.png"
+            src="/about/mission.webp"
             alt="Mission"
             fill
             className="object-cover"

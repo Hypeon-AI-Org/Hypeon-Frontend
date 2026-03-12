@@ -61,7 +61,7 @@ export default function StartToday() {
           >
             <div className="relative aspect-[16/10] bg-slate-200">
               <Image
-                src="/about/team.png"
+                src="/about/team.webp"
                 alt="Work with HypeOn AI"
                 fill
                 className="object-cover"

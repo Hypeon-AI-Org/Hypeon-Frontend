@@ -98,7 +98,7 @@ export default function AboutStory() {
         >
           <div className="relative max-w-md mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/4]">
   <Image
-    src="/about/story.png"
+    src="/about/story.webp"
     alt="Business analytics and market research"
     fill
     className="object-cover"
