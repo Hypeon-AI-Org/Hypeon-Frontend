@@ -19,7 +19,7 @@ const sections = [
   },
   {
     id: "03",
-    image: "/product/Budget.webp",
+    image: "/product/pricing.webp",
     title: "Pricing Intelligence ",
     description: "See what your competitors price  across every market before you set your prices. Stay competitive where it matters, charge more where you can, and never lose a sale because you were priced wrong."
   },
