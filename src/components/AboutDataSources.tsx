@@ -1,14 +1,16 @@
 'use client';
 
-import {
-  Facebook,
-  TrendingUp,
-  ShoppingBag,
-  Package,
-  Music2,
-  Instagram,
-  Pin,
-} from 'lucide-react';
+import Image from 'next/image';
+
+const PLATFORM_LOGOS = [
+  { name: 'Meta Ads', src: '/logos/meta.png' },
+  { name: 'Google Trends', src: '/logos/google.png' },
+  { name: 'Shopify', src: '/logos/shopify.png' },
+  { name: 'Amazon', src: '/logos/amazon.png' },
+  { name: 'TikTok Shop', src: '/logos/tiktok.webp' },
+  { name: 'Instagram', src: '/logos/instagram.png' },
+  { name: 'Pinterest', src: '/logos/pinterest.png' },
+] as const;
 
 export default function AboutDataSources() {
   return (
@@ -31,24 +33,16 @@ export default function AboutDataSources() {
 
             {/* SET 1 */}
             <div className="flex items-center gap-14 px-8">
-              <Platform icon={<Facebook />} label="Meta Ads" color="text-blue-600" />
-              <Platform icon={<TrendingUp />} label="Google Trends" color="text-red-500" />
-              <Platform icon={<ShoppingBag />} label="Shopify" color="text-green-600" />
-              <Platform icon={<Package />} label="Amazon" color="text-yellow-500" />
-              <Platform icon={<Music2 />} label="TikTok Shop" color="text-pink-500" />
-              <Platform icon={<Instagram />} label="Instagram" color="text-purple-500" />
-              <Platform icon={<Pin />} label="Pinterest" color="text-red-600" />
+              {PLATFORM_LOGOS.map(({ name, src }) => (
+                <Platform key={src} label={name} src={src} />
+              ))}
             </div>
 
             {/* DUPLICATE SET FOR LOOP */}
             <div className="flex items-center gap-14 px-8">
-              <Platform icon={<Facebook />} label="Meta Ads" color="text-blue-600" />
-              <Platform icon={<TrendingUp />} label="Google Trends" color="text-red-500" />
-              <Platform icon={<ShoppingBag />} label="Shopify" color="text-green-600" />
-              <Platform icon={<Package />} label="Amazon" color="text-yellow-500" />
-              <Platform icon={<Music2 />} label="TikTok Shop" color="text-pink-500" />
-              <Platform icon={<Instagram />} label="Instagram" color="text-purple-500" />
-              <Platform icon={<Pin />} label="Pinterest" color="text-red-600" />
+              {PLATFORM_LOGOS.map(({ name, src }) => (
+                <Platform key={`dup-${src}`} label={name} src={src} />
+              ))}
             </div>
 
           </div>
@@ -59,19 +53,19 @@ export default function AboutDataSources() {
   );
 }
 
-/* PLATFORM COMPONENT */
-function Platform({
-  icon,
-  label,
-  color,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  color: string;
-}) {
+/* PLATFORM COMPONENT - uses logo image from /logos */
+function Platform({ label, src }: { label: string; src: string }) {
   return (
     <div className="flex items-center gap-3 font-semibold text-lg text-slate-700 whitespace-nowrap">
-      <span className={`${color}`}>{icon}</span>
+      <span className="relative w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 rounded-md flex items-center justify-center bg-white border border-slate-100 overflow-hidden p-0.5">
+        <Image
+          src={src}
+          alt=""
+          width={36}
+          height={36}
+          className="object-contain w-7 h-7 sm:w-8 sm:h-8"
+        />
+      </span>
       {label}
     </div>
   );
