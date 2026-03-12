@@ -112,7 +112,7 @@ export default function Products() {
                     variants={fadeInUp}
                     className="text-center max-w-3xl mx-auto mb-8 sm:mb-14 lg:mb-20"
                 >
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium  tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
                         One intelligent system.<span className="text-brand-600">Two products.</span>
                     </h2>
                 </motion.div>

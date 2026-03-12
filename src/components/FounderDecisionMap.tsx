@@ -80,7 +80,7 @@ export default function StackingCards() {
     <section ref={containerRef} className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:py-14 ">
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
           Every problem. Solved.
           <br />
           <span className="text-brand-600">In one platform.</span>
