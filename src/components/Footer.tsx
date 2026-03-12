@@ -8,7 +8,7 @@ import logo from "../../assets/HypeOn_Logo.png";
 export default function Footer() {
 
   return (
-    <footer className="relative bg-[#0E1116] rounded-t-2xl sm:rounded-t-3xl overflow-hidden mt-0">
+    <footer className="relative bg-[#0E1116] rounded-t-2xl sm:rounded-t-3xl overflow-hidden mt-0 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-14 lg:pt-16 pb-8 sm:pb-10 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12 lg:mb-14">
 
@@ -27,7 +27,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-              The secret weapon for modern D2C founders. Stop guessing and start scaling with predictive data.
+            HypeOn AI helps e-commerce teams figure out what to sell next, how to sell it better, and where to put their budget for the highest return using real-time signals
             </p>
 
             {/* Social links */}

@@ -141,11 +141,11 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <section ref={heroSectionRef} className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden perspective-container  ">
+    <section ref={heroSectionRef} className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
-        {/* ── TOP: TEXT CONTENT ── */}
-        <div className="relative  overflow-hidden">
+        {/* ── TOP: TEXT CONTENT (isolation + z-20 so CTA is always on top and clickable) ── */}
+        <div className="relative z-20 isolation-isolate overflow-hidden">
           <div className="max-w-7xl mx-auto px-2 sm:px-6 md:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-32">
 
             <div className="max-w-5xl text-left pl-0 lg:pl-16 w-full">
@@ -195,14 +195,22 @@ font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
                 </span>
               </h1>
 
-              {/* CTA */}
+              {/* CTA — pointer-events-auto + mobile fallback so tap always works */}
               <a
                 href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                className="inline-flex items-center gap-1.5 sm:gap-2 pl-2 pr-4 sm:pr-5 py-1.5 sm:py-2
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                    e.preventDefault();
+                    window.location.href = 'https://calendly.com/yash-hypeon/30min?month=2026-03';
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 pl-2 pr-4 sm:pr-5 py-1.5 sm:py-2 min-h-[44px] sm:min-h-0
   rounded-full text-xs sm:text-sm md:text-[14px] font-medium
   text-white bg-black hover:bg-neutral-900
-  transition-all duration-300 shadow-lg
-  mt-4 sm:mt-6"
+  transition-all duration-300 shadow-lg cursor-pointer pointer-events-auto
+  mt-4 sm:mt-6 relative z-10 select-none touch-manipulation"
               >
                 <span className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black flex-shrink-0 cursor-pointer">
                   <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
@@ -214,8 +222,8 @@ font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
           </div>
         </div>
 
-        {/* ── BOTTOM: MINIMAL UI MOCKUP ── */}
-        <div className="w-full relative reveal lg:px-0 mx-auto max-w-5xl xl:max-w-8xl">
+        {/* ── BOTTOM: MINIMAL UI MOCKUP (perspective only here so CTA hit-testing is not affected) ── */}
+        <div className="w-full relative z-0 reveal lg:px-0 mx-auto max-w-5xl xl:max-w-8xl perspective-container">
           <div ref={dashboardRef} className="card-3d-wrap relative transform-gpu">
 
             {/* Float Element: Notification */}

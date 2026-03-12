@@ -197,7 +197,7 @@ function Navbar() {
 
       {/* MOBILE MENU BACKDROP */}
 
-      <div className="lg:hidden fixed top-[56px] sm:top-[60px] left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(95vw,28rem)] sm:max-w-md px-4 sm:px-5">
+      <div className={`lg:hidden fixed top-[56px] sm:top-[60px] left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(95vw,28rem)] sm:max-w-md px-4 sm:px-5 ${!mobileMenuOpen ? 'pointer-events-none' : ''}`}>
         <div
           className={`
       bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl
@@ -322,12 +322,12 @@ function Navbar() {
           aria-modal="true"
           aria-label="Pricing"
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer"
-          onClick={() => setShowPricing(false)}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowPricing(false);
+          }}
         >
           <div
             className="relative w-full max-w-[95vw] sm:max-w-md mx-3 sm:mx-4 rounded-2xl bg-white p-6 sm:p-8 shadow-2xl text-center cursor-default"
-            onClick={(e) => e.stopPropagation()}
-            onTouchEnd={(e) => e.stopPropagation()}
           >
             {/* CLOSE */}
             <button

@@ -124,7 +124,6 @@ export default function CombinedLayout() {
             onMouseEnter={() => !isExpanded && setViewState('hovered')}
             onMouseLeave={() => !isExpanded && setViewState('idle')}
             onClick={() => !isExpanded && setViewState('expanded')}
-            onTouchEnd={() => { if (!isExpanded) setViewState('expanded'); }}
             onKeyDown={(e) => { if (!isExpanded && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setViewState('expanded'); } }}
             className={`
               relative bg-white border border-[#E8E8E3] transition-all duration-700
