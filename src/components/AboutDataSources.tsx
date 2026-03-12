@@ -16,7 +16,7 @@ export default function AboutDataSources() {
       <div className="max-w-7xl mx-auto px-6 text-center reveal">
 
         {/* Heading */}
-        <h2 className="text-3xl font-display">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tighter">
           Millions of signals <span className="text-brand-600">Every day.</span>
         </h2>
 

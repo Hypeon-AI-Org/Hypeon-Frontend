@@ -68,7 +68,7 @@ export default function ImpactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-3xl sm:text-4xl md:text-[40px] font-semibold tracking-tight text-black leading-tight mb-8 sm:mb-12"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight mb-8 sm:mb-12"
         >
           Spend less. Sell more.
           <br />

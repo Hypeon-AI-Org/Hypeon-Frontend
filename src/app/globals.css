@@ -12,13 +12,27 @@ body {
   font-weight: 400;
 }
 
-/* Paragraphs */
+/* Body: 16px base, generous line-height (1.5 / leading-relaxed) */
 p {
+  font-size: 1rem; /* 16px */
   font-weight: 400;
-  line-height: 150%;
+  line-height: 1.5; /* leading-relaxed */
 }
 
-/* Headings - Reduced weights */
+/* Lead / intro paragraphs: 20px–24px for hierarchy */
+.lead,
+.text-lead {
+  font-size: 1.25rem; /* 20px - text-xl */
+  line-height: 1.5;
+}
+@media (min-width: 1024px) {
+  .lead,
+  .text-lead {
+    font-size: 1.5rem; /* 24px - text-2xl */
+  }
+}
+
+/* Headings: Medium (500), Semi-Bold (600), Bold (700) for hierarchy */
 h1,
 h2,
 h3,
@@ -27,13 +41,21 @@ h5,
 h6,
 .font-display {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  font-weight: 400;
 }
 
-h1,
-h2 {
-  font-weight: 500;
-  /* Reduced from 700 */
+h1 {
+  font-weight: 700; /* bold - main hero */
+}
+
+h2,
+h3 {
+  font-weight: 600; /* semi-bold - section headings */
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 500; /* medium */
 }
 
 /* Buttons and interactive elements - cursor for desktop, touch-friendly everywhere */
@@ -45,17 +67,17 @@ a[href] {
   tap-highlight-color: rgba(0, 0, 0, 0.08);
 }
 
-/* Buttons and Labels - Reduced weights */
-button,
-a[class*="button"],
+/* Typography utilities: Medium (500), Semi-Bold (600), Bold (700) */
 .font-medium {
-  font-weight: 400;
-  /* Reduced from 500 */
+  font-weight: 500;
 }
 
 .font-semibold {
-  font-weight: 500;
-  /* Reduced from 600 */
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 /* Glassmorphism Light */

@@ -80,7 +80,7 @@ export default function ComparisonBlackWhite() {
           viewport={{ once: true }}
           className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
             One platform vs <span className="text-brand-600">six tools.</span>
           </h2>
           <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-500 max-w-3xl mx-auto px-2">

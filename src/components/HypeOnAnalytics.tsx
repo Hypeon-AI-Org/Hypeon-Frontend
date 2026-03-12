@@ -30,7 +30,7 @@ export default function FAQSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <h2 className="text-white text-3xl md:text-4xl font-display font-semibold mb-6 tracking-tight">
+          <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6 tracking-tighter">
             Frequently Asked Questions
           </h2>
           <p className="text-gray-400 text-[16px] leading-relaxed max-w-md">

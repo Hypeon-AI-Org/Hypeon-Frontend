@@ -6,7 +6,7 @@ export default function SolutionsIntro() {
 
       <div className="relative max-w-7xl mx-auto px-6 text-center reveal">
         {/* Headline */}
-        <h1 className="text-5xl md:text-5xl font-display leading-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tighter leading-tight">
           Growth with{" "}
           <span className="text-brand-600">Profitability</span>
         </h1>

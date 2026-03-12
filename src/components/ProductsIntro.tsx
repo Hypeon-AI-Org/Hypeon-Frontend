@@ -17,7 +17,7 @@ export default function TrendalyticsSection() {
         <div className="inline-flex items-center justify-center p-2 rounded-lg mb-6">
 
         </div>
-        <h1 className="text-2xl md:text-4xl font-medium tracking-tight mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight mb-4">
           See what's coming.<br />
           <span className='text-brand-600'>Weeks before anyone else.</span>
         </h1>

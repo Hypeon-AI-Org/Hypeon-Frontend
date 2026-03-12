@@ -76,7 +76,7 @@ export default function FeatureGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-2xl md:text-3xl font-semibold text-slate-900 mb-6 tracking-tight max-w-3xl mx-auto leading-tight">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-tight">
             Intelligence for how you actually <span className='text-brand-600'>sell.</span>
           </h2>
 
