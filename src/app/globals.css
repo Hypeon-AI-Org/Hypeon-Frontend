@@ -45,6 +45,15 @@ h2 {
   /* Reduced from 700 */
 }
 
+/* Buttons and interactive elements - cursor for desktop, touch-friendly everywhere */
+button,
+[role="button"],
+a[href] {
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.08);
+  tap-highlight-color: rgba(0, 0, 0, 0.08);
+}
+
 /* Buttons and Labels - Reduced weights */
 button,
 a[class*="button"],

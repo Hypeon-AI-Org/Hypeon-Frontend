@@ -27,59 +27,59 @@ export default function CombinedLayout() {
     <main>
       {/* 1. PARTNERS SECTION (NOW ON TOP) */}
       <section className="bg-[oklch(0.988_0.0041_91.45)] border-t border-slate-200">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
 
-          {/* Grid Container */}
+          {/* Grid: on mobile title full-width, then 2x2 logos; on md+ one row of 5 */}
           <div className="grid grid-cols-2 md:grid-cols-5 items-center text-center">
 
-            {/* Label Column */}
-            <div className="py-7 px-6 border-b md:border-b-0 md:border-r border-slate-200">
-              <p className="text-slate-700 font-medium">
+            {/* Label: full width on mobile, first cell on desktop */}
+            <div className="col-span-2 md:col-span-1 py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-6 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center md:justify-start">
+              <p className="text-slate-700 font-medium text-sm sm:text-base">
                 Official partners
               </p>
             </div>
 
             {/* Google */}
-            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
               <Image
                 src={googleStartups}
                 alt="Google Cloud for Startups"
                 width={110}
                 height={50}
-
+                className="w-[90px] sm:w-[110px] h-auto object-contain"
               />
             </div>
 
             {/* OpenAI */}
-            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b md:border-b-0 border-slate-200 md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
               <Image
                 src={openAIBG}
                 alt="OpenAI for Startups"
                 width={95}
                 height={50}
-
+                className="w-[80px] sm:w-[95px] h-auto object-contain"
               />
             </div>
 
             {/* AWS */}
-            <div className="py-7 px-5 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center">
+            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
               <Image
                 src={awsStartups}
                 alt="AWS for Startups"
                 width={95}
                 height={50}
-
+                className="w-[80px] sm:w-[95px] h-auto object-contain"
               />
             </div>
 
             {/* NVIDIA */}
-            <div className="py-7 px-5 flex items-center justify-center">
+            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
               <Image
                 src={nividia}
                 alt="NVIDIA"
                 width={95}
                 height={50}
-
+                className="w-[80px] sm:w-[95px] h-auto object-contain"
               />
             </div>
 
@@ -103,9 +103,11 @@ export default function CombinedLayout() {
           }}
         />
 
-        {/* Backdrop Overlay */}
-        <div
-          className={`fixed inset-0 z-20 bg-[#FBFBF9]/40 backdrop-blur-sm transition-opacity duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        {/* Backdrop Overlay - button for reliable mobile tap */}
+        <button
+          type="button"
+          aria-label="Close overlay"
+          className={`fixed inset-0 z-20 w-full h-full bg-[#FBFBF9]/40 backdrop-blur-sm transition-opacity duration-500 cursor-pointer border-0 p-0 appearance-none ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           onClick={() => setViewState('idle')}
         />
@@ -113,18 +115,22 @@ export default function CombinedLayout() {
         {/* The Card Container */}
         <div className={`
          relative z-30 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]
-          ${isExpanded ? 'fixed inset-0 flex items-center justify-center p-4 md:p-8' : 'w-full max-w-[480px] px-4'}
+          ${isExpanded ? 'fixed inset-0 flex items-center justify-center p-3 sm:p-4 md:p-8' : 'w-full max-w-[480px] px-3 sm:px-4'}
         `}>
 
           <div
+            role={isExpanded ? undefined : 'button'}
+            tabIndex={isExpanded ? undefined : 0}
             onMouseEnter={() => !isExpanded && setViewState('hovered')}
             onMouseLeave={() => !isExpanded && setViewState('idle')}
             onClick={() => !isExpanded && setViewState('expanded')}
+            onTouchEnd={() => { if (!isExpanded) setViewState('expanded'); }}
+            onKeyDown={(e) => { if (!isExpanded && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setViewState('expanded'); } }}
             className={`
               relative bg-white border border-[#E8E8E3] transition-all duration-700
               ${isExpanded
-                ? 'w-full max-w-[700px] max-h-[90vh] overflow-y-auto p-10 md:p-14 shadow-[0_40px_100px_rgba(0,0,0,0.06)] rotate-0'
-                : 'p-9 shadow-[0_10px_40px_rgba(0,0,0,0.02)] cursor-pointer'
+                ? 'w-full max-w-[700px] max-h-[90vh] overflow-y-auto p-5 sm:p-8 md:p-10 lg:p-14 shadow-[0_40px_100px_rgba(0,0,0,0.06)] rotate-0'
+                : 'p-5 sm:p-7 md:p-9 shadow-[0_10px_40px_rgba(0,0,0,0.02)] cursor-pointer min-h-[44px]'
               }
               ${viewState === 'idle' && !isExpanded ? '-rotate-1 translate-y-2' : ''}
               ${viewState === 'hovered' && !isExpanded ? 'rotate-0 translate-y-0 shadow-lg border-[#D1D1CC]' : ''}
@@ -137,8 +143,10 @@ export default function CombinedLayout() {
             {/* Close Button */}
             {isExpanded && (
               <button
+                type="button"
                 onClick={(e) => { e.stopPropagation(); setViewState('idle'); }}
-                className="absolute top-8 right-8 p-2 rounded-full hover:bg-[#F5F5F0] transition-colors group"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 p-2 rounded-full hover:bg-[#F5F5F0] transition-colors group min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                aria-label="Close"
               >
                 <X size={20} className="text-[#A1A19A] group-hover:text-black" />
               </button>

@@ -44,7 +44,7 @@ const MetricsSection = () => {
           {metrics.map((item, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-2xl p-6 flex flex-col justify-between min-h-[240px] hover:border-black transition-colors group cursor-pointer"
+              className="border border-gray-200 rounded-2xl p-6 flex flex-col justify-between min-h-[240px] transition-colors group"
             >
               <div>
                 <p className="text-xs  uppercase tracking-wider mb-4">

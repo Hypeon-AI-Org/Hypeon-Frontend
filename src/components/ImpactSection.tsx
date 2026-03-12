@@ -47,7 +47,7 @@ function AnimatedNumber({
 
 export default function ImpactSection() {
   return (
-    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] ">
+    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] ">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -68,7 +68,7 @@ export default function ImpactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-[40px] font-semibold tracking-tight text-black leading-tight mb-12"
+          className="text-3xl sm:text-4xl md:text-[40px] font-semibold tracking-tight text-black leading-tight mb-8 sm:mb-12"
         >
           Spend less. Sell more.
           <br />
@@ -78,7 +78,7 @@ export default function ImpactSection() {
         </motion.h2>
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-4 border-t border-neutral-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-neutral-200">
 
           {[
             {
@@ -114,11 +114,10 @@ export default function ImpactSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className={`py-8 px-3 ${i !== 3 ? "border-r border-neutral-200" : ""
-                }`}
+              className={`py-6 sm:py-8 px-4 sm:px-3 border-b sm:border-b-0 border-neutral-200 last:border-b-0 ${i % 2 === 0 ? "sm:border-r" : ""} ${i !== 3 ? "lg:border-r" : ""}`}
             >
               {/* Number */}
-              <div className="text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
+              <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
                 {stat.prefix}
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </div>

@@ -49,8 +49,9 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div key={index} className="border-b border-gray-800">
               <button
+                type="button"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full py-4 flex justify-between items-center text-left text-white group"
+                className="w-full py-4 flex justify-between items-center text-left text-white group min-h-[48px] cursor-pointer"
               >
                 <span className="text-[15px] font-medium pr-4">{faq.question}</span>
                 <ChevronDown

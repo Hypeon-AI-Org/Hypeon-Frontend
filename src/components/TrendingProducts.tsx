@@ -72,8 +72,9 @@ export default function HypeScoreSection() {
                   className="border-b border-slate-200"
                 >
                   <button
+                    type="button"
                     onClick={() => setActiveId(feature.id)}
-                    className="w-full text-left py-4 group relative"
+                    className="w-full text-left py-4 group relative min-h-[48px] cursor-pointer"
                   >
 
                     {/* Title */}

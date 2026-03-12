@@ -104,12 +104,12 @@ function AnimatedNumber({
 
 export default function Features() {
   return (
-    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
+    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ===== Stats Grid ===== */}
-        <div className="grid md:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-10 sm:mb-12 lg:mb-16">
 
           {stats.map((stat, i) => (
             <motion.div
@@ -121,7 +121,7 @@ export default function Features() {
               whileHover={{ y: -8 }}
               className="text-center"
             >
-              <div className="text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
+              <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
 
                 {stat.prefix}
 
@@ -151,17 +151,17 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto mb-16"
+          className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl font-semibold tracking-tight text-black mb-6">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-black mb-4 sm:mb-6">
             Why Founders Choose <span className="text-brand-600">HypeOn</span>
           </h2>
 
-          <h3 className="text-2xl font-medium text-black mb-6">
+          <h3 className="text-xl sm:text-2xl font-medium text-black mb-4 sm:mb-6">
             The e-commerce intelligence stack. All of it.
           </h3>
 
-          <p className="text-lg text-neutral-600 leading-relaxed">
+          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed px-2">
             Before HypeOn, winning meant paying for 6+ disconnected tools,
             hiring analysts to stitch data together, and still making
             decisions on gut feel.
@@ -174,9 +174,9 @@ export default function Features() {
         {/* ===== CTA ===== */}
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="flex justify-center mb-16"
+          className="flex justify-center mb-10 sm:mb-12 lg:mb-16"
         >
-          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium hover:bg-neutral-800 transition-all inline-block">
+          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="px-6 sm:px-7 py-2.5 sm:py-3 bg-black text-white rounded-full text-sm sm:text-[15px] font-medium hover:bg-neutral-800 transition-all inline-block min-h-[44px] flex items-center justify-center">
             Get the demo
           </a>
         </motion.div>
@@ -187,17 +187,17 @@ export default function Features() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-8 gap-6 items-center text-center border-t border-neutral-200 pt-12"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6 items-center text-center border-t border-neutral-200 pt-8 sm:pt-10 lg:pt-12"
         >
           {integrations.map((item, i) => {
             const Icon = item.icon
             return (
               <div
                 key={i}
-                className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
+                className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 opacity-70 hover:opacity-100 transition-all duration-300"
               >
-                <Icon className={`w-3.5 h-3.5 ${item.color}`} />
-                <span className="text-sm font-medium">
+                <Icon className={`w-3.5 h-3.5 flex-shrink-0 ${item.color}`} />
+                <span className="text-xs sm:text-sm font-medium text-center sm:text-left">
                   {item.name}
                 </span>
               </div>

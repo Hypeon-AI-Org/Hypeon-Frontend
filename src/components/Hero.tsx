@@ -136,35 +136,35 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 2000); // change every 2s
+    }, 1500); // faster cycle on mobile/tablet
 
     return () => clearInterval(interval);
   }, []);
   return (
-    <section ref={heroSectionRef} className="relative pt-24 pb-20 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden perspective-container  ">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <section ref={heroSectionRef} className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden perspective-container  ">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
         {/* ── TOP: TEXT CONTENT ── */}
         <div className="relative  overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 pb-32">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 md:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-32">
 
-            <div className="max-w-5xl text-left pl-0 lg:pl-16">
+            <div className="max-w-5xl text-left pl-0 lg:pl-16 w-full">
 
               {/* Badge */}
-              <div className="flex items-center gap-3 mb-10">
-                <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white">
+              <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-10">
+                <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white flex-shrink-0">
                   <Activity className="w-3 h-3" />
                 </span>
-                <span className="text-slate-600 font-medium text-sm tracking-tight">
+                <span className="text-slate-600 font-medium text-xs sm:text-sm tracking-tight">
                   Built on millions of data signals
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
-font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
-                Stop wasting budget on the {" "} <br />
-                <span className="relative inline-block align-baseline h-[1.3em] min-w-[240px] sm:min-w-[300px] md:min-w-[360px] lg:min-w-[400px] overflow-hidden">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
+font-medium tracking-[-0.015em] leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
+                Stop wasting budget on the {" "} <br className="sm:hidden" />
+                <span className="relative inline-block align-baseline h-[1.3em] min-w-[200px] sm:min-w-[280px] md:min-w-[340px] lg:min-w-[400px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
@@ -198,14 +198,14 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
               {/* CTA */}
               <a
                 href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                className="inline-flex items-center gap-2 pl-2 pr-5 py-2
-  rounded-full text-[14px] font-medium
+                className="inline-flex items-center gap-1.5 sm:gap-2 pl-2 pr-4 sm:pr-5 py-1.5 sm:py-2
+  rounded-full text-xs sm:text-sm md:text-[14px] font-medium
   text-white bg-black hover:bg-neutral-900
   transition-all duration-300 shadow-lg
-  mt-6"
+  mt-4 sm:mt-6"
               >
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black">
-                  <ArrowRight className="w-3 h-3" />
+                <span className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black flex-shrink-0 cursor-pointer">
+                  <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 </span>
                 Get the demo
               </a>
@@ -432,15 +432,15 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
 
       </div>
 
-      <div className="mt-20 pt-10  reveal">
-        <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8 text-center">
+      <div className="mt-12 sm:mt-16 lg:mt-20 pt-6 sm:pt-8 lg:pt-10 reveal">
+        <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 lg:mb-8 text-center px-2">
           Trusted by founders scaling on
         </p>
-        <div className="marquee-container">
+        <div className="marquee-container overflow-x-hidden">
           <div className="marquee-content flex justify-center">
             {/* First set of logos */}
-            <div className="flex items-center gap-12 px-8">
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
                 <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
               <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
@@ -463,8 +463,8 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
               </div>
             </div>
             {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-12 px-8">
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
                 <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
               <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
@@ -487,8 +487,8 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
               </div>
             </div>
             {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-12 px-8">
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
                 <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
               <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
@@ -511,8 +511,8 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
               </div>
             </div>
             {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-12 px-8">
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
                 <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
               <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
@@ -535,8 +535,8 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
               </div>
             </div>
             {/* Duplicate set for seamless loop */}
-            <div className="flex items-center gap-12 px-8">
-              <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-8">
+              <div className="flex items-center gap-2 font-semibold text-base sm:text-lg text-slate-700 whitespace-nowrap">
                 <Facebook className="w-5 h-5 text-blue-600" /> Meta Ads
               </div>
               <div className="flex items-center gap-2 font-semibold text-lg text-slate-700 whitespace-nowrap">

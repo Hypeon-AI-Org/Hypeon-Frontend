@@ -49,7 +49,7 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ icon, label, active }) => (
-    <div className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer ${active ? 'bg-white border border-slate-100 text-slate-900 font-semibold shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}>
+    <div className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer min-h-[44px] ${active ? 'bg-white border border-slate-100 text-slate-900 font-semibold shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}>
         {icon} <span className="truncate">{label}</span>
     </div>
 );
@@ -98,7 +98,7 @@ const KeywordRow: React.FC<KeywordRowProps> = ({ label, volume, clicks, cpc }) =
 
 export default function Products() {
     return (
-        <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)]  overflow-hidden border-t border-slate-200  ">
+        <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)]  overflow-hidden border-t border-slate-200 cursor-pointer  ">
             {/* Outside vertical lines */}
             <div className="absolute left-0 top-0 h-full w-px bg-slate-200"></div>
             <div className="absolute right-0 top-0 h-full w-px bg-slate-200"></div>
@@ -110,9 +110,9 @@ export default function Products() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center max-w-3xl mx-auto mb-20"
+                    className="text-center max-w-3xl mx-auto mb-8 sm:mb-14 lg:mb-20"
                 >
-                    <h2 className="text-3xl md:text-4xl font-medium  tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium  tracking-tight">
                         One intelligent system.<span className="text-brand-600">Two products.</span>
                     </h2>
                 </motion.div>
@@ -126,7 +126,7 @@ export default function Products() {
                     className="grid md:grid-cols-2 gap-0 border-y border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200"
                 >
                     {/* Hypeon Analytics */}
-                    <motion.div variants={fadeInUp} className="p-8 lg:p-12 group hover:bg-white transition-colors duration-300">
+                    <motion.div variants={fadeInUp} className="p-5 sm:p-6 md:p-8 lg:p-12 group hover:bg-white transition-colors duration-300">
                         <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-8 shadow-sm">
                             <BarChart2 className="w-5 h-5 text-emerald-600" />
                         </div>
@@ -134,13 +134,13 @@ export default function Products() {
                         <p className="text-[14px] text-slate-500 leading-relaxed mb-8 h-20">
                             Run all your ads from one place. Meta, Google, TikTok. Budgets, campaigns, and real results in a single dashboard.
                         </p>
-                        <Link href="/analytics" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-emerald-700">
+                        <Link href="/analytics" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-emerald-700 cursor-pointer min-h-[44px] sm:min-h-0">
                             Explore Analytics <ChevronRight className="w-3 h-3 ml-1" />
                         </Link>
                     </motion.div>
 
                     {/* Hypeon Copilot */}
-                    <motion.div variants={fadeInUp} className="p-8 lg:p-12 group hover:bg-white transition-colors duration-300">
+                    <motion.div variants={fadeInUp} className="p-5 sm:p-6 md:p-8 lg:p-12 group hover:bg-white transition-colors duration-300">
                         <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-8 shadow-sm">
                             <Sparkles className="w-5 h-5 text-orange-600" />
                         </div>
@@ -148,7 +148,7 @@ export default function Products() {
                         <p className="text-[14px] text-slate-500 leading-relaxed mb-8 h-20">
                             Generate ads, UGC, videos, emails, and product photos from your existing assets. On-demand, no team needed.
                         </p>
-                        <Link href="/products" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-orange-700">
+                        <Link href="/products" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-orange-700 cursor-pointer min-h-[44px] sm:min-h-0">
                             Explore Intelligence <ChevronRight className="w-3 h-3 ml-1" />
                         </Link>
                     </motion.div>
@@ -161,9 +161,9 @@ export default function Products() {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    className="mt-10 w-full"
+                    className="mt-10 w-full hidden md:block"
                 >
-                    <div className="relative bg-white rounded-[2rem] border border-slate-200 overflow-hidden flex h-[700px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.12)] lg:scale-[0.9]  ">
+                    <div className="relative bg-white rounded-xl sm:rounded-[2rem] border border-slate-200 overflow-hidden flex min-h-[500px] sm:min-h-[600px] lg:h-[700px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.12)] lg:scale-[0.9]  ">
 
                         {/* Sidebar */}
                         <div className="w-56 border-r border-slate-100 bg-[#FCFCFC] hidden lg:flex flex-col p-6 flex-shrink-0">
@@ -199,25 +199,25 @@ export default function Products() {
 
                         {/* Main Content */}
                         <div className="flex-1 flex flex-col bg-[#FDFDFD] overflow-hidden">
-                            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-white px-8">
-                                <div className="flex gap-3">
-                                    <div className="px-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs text-slate-600 flex items-center gap-2">
-                                        <LayoutGrid className="w-3 h-3" /> Fashion & Apparel
+                            <div className="p-3 sm:p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 bg-white px-4 sm:px-6 md:px-8">
+                                <div className="flex flex-wrap gap-2">
+                                    <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-50 border border-slate-100 rounded-lg text-[10px] sm:text-xs text-slate-600 flex items-center gap-1.5">
+                                        <LayoutGrid className="w-3 h-3 flex-shrink-0" /> Fashion & Apparel
                                     </div>
-                                    <div className="px-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs  text-slate-600 flex items-center gap-2">
-                                        <Globe className="w-3 h-3" /> United States
+                                    <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-50 border border-slate-100 rounded-lg text-[10px] sm:text-xs text-slate-600 flex items-center gap-1.5">
+                                        <Globe className="w-3 h-3 flex-shrink-0" /> United States
                                     </div>
                                 </div>
-                                <button className="bg-black text-white px-8 py-2.5 rounded-xl text-xs flex items-center gap-2 hover:bg-slate-800 transition-all">
+                                <button type="button" className="bg-black text-white px-4 sm:px-8 py-2 sm:py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-slate-800 transition-all min-h-[44px] cursor-pointer">
                                     Send
                                 </button>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-6">
-                                <div className="grid grid-cols-3 gap-6">
+                            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
                                     {/* Trending Products */}
-                                    <div className="col-span-2 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                                    <div className="sm:col-span-2 bg-white border border-slate-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm">
                                         <div className="flex justify-between items-center mb-8">
                                             <div>
                                                 <h4 className=" text-slate-900 text-lg">Trending Products</h4>
@@ -251,7 +251,7 @@ export default function Products() {
                                     </div>
 
                                     {/* Creative Feed */}
-                                    <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex flex-col">
+                                    <div className="bg-white border border-slate-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col">
                                         <div className="flex justify-between items-center mb-6">
                                             <h4 className=" text-slate-900">Creative Feed</h4>
                                             <div className="px-2 py-0.5 bg-emerald-50 text-[9px] text-emerald-600  rounded flex items-center gap-1.5 border border-emerald-100">
@@ -280,9 +280,9 @@ export default function Products() {
                                     </div>
 
                                     {/* Rising Keywords */}
-                                    <div className="col-span-2 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                                        <h4 className=" text-slate-900 mb-6">Rising Keywords</h4>
-                                        <div className="grid grid-cols-4 text-[10px] text-slate-300 uppercase tracking-widest pb-3 border-b border-slate-100">
+                                    <div className="sm:col-span-2 bg-white border border-slate-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm overflow-x-auto">
+                                        <h4 className="text-slate-900 mb-4 sm:mb-6 text-sm sm:text-base">Rising Keywords</h4>
+                                        <div className="grid grid-cols-4 min-w-[400px] sm:min-w-0 text-[9px] sm:text-[10px] text-slate-300 uppercase tracking-widest pb-3 border-b border-slate-100">
                                             <div>Keyword</div>
                                             <div className="text-center">Volume</div>
                                             <div className="text-center">Clicks</div>
@@ -298,7 +298,7 @@ export default function Products() {
                                     </div>
 
                                     {/* Launch Readiness Gauge */}
-                                    <div className="bg-white border border-slate-100 rounded-2xl p-7 shadow-sm flex flex-col items-center justify-center">
+                                    <div className="bg-white border border-slate-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-7 shadow-sm flex flex-col items-center justify-center">
                                         <h4 className="text-slate-900 mb-8">Launch Readiness</h4>
                                         <div className="relative w-44 h-44 flex items-center justify-center">
                                             <svg className="w-full h-full transform -rotate-90">
@@ -327,14 +327,14 @@ export default function Products() {
                                 </div>
 
                                 {/* Strategy Action Bar */}
-                                <div className="mt-8 flex justify-end">
-                                    <div className="flex items-center gap-4 bg-white border border-slate-200 p-2 pl-6 rounded-2xl shadow-xl shadow-slate-200/50">
-                                        <div className="flex items-center gap-2 cursor-pointer group">
-                                            <Zap className="w-4 h-4 text-slate-900 group-hover:fill-slate-900 transition-all" />
-                                            <span className="text-[13px] font-bold text-slate-900">Generate Strategy</span>
+                                <div className="mt-4 sm:mt-6 lg:mt-8 flex justify-end">
+                                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 bg-white border border-slate-200 p-2 sm:pl-4 md:pl-6 rounded-xl sm:rounded-2xl shadow-xl shadow-slate-200/50 w-full sm:w-auto">
+                                        <div className="flex items-center gap-2 cursor-pointer group min-h-[44px] sm:min-h-0">
+                                            <Zap className="w-4 h-4 text-slate-900 group-hover:fill-slate-900 transition-all flex-shrink-0" />
+                                            <span className="text-xs sm:text-[13px] font-bold text-slate-900">Generate Strategy</span>
                                         </div>
-                                        <div className="px-5 py-2.5 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-xl border border-emerald-100 flex items-center gap-2 tracking-widest">
-                                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div> AI EXPERT ONLINE
+                                        <div className="px-3 sm:px-5 py-2 sm:py-2.5 bg-emerald-50 text-emerald-600 text-[9px] sm:text-[10px] font-black rounded-xl border border-emerald-100 flex items-center gap-2 tracking-widest">
+                                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)] flex-shrink-0"></div> AI EXPERT ONLINE
                                         </div>
                                     </div>
                                 </div>

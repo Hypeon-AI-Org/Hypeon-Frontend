@@ -68,7 +68,7 @@ const features = [
 
 export default function ComparisonBlackWhite() {
   return (
-    <section className="relative py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden  ">
+    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden  ">
 
       <div className="max-w-6xl mx-auto px-6  ">
 
@@ -78,12 +78,12 @@ export default function ComparisonBlackWhite() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black">
             One platform vs <span className="text-brand-600">six tools.</span>
           </h2>
-          <p className="mt-6 text-lg text-neutral-500 max-w-3xl mx-auto">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-500 max-w-3xl mx-auto px-2">
             Stop paying for tools that don’t talk to each other — while still leaving half your intelligence gaps unfilled.
           </p>
         </motion.div>
@@ -94,32 +94,32 @@ export default function ComparisonBlackWhite() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)] "
+          className="relative rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)] overflow-x-auto"
         >
-          <table className="min-w-full text-sm">
+          <table className="min-w-[700px] sm:min-w-full text-xs sm:text-sm">
 
             {/* Header */}
             <thead>
               <tr className="border-b border-neutral-200 text-left">
-                <th className="px-4 py-3 text-neutral-500 font-medium w-[300px]">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-500 font-medium min-w-[200px] sm:min-w-[280px]">
                   Capability
                 </th>
 
                 {/* HypeOn Highlight */}
-                <th className="px-4 py-3 font-semibold text-black bg-neutral-100">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-black bg-neutral-100">
                   HypeOn
                 </th>
 
-                <th className="px-4 py-3 text-neutral-500 font-medium">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-500 font-medium">
                   Trend Tools
                 </th>
-                <th className="px-4 py-3 text-neutral-500 font-medium">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-500 font-medium">
                   Ad Spy Tools
                 </th>
-                <th className="px-4 py-3 text-neutral-500 font-medium">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-500 font-medium">
                   Attribution Tools
                 </th>
-                <th className="px-4 py-3 text-neutral-500 font-medium">
+                <th className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-500 font-medium">
                   BI Tools
                 </th>
               </tr>
@@ -136,14 +136,14 @@ export default function ComparisonBlackWhite() {
                   viewport={{ once: true }}
                   className="border-b border-neutral-100 hover:bg-neutral-50 transition-colors duration-300"
                 >
-                  <td className="px-4 py-3 text-neutral-800 font-medium">
+                  <td className="px-3 sm:px-4 py-2 sm:py-3 text-neutral-800 font-medium">
                     {feature.name}
                   </td>
 
                   {feature.values.map((value, colIndex) => (
                     <td
                       key={colIndex}
-                      className={`px-4 py-3 text-center ${colIndex === 0 ? "bg-neutral-50" : ""
+                      className={`px-3 sm:px-4 py-2 sm:py-3 text-center ${colIndex === 0 ? "bg-neutral-50" : ""
                         }`}
                     >
                       {value === "yes" && (

@@ -54,8 +54,8 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-            ? "top-6 max-w-[95vw] lg:max-w-[980px] px-4"
-            : "top-0 max-w-[95vw] xl:max-w-[1150px] px-4 sm:px-6 lg:px-8"
+            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] sm:px-4 lg:px-3"
+            : "top-0 max-w-[95vw] xl:max-w-[1150px] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] sm:px-5 md:px-6 lg:px-8"
           }
   `}
       >
@@ -63,17 +63,18 @@ function Navbar() {
         <div
           className={`
     relative flex items-center justify-between
+    
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[52px] px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
-              : "h-[64px] px-6 bg-transparent border-transparent shadow-none"
+              ? "h-[48px] sm:h-[52px] px-3 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              : "h-[56px] sm:h-[60px] md:h-[64px] px-4 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
         >
 
           {/* LOGO */}
-          <div className="flex items-center gap-2 cursor-pointer pl-1">
+   <div className="flex items-center gap-2 cursor-pointer pl-1 mr-4 sm:mr-6 lg:mr-8">
             <Link
               href="/"
               className="flex items-center gap-3"
@@ -87,19 +88,19 @@ function Navbar() {
 
                 />
               </div>
-              <span className="font-semibold text-[15px] text-black tracking-tight flex items-start">
-                HypeOn AI<span className="text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
+              <span className="font-semibold text-[13px] sm:text-[15px] text-black tracking-tight flex items-start">
+                HypeOn AI<span className="text-[11px] sm:text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
               </span>
             </Link>
           </div>
 
-          {/* DESKTOP NAV */}
-          <div className="hidden md:flex items-center h-full gap-6 lg:gap-8">
+          {/* DESKTOP NAV (lg+ only; tablet uses mobile menu) */}
+          <div className="hidden lg:flex items-center h-full gap-6 lg:gap-8 mr-10 " >
 
 
             {/* PRODUCTS DROPDOWN */}
             <div className="group flex items-center h-full">
-              <Link href="/products" className="flex items-center gap-1.5 text-[14px] font-medium text-black hover:opacity-70 transition-opacity">
+              <Link href="/products" className="flex items-center gap-1.5 text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer">
                 Products
                 <ChevronDown className="w-3.5 h-3.5 text-black group-hover:rotate-180 transition-transform duration-200" />
               </Link>
@@ -145,15 +146,16 @@ function Navbar() {
             </div>
 
             <button
+              type="button"
               onClick={() => setShowPricing(true)}
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity"
+              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Pricing
             </button>
 
             <Link
               href="/about"
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity"
+              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Company
             </Link>
@@ -163,17 +165,17 @@ function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-5 pr-1">
+          <div className="hidden lg:flex items-center gap-5 pr-1">
             <a
               href="https://app.hypeon.ai/login"
-              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity"
+              className="text-[14px] font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Login
             </a>
 
             <a
               href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-              className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[14px] font-semibold text-white bg-black hover:bg-black/80 transition-colors"
+              className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[14px] font-semibold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer"
             >
               Get the demo
             </a>
@@ -181,9 +183,10 @@ function Navbar() {
 
 
 
-          {/* MOBILE TOGGLE */}
+          {/* MOBILE / TABLET TOGGLE */}
           <button
-            className="md:hidden text-black pr-2"
+            type="button"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-black -mr-1 cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -194,7 +197,7 @@ function Navbar() {
 
       {/* MOBILE MENU BACKDROP */}
 
-      <div className="md:hidden fixed top-[84px] left-1/2 -translate-x-1/2 z-40 w-full max-w-md px-4">
+      <div className="lg:hidden fixed top-[56px] sm:top-[60px] left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(95vw,28rem)] sm:max-w-md px-4 sm:px-5">
         <div
           className={`
       bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl
@@ -205,11 +208,12 @@ function Navbar() {
               : "scale-y-95 opacity-0 -translate-y-2 pointer-events-none"}
     `}
         >
-          <div className="px-5 py-5 space-y-3">
+          <div className="px-4 sm:px-5 py-4 sm:py-5 space-y-2 sm:space-y-3">
             {/* Products */}
             <div>
               <button
-                className="w-full flex items-center justify-between py-3 text-base font-medium text-slate-700"
+                type="button"
+                className="w-full flex items-center justify-between min-h-[44px] py-3 text-base font-medium text-slate-700 cursor-pointer"
                 onClick={() =>
                   setMobileDropdown((d) =>
                     d === "products" ? null : "products"
@@ -265,7 +269,7 @@ function Navbar() {
             <Link
               href="/solutions"
               onClick={closeMobile}
-              className="block py-3 text-base font-medium text-slate-700"
+              className="block min-h-[44px] flex items-center py-3 text-base font-medium text-slate-700 cursor-pointer"
             >
               Solutions
             </Link>
@@ -274,34 +278,35 @@ function Navbar() {
             <Link
               href="/about"
               onClick={closeMobile}
-              className="block py-3 text-base font-medium text-slate-700"
+              className="block min-h-[44px] flex items-center py-3 text-base font-medium text-slate-700 cursor-pointer"
             >
               Company
             </Link>
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             <button
+              type="button"
               onClick={() => {
                 setShowPricing(true);
                 closeMobile();
               }}
-              className="block py-3 text-base font-medium text-slate-700"
+              className="block w-full text-left min-h-[44px] flex items-center py-3 text-[15px] sm:text-base font-medium text-slate-700 cursor-pointer"
             >
               Pricing
             </button>
-            <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+            <div className="my-3 sm:my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             {/* CTA */}
-            <div className="pt-4 flex gap-3">
+            <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
               <a
                 href="https://app.hypeon.ai/login"
-                className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-base font-medium"
+                className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-sm sm:text-base font-medium min-h-[44px] flex items-center justify-center cursor-pointer"
               >
                 Log in
               </a>
               <a
                 href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-base font-medium"
+                className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-sm sm:text-base font-medium min-h-[44px] flex items-center justify-center cursor-pointer"
               >
                 Get the demo
               </a>
@@ -313,30 +318,36 @@ function Navbar() {
       {/* PRICING MODAL */}
       {showPricing && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Pricing"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer"
           onClick={() => setShowPricing(false)}
         >
           <div
-            className="relative w-full max-w-md mx-4 rounded-2xl bg-white p-8 shadow-2xl text-center"
+            className="relative w-full max-w-[95vw] sm:max-w-md mx-3 sm:mx-4 rounded-2xl bg-white p-6 sm:p-8 shadow-2xl text-center cursor-default"
             onClick={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
           >
             {/* CLOSE */}
             <button
+              type="button"
               onClick={() => setShowPricing(false)}
-              className="absolute right-4 top-4 text-slate-400 hover:text-slate-700"
+              className="absolute right-3 top-3 sm:right-4 sm:top-4 p-2 -m-2 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-100 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+              aria-label="Close"
             >
               ✕
             </button>
 
-            <h3 className="text-2xl font-display font-semibold text-slate-900">
+            <h3 className="text-xl sm:text-2xl font-display font-semibold text-slate-900 pr-8">
               Pricing
             </h3>
 
-            <p className="mt-3 text-slate-600">
+            <p className="mt-3 text-sm sm:text-base text-slate-600">
               pricing plans are on the way.
             </p>
 
-            <div className="mt-6 inline-block rounded-full bg-brand-600/10 px-5 py-2 text-brand-600 font-medium">
+            <div className="mt-5 sm:mt-6 inline-block rounded-full bg-brand-600/10 px-4 sm:px-5 py-2 text-sm sm:text-base text-brand-600 font-medium">
               Coming Soon
             </div>
           </div>
@@ -377,7 +388,7 @@ function MegaItem({
     <Link
       href={href}
       className={`
-        group/card relative
+        group/card relative cursor-pointer
         text-left
         flex flex-col
         p-4 rounded-2xl border border-slate-100/80
@@ -433,7 +444,7 @@ function MobileProductLink({
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left flex gap-3 p-3 rounded-xl hover:bg-white transition"
+      className="w-full text-left flex gap-3 p-3 rounded-xl hover:bg-white transition min-h-[44px] cursor-pointer"
     >
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600/10 text-brand-600">
         {icon}

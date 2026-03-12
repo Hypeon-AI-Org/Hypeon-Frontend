@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function StartToday() {
   return (
-    <section className="font-sans relative py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
+    <section className="font-sans relative py-10 sm:py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
@@ -27,7 +27,7 @@ export default function StartToday() {
             </span>
           </h2>
 
-          <p className="mt-6 text-lg text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-600 max-w-3xl mx-auto leading-relaxed px-2">
             Your competitors are making decisions based on
             <span className="text-black font-medium"> 3-month-old data </span>
             and platform lies. HypeOn gives you the edge that turns founders
@@ -48,7 +48,7 @@ export default function StartToday() {
             href="https://calendly.com/yash-hypeon/30min?month=2026-03"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
-            className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:bg-neutral-800 transition-all"
+            className="px-7 py-3 min-h-[44px] flex items-center justify-center bg-black text-white rounded-full text-[15px] font-medium shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:bg-neutral-800 transition-all cursor-pointer"
           >
             Get the demo
           </motion.a>

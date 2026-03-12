@@ -61,10 +61,11 @@ const TechnologySection = () => {
               { name: "Market Intelligence", desc: "Who are the top markets, countries, styles and demographics driving demand." },
               { name: "Ad Intelligence", desc: "See which competitor ads are winning and what angles dominate your niche." }
             ].map((tab, i) => (
-              <div
+              <button
                 key={i}
+                type="button"
                 onClick={() => handleTabClick(i)}
-                className={`p-[22px_26px] cursor-pointer border-b-[1.5px] border-[#e2e2e2] transition-colors select-none ${i % 2 === 0 ? "border-r-[1.5px]" : ""
+                className={`w-full text-left p-[22px_26px] min-h-[44px] cursor-pointer border-b-[1.5px] border-[#e2e2e2] transition-colors select-none ${i % 2 === 0 ? "border-r-[1.5px]" : ""
                   } ${activeTab === i ? "bg-white" : "hover:bg-gray-50"}`}
               >
                 <div className={`text-[13px] font-bold mb-1 transition-colors ${activeTab === i ? "text-[#111]" : "text-[#c0c0c0]"}`}>
@@ -73,7 +74,7 @@ const TechnologySection = () => {
                 <div className={`text-[12.5px] font-normal leading-normal transition-colors ${activeTab === i ? "text-[#666]" : "text-[#d0d0d0]"}`}>
                   {tab.desc}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 

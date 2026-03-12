@@ -38,9 +38,9 @@ export default function FAQ() {
     };
 
     return (
-        <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
+        <section className="py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-[1fr_2fr] gap-6 lg:gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-12">
 
                     {/* Left Column: Heading and Context */}
                     <div className="flex flex-col">
@@ -63,13 +63,14 @@ export default function FAQ() {
                                 className="border-b border-slate-200"
                             >
                                 <button
+                                    type="button"
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full flex items-center justify-between py-4 text-left hover:text-slate-600 transition-colors group"
+                                    className="w-full flex items-center justify-between py-3 sm:py-4 text-left hover:text-slate-600 transition-colors group relative min-h-[48px] sm:min-h-0 cursor-pointer"
                                 >
-                                    <span className="text-[16px] font-medium text-slate-900 group-hover:text-slate-600 transition-colors">
+                                    <span className="text-[15px] sm:text-[16px] font-medium text-slate-900 group-hover:text-slate-600 transition-colors pr-8 sm:pr-0">
                                         {faq.question}
                                     </span>
-                                    <span className="ml-6 flex-shrink-0 text-slate-400">
+                                    <span className="ml-4 sm:ml-6 flex-shrink-0 text-slate-400">
                                         {openIndex === index ? (
                                             <Minus className="w-5 h-5" />
                                         ) : (
@@ -79,10 +80,10 @@ export default function FAQ() {
                                 </button>
 
                                 <div
-                                    className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-32 pb-4 opacity-100' : 'max-h-0 opacity-0'
+                                    className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] sm:max-h-96 pb-4 opacity-100' : 'max-h-0 opacity-0'
                                         }`}
                                 >
-                                    <p className="text-[14px] text-slate-500 leading-relaxed pr-8">
+                                    <p className="text-[13px] sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
                                         {faq.answer}
                                     </p>
                                 </div>

@@ -56,8 +56,9 @@ export default function HypeScoreSection() {
                   className="border-b border-slate-100"
                 >
                   <button
+                    type="button"
                     onClick={() => setActiveId(feature.id)}
-                    className="w-full text-left py-4 transition-all group"
+                    className="w-full text-left py-4 transition-all group min-h-[48px] cursor-pointer"
                   >
                     <span
                       className={`block text-base font-semibold transition-colors duration-300 ${

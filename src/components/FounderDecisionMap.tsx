@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 
 const sections = [
   {
@@ -61,19 +61,31 @@ const sections = [
   },
 ]
 
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)")
+    const set = () => setIsDesktop(mq.matches)
+    set()
+    mq.addEventListener("change", set)
+    return () => mq.removeEventListener("change", set)
+  }, [])
+  return isDesktop
+}
+
 export default function StackingCards() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section ref={containerRef} className="relative bg-[oklch(0.988_0.0041_91.45)]   py-14 ">
+    <section ref={containerRef} className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:py-14 ">
       {/* Header Section */}
-      <div className="max-w-6xl mx-auto px-6 mb-14 text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-black">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black">
           Every problem. Solved.
           <br />
           <span className="text-brand-600">In one platform.</span>
         </h2>
-        <p className="mt-6 text-[15px] text-neutral-500 max-w-3xl mx-auto">
+        <p className="mt-4 sm:mt-6 text-sm sm:text-[15px] text-neutral-500 max-w-3xl mx-auto px-2">
           Here’s how HypeOn maps directly to the decisions you make every week as a founder.
         </p>
       </div>
@@ -93,6 +105,7 @@ export default function StackingCards() {
 
 function Card({ item, index, total }: { item: any, index: number, total: number }) {
   const cardRef = useRef(null)
+  const isDesktop = useIsDesktop()
 
   // Tracks scroll progress of this specific card
   const { scrollYProgress } = useScroll({
@@ -100,33 +113,32 @@ function Card({ item, index, total }: { item: any, index: number, total: number 
     offset: ["start end", "start start"]
   })
 
-  // Scale down slightly as more cards stack on top
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1 - (total - index) * 0.04])
+  // Scale down slightly as more cards stack on top (desktop only for stacking effect)
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isDesktop ? 1 - (total - index) * 0.04 : 1])
 
   return (
     <div
       ref={cardRef}
-      className="sticky top-24 w-full flex justify-center mb-[10vh]"
+      className="relative md:sticky md:top-20 lg:top-24 w-full flex justify-center px-3 sm:px-4 md:px-6 mb-[6vh] sm:mb-[10vh]"
       style={{
         zIndex: index + 1,
-        // This creates the "stepped" look at the top of the stack
-        paddingTop: `${index * 25}px`
+        paddingTop: isDesktop ? `${index * 25}px` : 0
       }}
     >
       <motion.div
         style={{ scale }}
-        className="relative w-full max-w-5xl min-h-[420px] rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden bg-white flex flex-col md:flex-row"
+        className="relative w-full max-w-5xl min-h-[280px] sm:min-h-[360px] lg:min-h-[420px] rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden bg-white flex flex-col md:flex-row"
       >
         {/* LEFT SIDE: TEXT CONTENT */}
-        <div className="w-full md:w-[40%] p-8 md:p-12 flex flex-col justify-center bg-white">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-xs ">
+        <div className="w-full md:w-[40%] p-5 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center bg-white">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-xs shrink-0">
               {item.id}
             </span>
             <span className="text-sm font-semibold uppercase tracking-widest text-neutral-400">Feature</span>
           </div>
 
-          <h3 className="text-2xl md:text-3xl text-slate-900 mb-6 leading-tight">
+          <h3 className="text-xl sm:text-2xl md:text-3xl text-slate-900 mb-4 sm:mb-6 leading-tight">
             {item.title}
           </h3>
 
@@ -134,13 +146,13 @@ function Card({ item, index, total }: { item: any, index: number, total: number 
             {item.description}
           </p>
 
-          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="mt-8 w-fit inline-block px-5 py-2.5 rounded-full bg-black text-white font-medium hover:bg-neutral-800 transition-colors">
+          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="mt-6 sm:mt-8 w-fit inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full bg-black text-white font-medium hover:bg-neutral-800 transition-colors">
             Get the demo
           </a>
         </div>
 
         {/* RIGHT SIDE: IMAGE */}
-        <div className="w-full md:w-[60%] relative min-h-[300px] md:min-h-full overflow-hidden flex items-center justify-center p-6">
+        <div className="w-full md:w-[60%] relative min-h-[200px] sm:min-h-[280px] md:min-h-full overflow-hidden flex items-center justify-center p-4 sm:p-6">
           <Image
             src={item.image}
             alt={item.title}
