@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function Products() {
 
@@ -83,7 +84,7 @@ export default function Products() {
           </ul>
 
           <div className="flex items-center gap-4 pt-4">
-            <a href="https://app.hypeon.ai/login" className="bg-black hover:bg-black text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block">
+            <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-black hover:bg-black text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block">
               Get the demo
             </a>
 
@@ -98,12 +99,13 @@ export default function Products() {
 
       {/* DASHBOARD IMAGE */}
       <div className="hidden lg:block absolute bottom-0 right-[-90px] w-[800px] z-0">
-        <div className="rounded-2xl border border-gray-200  overflow-hidden">
-
-          <img
+        <div className="rounded-2xl border border-gray-200 overflow-hidden relative aspect-[800/550]">
+          <Image
             src="/images/screen.png"
             alt="Dashboard Preview"
-            className="w-full max-h-[550px] "
+            fill
+            className="object-cover object-top"
+            sizes="800px"
           />
         </div>
       </div>

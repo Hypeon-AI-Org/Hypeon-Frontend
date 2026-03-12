@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -86,9 +87,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-70px" src="/images/image.png" isVideo />
-                <VideoItem height="h-70px" src="/images/wallpaper.png" isVideo />
-                <VideoItem height="h-70px" src="/images/diy.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/image.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/wallpaper.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/diy.png" isVideo />
 
               </div>
             ))}
@@ -110,9 +111,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-70px" src="/images/tech (1).png" isVideo />
-                <VideoItem height="h-70px" src="/images/curtains.png" isVideo />
-                <VideoItem height="h-70px" src="/images/image.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/tech (1).png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/curtains.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/image.png" isVideo />
 
               </div>
             ))}
@@ -137,8 +138,13 @@ function VideoItem({ height, src, isVideo = false }: { height: string; src: stri
       transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={`relative w-full ${height} rounded-[2rem] overflow-hidden bg-gray-100 border shadow-sm`}
     >
-
-      <img src={src} className="w-full h-full object-cover" alt="TikTok Content" />
+      <Image
+        src={src}
+        alt="TikTok Content"
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
 
       {isVideo && (
         <div className="absolute inset-0 flex items-center justify-center">

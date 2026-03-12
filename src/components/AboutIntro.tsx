@@ -17,15 +17,12 @@ export default function AboutIntro() {
       <div className="relative max-w-4xl mx-auto px-6 text-center reveal">
         <p className="text-sm text-slate-400 mb-3">We build</p>
         <h1 className="text-2xl md:text-4xl  text-slate-900 tracking-tight leading-tight mb-4">
-        Know what to sell before you.
-          <br />
-          spend a dollar.
+        Scale Smarter. Scale Faster.
         </h1>
         <p className="text-[17px] text-gray-500 max-w-xl mx-auto mb-6">
-        HypeOn AI is the decision system for{' '}
-          <span className="font-medium text-gray-500">e-commerce teams  predicting trending products</span>
-          <span className="font-medium text-gray-500">, surfacing buying-intent keywords, exposing competitor strategies</span>.
-          and revealing your real ROAS across every channel.
+        HypeOn AI helps e-commerce teams figure out what to sell next{' '}
+          <span className="font-medium text-gray-500">how to sell it better</span>
+          <span className="font-medium text-gray-500">and where to put their budget for the highest return using real-time signals.</span>.
         </p>
         <p className="text-sm text-slate-400 mt-10 mb-4">Official partners</p>
         <div className="flex justify-center items-center gap-8 flex-wrap">
@@ -37,6 +34,7 @@ export default function AboutIntro() {
                 width={width}
                 height={height}
                 className="object-contain"
+                
               />
             </div>
           ))}

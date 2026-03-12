@@ -176,7 +176,7 @@ export default function Features() {
           whileHover={{ scale: 1.05 }}
           className="flex justify-center mb-16"
         >
-          <a href="https://app.hypeon.ai/login" className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium hover:bg-neutral-800 transition-all inline-block">
+          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="px-7 py-3 bg-black text-white rounded-full text-[15px] font-medium hover:bg-neutral-800 transition-all inline-block">
             Get the demo
           </a>
         </motion.div>

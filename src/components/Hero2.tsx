@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { CheckCircle2, ArrowRight, Star } from 'lucide-react';
 
 const Hero = () => {
@@ -32,7 +33,7 @@ const Hero = () => {
             ))}
           </div>
 
-          <a href="https://app.hypeon.ai/login" className="bg-[#f0abfc] hover:bg-[#e879f9] text-black px-8 py-4 rounded-sm font-bold flex items-center gap-2 transition-all mb-12 w-fit">
+          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-[#f0abfc] hover:bg-[#e879f9] text-black px-8 py-4 rounded-sm font-bold flex items-center gap-2 transition-all mb-12 w-fit">
             Get a demo <ArrowRight size={20} />
           </a>
 
@@ -61,10 +62,13 @@ const Hero = () => {
             
             {/* Main Dashboard Image Container */}
             <div className="relative shadow-2xl rounded-tl-2xl overflow-hidden border-l border-t border-white/20">
-              <img 
-                src="/dashboard-screenshot.png" 
-                alt="Dashboard Preview" 
+              <Image
+                src="/dashboard-screenshot.png"
+                alt="Dashboard Preview"
+                width={1200}
+                height={720}
                 className="w-full h-auto object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
               
               {/* Floating "Cost" Card (as seen in image) */}

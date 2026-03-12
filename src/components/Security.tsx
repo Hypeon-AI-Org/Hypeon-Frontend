@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 export default function SecuritySection() {
     return (
@@ -8,10 +9,13 @@ export default function SecuritySection() {
 
                 {/* Badges Image */}
                 <div className="flex justify-center mb-10">
-                    <img
+                    <Image
                         src="/images/security.png"
                         alt="Security Certifications"
+                        width={384}
+                        height={256}
                         className="w-64 md:w-96 object-contain"
+                        sizes="(max-width: 768px) 256px, 384px"
                     />
                 </div>
 

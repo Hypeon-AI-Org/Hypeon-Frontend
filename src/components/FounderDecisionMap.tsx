@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 
@@ -12,7 +13,7 @@ const sections = [
   },
   {
     id: "02",
-    image: "/product/ROAS.png",
+    image: "/product/Roas.png",
     title: "See Your Real ROAS",
     description: "Not what Google claims. Not what Meta reports. The actual return on every dollar you spent - across every channel - with zero duplication."
   },
@@ -24,7 +25,7 @@ const sections = [
   },
   {
     id: "05",
-    image: "/product/TrendKeyword.png",
+    image: "/product/Trendkeyword.png",
     title: "Find Trending Keywords",
     description: "Know exactly what your customers are typing into Google right now. Build campaigns around real demand - not last month's search volume."
   },
@@ -133,17 +134,19 @@ function Card({ item, index, total }: { item: any, index: number, total: number 
             {item.description}
           </p>
 
-          <button className="mt-8 w-fit px-5 py-2.5 rounded-full bg-black text-white font-medium hover:bg-neutral-800 transition-colors">
+          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="mt-8 w-fit inline-block px-5 py-2.5 rounded-full bg-black text-white font-medium hover:bg-neutral-800 transition-colors">
             Get the demo
-          </button>
+          </a>
         </div>
 
         {/* RIGHT SIDE: IMAGE */}
         <div className="w-full md:w-[60%] relative min-h-[300px] md:min-h-full overflow-hidden flex items-center justify-center p-6">
-          <img
+          <Image
             src={item.image}
             alt={item.title}
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 60vw"
           />
         </div>
       </motion.div>

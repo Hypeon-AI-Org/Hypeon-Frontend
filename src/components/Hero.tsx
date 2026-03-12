@@ -197,7 +197,7 @@ font-medium tracking-[-0.015em] leading-[1.08] text-neutral-900 mb-10">
 
               {/* CTA */}
               <a
-                href="https://app.hypeon.ai/login"
+                href="https://calendly.com/yash-hypeon/30min?month=2026-03"
                 className="inline-flex items-center gap-2 pl-2 pr-5 py-2
   rounded-full text-[14px] font-medium
   text-white bg-black hover:bg-neutral-900

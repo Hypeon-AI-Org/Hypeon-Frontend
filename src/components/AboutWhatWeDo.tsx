@@ -34,15 +34,16 @@ export default function AboutWhatWeDo() {
     ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
   >
 
-        {/* VIDEO BACKGROUND */}
+        {/* VIDEO BACKGROUND — lazy-loaded for fast initial render */}
         <video
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/images/vide.mp4" type="video/mp4" />
+          {visible && <source src="/images/vide.mp4" type="video/mp4" />}
         </video>
 
         {/* DARK OVERLAY */}

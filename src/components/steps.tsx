@@ -60,7 +60,7 @@ const MarketerSteps = () => {
 
             {/* CTA */}
             <div className="mt-14 flex justify-center">
-                <a href="https://app.hypeon.ai/login" className="flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition-colors">
+                <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="flex items-center gap-2 bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition-colors">
 
                     <span className="bg-white text-black rounded-full p-1">
                         <svg

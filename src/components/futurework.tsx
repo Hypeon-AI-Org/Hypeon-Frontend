@@ -41,7 +41,7 @@ export default function FunnelAILandingPage() {
 
           {/* Call-to-Action Button */}
           <div className="mb-20 reveal">
-            <Link href="https://app.hypeon.ai/login">
+            <Link href="https://calendly.com/yash-hypeon/30min?month=2026-03">
               <span className="inline-block px-6 py-3 font-bold text-base rounded-md transition duration-150 ease-in-out hover:opacity-90"
                 style={{ backgroundColor: colors.primaryButtonBg, color: colors.primaryButtonText }}>
                 Get the demo

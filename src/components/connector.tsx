@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Link2, Target, Sparkles, Zap } from 'lucide-react';
 
@@ -112,10 +113,13 @@ export default function Hero() {
           <div className="relative max-w-4xl mx-auto reveal-scale">
             {/* Main Dashboard Image */}
             <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-soft-xl bg-white">
-              <img
+              <Image
                 src="/images/hero.png"
                 alt="HypeOn Analytics Dashboard"
+                width={1200}
+                height={720}
                 className="w-full h-auto"
+                sizes="(max-width: 1024px) 100vw, 896px"
               />
             </div>
 

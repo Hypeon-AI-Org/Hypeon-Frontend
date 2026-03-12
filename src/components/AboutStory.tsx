@@ -102,6 +102,7 @@ export default function AboutStory() {
     alt="Business analytics and market research"
     fill
     className="object-cover"
+    
   />
 
   {/* overlay */}

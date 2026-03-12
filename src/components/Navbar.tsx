@@ -172,7 +172,7 @@ function Navbar() {
             </a>
 
             <a
-              href="https://app.hypeon.ai/login"
+              href="https://calendly.com/yash-hypeon/30min?month=2026-03"
               className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[14px] font-semibold text-white bg-black hover:bg-black/80 transition-colors"
             >
               Get the demo
@@ -300,7 +300,7 @@ function Navbar() {
                 Log in
               </a>
               <a
-                href="https://app.hypeon.ai/login"
+                href="https://calendly.com/yash-hypeon/30min?month=2026-03"
                 className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-base font-medium"
               >
                 Get the demo
