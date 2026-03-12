@@ -97,7 +97,7 @@ export default function Products() {
         <div className="lg:hidden w-full max-w-lg mx-auto mt-4 relative z-10">
           <div className="rounded-2xl border border-gray-200 overflow-hidden relative aspect-[800/550]">
             <Image
-              src="/images/screen.png"
+              src="/images/screen.webp"
               alt="Dashboard Preview"
               fill
               className="object-cover object-top"
