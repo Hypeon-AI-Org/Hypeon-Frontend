@@ -1,39 +1,25 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import {
-  Instagram,
-  Facebook,
-  Linkedin,
-  Twitter,
+import Image from 'next/image';
 
-  BarChart3,
-  FileSpreadsheet,
-  Cloud,
-  Database,
-  LayoutGrid,
-  MessagesSquare,
-  Search,
-  Video,
-  ShoppingBag,
-  Package,
-} from 'lucide-react';
+/** All integration logos from /logos (renamed from logo_real) */
+const INTEGRATION_ITEMS = [
+  { name: 'Instagram', src: '/logos/instagram.png' },
+  { name: 'Snapchat', src: '/logos/snapchat.jpg' },
+  { name: 'LinkedIn', src: '/logos/linkedin.avif' },
+  { name: 'Google', src: '/logos/google.png' },
+  { name: 'Google Cloud', src: '/logos/google-cloud.png' },
+  { name: 'Google Ads', src: '/logos/google-ads.png' },
+  { name: 'Google Sheets', src: '/logos/google-sheets.webp' },
+  { name: 'Azure', src: '/logos/azure.png' },
+  { name: 'Meta', src: '/logos/meta.png' },
+  { name: 'Shopify', src: '/logos/shopify.png' },
+  { name: 'Amazon', src: '/logos/amazon.png' },
+  { name: 'TikTok', src: '/logos/tiktok.webp' },
+];
 
 const Integrations = () => {
-  const logos = [
-    { icon: Instagram, name: 'Instagram', color: '#E4405F' },
-    { icon: MessagesSquare, name: 'Snapchat', color: '#FFFC00' },
-    { icon: Linkedin, name: 'LinkedIn', color: '#0A66C2' },
-    { icon: BarChart3, name: 'Google Analytics', color: '#F9AB00' },
-    { icon: Cloud, name: 'Google Cloud', color: '#4285F4' },
-    { icon: LayoutGrid, name: 'Google Ads', color: '#34A853' },
-    { icon: FileSpreadsheet, name: 'Google Sheets', color: '#1D8045' },
-    { icon: Database, name: 'Azure', color: '#0089D6' },
-    { icon: Facebook, name: 'Facebook', color: '#1877F2' },
-    { icon: ShoppingBag, name: 'Shopify', color: '#95BF47' },
-    { icon: Package, name: 'Amazon', color: '#FF9900' },
-    { icon: Video, name: 'TikTok', color: '#000000' },
-  ];
 
   return (
     <section id="integrations" className="py-16 bg-[oklch(0.988_0.0041_91.45)] border-t border-gray-100 font-sans">
@@ -74,30 +60,25 @@ const Integrations = () => {
           </div>
         </div>
 
-        {/* Logo Marquee */}
+        {/* Logo Marquee: real logos from /logos where available, Lucide icons for the rest */}
         <div className="relative mt-12 pt-8 overflow-hidden">
           <div className="marquee-container no-fade">
             <div className="marquee-content flex items-center gap-10 md:gap-14">
-              {/* First set of logos */}
-              {logos.map((logo, i) => (
-                <div key={`logo-1-${i}`} className="flex items-center justify-center flex-shrink-0 group">
-                  <logo.icon
-                    className="w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110"
-                    style={{ color: logo.color }}
-                    strokeWidth={1.5}
-                  />
-                </div>
-              ))}
-              {/* Duplicate set for seamless loop */}
-              {logos.map((logo, i) => (
-                <div key={`logo-2-${i}`} className="flex items-center justify-center flex-shrink-0 group">
-                  <logo.icon
-                    className="w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110"
-                    style={{ color: logo.color }}
-                    strokeWidth={1.5}
-                  />
-                </div>
-              ))}
+              {[1, 2].map((set) =>
+                INTEGRATION_ITEMS.map((item, i) => (
+                  <div key={`${set}-${i}`} className="flex items-center justify-center flex-shrink-0 group">
+                    <span className="relative w-8 h-8 md:w-10 md:h-10 rounded-md flex items-center justify-center bg-white border border-gray-100 overflow-hidden p-0.5 transition-transform duration-300 group-hover:scale-110">
+                      <Image
+                        src={item.src}
+                        alt=""
+                        width={40}
+                        height={40}
+                        className="object-contain w-7 h-7 md:w-8 md:h-8"
+                      />
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

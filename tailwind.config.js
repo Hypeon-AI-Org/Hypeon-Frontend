@@ -1,11 +1,15 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import tailwindcssAnimate from "tailwindcss-animate";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
   content: [
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    path.join(__dirname, "src", "app", "**", "*.{js,ts,jsx,tsx,mdx}"),
+    path.join(__dirname, "src", "components", "**", "*.{js,ts,jsx,tsx,mdx}"),
   ],
   theme: {
     extend: {
