@@ -48,19 +48,19 @@ export default function Products() {
   }, []);
 
   return (
-    <section className="relative min-h-[650px] py-[70px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans flex items-center">
+    <section className="relative min-h-0 lg:min-h-[650px] pt-20 sm:pt-24 md:pt-28 lg:pt-[90px] pb-10 sm:pb-12 md:pb-16 lg:pb-[70px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans flex items-center">
 
       {/* Container */}
-      <div className="max-w-6xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center -mt-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-0">
 
         {/* LEFT CONTENT */}
-        <div className="reveal-left space-y-4 lg:pr-12 lg:ml-20">
+        <div className="reveal-left space-y-3 sm:space-y-4 lg:pr-12 lg:ml-20">
 
           <span className="inline-block px-3 py-1 rounded-full border border-slate-200 text-xs font-semibold text-slate-900 bg-white shadow-sm">
             Attribution reporting that
           </span>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight text-neutral-900 leading-tight">
             Attribution reporting that <br /> <span className="text-brand-600">shows you the truth.</span>
           </h2>
 
@@ -73,7 +73,7 @@ export default function Products() {
             ].map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-center gap-2 text-slate-600 font-semibold text-sm"
+                className="flex items-center gap-2 text-slate-600 font-semibold text-xs sm:text-sm"
               >
                 <span className="material-symbols-outlined text-slate-900 text-lg">
                   {item.icon}
@@ -83,21 +83,31 @@ export default function Products() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-4 pt-4">
-            <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-black hover:bg-black text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block">
+          <div className="flex items-center gap-4 pt-2 sm:pt-4">
+            <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-black hover:bg-black text-white px-5 py-2.5 sm:py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block min-h-[44px] flex items-center">
               Get the demo
             </a>
-
-
           </div>
         </div>
 
-        {/* RIGHT GRID SPACE */}
+        {/* RIGHT GRID SPACE (desktop) */}
         <div className="hidden lg:block h-1"></div>
 
+        {/* DASHBOARD IMAGE – in flow on mobile/tablet */}
+        <div className="lg:hidden w-full max-w-lg mx-auto mt-4 relative z-10">
+          <div className="rounded-2xl border border-gray-200 overflow-hidden relative aspect-[800/550]">
+            <Image
+              src="/images/screen.png"
+              alt="Dashboard Preview"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 0"
+            />
+          </div>
+        </div>
       </div>
 
-      {/* DASHBOARD IMAGE */}
+      {/* DASHBOARD IMAGE – absolute on desktop */}
       <div className="hidden lg:block absolute bottom-0 right-[-90px] w-[800px] z-0">
         <div className="rounded-2xl border border-gray-200 overflow-hidden relative aspect-[800/550]">
           <Image
@@ -110,8 +120,8 @@ export default function Products() {
         </div>
       </div>
 
-      {/* RIGHT FADE (optional SaaS effect) */}
-      <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#fdfdfd] to-transparent pointer-events-none"></div>
+      {/* RIGHT FADE (optional SaaS effect) – desktop only when image is visible */}
+      <div className="hidden lg:block absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#fdfdfd] to-transparent pointer-events-none"></div>
 
 
 

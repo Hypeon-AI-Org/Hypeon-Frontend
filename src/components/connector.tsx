@@ -46,7 +46,7 @@ const FloatingCard = ({
   return (
     <div
       ref={cardRef}
-      className={`absolute bg-white rounded-2xl p-3 shadow-soft-lg border border-gray-200 transition-all duration-500 cursor-pointer ${className} ${isHovered ? 'shadow-soft-xl border-gray-300' : ''
+      className={`absolute bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-3 shadow-soft-lg border border-gray-200 transition-all duration-500 cursor-pointer ${className} ${isHovered ? 'shadow-soft-xl border-gray-300' : ''
         }`}
       style={{
         animationDelay: `${delay}s`,
@@ -55,13 +55,13 @@ const FloatingCard = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-start gap-3">
-        <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center flex-shrink-0">
-          <Icon className="w-4 h-4" />
+      <div className="flex items-start gap-2 sm:gap-3">
+        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-black text-white flex items-center justify-center flex-shrink-0">
+          <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
-        <div>
-          <h4 className="font-semibold text-black text-sm">{title}</h4>
-          <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{description}</p>
+        <div className="min-w-0">
+          <h4 className="font-semibold text-black text-xs sm:text-sm">{title}</h4>
+          <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5 leading-relaxed">{description}</p>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-[75vh] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans text-[#111] antialiased">
+    <section className="relative min-h-0 sm:min-h-[75vh] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans text-[#111] antialiased">
       {/* Subtle grid background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
@@ -90,17 +90,17 @@ export default function Hero() {
 
 
       {/* Hero Content */}
-      <div className="relative z-10 px-6 lg:px-12 pt-24 pb-14">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-12 pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-14">
         <div className="max-w-7xl mx-auto">
           {/* Text Content */}
-          <div className="text-center max-w-3xl mx-auto mb-16 reveal">
-            <h1 className="text-2xl md:text-4xl  text-black mb-6 text-balance tracking-tight">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 reveal">
+            <h1 className="text-xl sm:text-2xl md:text-4xl text-black mb-4 sm:mb-6 text-balance tracking-tight">
               The most True{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-gray-700 to-black">attribution platform</span>{' '}
               for <span className="text-brand-600">e-commerce</span>
             </h1>
 
-            <p className="text-[15px] text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-[15px] text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
               No more inflated ROAS from platforms marking their own homework.
               HypeOn cleans, unifies and attributes every sale — giving you one clear,
               unbiased truth across every channel.
@@ -110,9 +110,9 @@ export default function Hero() {
           </div>
 
           {/* Dashboard Visual */}
-          <div className="relative max-w-4xl mx-auto reveal-scale">
+          <div className="relative max-w-4xl mx-auto reveal-scale px-1 sm:px-0">
             {/* Main Dashboard Image */}
-            <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-soft-xl bg-white">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-200 shadow-soft-xl bg-white">
               <Image
                 src="/images/hero.png"
                 alt="HypeOn Analytics Dashboard"
@@ -128,7 +128,7 @@ export default function Hero() {
               icon={Link2}
               title="Connect"
               description="All 8 channels. One view. No gaps."
-              className="-left-4 lg:-left-20 top-[22%] animate-float"
+              className="left-0 sm:-left-4 lg:-left-20 top-[18%] sm:top-[22%] animate-float w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
               delay={0}
             />
 
@@ -136,7 +136,7 @@ export default function Hero() {
               icon={Target}
               title="Attribute"
               description="Every sale. One channel. No overlap."
-              className="-right-4 lg:-right-20 top-[28%] animate-float-delayed"
+              className="right-0 sm:-right-4 lg:-right-20 top-[24%] sm:top-[28%] animate-float-delayed w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
               delay={2}
             />
 
@@ -144,7 +144,7 @@ export default function Hero() {
               icon={Sparkles}
               title="Decide"
               description="AI Copilot connected to live marketing data."
-              className="left-1/4 -bottom-6 animate-float-delayed-2"
+              className="left-1/2 -translate-x-1/2 sm:left-1/4 sm:translate-x-0 -bottom-4 sm:-bottom-6 animate-float-delayed-2 w-[90%] sm:w-auto max-w-[280px] sm:max-w-none"
               delay={4}
             />
           </div>

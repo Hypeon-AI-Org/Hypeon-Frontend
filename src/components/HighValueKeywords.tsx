@@ -37,9 +37,9 @@ export default function HighValueKeywords() {
   ]
 
   return (
-    <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans pr-20">
+    <section className="py-10 sm:py-12 md:py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans px-4 sm:px-6 lg:pr-20">
 
-      <div className="max-w-5xl mx-auto px-5 grid md:grid-cols-[1fr_360px] gap-8 items-center pl-20">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 md:gap-8 items-center lg:pl-20">
 
         {/* LEFT CONTENT – scroll reveal */}
         <div className="reveal-left">
@@ -48,7 +48,7 @@ export default function HighValueKeywords() {
             HYPE SCORE
           </p>
 
-          <h2 className="text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg">
+          <h2 className="text-xl sm:text-2xl md:text-3xl text-[#1a1a1a] leading-[1.15] mb-4 sm:mb-6 max-w-lg">
             One number. Updated every 24 hours.
             <br />
             <span className="text-brand-600">
@@ -56,7 +56,7 @@ export default function HighValueKeywords() {
             </span>
           </h2>
 
-          <p className="text-[#757575] text-[15px] leading-relaxed max-w-md mb-3">
+          <p className="text-[#757575] text-[14px] sm:text-[15px] leading-relaxed max-w-md mb-3">
             The Hype Score combines demand momentum, seasonal fit, margin
             potential, and competition pressure into a single number from
             0 to 100.
@@ -73,7 +73,7 @@ export default function HighValueKeywords() {
 
 
         {/* RIGHT SCORE CARD – scroll reveal (same as TrendingProducts) */}
-        <div className="reveal-right">
+        <div className="reveal-right flex justify-center md:justify-end">
           <motion.div
             className="relative w-full max-w-[300px] rounded-2xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm"
           >
@@ -81,7 +81,7 @@ export default function HighValueKeywords() {
             {/* Score */}
             <div className="flex flex-col items-center">
 
-              <div className="text-2xl md:text-3xl font-semibold text-[#1a1a1a]">
+              <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1a1a1a]">
                 <AnimatedNumber value={78} />
               </div>
 
