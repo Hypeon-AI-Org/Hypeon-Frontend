@@ -111,7 +111,7 @@ export default function Products() {
       <div className="hidden lg:block absolute bottom-0 right-[-90px] w-[800px] z-0">
         <div className="rounded-2xl border border-gray-200 overflow-hidden relative aspect-[800/550]">
           <Image
-            src="/images/screen.png"
+            src="/images/screen.webp"
             alt="Dashboard Preview"
             fill
             className="object-cover object-top"

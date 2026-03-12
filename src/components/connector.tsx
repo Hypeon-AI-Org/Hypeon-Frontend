@@ -114,7 +114,7 @@ export default function Hero() {
             {/* Main Dashboard Image */}
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-200 shadow-soft-xl bg-white">
               <Image
-                src="/images/hero.png"
+                src="/images/hero.webp"
                 alt="HypeOn Analytics Dashboard"
                 width={1200}
                 height={720}

@@ -11,7 +11,7 @@ const TeamsSection = () => {
       title: "Brand Founders",
       subtitle: "The clarity to lead with confidence",
       desc: "Stop making budget decisions based on unreliable platform data. HypeOn gives you one clear, unbiased truth across every channel so you can focus on growth, not guesswork.",
-      image: "/images/founder.png",
+      image: "/images/founder.webp",
       bullets: [
         "Real-time ROAS across all channels",
         "Deduplicated conversion tracking",
@@ -24,7 +24,7 @@ const TeamsSection = () => {
       title: "Marketing Teams",
       subtitle: "Precision engineering for your ad spend",
       desc: "Know exactly which channels bring new customers vs returning customers. Our AI-driven signals help you decide where to scale, hold, or pause in real-time.",
-      image: "/images/marketing.png",
+      image: "/images/marketing.webp",
       bullets: [
         "New vs returning attribution split",
         "Automated scale/pause signals",
@@ -37,7 +37,7 @@ const TeamsSection = () => {
       title: "Agencies",
       subtitle: "Client performance, perfected",
       desc: "Manage multiple brands with a single source of truth. Deliver client-ready reporting that proves your value with verified data that platforms can't inflate.",
-      image: "/images/agencies.png",
+      image: "/images/agencies.webp",
       bullets: [
         "Multi-brand workspace overview",
         "White-label transparency for clients",

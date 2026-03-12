@@ -10,7 +10,7 @@ export default function SecuritySection() {
                 {/* Badges Image */}
                 <div className="flex justify-center mb-10">
                     <Image
-                        src="/images/security.png"
+                        src="/images/security.webp"
                         alt="Security Certifications"
                         width={384}
                         height={256}

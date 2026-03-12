@@ -42,7 +42,7 @@ export default function TrendalyticsSection() {
           {/* The Actual Image Container */}
           <div className="relative w-full aspect-[16/10] bg-[#fcfcfc]">
             <Image
-              src="/images/dash.png"
+              src="/images/dash.webp"
               alt="Trendalytics Dashboard UI"
               fill
               priority

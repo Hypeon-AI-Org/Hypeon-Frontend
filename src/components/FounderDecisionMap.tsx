@@ -7,55 +7,55 @@ import { useRef, useState, useEffect } from "react"
 const sections = [
   {
     id: "01",
-    image: "/product/Trendsignal.png",
+    image: "/product/Trendsignal.webp",
     title: "Spot What Product to Sell Next ",
     description: "See what's trending online and search before it hits mainstream. Get into winning products weeks before your competitors even notice the signal."
   },
   {
     id: "02",
-    image: "/product/Roas.png",
+    image: "/product/Roas.webp",
     title: "See Your Real ROAS",
     description: "Not what Google claims. Not what Meta reports. The actual return on every dollar you spent - across every channel - with zero duplication."
   },
   {
     id: "03",
-    image: "/product/Budget.png",
+    image: "/product/Budget.webp",
     title: "Pricing Intelligence ",
     description: "See what your competitors price  across every market before you set your prices. Stay competitive where it matters, charge more where you can, and never lose a sale because you were priced wrong."
   },
   {
     id: "05",
-    image: "/product/Trendkeyword.png",
+    image: "/product/Trendkeyword.webp",
     title: "Find Trending Keywords",
     description: "Know exactly what your customers are typing into Google right now. Build campaigns around real demand - not last month's search volume."
   },
   {
     id: "06",
-    image: "/product/productdevlopment.png",
+    image: "/product/productdevlopment.webp",
     title: "Know What Product to Develop",
     description: "See exactly what, designs and product improvements your market is asking for - pulled from reviews, social and search signals. Stop guessing what customers want and start building what they'll actually pay for."
   },
   {
     id: "07",
-    image: "/product/Adcreative.png",
+    image: "/product/Adcreative.webp",
     title: "Find Your Competitors' Best Performing Ads",
     description: "See exactly which ads your competitors are running and which ones are actually working. Stop starting from scratch - know the winning angles, hooks and offers in your niche before you spend a penny testing."
   },
   {
     id: "08",
-    image: "/product/socialmeadi.png",
+    image: "/product/socialmeadi.webp",
     title: "Competitor Social Media Analysis ",
     description: "See exactly what content is working for them. Know their winning angles, top products and engagement spikes in real time."
   },
   {
     id: "09",
-    image: "/product/review.png",
+    image: "/product/review.webp",
     title: "Competitor Trustpilot Analysis",
     description: "Read your competitors' reviews so you know exactly what their customers hate about them. Turn their weaknesses into your biggest selling points."
   },
   {
     id: "10",
-    image: "/product/market.png",
+    image: "/product/market.webp",
     title: "Know What Markets to Enter",
     description: "Find pockets of demand that nobody is selling into yet. See exactly which geographies and demographics are underserved before the ad costs catch up."
   },

@@ -414,21 +414,21 @@ const Panel4 = () => {
       <div className="grid grid-cols-3 gap-[7px] mb-3">
         {[
           {
-            img: "/images/ad1.jpg",
+            img: "/images/ad1.webp",
             plat: "TikTok",
             name: "Running Shoes",
             roas: "4.8x",
             views: "2.1M"
           },
           {
-            img: "/images/ad2.jpg",
+            img: "/images/ad2.webp",
             plat: "Meta",
             name: "peel stick wallpaper",
             roas: "3.2x",
             views: "840k"
           },
           {
-            img: "/images/ad3.jpg",
+            img: "/images/ad3.webp",
             plat: "Instagram",
             name: "Gshock watch",
             roas: "2.8x",

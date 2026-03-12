@@ -87,9 +87,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-[300px]" src="/images/image.png" isVideo />
-                <VideoItem height="h-[300px]" src="/images/wallpaper.png" isVideo />
-                <VideoItem height="h-[300px]" src="/images/diy.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/image.webp" isVideo />
+                <VideoItem height="h-[300px]" src="/images/wallpaper.webp" isVideo />
+                <VideoItem height="h-[300px]" src="/images/diy.webp" isVideo />
 
               </div>
             ))}
@@ -111,9 +111,9 @@ export default function TikTokScrollSection() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex flex-col gap-6">
 
-                <VideoItem height="h-[300px]" src="/images/tech (1).png" isVideo />
-                <VideoItem height="h-[300px]" src="/images/curtains.png" isVideo />
-                <VideoItem height="h-[300px]" src="/images/image.png" isVideo />
+                <VideoItem height="h-[300px]" src="/images/tech (1).webp" isVideo />
+                <VideoItem height="h-[300px]" src="/images/curtains.webp" isVideo />
+                <VideoItem height="h-[300px]" src="/images/image.webp" isVideo />
 
               </div>
             ))}
