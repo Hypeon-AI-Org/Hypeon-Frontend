@@ -153,9 +153,9 @@ export default function Hero() {
               </div>
 
               {/* Headline: 36–40px mobile, 64–72px desktop; normal weight; animation scales with font */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-6 sm:mb-10">
                 Stop wasting budget on the {" "} <br className="sm:hidden" />
-                <span className="relative inline-block align-baseline h-[1.3em] min-w-[260px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
+                <span className="relative inline-block align-baseline h-[1.3em] min-w-[300px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
