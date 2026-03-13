@@ -54,8 +54,8 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] sm:px-4 lg:px-3"
-            : "top-0 max-w-[95vw] xl:max-w-[1150px] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] sm:px-5 md:px-6 lg:px-8"
+            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] px-[max(0.25rem,env(safe-area-inset-left))] sm:px-4 lg:px-3"
+            : "top-0 max-w-[95vw] xl:max-w-[1150px] px-[max(0.25rem,env(safe-area-inset-left))] sm:px-5 md:px-6 lg:px-8"
           }
   `}
       >
@@ -67,17 +67,17 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[48px] sm:h-[52px] px-3 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
-              : "h-[56px] sm:h-[60px] md:h-[64px] px-4 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
+              ? "h-[60px] sm:h-[52px] px-1 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              : "h-[72px] sm:h-[60px] md:h-[64px] px-1 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
         >
 
           {/* LOGO */}
-   <div className="flex items-center gap-2 cursor-pointer pl-1 mr-4 sm:mr-6 lg:mr-8">
+          <div className="flex items-center gap-2 cursor-pointer max-sm:pl-0 max-sm:-ml-1 pl-1 mr-4 sm:mr-6 lg:mr-8">
             <Link
               href="/"
-              className="flex items-center gap-3"
+              className="flex items-center gap-1 sm:gap-3"
             >
               <div className=" rounded-full h-[26px] w-[26px] flex items-center justify-center overflow-hidden">
                 <Image
@@ -186,7 +186,7 @@ function Navbar() {
           {/* MOBILE / TABLET TOGGLE */}
           <button
             type="button"
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-black -mr-1 cursor-pointer"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-black max-sm:-mr-2 -mr-1 cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -243,7 +243,7 @@ function Navbar() {
                       router.push("/products");
                     }}
                   />
-                 
+
                   <MobileProductLink
                     icon={<BarChart3 />}
                     title="HypeOn Analytics"
@@ -256,7 +256,7 @@ function Navbar() {
                 </div>
               </div>
             </div>
-            
+
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
             <Link
