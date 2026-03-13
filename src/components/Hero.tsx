@@ -352,28 +352,26 @@ export default function Hero() {
                                 <tbody className="divide-y divide-slate-50">
 
                                   {[
-                                    [
-                                      ["Oversized Graphic Tee", "Urban Monkey", "$15.65", "96", "$0.10"],
-                                      ["Cargo Utility Pants", "Snitch", "$22.88", "94", "$0.11"],
-                                      ["Korean Co-ord Set", "Sassafras", "$26.49", "92", "$0.12"],
-                                      ["Chunky Sneakers", "HRX", "$42.16", "91", "$0.14"],
-                                      ["Y2K Shoulder Bag", "Mango", "$33.72", "90", "$0.10"],
-                                      ["Minimal Silver Chains", "Giva", "$18.06", "89", "$0.08"],
-                                      ["Linen Summer Shirt", "Rare Rabbit", "$30.11", "88", "$0.12"],
-                                      ["Relaxed Fit Jeans", "Levi's", "$39.75", "87", "$0.15"],
-                                      ["Platform Sandals", "H&M", "$27.70", "86", "$0.11"],
-                                      ["Oversized Hoodie", "Bonkers Corner", "$24.08", "85", "$0.11"],
-                                      ["Satin Slip Dress", "Forever New", "$48.18", "84", "$0.16"],
-                                      ["Retro Sunglasses", "Fastrack", "$19.27", "83", "$0.09"],
-                                      ["Athleisure Joggers", "Nike", "$45.77", "82", "$0.17"],
-                                      ["Faux Leather Jacket", "Zara", "$72.28", "81", "$0.18"],
-                                      ["Street Style Cap", "Adidas", "$15.65", "80", "$0.08"],
-                                      ["Boho Maxi Dress", "AND", "$42.16", "79", "$0.13"],
-                                      ["Structured Blazer", "Mango", "$54.20", "78", "$0.17"],
-                                      ["Graphic Sweatshirt", "Bewakoof", "$20.47", "77", "$0.10"],
-                                      ["Statement Earrings", "Zaveri Pearls", "$12.04", "76", "$0.07"],
-                                      ["Knit Polo T-Shirt", "Uniqlo", "$27.70", "75", "$0.11"]
-                                    ]
+                                    ["Oversized Graphic Tee", "Urban Monkey", "$15.65", "96", "$0.10"],
+                                    ["Cargo Utility Pants", "Snitch", "$22.88", "94", "$0.11"],
+                                    ["Korean Co-ord Set", "Sassafras", "$26.49", "92", "$0.12"],
+                                    ["Chunky Sneakers", "HRX", "$42.16", "91", "$0.14"],
+                                    ["Y2K Shoulder Bag", "Mango", "$33.72", "90", "$0.10"],
+                                    ["Minimal Silver Chains", "Giva", "$18.06", "89", "$0.08"],
+                                    ["Linen Summer Shirt", "Rare Rabbit", "$30.11", "88", "$0.12"],
+                                    ["Relaxed Fit Jeans", "Levi's", "$39.75", "87", "$0.15"],
+                                    ["Platform Sandals", "H&M", "$27.70", "86", "$0.11"],
+                                    ["Oversized Hoodie", "Bonkers Corner", "$24.08", "85", "$0.11"],
+                                    ["Satin Slip Dress", "Forever New", "$48.18", "84", "$0.16"],
+                                    ["Retro Sunglasses", "Fastrack", "$19.27", "83", "$0.09"],
+                                    ["Athleisure Joggers", "Nike", "$45.77", "82", "$0.17"],
+                                    ["Faux Leather Jacket", "Zara", "$72.28", "81", "$0.18"],
+                                    ["Street Style Cap", "Adidas", "$15.65", "80", "$0.08"],
+                                    ["Boho Maxi Dress", "AND", "$42.16", "79", "$0.13"],
+                                    ["Structured Blazer", "Mango", "$54.20", "78", "$0.17"],
+                                    ["Graphic Sweatshirt", "Bewakoof", "$20.47", "77", "$0.10"],
+                                    ["Statement Earrings", "Zaveri Pearls", "$12.04", "76", "$0.07"],
+                                    ["Knit Polo T-Shirt", "Uniqlo", "$27.70", "75", "$0.11"]
                                   ].map((item, i) => (
                                     <tr key={i} className="hover:bg-slate-50 transition-colors">
                                       <td className="py-3 pr-6 font-medium text-slate-900">{item[0]}</td>
