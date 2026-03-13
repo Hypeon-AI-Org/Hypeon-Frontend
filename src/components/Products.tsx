@@ -132,7 +132,7 @@ export default function Products() {
                         </div>
                         <h3 className="text-[17px] font-semibold text-slate-900 mb-3">Hypeon Analytics</h3>
                         <p className="text-[14px] text-slate-500 leading-relaxed mb-8 h-20">
-                            Run all your ads from one place. Meta, Google, TikTok. Budgets, campaigns, and real results in a single dashboard.
+                            See your real ROAS across every channel — Meta, Google, TikTok. True CPA, zero double-counting, and a clear Scale, Hold, or Cut signal for every campaign.
                         </p>
                         <Link href="/analytics" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-emerald-700 cursor-pointer min-h-[44px] sm:min-h-0">
                             Explore Analytics <ChevronRight className="w-3 h-3 ml-1" />
@@ -146,7 +146,7 @@ export default function Products() {
                         </div>
                         <h3 className="text-[17px] font-semibold text-slate-900 mb-3">Hypeon  Intelligence</h3>
                         <p className="text-[14px] text-slate-500 leading-relaxed mb-8 h-20">
-                            Generate ads, UGC, videos, emails, and product photos from your existing assets. On-demand, no team needed.
+                           Know trending products, keywords, and winning ad angles before your competitors do — powered by real-time signals.
                         </p>
                         <Link href="/products" className="inline-flex items-center text-[13px] font-semibold text-slate-900 hover:text-orange-700 cursor-pointer min-h-[44px] sm:min-h-0">
                             Explore Intelligence <ChevronRight className="w-3 h-3 ml-1" />
