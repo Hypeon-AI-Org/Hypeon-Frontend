@@ -56,9 +56,7 @@ export default function Products() {
         {/* LEFT CONTENT */}
         <div className="reveal-left space-y-3 sm:space-y-4 lg:pr-12 lg:ml-20">
 
-          <span className="inline-block px-3 py-1 rounded-full border border-slate-200 text-xs font-semibold text-slate-900 bg-white shadow-sm">
-            Attribution reporting that
-          </span>
+          
 
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight text-neutral-900 leading-tight">
             Attribution reporting that <br /> <span className="text-brand-600">shows you the truth.</span>

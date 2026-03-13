@@ -29,58 +29,61 @@ export default function CombinedLayout() {
       <section className="bg-[oklch(0.988_0.0041_91.45)] border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
 
-          {/* Grid: on mobile title full-width, then 2x2 logos; on md+ one row of 5 */}
-          <div className="grid grid-cols-2 md:grid-cols-5 items-center text-center">
+          {/* Mobile: 2-col grid (title full-width, then 2x2 logos). Desktop: single flex row, tabular */}
+          <div className="grid grid-cols-2 md:flex md:flex-row md:items-stretch text-center">
 
             {/* Label: full width on mobile, first cell on desktop */}
-            <div className="col-span-2 md:col-span-1 py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-6 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center md:justify-start">
+            <div className="col-span-2 md:flex-none py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-6 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center md:justify-start md:min-h-[88px]">
               <p className="text-slate-700 font-medium text-sm sm:text-base">
                 Official partners
               </p>
             </div>
 
-            {/* Google */}
-            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
-              <Image
-                src={googleStartups}
-                alt="Google Cloud for Startups"
-                width={110}
-                height={50}
-                className="w-[90px] sm:w-[110px] h-auto object-contain"
-              />
-            </div>
+            {/* Logo row: 2x2 grid on mobile, equal-width flex row on desktop */}
+            <div className="col-span-2 grid grid-cols-2 md:flex md:flex-1 md:flex-row md:min-h-[88px]">
+              {/* Google */}
+              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
+                <Image
+                  src={googleStartups}
+                  alt="Google Cloud for Startups"
+                  width={110}
+                  height={50}
+                  className="w-[90px] sm:w-[110px] h-auto object-contain"
+                />
+              </div>
 
-            {/* OpenAI */}
-            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b md:border-b-0 border-slate-200 md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
-              <Image
-                src={openAIBG}
-                alt="OpenAI for Startups"
-                width={95}
-                height={50}
-                className="w-[80px] sm:w-[95px] h-auto object-contain"
-              />
-            </div>
+              {/* OpenAI */}
+              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b md:border-b-0 border-slate-200 md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
+                <Image
+                  src={openAIBG}
+                  alt="OpenAI for Startups"
+                  width={95}
+                  height={50}
+                  className="w-[80px] sm:w-[95px] h-auto object-contain"
+                />
+              </div>
 
-            {/* AWS */}
-            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
-              <Image
-                src={awsStartups}
-                alt="AWS for Startups"
-                width={95}
-                height={50}
-                className="w-[80px] sm:w-[95px] h-auto object-contain"
-              />
-            </div>
+              {/* AWS */}
+              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
+                <Image
+                  src={awsStartups}
+                  alt="AWS for Startups"
+                  width={95}
+                  height={50}
+                  className="w-[80px] sm:w-[95px] h-auto object-contain"
+                />
+              </div>
 
-            {/* NVIDIA */}
-            <div className="py-4 sm:py-5 md:py-7 px-2 sm:px-3 md:px-5 border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0">
-              <Image
-                src={nividia}
-                alt="NVIDIA"
-                width={95}
-                height={50}
-                className="w-[80px] sm:w-[95px] h-auto object-contain"
-              />
+              {/* NVIDIA */}
+              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
+                <Image
+                  src={nividia}
+                  alt="NVIDIA"
+                  width={95}
+                  height={50}
+                  className="w-[80px] sm:w-[95px] h-auto object-contain"
+                />
+              </div>
             </div>
 
           </div>

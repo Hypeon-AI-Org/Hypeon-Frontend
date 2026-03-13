@@ -41,13 +41,7 @@ const stats = [
     title: "Weeks early on trends",
     subtitle: "Before viral peak on average"
   },
-  {
-    value: 2400,
-    format: "k", // custom formatter
-    suffix: "+",
-    title: "E-commerce founders",
-    subtitle: "Across 48 countries"
-  }
+ 
 ]
 
 const integrations = [
@@ -103,7 +97,7 @@ export default function Features() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ===== Stats Grid ===== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-10 sm:mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10 sm:mb-12 lg:mb-16 sm:justify-items-center">
 
           {stats.map((stat, i) => (
             <motion.div
@@ -113,7 +107,7 @@ export default function Features() {
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -8 }}
-              className="text-center"
+              className="text-center sm:text-center"
             >
               <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
 
@@ -121,7 +115,7 @@ export default function Features() {
 
                 <AnimatedNumber
                   value={stat.value}
-                  format={stat.format}
+                  
                 />
 
                 {stat.suffix}

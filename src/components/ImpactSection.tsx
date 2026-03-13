@@ -78,7 +78,7 @@ export default function ImpactSection() {
         </motion.h2>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-neutral-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-neutral-200">
 
           {[
             {
@@ -100,13 +100,7 @@ export default function ImpactSection() {
               title: "Weeks early on trends",
               subtitle: "Before viral peak on average"
             },
-            {
-              value: 2400,
-              suffix: "+",
-              format: "k",
-              title: "E-commerce founders",
-              subtitle: "Across 48 countries"
-            }
+          
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -114,7 +108,7 @@ export default function ImpactSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className={`py-6 sm:py-8 px-4 sm:px-3 border-b sm:border-b-0 border-neutral-200 last:border-b-0 ${i % 2 === 0 ? "sm:border-r" : ""} ${i !== 3 ? "lg:border-r" : ""}`}
+              className={`py-6 sm:py-8 px-4 sm:px-3 border-b sm:border-b-0 border-neutral-200 ${i !== 2 ? "lg:border-r border-neutral-200" : ""}`}
             >
               {/* Number */}
               <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">

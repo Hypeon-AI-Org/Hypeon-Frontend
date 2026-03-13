@@ -8,17 +8,27 @@ export default function SecuritySection() {
             <div className="max-w-4xl mx-auto text-center">
 
                 {/* Badges Image */}
-                <div className="flex justify-center mb-10">
-                    <Image
-                        src="/images/security.webp"
-                        alt="Security Certifications"
-                        width={384}
-                        height={256}
-                        className="w-64 md:w-96 object-contain"
-                        sizes="(max-width: 768px) 256px, 384px"
-                    />
-                </div>
+                <div className="flex justify-center items-center gap-8 md:gap-12 mb-10">
 
+  {/* First Image */}
+  <Image
+    src="/images/security1.webp"
+    alt="EU GDPR"
+    width={200}
+    height={200}
+    className="w-28 md:w-36 object-contain"
+  />
+
+  {/* Second Image - slightly smaller */}
+  <Image
+    src="/images/security2.webp"
+    alt="STAR Level One"
+    width={190}
+    height={190}
+    className="w-28 md:w-36 object-contain"
+  />
+
+</div>
                 {/* Heading */}
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tighter">
                     Built with enterprise-grade security

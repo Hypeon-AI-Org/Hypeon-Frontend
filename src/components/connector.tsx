@@ -135,7 +135,7 @@ export default function Hero() {
             <FloatingCard
               icon={Target}
               title="Attribute"
-              description="Every sale. One channel. No overlap."
+              description="See what really drives conversions."
               className="right-0 sm:-right-4 lg:-right-20 top-[24%] sm:top-[28%] animate-float-delayed w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
               delay={2}
             />
