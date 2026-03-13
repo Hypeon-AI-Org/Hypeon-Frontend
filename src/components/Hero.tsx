@@ -30,7 +30,7 @@ export default function Hero() {
   const [inputValue, setInputValue] = useState('');
   const [chatStep, setChatStep] = useState(0);
 
-  const textToType = 'Give me the top 20 trending products in the Fashion category for India. ';
+  const textToType = 'Give me the top 20 trending products in the Fashion category for US. ';
 
   useEffect(() => {
     let isActive = true;
@@ -330,7 +330,7 @@ export default function Hero() {
                               <p className="text-[15px] text-slate-700 leading-relaxed font-medium">
                                 I've analyzed <span className="px-1.5 py-0.5 rounded bg-gray-50 text-slate-900 font-semibold border border-black-100">
                                   12.4M live fashion ad creatives
-                                </span> across Meta & TikTok US.
+                                </span> across Meta & TikTok India US.
                                 Here are the top 20 Fashion products ranked by projected profitability and ad velocity.
                               </p>
                             </div>
