@@ -17,7 +17,7 @@ export default function StartToday() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl md:text-4xl  text-black tracking-tight"
+            className="text-3xl sm:text-4xl md:text-4xl   text-black tracking-tight"
           >
             Ready to move faster
           </motion.h2>

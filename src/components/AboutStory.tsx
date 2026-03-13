@@ -122,7 +122,7 @@ export default function AboutStory() {
           </p>
 
           <h2
-            className={`text-2xl md:text-3xl  text-slate-900 leading-tight transition-all ${
+            className={`text-3xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >

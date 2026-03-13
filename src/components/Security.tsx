@@ -30,7 +30,7 @@ export default function SecuritySection() {
 
 </div>
                 {/* Heading */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tighter">
+                <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 tracking-tighter">
                     Built with enterprise-grade security
                 </h2>
 

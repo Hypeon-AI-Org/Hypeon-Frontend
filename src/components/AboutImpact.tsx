@@ -115,7 +115,7 @@ export default function AboutImpact() {
                 Built by
               </p>
 
-              <h2 className="mt-2 text-2xl md:text-3xl text-slate-900 leading-tight">
+              <h2 className="mt-2 text-3xl sm:text-4xl md:text-4xl  text-slate-900 leading-tight">
                 Building the intelligence layer for the next generation of brands.
               </h2>
             </header>

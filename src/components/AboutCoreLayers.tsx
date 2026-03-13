@@ -111,7 +111,7 @@ export default function AboutCoreLayers() {
           The Platform
           </p>
 
-          <h2 className="text-3xl md:text-4xl  text-slate-900 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
           Three engines. One decision system.
           </h2>
 

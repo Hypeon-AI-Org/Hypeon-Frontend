@@ -48,7 +48,7 @@ export default function HighValueKeywords() {
             HYPE SCORE
           </p>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-[1.15] mb-4 sm:mb-6 max-w-lg tracking-tighter">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl  font-bold text-[#1a1a1a] leading-[1.15] mb-4 sm:mb-6 max-w-lg tracking-tighter">
             One number. Updated every 24 hours.
             <br />
             <span className="text-brand-600">

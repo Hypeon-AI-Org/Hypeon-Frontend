@@ -241,7 +241,7 @@ export default function AboutVision() {
         What HypeOn Does
       </p>
 
-      <h2 className="text-2xl md:text-3xl  text-slate-900 leading-tight tracking-tight">
+      <h2 className="text-2xl md:text-4xl  text-slate-900 leading-tight tracking-tight">
         12 decisions. Zero guesswork.
       </h2>
 

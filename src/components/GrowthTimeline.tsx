@@ -66,7 +66,7 @@ export default function GrowthTimeline() {
       The Road Ahead
       </p>
 
-      <h2 className="text-2xl md:text-3xl  text-slate-900 tracking-tight">
+      <h2 className="text-3xl sm:text-4xl md:text-4xl   text-slate-900 tracking-tight">
       From idea to industry standard.
       </h2>
 

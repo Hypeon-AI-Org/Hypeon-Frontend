@@ -52,7 +52,7 @@ export default function WhoWeAreBuildingFor() {
             Our Mission
           </p>
 
-          <h2 className="mt-3 text-2xl md:text-3xl  text-black leading-tight tracking-tight">
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
             Make product-market fit predictable, not guessed.
           </h2>
 
