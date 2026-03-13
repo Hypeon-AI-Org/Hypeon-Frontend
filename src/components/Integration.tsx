@@ -36,7 +36,7 @@ const Integrations = () => {
         {/* Content Area */}
         <div className="grid lg:grid-cols-2 gap-8 items-start mb-16">
           <div className="space-y-6">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl tracking-tight text-gray-900 leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl md:text-4xl tracking-tight text-gray-900 leading-[1.1]">
               Connect every channel.<span className="text-brand-600">Miss nothing</span>
             </h2>
             <p className="text-[15px] md:text-lg text-gray-500 leading-relaxed max-w-[550px]">

@@ -58,7 +58,7 @@ export default function Products() {
 
           
 
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
             Attribution reporting that <br /> <span className="text-brand-600">shows you the truth.</span>
           </h2>
 

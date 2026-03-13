@@ -72,7 +72,7 @@ const TeamsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-gray-900 mb-6"
+            className="text-3xl sm:text-4xl md:text-4xl font-semibold tracking-tight text-gray-900 mb-6"
           >
             Why brands choose <span className="text-brand-600">HypeOn Analytics</span>
           </motion.h2>
