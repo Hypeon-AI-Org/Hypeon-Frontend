@@ -213,7 +213,7 @@ export default function Products() {
                                 </button>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+                            <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
                                     {/* Trending Products */}

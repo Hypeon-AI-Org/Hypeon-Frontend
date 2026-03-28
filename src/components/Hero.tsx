@@ -187,20 +187,20 @@ export default function Hero() {
                 </span>
               </h1>
 
-              {/* CTA — pointer-events-auto + mobile fallback so tap always works */}
+              {/* CTA — hover slide animation only lg+ (avoids sticky/fake hover on touch) */}
               <a
   href="https://calendly.com/yash-hypeon/30min?month=2026-03"
   target="_blank"
   rel="noopener noreferrer"
-  className="group relative inline-flex items-center gap-3 pl-2 pr-5 py-2 rounded-full bg-black text-white transition-all duration-300 shadow-lg cursor-pointer overflow-hidden min-h-[48px]"
+  className="group relative inline-flex items-center gap-1.5 pl-1 pr-3 py-1 sm:gap-3 sm:pl-2 sm:pr-5 sm:py-2 rounded-full bg-black text-white transition-all duration-300 shadow-lg cursor-pointer overflow-hidden min-h-[40px] sm:min-h-[48px]"
 >
   {/* The Icon Container */}
-  <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-black transition-all duration-500 ease-in-out group-hover:translate-x-[130px]">
-    <ArrowRight className="w-4 h-4" />
+  <div className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white text-black transition-all duration-500 ease-in-out lg:group-hover:translate-x-[130px]">
+    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
   </div>
 
   {/* The Text Container */}
-  <span className="text-lg font-medium transition-all duration-500 ease-in-out group-hover:-translate-x-10">
+  <span className="text-sm font-medium transition-all duration-500 ease-in-out lg:group-hover:-translate-x-10 sm:text-lg">
     Get the demo
   </span>
 </a>

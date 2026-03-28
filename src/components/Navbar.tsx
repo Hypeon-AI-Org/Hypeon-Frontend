@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, memo, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, Brain, Bot, BarChart3, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X, BarChart3, ChevronDown, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import { useRouter } from "next/navigation";
@@ -15,6 +15,10 @@ function Navbar() {
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const router = useRouter();
 
+  const closeMobile = useCallback(() => {
+    setMobileMenuOpen(false);
+    setMobileDropdown(null);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -28,12 +32,20 @@ function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMobile();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen, closeMobile]);
+
   const goToCopilot = () => {
     closeMobile();
     router.push("/products#copilot");
   };
 
-  const closeMobile = () => setMobileMenuOpen(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -186,116 +198,134 @@ function Navbar() {
           {/* MOBILE / TABLET TOGGLE */}
           <button
             type="button"
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-black max-sm:-mr-2 -mr-1 cursor-pointer"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-menu"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" strokeWidth={2} /> : <Menu className="w-5 h-5" strokeWidth={2} />}
           </button>
         </div>
       </nav>
 
-      {/* MOBILE MENU BACKDROP */}
+      {/* MOBILE / TABLET: dim + panel (desktop unchanged) */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[42] bg-[oklch(0.988_0.0041_91.45)] transition-opacity duration-300 ease-out ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        aria-hidden
+        onClick={closeMobile}
+      />
 
-      <div className={`lg:hidden fixed top-[56px] sm:top-[60px] left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(95vw,28rem)] sm:max-w-md px-4 sm:px-5 ${!mobileMenuOpen ? 'pointer-events-none' : ''}`}>
+      <div
+        id="mobile-nav-menu"
+        role="dialog"
+        aria-modal={mobileMenuOpen}
+        aria-hidden={!mobileMenuOpen}
+        aria-label="Main menu"
+        className={`lg:hidden fixed left-1/2 -translate-x-1/2 z-[43] w-[min(100%,24rem)] sm:w-[min(100%,26rem)] px-4 sm:px-5 pt-[calc(4.5rem+env(safe-area-inset-top))] sm:pt-[calc(4.75rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))] ${!mobileMenuOpen ? "pointer-events-none" : ""}`}
+      >
         <div
           className={`
-      bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl
-      transform origin-top
-      transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-      ${mobileMenuOpen
-              ? "scale-y-100 opacity-100 translate-y-0"
-              : "scale-y-95 opacity-0 -translate-y-2 pointer-events-none"}
-    `}
+            flex max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border border-slate-200 bg-[oklch(0.988_0.0041_91.45)] shadow-[0_20px_50px_rgba(15,23,42,0.08)]
+            transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+            ${mobileMenuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-[0.98] opacity-0"}
+          `}
         >
-          <div className="px-4 sm:px-5 py-4 sm:py-5 space-y-2 sm:space-y-3">
-            {/* Products */}
-            <div>
+          <div className="overflow-y-auto overscroll-contain px-3 py-3 sm:px-4 sm:py-4">
+            <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+              Menu
+            </p>
+
+            {/* Products accordion */}
+            <div className="rounded-xl border border-slate-200 bg-white">
               <button
                 type="button"
-                className="w-full flex items-center justify-between min-h-[44px] py-3 text-base font-medium text-slate-700 cursor-pointer"
+                id="mobile-products-trigger"
+                className="flex w-full min-h-[48px] items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15 focus-visible:ring-inset"
+                aria-expanded={mobileDropdown === "products"}
+                aria-controls="mobile-products-panel"
                 onClick={() =>
-                  setMobileDropdown((d) =>
-                    d === "products" ? null : "products"
-                  )
+                  setMobileDropdown((d) => (d === "products" ? null : "products"))
                 }
               >
-                Products
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${mobileDropdown === "products" ? "rotate-180" : ""
-                    }`}
-                />
+                <span>Products</span>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600">
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ease-out ${mobileDropdown === "products" ? "rotate-180" : ""}`}
+                    aria-hidden
+                  />
+                </span>
               </button>
 
               <div
-                className={`transition-all duration-300 overflow-hidden ${mobileDropdown === "products"
-                  ? "max-h-60 opacity-100"
-                  : "max-h-0 opacity-0"
-                  }`}
+                id="mobile-products-panel"
+                role="region"
+                aria-labelledby="mobile-products-trigger"
+                className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${mobileDropdown === "products" ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
               >
-                <div className="pl-3 pt-2 space-y-2">
-                  <MobileProductLink
-                    icon={<Brain />}
-                    title="HypeOn Intelligence"
-                    desc="Predict demand and winning products."
-                    onClick={() => {
-                      closeMobile();
-                      router.push("/products");
-                    }}
-                  />
-
-                  <MobileProductLink
-                    icon={<BarChart3 />}
-                    title="HypeOn Analytics"
-                    desc="ROI, CAC and growth insights."
-                    onClick={() => {
-                      closeMobile();
-                      router.push("analytics");
-                    }}
-                  />
+                <div className="min-h-0 overflow-hidden">
+                  <div className="space-y-1 border-t border-slate-200 bg-[oklch(0.988_0.0041_91.45)] px-2 pb-2 pt-2">
+                    <MobileProductLink
+                      icon={<Sparkles className="h-[18px] w-[18px]" />}
+                      title="HypeOn Intelligence"
+                      desc="Predict demand, niches, and winning products."
+                      iconWrapClass="bg-[#65D48C] text-black"
+                      onClick={() => {
+                        closeMobile();
+                        router.push("/products");
+                      }}
+                    />
+                    <MobileProductLink
+                      icon={<BarChart3 className="h-[18px] w-[18px]" />}
+                      title="HypeOn Analytics"
+                      desc="Attribution, CAC, ROI, and growth insights."
+                      iconWrapClass="bg-[#241C1A] text-[#E66245]"
+                      onClick={() => {
+                        closeMobile();
+                        router.push("/analytics");
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+            <nav className="mt-3 space-y-0.5" aria-label="Primary">
+              <Link
+                href="/about"
+                onClick={closeMobile}
+                className="flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100 active:bg-slate-200/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+              >
+                Company
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowPricing(true);
+                  closeMobile();
+                }}
+                className="flex w-full min-h-[48px] items-center rounded-xl px-3 text-left text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100 active:bg-slate-200/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+              >
+                Pricing
+              </button>
+            </nav>
 
-            <Link
-              href="/about"
-              onClick={closeMobile}
-              className="block min-h-[44px] flex items-center py-3 text-base font-medium text-slate-700 cursor-pointer"
-            >
-              Company
-            </Link>
-            <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+            <div className="my-4 h-px w-full bg-slate-200" />
 
-            <button
-              type="button"
-              onClick={() => {
-                setShowPricing(true);
-                closeMobile();
-              }}
-              className="block w-full text-left min-h-[44px] flex items-center py-3 text-[15px] sm:text-base font-medium text-slate-700 cursor-pointer"
-            >
-              Pricing
-            </button>
-            <div className="my-3 sm:my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-            {/* CTA */}
-            <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
               <a
                 href="https://app.hypeon.ai/login"
-                className="flex-1 text-center py-2.5 rounded-full border border-slate-300 text-base font-semibold min-h-[44px] flex items-center justify-center cursor-pointer"
+                className="flex min-h-[48px] flex-1 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-[15px] font-semibold text-slate-900 shadow-sm transition-colors hover:bg-slate-50 hover:border-slate-400 active:scale-[0.99] cursor-pointer"
               >
                 Log in
               </a>
               <a
                 href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                className="flex-1 text-center py-2.5 rounded-full bg-slate-900 text-white text-base font-bold min-h-[44px] flex items-center justify-center cursor-pointer"
+                className="flex min-h-[48px] flex-1 items-center justify-center rounded-full bg-black px-4 text-[15px] font-bold text-white shadow-md transition-colors hover:bg-black/90 active:scale-[0.99] cursor-pointer"
               >
                 Get the demo
               </a>
             </div>
-
           </div>
         </div>
       </div>
@@ -417,26 +447,35 @@ function MobileProductLink({
   icon,
   title,
   desc,
+  iconWrapClass,
   onClick,
 }: {
   icon: React.ReactNode;
   title: string;
   desc: string;
+  iconWrapClass: string;
   onClick: () => void;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left flex gap-3 p-3 rounded-xl hover:bg-white transition min-h-[44px] cursor-pointer"
+      className="group flex w-full min-h-[52px] cursor-pointer items-center gap-3 rounded-xl p-2.5 text-left transition-colors hover:bg-white active:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/12"
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-600/10 text-brand-600">
+      <div
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] shadow-sm ring-1 ring-black/[0.04] ${iconWrapClass}`}
+      >
         {icon}
       </div>
-      <div className="min-w-0">
-        <p className="font-medium text-slate-900 text-sm">{title}</p>
-        <p className="text-xs text-slate-600 leading-snug">{desc}</p>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold tracking-tight text-slate-900">{title}</p>
+        <p className="mt-0.5 text-[13px] leading-snug text-slate-600">{desc}</p>
       </div>
+      <span className="shrink-0 text-slate-400 transition-transform group-active:translate-x-0.5" aria-hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </span>
     </button>
   );
 }
