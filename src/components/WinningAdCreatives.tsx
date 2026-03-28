@@ -26,7 +26,7 @@ export default function TikTokScrollSection() {
   return (
     <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-14 overflow-hidden font-sans">
 
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center">
+      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center lg:pl-0.5">
 
         {/* LEFT TEXT */}
         <motion.div className="z-20 bg-[oklch(0.988_0.0041_91.45)] lg:pl-6"

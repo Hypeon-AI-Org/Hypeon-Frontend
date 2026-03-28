@@ -9,6 +9,7 @@ import HypeScoreSection from "../../components/HypeScoreSection";
 import TrendingProducts from "../../components/TrendingProducts";
 import HighValueKeywords from "../../components/HighValueKeywords";
 import WinningAdCreatives from "../../components/WinningAdCreatives";
+import PrecisionScaleBento from "../../components/PrecisionScaleBento";
 import CopilotSection from "../../components/CopilotSection";
 import HypeOnAnalytics from "../../components/HypeOnAnalytics";
 import MarketingDecisioning from "../../components/MarketingDecisioning";
@@ -26,8 +27,10 @@ export default function ProductsPage() {
         <TrendingProducts />
         <HighValueKeywords />
         <WinningAdCreatives />
+   
         <CopilotSection />
         <TechnologySection />
+        <PrecisionScaleBento />
         <MarketingDecisioning />
         <HypeOnAnalytics />
 

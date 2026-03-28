@@ -39,7 +39,7 @@ export default function HighValueKeywords() {
   return (
     <section className="py-10 sm:py-12 md:py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans px-4 sm:px-6 lg:pr-20">
 
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 md:gap-8 items-center lg:pl-20">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 md:gap-8 items-center lg:pl-12">
 
         {/* LEFT CONTENT – scroll reveal */}
         <div className="reveal-left">

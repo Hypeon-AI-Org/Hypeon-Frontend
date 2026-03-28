@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Play, Link2, Target, Sparkles, Zap } from 'lucide-react';
+import { Link2, Target, Sparkles } from 'lucide-react';
 
 const FloatingCard = ({
   icon: Icon,
@@ -69,16 +68,6 @@ const FloatingCard = ({
 };
 
 export default function Hero() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <section className="relative min-h-0 sm:min-h-[75vh] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans text-[#111] antialiased">
       {/* Subtle grid background */}
@@ -123,12 +112,39 @@ export default function Hero() {
               />
             </div>
 
-            {/* Floating Cards */}
+            {/* Mobile + tablet cards */}
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 lg:hidden">
+              <FloatingCard
+                icon={Link2}
+                title="Connect"
+                description="All 8 channels. One view. No gaps."
+                className="relative w-full"
+                delay={0}
+              />
+
+              <FloatingCard
+                icon={Target}
+                title="Attribute"
+                description="See what really drives conversions."
+                className="relative w-full"
+                delay={0}
+              />
+
+              <FloatingCard
+                icon={Sparkles}
+                title="Decide"
+                description="AI Copilot connected to live marketing data."
+                className="relative w-full sm:col-span-2"
+                delay={0}
+              />
+            </div>
+
+            {/* Floating cards on large screens */}
             <FloatingCard
               icon={Link2}
               title="Connect"
               description="All 8 channels. One view. No gaps."
-              className="left-0 sm:-left-4 lg:-left-20 top-[18%] sm:top-[22%] animate-float w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
+              className="hidden lg:block left-0 sm:-left-4 lg:-left-20 top-[18%] sm:top-[22%] animate-float w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
               delay={0}
             />
 
@@ -136,7 +152,7 @@ export default function Hero() {
               icon={Target}
               title="Attribute"
               description="See what really drives conversions."
-              className="right-0 sm:-right-4 lg:-right-20 top-[24%] sm:top-[28%] animate-float-delayed w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
+              className="hidden lg:block right-0 sm:-right-4 lg:-right-20 top-[24%] sm:top-[28%] animate-float-delayed w-[85%] max-w-[200px] sm:w-auto sm:max-w-none"
               delay={2}
             />
 
@@ -144,7 +160,7 @@ export default function Hero() {
               icon={Sparkles}
               title="Decide"
               description="AI Copilot connected to live marketing data."
-              className="left-1/2 -translate-x-1/2 sm:left-1/4 sm:translate-x-0 -bottom-4 sm:-bottom-6 animate-float-delayed-2 w-[90%] sm:w-auto max-w-[280px] sm:max-w-none"
+              className="hidden lg:block left-1/2 -translate-x-1/2 sm:left-1/4 sm:translate-x-0 -bottom-4 sm:-bottom-6 animate-float-delayed-2 w-[90%] sm:w-auto max-w-[280px] sm:max-w-none"
               delay={4}
             />
           </div>

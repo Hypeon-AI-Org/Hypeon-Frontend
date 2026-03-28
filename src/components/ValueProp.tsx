@@ -94,9 +94,9 @@ export default function ComparisonBlackWhite() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)] overflow-x-auto"
+          className="relative max-w-full overflow-x-auto overflow-y-hidden lg:overflow-visible rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.08)]"
         >
-          <table className="min-w-[700px] sm:min-w-full text-xs sm:text-sm ">
+          <table className="min-w-[700px] w-full lg:min-w-0 text-xs sm:text-sm">
 
             {/* Header */}
             <thead>

@@ -5,8 +5,11 @@ import Hero from '@/components/Hero';
 import Products from '@/components/Products';
 import AboutCTA from "../components/AboutCTA";
 import FAQ from "../components/FAQ";
+import TeamsAchieve from "../components/TeamsAchieve";
+import CompetitorReportLead from "../components/CompetitorReportLead";
 import FounderDecisionMap from '../components/FounderDecisionMap';
 import MarketerSteps from '../components/steps';
+import AdIntelReplica from '@/components/AdIntelReplica';
 
 import ImpactSection from '../components/ImpactSection';
 // Lazy load below-the-fold components
@@ -29,12 +32,16 @@ export default function Home() {
       <Products />
       <ValueProp />
       <ImpactSection />
+      <AdIntelReplica />
       <FounderDecisionMap />
       <Partners />
       <Features />
       <MarketerSteps />
-      <AboutCTA />
+
+      <TeamsAchieve />
+    
       <FAQ />
+      <CompetitorReportLead />
       <Footer />
     </main>
   );

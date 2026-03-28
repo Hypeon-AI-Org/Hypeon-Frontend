@@ -189,27 +189,21 @@ export default function Hero() {
 
               {/* CTA — pointer-events-auto + mobile fallback so tap always works */}
               <a
-                href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  if (typeof window !== 'undefined' && window.innerWidth < 768) {
-                    e.preventDefault();
-                    window.location.href = 'https://calendly.com/yash-hypeon/30min?month=2026-03';
-                  }
-                }}
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 pl-2 pr-4 sm:pr-5 py-1.5 sm:py-2 min-h-[44px] sm:min-h-0
-  rounded-full text-base font-semibold
-  text-white bg-black hover:bg-neutral-900
-  transition-all duration-300 shadow-lg cursor-pointer pointer-events-auto
-  mt-4 sm:mt-6 relative z-10 select-none touch-manipulation"
-              >
-                <span className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black flex-shrink-0 cursor-pointer">
-                  <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                </span>
-                Get the demo
-              </a>
+  href="https://calendly.com/yash-hypeon/30min?month=2026-03"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group relative inline-flex items-center gap-3 pl-2 pr-5 py-2 rounded-full bg-black text-white transition-all duration-300 shadow-lg cursor-pointer overflow-hidden min-h-[48px]"
+>
+  {/* The Icon Container */}
+  <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-black transition-all duration-500 ease-in-out group-hover:translate-x-[130px]">
+    <ArrowRight className="w-4 h-4" />
+  </div>
 
+  {/* The Text Container */}
+  <span className="text-lg font-medium transition-all duration-500 ease-in-out group-hover:-translate-x-10">
+    Get the demo
+  </span>
+</a>
             </div>
           </div>
         </div>
