@@ -30,7 +30,7 @@ export default function Hero() {
   const [inputValue, setInputValue] = useState('');
   const [chatStep, setChatStep] = useState(0);
 
-  const textToType = 'Give me the top 20 trending products in the Fashion category for US. ';
+  const textToType = 'Give me the top 20 trending products in the Fashion Industry for US. ';
 
   useEffect(() => {
     let isActive = true;
