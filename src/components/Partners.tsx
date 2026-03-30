@@ -179,11 +179,11 @@ export default function CombinedLayout() {
                       Meanwhile, you spend months researching a product. Launch it. Nothing happens. Two weeks later, someone else goes viral with the same thing. They saw the signal first. You didn't - because you were using the same tools as everyone else.
                     </p>
                     <p>
-                      This is the problem I kept running into. Not a lack of tools. A lack of truth. No one could tell me which channel actually made the sale. No one could show me what was about to trend before it peaked. No one could give me a straight answer on where to put my next pound of ad spend.
+                      This is the problem I kept running into. Not The lack of tools. The lack of truth. No one could tell me which channel actually made the sale. No one could show me what was about to trend before it peaked. No one could give me a straight answer on where to put my next pound of ad spend.
                     </p>
                     <p>So we built HypeOn.</p>
                     <p>It scans 20 million signals a day to show you what's coming - weeks before it peaks. It attributes every order to one channel with zero double counting. And it answers your marketing questions in plain English, with specific numbers and specific actions.
-                      2,400+ founders across 48 countries use it now. We're just getting started.
+               
                     </p>
                     <div className="pt-12 border-t border-[#F0F0EB]">
                       <p className="font-semibold text-black text-[20px]">Yash Kumar</p>
