@@ -152,7 +152,7 @@ function Reveal({
 }
 
 export default function PricingPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>("analytics");
+  const [activeTab, setActiveTab] = useState<TabKey>("intelligence");
   const [intelPlan, setIntelPlan] = useState<IntelPlanKey>("starter");
   const [revenue, setRevenue] = useState<RevenueKey>("10k");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -260,24 +260,24 @@ export default function PricingPage() {
                   style={{ width: 0, transform: "translateX(0px)" }}
                 />
                 <button
-                ref={btnAnalyticsRef}
+                  ref={btnIntelRef}
                   type="button"
                   className={`relative z-[2] px-5 sm:px-8 py-3 border-none bg-transparent text-sm sm:text-[15px] font-semibold cursor-pointer rounded-full transition-colors duration-300 whitespace-nowrap ${
-                  activeTab === "analytics" ? "text-white" : "text-gray-600"
+                    activeTab === "intelligence" ? "text-white" : "text-gray-600"
                   }`}
-                onClick={() => setActiveTab("analytics")}
+                  onClick={() => setActiveTab("intelligence")}
                 >
-                HypeOn Analytics
+                  HypeOn Intelligence
                 </button>
                 <button
-                ref={btnIntelRef}
+                  ref={btnAnalyticsRef}
                   type="button"
                   className={`relative z-[2] px-5 sm:px-8 py-3 border-none bg-transparent text-sm sm:text-[15px] font-semibold cursor-pointer rounded-full transition-colors duration-300 whitespace-nowrap ${
-                  activeTab === "intelligence" ? "text-white" : "text-gray-600"
+                    activeTab === "analytics" ? "text-white" : "text-gray-600"
                   }`}
-                onClick={() => setActiveTab("intelligence")}
+                  onClick={() => setActiveTab("analytics")}
                 >
-                HypeOn Intelligence
+                  HypeOn Analytics
                 </button>
               </div>
             </div>
