@@ -283,11 +283,20 @@ export default function PricingPage() {
           </Reveal>
 
           <Reveal delayMs={120}>
-            <p className="text-center text-sm text-gray-400 mb-10 pt-2 px-6">
-              {activeTab === "intelligence"
-                ? "Market intelligence, competitor analysis & product discovery"
-                : "Cross-channel attribution, true ROAS & budget optimization"}
-            </p>
+            <div className="text-center pt-2 px-6 mb-10">
+              <p className="text-sm text-gray-400">
+                {activeTab === "intelligence"
+                  ? "Market intelligence, competitor analysis & product discovery"
+                  : "Cross-channel attribution, true ROAS & budget optimization"}
+              </p>
+              {activeTab === "intelligence" && (
+                <div className="flex justify-center mt-2.5">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-gray-300 bg-white text-[10px] font-medium text-gray-800 shadow-sm leading-tight">
+                    30 day money-back guarantee
+                  </span>
+                </div>
+              )}
+            </div>
           </Reveal>
 
           {/* ═══════════ INTELLIGENCE TAB ═══════════ */}
