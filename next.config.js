@@ -16,6 +16,16 @@ const nextConfig = {
         hostname: 'logo.clearbit.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        pathname: '/**',
+      },
     ],
   },
   compress: true,

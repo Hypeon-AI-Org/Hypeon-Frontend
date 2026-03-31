@@ -1,0 +1,9 @@
+ps-outer-card
+ki-outer-card
+pi-outer-card
+aid-outer-card
+mex-outer-card
+rad-outer-card
+inv-outer-card
+csi-outer-card
+cad-outer-card

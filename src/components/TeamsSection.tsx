@@ -47,11 +47,7 @@ const TeamsSection = () => {
     }
   ];
 
-  const stats = [
-    { num: "2,400+", label: "Active brands" },
-    { num: "48", label: "Countries" },
-    { num: "$2.1B", label: "Revenue attributed" }
-  ];
+
 
   return (
     <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden font-sans">
@@ -171,27 +167,11 @@ const TeamsSection = () => {
                 Deliver <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">+26% average ROAS</span> increase across the board
               </h3>
               <p className="text-gray-400 text-lg">
-                The data doesn't lie. Across 2,400+ brands, HypeOn Analytics consistently reveals untapped profitability in the first 90 days.
+                HypeOn Analytics consistently reveals untapped profitability in the first 90 days.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 lg:gap-16 w-full lg:w-auto">
-              {stats.map((stat, i) => (
-                <div key={i} className="space-y-2">
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + (i * 0.1) }}
-                    className="text-white text-3xl md:text-4xl  tracking-tighter"
-                  >
-                    {stat.num}
-                  </motion.div>
-                  <div className="text-gray-500 text-xs uppercase tracking-[0.2em] ">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+            \
           </div>
         </motion.div>
 
