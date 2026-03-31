@@ -8,7 +8,7 @@ import StartToday from "../../components/TeamGlobalMap";
 import { Activity } from "lucide-react";
 
 type TabKey = "intelligence" | "analytics";
-type IntelPlanKey = "starter" | "growth" | "pro";
+type IntelPlanKey = "starter" | "pro" | "enterprise";
 type RevenueKey = "5k" | "10k" | "20k" | "40k" | "83k" | "250k" | "750k" | "1m";
 
 const analyticsPricing: Record<
@@ -25,16 +25,22 @@ const analyticsPricing: Record<
   "1m": { starter: 499, growth: 999, pro: "Custom" },
 };
 
+/** List price (USD/mo). Enterprise is custom — see `intelDiscountView`. */
 const intelBasePrices: Record<IntelPlanKey, number> = {
-  starter: 9,
-  growth: 39,
-  pro: 99,
+  starter: 19,
+  pro: 59,
+  enterprise: 0,
 };
 
-const intelDiscounts: Record<IntelPlanKey, number> = {
-  starter: 0.45,
-  growth: 0.5,
-  pro: 0,
+/** Launch sale price after rounded % off messaging (Starter 75%, Pro 80%). */
+const intelLaunchPrices: Record<"starter" | "pro", number> = {
+  starter: 4.79,
+  pro: 11.99,
+};
+
+const intelLaunchDiscountPct: Record<"starter" | "pro", number> = {
+  starter: 75,
+  pro: 80,
 };
 
 function CheckIcon() {
@@ -163,25 +169,18 @@ export default function PricingPage() {
   const btnAnalyticsRef = useRef<HTMLButtonElement | null>(null);
 
   const intelDiscountView = useMemo(() => {
-    const base = intelBasePrices[intelPlan];
-    const disc = intelDiscounts[intelPlan];
-    if (disc === 0) {
-      return {
-        mode: "no_discount" as const,
-        base,
-        finalPrice: base,
-        savings: 0,
-        pct: 0,
-      };
+    if (intelPlan === "enterprise") {
+      return { mode: "custom" as const };
     }
-    const finalPriceNum = base * (1 - disc);
-    const savingsNum = base - finalPriceNum;
+    const base = intelBasePrices[intelPlan];
+    const finalPrice = intelLaunchPrices[intelPlan];
+    const savings = Number((base - finalPrice).toFixed(2));
     return {
       mode: "discount" as const,
       base,
-      finalPrice: Number(finalPriceNum.toFixed(2)),
-      savings: Number(savingsNum.toFixed(2)),
-      pct: Math.round(disc * 100),
+      finalPrice,
+      savings,
+      pct: intelLaunchDiscountPct[intelPlan],
     };
   }, [intelPlan]);
 
@@ -308,21 +307,20 @@ export default function PricingPage() {
                       value={intelPlan}
                       onChange={(e) => setIntelPlan(e.target.value as IntelPlanKey)}
                     >
-                      <option value="starter">Starter — $9/mo</option>
-                      <option value="growth">Growth — $39/mo</option>
-                      <option value="pro">Pro — $99/mo (no discount)</option>
+                      <option value="starter">Starter — $19/mo</option>
+                      <option value="pro">Pro — $59/mo</option>
+                      <option value="enterprise">Enterprise — Custom</option>
                     </select>
                   </div>
 
                   <div className="p-4 bg-gray-100 border border-gray-200 rounded-[10px] mt-2">
-                    {intelDiscountView.mode === "no_discount" ? (
+                    {intelDiscountView.mode === "custom" ? (
                       <>
                         <div className="text-xs font-semibold text-gray-500">
-                          No discount on Pro — Talk to Sales
+                          Custom pricing — Talk to Sales
                         </div>
                         <div className="text-4xl font-bold text-gray-800 tracking-tight">
-                          ${intelDiscountView.base}{" "}
-                          <span className="text-sm font-normal text-gray-400">/ month</span>
+                          Custom
                         </div>
                       </>
                     ) : (
@@ -356,15 +354,15 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$9</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$4.95</span>
+                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$19</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$4.79</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
                       Billed monthly · No commitment
                     </div>
                     <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                      45% off — launch price
+                      75% off — launch price
                     </div>
                     <a
                       href="#"
@@ -394,26 +392,26 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  {/* Growth (recommended) */}
+                  {/* Pro (recommended) */}
                   <div className="bg-white border-gray-900 border rounded-2xl p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:120ms]">
                   <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-semibold px-5 py-1.5 rounded-b-[10px] tracking-wide">
                       Most Popular
                     </div>
-                  <div className="text-xl font-bold mb-3">Growth</div>
+                  <div className="text-xl font-bold mb-3">Pro</div>
                     <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
                       For scaling brands ready to outmaneuver the competition with deep
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$39</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$19.50</span>
+                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$59</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$11.99</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
                       Billed monthly · Save even more annually
                     </div>
                     <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                      50% off — launch price
+                      80% off — launch price
                     </div>
                     <a
                       href="#"
@@ -444,19 +442,18 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  {/* Pro */}
+                  {/* Enterprise */}
                   <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:190ms]">
-                  <div className="text-xl font-bold mb-3">Pro</div>
+                  <div className="text-xl font-bold mb-3">Enterprise</div>
                     <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
                       For established brands and agencies who want every edge the market can
                       give them.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$99</span>
-                      <span className="text-sm text-gray-400 ml-1">/ month</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">Custom</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
-                      Billed monthly · Save 20% annually
+                      Tailored to your stack &mdash; talk to us for a quote
                     </div>
                     <div className="mb-5" />
                     <a
@@ -466,7 +463,7 @@ export default function PricingPage() {
                       Talk to Sales
                     </a>
                     <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
-                      Everything in Growth, plus
+                      Everything in Pro, plus
                     </div>
                     {[
                       "Unlimited competitors",
@@ -592,7 +589,7 @@ export default function PricingPage() {
                   <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-semibold px-5 py-1.5 rounded-b-[10px] tracking-wide">
                       Most Popular
                     </div>
-                  <div className="text-xl font-bold mb-3">Growth</div>
+                  <div className="text-xl font-bold mb-3">Pro</div>
                     <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
                       Daily campaign-level decisions. Know exactly what to scale, hold, or cut.
                     </div>
@@ -767,7 +764,7 @@ export default function PricingPage() {
                     a: (
                       <>
                         HypeOn Intelligence Starter comes with a 14-day free trial — no credit
-                        card required. For Growth and Pro plans (Intelligence) and all Analytics
+                        card required. For Intelligence Pro and Enterprise and all Analytics
                         plans, you can book a demo and we&apos;ll walk you through everything live
                         before you commit.
                       </>
@@ -777,7 +774,7 @@ export default function PricingPage() {
                     q: "I'm spending under $5k/mo on ads — is HypeOn worth it for me?",
                     a: (
                       <>
-                        If you&apos;re at that stage, start with Intelligence Starter at $4.95/mo.
+                        If you&apos;re at that stage, start with Intelligence Starter at $4.79/mo.
                         It&apos;ll show you which products to push, what keywords to target, and
                         what your competitors are running. Once your ad spend grows and attribution
                         starts getting messy, that&apos;s when Analytics pays for itself many times
@@ -862,17 +859,17 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Starter
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$4.95/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$4.79/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
-                Growth
-                <br />
-                <span className="font-normal text-gray-400 text-xs">$19.50/mo</span>
-              </th>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Pro
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$99/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$11.99/mo</span>
+              </th>
+              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
+                Enterprise
+                <br />
+                <span className="font-normal text-gray-400 text-xs">Custom</span>
               </th>
             </tr>
           </thead>
