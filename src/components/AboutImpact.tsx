@@ -63,7 +63,7 @@ export default function AboutImpact() {
 
               <div className="relative aspect-square overflow-hidden">
                 <Image
-                  src="/team/yash.jpg"
+                  src="/team/yash1.jpg"
                   alt="Yash Kumar"
                   fill
                   className="object-cover"
