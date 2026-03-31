@@ -19,7 +19,7 @@ export default function StartToday() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl md:text-4xl   text-black tracking-tight"
           >
-            Ready to move faster
+            Ready to move <span className="text-brand-600">faster</span>
           </motion.h2>
 
           {/* Subheading */}

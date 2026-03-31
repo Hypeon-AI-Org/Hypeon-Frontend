@@ -112,7 +112,7 @@ export default function AboutCoreLayers() {
           </p>
 
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
-          Three engines. One decision system.
+          Three engines. <span className="text-brand-600">One decision system.</span>
           </h2>
 
           <p className="mt-4 text-sm text-slate-500 leading-relaxed">

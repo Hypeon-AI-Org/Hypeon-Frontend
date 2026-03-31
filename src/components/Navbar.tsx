@@ -10,7 +10,6 @@ import Link from "next/link";
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showPricing, setShowPricing] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<'products' | null>(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const router = useRouter();
@@ -157,13 +156,12 @@ function Navbar() {
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setShowPricing(true)}
+            <Link
+              href="/pricing"
               className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
               Pricing
-            </button>
+            </Link>
 
             <Link
               href="/about"
@@ -301,8 +299,8 @@ function Navbar() {
               <button
                 type="button"
                 onClick={() => {
-                  setShowPricing(true);
                   closeMobile();
+                  router.push("/pricing");
                 }}
                 className="flex w-full min-h-[48px] items-center rounded-xl px-3 text-left text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100 active:bg-slate-200/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
               >
@@ -329,44 +327,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-      {/* PRICING MODAL */}
-      {showPricing && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Pricing"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setShowPricing(false);
-          }}
-        >
-          <div
-            className="relative w-full max-w-[95vw] sm:max-w-md mx-3 sm:mx-4 rounded-2xl bg-white p-6 sm:p-8 shadow-2xl text-center cursor-default"
-          >
-            {/* CLOSE */}
-            <button
-              type="button"
-              onClick={() => setShowPricing(false)}
-              className="absolute right-3 top-3 sm:right-4 sm:top-4 p-2 -m-2 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-100 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
-              aria-label="Close"
-            >
-              ✕
-            </button>
-
-            <h3 className="text-xl sm:text-2xl font-display font-semibold text-slate-900 pr-8">
-              Pricing
-            </h3>
-
-            <p className="mt-3 text-sm sm:text-base text-slate-600">
-              pricing plans are on the way.
-            </p>
-
-            <div className="mt-5 sm:mt-6 inline-block rounded-full bg-brand-600/10 px-4 sm:px-5 py-2 text-sm sm:text-base text-brand-600 font-medium">
-              Coming Soon
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

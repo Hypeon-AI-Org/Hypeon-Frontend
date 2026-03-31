@@ -67,7 +67,7 @@ export default function GrowthTimeline() {
       </p>
 
       <h2 className="text-3xl sm:text-4xl md:text-4xl   text-slate-900 tracking-tight">
-      From idea to industry standard.
+      From idea to industry <span className="text-brand-600">standard.</span>
       </h2>
 
       <p className="mt-3 text-sm text-slate-600">

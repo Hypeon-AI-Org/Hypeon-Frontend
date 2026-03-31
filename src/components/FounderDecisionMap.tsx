@@ -9,7 +9,6 @@ import {
 import { useRef, useState, useEffect } from "react"
 import NextImage from "next/image"
 import { ArrowUp, Image as ImageIcon, Music2, Paperclip, Search, Sparkles } from "lucide-react"
-import { motion, type Variants } from "framer-motion"
 
 const WORKSPACE_BACKDROP_STYLE = {
   backgroundImage: "url('/images/back.png')",
@@ -714,6 +713,38 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+}
+
+/* Mobile + tablet: keep the card centered and fully visible */
+@media (max-width: 1023px) {
+  .ps-outer-card,
+  .ki-outer-card,
+  .pi-outer-card,
+  .aid-outer-card,
+  .mex-outer-card,
+  .rad-outer-card,
+  .inv-outer-card,
+  .csi-outer-card,
+  .cad-outer-card {
+    width: calc(100% - 24px) !important;
+    max-width: 100% !important;
+    margin: 18px auto 24px auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ps-outer-card,
+  .ki-outer-card,
+  .pi-outer-card,
+  .aid-outer-card,
+  .mex-outer-card,
+  .rad-outer-card,
+  .inv-outer-card,
+  .csi-outer-card,
+  .cad-outer-card {
+    height: 520px !important;
+    margin: 14px auto 20px auto !important;
+  }
 }
 
 .ps-panels,
@@ -4189,7 +4220,7 @@ function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
           <div className="mex-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="mex-panels min-h-0 flex-1">
               <div className="mex-left-panel">
-                <div className="mex-panel-label">Left Panel</div>
+              
                 <div className="mex-chat-area">
                   <div className="mex-user-bubble">
                     Which new markets should I expand into — and are they ready?
@@ -4246,7 +4277,7 @@ function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
               </div>
 
               <div className="mex-right-panel">
-                <div className="mex-panel-label">Results</div>
+                
                 <div className="mex-right-grid">
                   <div className="mex-section-card">
                     <div className="mex-section-title">Markets Detected</div>
@@ -4993,7 +5024,7 @@ function CompetitorSocialHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                           </div>
                         </td>
                         <td>
-                          <span className="csi-platform-badge">📷 Instagram</span>
+                          <span className="csi-platform-badge"> Instagram</span>
                         </td>
                         <td className="csi-engagement-val">4.8%</td>
                         <td className="csi-ads-badge">12 active ads</td>
@@ -5041,7 +5072,7 @@ function CompetitorSocialHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                           </div>
                         </td>
                         <td>
-                          <span className="csi-platform-badge">📷 Instagram</span>
+                          <span className="csi-platform-badge"> Instagram</span>
                         </td>
                         <td className="csi-engagement-val">4.7%</td>
                         <td className="csi-ads-badge">6 active ads</td>
@@ -5783,32 +5814,14 @@ export default function StackingCards() {
 
 function Card({ item, index }: { item: (typeof sections)[number], index: number }) {
   const isDesktop = useIsDesktop()
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 16, scale: 0.995 },
-    show: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.55,
-        ease: [0.22, 1, 0.36, 1],
-        delay: Math.min(i * 0.06, 0.25),
-      },
-    }),
-  }
 
   return (
-    <motion.div
+    <div
       className="relative md:sticky md:top-20 lg:top-24 w-full flex justify-center px-3 sm:px-4 md:px-6 mb-[6vh] sm:mb-[10vh]"
       style={{
         zIndex: index + 1,
         paddingTop: isDesktop ? `${index * 25}px` : 0
       }}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.35 }}
-      custom={index}
     >
       <div className="relative flex w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_30px_-22px_rgba(15,23,42,0.18)] sm:rounded-[2.5rem] md:flex-row md:items-stretch lg:max-w-[1200px] min-h-[360px] sm:min-h-[460px] md:h-[min(76vh,680px)] md:min-h-[min(76vh,680px)]">
         {/* LEFT: feature copy */}
@@ -5861,6 +5874,6 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

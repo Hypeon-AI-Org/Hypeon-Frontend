@@ -242,7 +242,7 @@ export default function AboutVision() {
       </p>
 
       <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight tracking-tight">
-        12 decisions. Zero guesswork.
+        12 decisions. <span className="text-brand-600">Zero guesswork.</span>
       </h2>
 
       <p className="mt-3 text-sm text-slate-600 leading-relaxed">

@@ -126,7 +126,7 @@ export default function AboutStory() {
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            Every failed launch starts with a bad decision.
+            Every failed launch starts with a <span className="text-brand-600">bad decision.</span>
           </h2>
 
           <p

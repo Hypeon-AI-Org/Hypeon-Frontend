@@ -53,7 +53,7 @@ export default function WhoWeAreBuildingFor() {
           </p>
 
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
-            Make product-market fit predictable, not guessed.
+            Make product-market fit predictable, <span className="text-brand-600">not guessed.</span>
           </h2>
 
           <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-lg md:max-w-none">
