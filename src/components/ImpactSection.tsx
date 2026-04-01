@@ -59,7 +59,7 @@ export default function ImpactSection() {
           viewport={{ once: true }}
           className="text-sm text-neutral-500 mb-6"
         >
-          AVERAGE IMPACT ACROSS 2,400+ BRANDS
+         
         </motion.p>
 
         {/* Headline */}

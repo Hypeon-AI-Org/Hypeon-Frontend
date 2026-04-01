@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Background from "@/components/Background";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -163,6 +170,9 @@ export default function PricingPage() {
   const [revenue, setRevenue] = useState<RevenueKey>("10k");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  const activeTabRef = useRef<TabKey>(activeTab);
+  activeTabRef.current = activeTab;
+
   const toggleContainerRef = useRef<HTMLDivElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const btnIntelRef = useRef<HTMLButtonElement | null>(null);
@@ -187,36 +197,55 @@ export default function PricingPage() {
   const analyticsTier = analyticsPricing[revenue];
   const revLabel = revenue === "1m" ? "1M+" : revenue;
 
-  const positionSlider = () => {
+  /** Uses `activeTabRef` so resize/zoom handlers always match the selected tab (avoids stale closure from `useEffect([])`). */
+  const positionSlider = useCallback(() => {
     const container = toggleContainerRef.current;
     const slider = sliderRef.current;
+    const tab = activeTabRef.current;
     const btn =
-      activeTab === "intelligence" ? btnIntelRef.current : btnAnalyticsRef.current;
+      tab === "intelligence"
+        ? btnIntelRef.current
+        : btnAnalyticsRef.current;
     if (!container || !slider || !btn) return;
 
     const rect = btn.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
-    slider.style.width = `${rect.width}px`;
-    slider.style.transform = `translateX(${rect.left - containerRect.left - 4}px)`;
-  };
+    // Matches container `p-1` + slider `left-1` (4px) inset; round to reduce subpixel blur on zoom/transform.
+    const inset = 4;
+    const width = Math.round(rect.width);
+    const x = Math.round(rect.left - containerRect.left - inset);
+    slider.style.width = `${width}px`;
+    slider.style.transform = `translate3d(${x}px,0,0)`;
+  }, []);
 
   useLayoutEffect(() => {
     positionSlider();
     requestAnimationFrame(() => positionSlider());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useLayoutEffect(() => {
-    positionSlider();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
+  }, [activeTab, positionSlider]);
 
   useEffect(() => {
-    const onResize = () => positionSlider();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const container = toggleContainerRef.current;
+    const run = () => requestAnimationFrame(() => positionSlider());
+
+    window.addEventListener("resize", run);
+    const vv = window.visualViewport;
+    vv?.addEventListener("resize", run);
+    vv?.addEventListener("scroll", run);
+
+    const ro =
+      container &&
+      new ResizeObserver(() => {
+        run();
+      });
+    if (container && ro) ro.observe(container);
+
+    return () => {
+      window.removeEventListener("resize", run);
+      vv?.removeEventListener("resize", run);
+      vv?.removeEventListener("scroll", run);
+      ro?.disconnect();
+    };
+  }, [positionSlider]);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -255,8 +284,8 @@ export default function PricingPage() {
               >
                 <div
                   ref={sliderRef}
-                className="absolute top-1 left-1 h-[calc(100%-8px)] rounded-full bg-slate-800 z-[1] pointer-events-none transform-gpu will-change-transform motion-safe:transition-[transform,width] motion-safe:duration-[450ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
-                  style={{ width: 0, transform: "translateX(0px)" }}
+                  className="pointer-events-none absolute left-1 top-1 z-[1] h-[calc(100%-8px)] rounded-full bg-slate-800 [backface-visibility:hidden] motion-safe:transition-[transform,width] motion-safe:duration-[450ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+                  style={{ width: 0, transform: "translate3d(0,0,0)" }}
                 />
                 <button
                   ref={btnIntelRef}

@@ -220,11 +220,16 @@ function Navbar() {
         aria-modal={mobileMenuOpen}
         aria-hidden={!mobileMenuOpen}
         aria-label="Main menu"
-        className={`lg:hidden fixed left-1/2 -translate-x-1/2 z-[43] w-[min(100%,24rem)] sm:w-[min(100%,26rem)] px-4 sm:px-5 pt-[calc(4.5rem+env(safe-area-inset-top))] sm:pt-[calc(4.75rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))] ${!mobileMenuOpen ? "pointer-events-none" : ""}`}
+        className={[
+          "lg:hidden fixed left-1/2 top-0 z-[43] w-full max-w-[95vw] -translate-x-1/2 pl-[max(0.25rem,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))]",
+          isScrolled ? "sm:pl-4 sm:pr-4 md:pl-4 md:pr-4" : "sm:pl-5 sm:pr-5 md:pl-6 md:pr-6",
+          "pt-[calc(4.5rem+env(safe-area-inset-top))] sm:pt-[calc(4.75rem+env(safe-area-inset-top))] md:pt-[calc(5rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))]",
+          !mobileMenuOpen ? "pointer-events-none" : "",
+        ].join(" ")}
       >
         <div
           className={`
-            flex max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border border-slate-200 bg-[oklch(0.988_0.0041_91.45)] shadow-[0_20px_50px_rgba(15,23,42,0.08)]
+            flex w-full max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border border-slate-200 bg-[oklch(0.988_0.0041_91.45)] shadow-[0_20px_50px_rgba(15,23,42,0.08)]
             transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
             ${mobileMenuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-[0.98] opacity-0"}
           `}
