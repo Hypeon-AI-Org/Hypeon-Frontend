@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
+import CookieBanner from "@/components/CookieBanner";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ScaleProvider>
           <ScrollRevealSetup />
           {children}
+          <CookieBanner />
         </ScaleProvider>
       </body>
     </html>
