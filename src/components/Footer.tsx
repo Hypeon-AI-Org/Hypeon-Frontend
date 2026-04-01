@@ -107,12 +107,21 @@ export default function Footer() {
           <p className="text-center text-xs text-slate-500 sm:text-left sm:text-sm">
             © {new Date().getFullYear()} HypeOn AI Inc. All rights reserved.
           </p>
-          <Link
-            href="/privacy-policy"
-            className="text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
-          >
-            Privacy Policy
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("hypeon:open-cookie-prefs"))}
+              className="text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
+            >
+              Manage cookies
+            </button>
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

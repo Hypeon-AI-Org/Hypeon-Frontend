@@ -102,6 +102,11 @@ function writeConsent(prefs: ConsentPrefs) {
   } catch {
     // ignore storage errors (private mode, blocked storage, etc.)
   }
+
+  // Let other parts of the app react immediately (e.g. load GTM after consent).
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("hypeon:cookie-consent", { detail: payload }));
+  }
 }
 
 function Toggle({
@@ -158,6 +163,27 @@ export default function CookieBanner() {
       personalised: existing.personalised,
       analytics: existing.analytics,
     });
+  }, []);
+
+  useEffect(() => {
+    const onOpenPrefs = () => {
+      const existing = readConsent();
+      if (existing) {
+        setPrefs({
+          essential: true,
+          marketing: existing.marketing,
+          personalised: existing.personalised,
+          analytics: existing.analytics,
+        });
+      } else {
+        setPrefs(defaultPrefs);
+      }
+      setBannerOpen(false);
+      setPrefsOpen(true);
+    };
+
+    window.addEventListener("hypeon:open-cookie-prefs", onOpenPrefs);
+    return () => window.removeEventListener("hypeon:open-cookie-prefs", onOpenPrefs);
   }, []);
 
   const allowAll = () => {
@@ -219,7 +245,7 @@ export default function CookieBanner() {
                   href="/privacy-policy"
                   className="font-medium text-slate-900 underline underline-offset-2 hover:opacity-80"
                 >
-                  Cookies Policy
+                  Privacy Policy
                 </Link>
                 .
               </p>
