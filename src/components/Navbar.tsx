@@ -78,8 +78,8 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[60px] sm:h-[52px] px-1 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
-              : "h-[72px] sm:h-[60px] md:h-[64px] px-1 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
+              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] px-1 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] px-1 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
         >
@@ -90,16 +90,16 @@ function Navbar() {
               href="/"
               className="flex items-center gap-1 sm:gap-3"
             >
-              <div className=" rounded-full h-[26px] w-[26px] flex items-center justify-center overflow-hidden">
+              <div className="rounded-full h-[34px] w-[34px] sm:h-[32px] sm:w-[32px] lg:h-[26px] lg:w-[26px] flex items-center justify-center overflow-hidden">
                 <Image
                   src={logo}
                   alt="HypeOn AI Logo"
-                  width={32}
-                  height={32}
-
+                  width={40}
+                  height={40}
+                  className="h-[34px] w-[34px] sm:h-8 sm:w-8 lg:h-[26px] lg:w-[26px] object-contain"
                 />
               </div>
-              <span className="font-semibold text-sm sm:text-base text-black tracking-tight flex items-start">
+              <span className="font-semibold text-base sm:text-lg md:text-lg lg:text-base text-black tracking-tight flex items-start">
                 HypeOn AI<span className="text-[11px] sm:text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
               </span>
             </Link>
@@ -196,13 +196,13 @@ function Navbar() {
           {/* MOBILE / TABLET TOGGLE */}
           <button
             type="button"
-            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+            className="lg:hidden min-w-[48px] min-h-[48px] sm:min-w-[46px] sm:min-h-[46px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-menu"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" strokeWidth={2} /> : <Menu className="w-5 h-5" strokeWidth={2} />}
+            {mobileMenuOpen ? <X className="w-6 h-6" strokeWidth={2} /> : <Menu className="w-6 h-6" strokeWidth={2} />}
           </button>
         </div>
       </nav>
@@ -223,7 +223,7 @@ function Navbar() {
         className={[
           "lg:hidden fixed left-1/2 top-0 z-[43] w-full max-w-[95vw] -translate-x-1/2 pl-[max(0.25rem,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))]",
           isScrolled ? "sm:pl-4 sm:pr-4 md:pl-4 md:pr-4" : "sm:pl-5 sm:pr-5 md:pl-6 md:pr-6",
-          "pt-[calc(4.5rem+env(safe-area-inset-top))] sm:pt-[calc(4.75rem+env(safe-area-inset-top))] md:pt-[calc(5rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))]",
+          "pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(5.25rem+env(safe-area-inset-top))] md:pt-[calc(5.375rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))]",
           !mobileMenuOpen ? "pointer-events-none" : "",
         ].join(" ")}
       >
