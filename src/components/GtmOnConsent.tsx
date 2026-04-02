@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { pushGoogleConsentUpdate } from "@/lib/googleConsentMode";
 
 const GTM_ID = "GTM-N3J2S7LP";
 const SCRIPT_ID = "hypeon-gtm-loader";
@@ -36,6 +37,13 @@ export default function GtmOnConsent() {
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent<ConsentDetail>).detail;
+      if (!detail) return;
+      const prefs = {
+        marketing: detail.marketing,
+        analytics: detail.analytics,
+        personalised: detail.personalised,
+      };
+      pushGoogleConsentUpdate(prefs);
       if (shouldLoadGtm(detail)) loadGtmOnce();
     };
 

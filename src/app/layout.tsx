@@ -6,11 +6,13 @@ import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
 import GtmOnConsent from "@/components/GtmOnConsent";
+import { consentModeUpdateFromPrefs } from "@/lib/googleConsentMode";
 
 const CONSENT_KEY = "hypeon_cookie_consent_v1";
 type ConsentCookie = {
   marketing?: boolean;
   analytics?: boolean;
+  personalised?: boolean;
 };
 
 async function readConsentFromRequestCookie(): Promise<ConsentCookie | null> {
@@ -49,13 +51,29 @@ export default async function RootLayout({
 }>) {
   const consent = await readConsentFromRequestCookie();
   const allowGtm = Boolean(consent?.marketing || consent?.analytics);
+  const consentUpdateJson = JSON.stringify(
+    consentModeUpdateFromPrefs({
+      marketing: Boolean(consent?.marketing),
+      analytics: Boolean(consent?.analytics),
+      personalised: Boolean(consent?.personalised),
+    })
+  );
 
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <Script id="google-consent-mode-default" strategy="beforeInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied',
+'analytics_storage':'denied','functionality_storage':'denied','personalization_storage':'denied',
+'security_storage':'granted','wait_for_update':500
+});`}
+        </Script>
         {allowGtm && (
           <Script id="google-tag-manager" strategy="beforeInteractive">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            {`gtag('consent','update',${consentUpdateJson});
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
