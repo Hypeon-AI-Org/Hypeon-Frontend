@@ -11,7 +11,7 @@ import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
 const PLATFORM_LOGOS = [
-  { name: "Google Trends", src: "/logos/google.png" },
+  { name: "Google Ads", src: "/logos/google.png" },
   { name: "Shopify", src: "/logos/shopify.png" },
   { name: "Amazon", src: "/logos/amazon.png" },
   { name: "TikTok", src: "/logos/tiktok.webp" },

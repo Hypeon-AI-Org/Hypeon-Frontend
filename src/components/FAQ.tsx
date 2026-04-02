@@ -6,7 +6,7 @@ import { Plus, Minus } from 'lucide-react';
 const faqData = [
     {
         question: "What is HypeOn and who is it for?",
-        answer: "HypeOn is a prediction and attribution intelligence platform built specifically for e-commerce founders and brand owners. It combines HypeOn Intelligence (what to sell, what keywords to target, what creatives to run, where competitors are weak) with HypeOn Analytics (exactly which marketing channel drove every sale, with no double counting). It's for anyone running a Shopify store spending £5K–£500K+/month on ads who is tired of guessing."
+        answer: "HypeOn is a prediction and attribution intelligence platform built specifically for e-commerce founders and brand owners. It combines HypeOn Intelligence (what to sell, what keywords to target, what creatives to run, where competitors are weak) with HypeOn Analytics (exactly which marketing channel drove every sale, with no double counting). "
     },
     {
         question: "How is HypeOn different from Jungle Scout or AdSpy?",

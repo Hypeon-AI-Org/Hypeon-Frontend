@@ -15,7 +15,7 @@ import logo from '../../assets/HypeOn_Logo.png';
 
 const PLATFORM_LOGOS = [
   { name: 'Meta Ads', src: '/logos/meta.png' },
-  { name: 'Google Trends', src: '/logos/google.png' },
+  { name: 'Google Ads', src: '/logos/google.png' },
   { name: 'Shopify', src: '/logos/shopify.png' },
   { name: 'Amazon', src: '/logos/amazon.png' },
   { name: 'TikTok Shop', src: '/logos/tiktok.webp' },
