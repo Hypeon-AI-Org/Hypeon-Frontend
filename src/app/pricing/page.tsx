@@ -34,19 +34,19 @@ const analyticsPricing: Record<
 
 /** List price (USD/mo). Enterprise is custom — see `intelDiscountView`. */
 const intelBasePrices: Record<IntelPlanKey, number> = {
-  starter: 19,
-  pro: 59,
+  starter: 59,
+  pro: 129,
   enterprise: 0,
 };
 
-/** Launch sale price after rounded % off messaging (Starter 75%, Pro 80%). */
+/** Launch sale price (80% off list for Starter & Pro). */
 const intelLaunchPrices: Record<"starter" | "pro", number> = {
-  starter: 4.79,
-  pro: 11.99,
+  starter: 11.99,
+  pro: 24.99,
 };
 
 const intelLaunchDiscountPct: Record<"starter" | "pro", number> = {
-  starter: 75,
+  starter: 80,
   pro: 80,
 };
 
@@ -345,8 +345,8 @@ export default function PricingPage() {
                       value={intelPlan}
                       onChange={(e) => setIntelPlan(e.target.value as IntelPlanKey)}
                     >
-                      <option value="starter">Starter — $19/mo</option>
-                      <option value="pro">Pro — $59/mo</option>
+                      <option value="starter">Starter — $59/mo</option>
+                      <option value="pro">Pro — $129/mo</option>
                       <option value="enterprise">Enterprise — Custom</option>
                     </select>
                   </div>
@@ -392,15 +392,15 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$19</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$4.79</span>
+                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$59</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$11.99</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
                       Billed monthly · No commitment
                     </div>
                     <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                      75% off — launch price
+                      80% off — launch price
                     </div>
                     <a
                       href="https://app.hypeon.ai/hub/login"
@@ -441,8 +441,8 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$59</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$11.99</span>
+                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$129</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$24.99</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
@@ -812,7 +812,7 @@ export default function PricingPage() {
                     q: "I'm spending under $5k/mo on ads — is HypeOn worth it for me?",
                     a: (
                       <>
-                        If you&apos;re at that stage, start with Intelligence Starter at $4.79/mo.
+                        If you&apos;re at that stage, start with Intelligence Starter at $11.99/mo.
                         It&apos;ll show you which products to push, what keywords to target, and
                         what your competitors are running. Once your ad spend grows and attribution
                         starts getting messy, that&apos;s when Analytics pays for itself many times
@@ -897,12 +897,12 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Starter
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$4.79/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$11.99/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
                 Pro
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$11.99/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$24.99/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Enterprise
