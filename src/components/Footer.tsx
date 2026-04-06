@@ -39,9 +39,9 @@ export default function Footer() {
               <Image
                 src={logo}
                 alt="HypeOn AI Logo"
-                width={26}
-                height={26}
-                className="h-6 w-6 object-contain brightness-0 invert"
+                width={48}
+                height={48}
+                className="h-10 w-10 object-contain"
               />
               <span className="text-lg font-bold text-white">
                 HypeOn <span className="text-slate-300">AI</span>

@@ -65,8 +65,8 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] px-[max(0.25rem,env(safe-area-inset-left))] sm:px-4 lg:px-3"
-            : "top-0 max-w-[95vw] xl:max-w-[1150px] px-[max(0.25rem,env(safe-area-inset-left))] sm:px-5 md:px-6 lg:px-8"
+            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-4 lg:px-3"
+            : "top-0 max-w-[95vw] xl:max-w-[1150px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-5 md:pl-3 md:pr-6 lg:px-8"
           }
   `}
       >
@@ -78,35 +78,35 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] px-1 sm:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
-              : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] px-1 sm:px-5 md:px-6 bg-transparent border-transparent shadow-none"
+              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] pl-0 pr-1 sm:pr-5 md:pr-6 lg:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
         >
 
           {/* LOGO */}
-          <div className="flex items-center gap-2 cursor-pointer max-sm:pl-0 max-sm:-ml-1 pl-1 mr-4 sm:mr-6 lg:mr-8">
+          <div className="flex items-center gap-2 cursor-pointer mr-4 sm:mr-6 md:mr-5 lg:mr-8 max-md:-ml-0.5 md:pl-1">
             <Link
               href="/"
-              className="flex items-center gap-1 sm:gap-3"
+              className="flex items-center gap-1 sm:gap-3 lg:gap-1.5"
             >
-              <div className="rounded-full h-[34px] w-[34px] sm:h-[32px] sm:w-[32px] lg:h-[26px] lg:w-[26px] flex items-center justify-center overflow-hidden">
+              <div className="rounded-full h-[34px] w-[34px] sm:h-[32px] sm:w-[32px] md:h-9 md:w-9 lg:h-8 lg:w-8 flex items-center justify-center overflow-hidden">
                 <Image
                   src={logo}
                   alt="HypeOn AI Logo"
-                  width={40}
-                  height={40}
-                  className="h-[34px] w-[34px] sm:h-8 sm:w-8 lg:h-[26px] lg:w-[26px] object-contain"
+                  width={48}
+                  height={48}
+                  className="h-[34px] w-[34px] sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 object-contain"
                 />
               </div>
-              <span className="font-semibold text-base sm:text-lg md:text-lg lg:text-base text-black tracking-tight flex items-start">
-                HypeOn AI<span className="text-[11px] sm:text-[12px] font-normal text-black/40 ml-0.5 mt-[1px]"></span>
+              <span className="font-semibold text-base sm:text-lg md:text-lg lg:text-base text-black tracking-tight leading-none flex items-center min-h-[34px] sm:min-h-8 md:min-h-9 lg:min-h-10">
+                HypeOn AI
               </span>
             </Link>
           </div>
 
-          {/* DESKTOP NAV (lg+ only; tablet uses mobile menu) */}
-          <div className="hidden lg:flex items-center h-full gap-6 lg:gap-8 mr-10 " >
+          {/* DESKTOP NAV (md+; phone uses mobile menu) */}
+          <div className="hidden md:flex items-center h-full shrink-0 gap-4 md:gap-5 lg:gap-8 md:mr-4 lg:mr-10">
 
 
             {/* PRODUCTS DROPDOWN */}
@@ -175,17 +175,17 @@ function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="hidden lg:flex items-center gap-5 pr-1">
+          <div className="hidden md:flex items-center shrink-0 gap-3 md:gap-4 lg:gap-5 pr-1">
             <a
               href="https://app.hypeon.ai/login"
-              className="text-base font-semibold text-black hover:opacity-70 transition-opacity cursor-pointer"
+              className="text-sm md:text-base font-semibold text-black hover:opacity-70 transition-opacity cursor-pointer whitespace-nowrap"
             >
               Login
             </a>
 
             <a
               href="https://calendly.com/yash-hypeon/30min?month=2026-03"
-              className="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-base font-bold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer whitespace-nowrap"
             >
               Get the demo
             </a>
@@ -193,10 +193,10 @@ function Navbar() {
 
 
 
-          {/* MOBILE / TABLET TOGGLE */}
+          {/* MOBILE TOGGLE (< md) */}
           <button
             type="button"
-            className="lg:hidden min-w-[48px] min-h-[48px] sm:min-w-[46px] sm:min-h-[46px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+            className="md:hidden min-w-[48px] min-h-[48px] sm:min-w-[46px] sm:min-h-[46px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -207,9 +207,9 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* MOBILE / TABLET: dim + panel (desktop unchanged) */}
+      {/* MOBILE: dim + panel (< md) */}
       <div
-        className={`lg:hidden fixed inset-0 z-[42] bg-[oklch(0.988_0.0041_91.45)] transition-opacity duration-300 ease-out ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`md:hidden fixed inset-0 z-[42] bg-[oklch(0.988_0.0041_91.45)] transition-opacity duration-300 ease-out ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         aria-hidden
         onClick={closeMobile}
       />
@@ -221,7 +221,7 @@ function Navbar() {
         aria-hidden={!mobileMenuOpen}
         aria-label="Main menu"
         className={[
-          "lg:hidden fixed left-1/2 top-0 z-[43] w-full max-w-[95vw] -translate-x-1/2 pl-[max(0.25rem,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))]",
+          "md:hidden fixed left-1/2 top-0 z-[43] w-full max-w-[95vw] -translate-x-1/2 pl-[max(0.25rem,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))]",
           isScrolled ? "sm:pl-4 sm:pr-4 md:pl-4 md:pr-4" : "sm:pl-5 sm:pr-5 md:pl-6 md:pr-6",
           "pt-[calc(5rem+env(safe-area-inset-top))] sm:pt-[calc(5.25rem+env(safe-area-inset-top))] md:pt-[calc(5.375rem+env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] max-h-[min(85dvh,calc(100dvh-4rem))]",
           !mobileMenuOpen ? "pointer-events-none" : "",

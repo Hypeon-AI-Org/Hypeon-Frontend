@@ -2004,6 +2004,7 @@ const REVENUE_ATTRIBUTION_HTML_CSS = `
 .rad-html-root .rad-outer-card {
   width: 100%;
   max-width: 880px;
+  min-width: 0;
   background: rgba(255,255,255,0.45);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -2011,8 +2012,9 @@ const REVENUE_ATTRIBUTION_HTML_CSS = `
   border-radius: 24px;
   padding: 12px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  overflow: hidden;
 }
-.rad-html-root .rad-panels { display: flex; gap: 10px; min-height: 490px; }
+.rad-html-root .rad-panels { display: flex; gap: 10px; min-height: 490px; min-width: 0; }
 .rad-html-root .rad-left-panel {
   flex: 1;
   background: #f5f3ef;
@@ -2270,8 +2272,20 @@ const REVENUE_ATTRIBUTION_HTML_CSS = `
   pointer-events: none;
 }
 @media (max-width: 900px) {
-  .rad-html-root .rad-panels { flex-direction: column; min-height: 0; }
-  .rad-html-root .rad-right-row { flex-direction: column; }
+  .rad-html-root .rad-panels { flex-direction: column; min-height: 0; align-items: stretch; }
+  .rad-html-root .rad-left-panel { flex: 0 0 auto; width: 100%; min-width: 0; }
+  .rad-html-root .rad-right-panel { flex: 1 1 auto; width: 100%; min-width: 0; }
+  .rad-html-root .rad-right-row { flex-direction: column; flex: 0 1 auto; min-height: 0; }
+  .rad-html-root .rad-section-card { flex: none !important; width: 100%; min-width: 0; }
+  .rad-html-root .rad-revenue-card { min-width: 0; }
+  .rad-html-root .rad-channel-info { flex-wrap: wrap; row-gap: 8px; }
+  .rad-html-root .rad-roas-right { align-items: flex-start; }
+}
+@media (max-width: 420px) {
+  .rad-html-root .rad-channel-info { flex-direction: column; align-items: stretch; gap: 8px; }
+  .rad-html-root .rad-roas-right { align-items: flex-start; }
+  .rad-html-root .rad-profit-row { flex-wrap: wrap; row-gap: 8px; }
+  .rad-html-root .rad-profit-badge { margin-left: auto; white-space: normal; }
 }
 `
 
@@ -3041,6 +3055,7 @@ const AD_INTELLIGENCE_HTML_CSS = `
   min-height: min(520px, 50vh);
   min-width: 0;
   flex: 1;
+  align-items: stretch;
 }
 .cad-html-root .cad-left-panel {
   flex: 0 0 24%;
@@ -3390,9 +3405,19 @@ const AD_INTELLIGENCE_HTML_CSS = `
   pointer-events: none;
 }
 @media (max-width: 900px) {
-  .cad-html-root .cad-panels { flex-direction: column; min-height: 0; }
-  .cad-html-root .cad-left-panel { flex: 0 0 auto; width: 100%; }
+  .cad-html-root .cad-panels { flex-direction: column; min-height: 0; align-items: stretch; }
+  .cad-html-root .cad-left-panel { flex: 0 0 auto; width: 100%; min-width: 0; }
+  .cad-html-root .cad-right-panel { width: 100%; min-width: 0; flex: 1 1 auto; }
   .cad-html-root .cad-cards-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .cad-html-root .cad-section-card { height: auto; min-height: 0; }
+  .cad-html-root .cad-ad-cards-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .cad-html-root .cad-ad-card { flex: none; width: 100%; max-width: 100%; }
+  .cad-html-root .cad-results-header { flex-wrap: wrap; gap: 8px; }
+}
+@media (max-width: 480px) {
+  .cad-html-root .cad-angles-grid { grid-template-columns: 1fr; }
+  .cad-html-root .cad-pattern-row { flex-wrap: wrap; align-items: flex-start; }
+  .cad-html-root .cad-pin-icon { align-self: flex-start; }
 }
 `
 
@@ -4503,7 +4528,7 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
         style={WORKSPACE_BACKDROP_STYLE}
       />
       <div className={WORKSPACE_PREVIEW_INNER_CENTER}>
-        <div className={`rad-html-root relative mx-auto max-w-[880px] ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
+        <div className={`rad-html-root relative mx-auto w-full min-w-0 max-w-[880px] ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
           <div className="rad-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="rad-panels min-h-0 flex-1">
               <div className="rad-left-panel">
@@ -5299,7 +5324,7 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
       />
       <div className={WORKSPACE_PREVIEW_INNER_CENTER}>
         <div
-          className={`cad-html-root relative mx-auto max-w-[920px] min-w-0 py-3 sm:py-4 md:py-5 ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}
+          className={`cad-html-root relative mx-auto w-full min-w-0 max-w-[920px] py-3 sm:py-4 md:py-5 ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}
         >
           <div className="cad-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="cad-panels min-h-0">
