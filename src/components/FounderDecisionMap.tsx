@@ -2,6 +2,7 @@
 
 import {
   WORKSPACE_PREVIEW_DASHBOARD_FRAME,
+  WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS,
   WORKSPACE_PREVIEW_GLOW_GUTTER,
   WORKSPACE_PREVIEW_INNER_CENTER,
   WORKSPACE_PREVIEW_SHELL_STYLE,
@@ -729,6 +730,9 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
     width: calc(100% - 24px) !important;
     max-width: 100% !important;
     margin: 18px auto 24px auto !important;
+    height: auto !important;
+    min-height: 500px !important;
+    max-height: none !important;
   }
 }
 
@@ -742,7 +746,9 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
   .inv-outer-card,
   .csi-outer-card,
   .cad-outer-card {
-    height: 520px !important;
+    height: auto !important;
+    min-height: 480px !important;
+    max-height: none !important;
     margin: 14px auto 20px auto !important;
   }
 }
@@ -3413,6 +3419,20 @@ const AD_INTELLIGENCE_HTML_CSS = `
   .cad-html-root .cad-ad-cards-row { flex-direction: column; align-items: stretch; gap: 10px; }
   .cad-html-root .cad-ad-card { flex: none; width: 100%; max-width: 100%; }
   .cad-html-root .cad-results-header { flex-wrap: wrap; gap: 8px; }
+  /* Full-width stacked cards: show whole product (avoid 80px + cover crop) */
+  .cad-html-root .cad-ad-card-img-wrap {
+    height: auto;
+    min-height: 120px;
+    aspect-ratio: 4 / 3;
+    background: #f0ede6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cad-html-root .cad-ad-card-img-wrap img {
+    object-fit: contain;
+    object-position: center;
+  }
 }
 @media (max-width: 480px) {
   .cad-html-root .cad-angles-grid { grid-template-columns: 1fr; }
@@ -3434,7 +3454,7 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: PRODUCT_SIGNALS_HTML_CSS }} />
@@ -3591,7 +3611,7 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: KEYWORD_INTELLIGENCE_HTML_CSS }} />
@@ -3866,7 +3886,7 @@ function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
 function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: PRICING_INTELLIGENCE_HTML_CSS }} />
@@ -4053,7 +4073,7 @@ function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
 function AiInsightsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: AI_INSIGHTS_HTML_CSS }} />
@@ -4232,7 +4252,7 @@ function AiInsightsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: MARKET_EXPANSION_HTML_CSS }} />
@@ -4519,7 +4539,7 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
 
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: REVENUE_ATTRIBUTION_HTML_CSS }} />
@@ -4733,7 +4753,7 @@ function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: INVENTORY_AI_HTML_CSS }} />
@@ -4948,7 +4968,7 @@ function CompetitorSocialHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: COMPETITOR_SOCIAL_HTML_CSS }} />
@@ -5314,7 +5334,7 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "min-h-[280px] h-full md:min-h-full"
+      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: AD_INTELLIGENCE_HTML_CSS }} />
@@ -5422,8 +5442,8 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                               src={PRODUCT_SIGNAL_HTML_PREVIEW[0].src}
                               alt={PRODUCT_SIGNAL_HTML_PREVIEW[0].alt}
                               fill
-                              className="object-cover"
-                              sizes="(max-width: 900px) 30vw, 140px"
+                              className="object-cover max-[900px]:object-contain"
+                              sizes="(max-width: 900px) 90vw, 140px"
                             />
                           </div>
                           <div className="cad-ad-card-footer">
@@ -5444,8 +5464,8 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                               src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
                               alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt}
                               fill
-                              className="object-cover"
-                              sizes="(max-width: 900px) 30vw, 140px"
+                              className="object-cover max-[900px]:object-contain"
+                              sizes="(max-width: 900px) 90vw, 140px"
                             />
                           </div>
                           <div className="cad-ad-card-footer">
@@ -5466,8 +5486,8 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                               src={PRODUCT_SIGNAL_HTML_PREVIEW[2].src}
                               alt={PRODUCT_SIGNAL_HTML_PREVIEW[2].alt}
                               fill
-                              className="object-cover"
-                              sizes="(max-width: 900px) 30vw, 140px"
+                              className="object-cover max-[900px]:object-contain"
+                              sizes="(max-width: 900px) 90vw, 140px"
                             />
                           </div>
                           <div className="cad-ad-card-footer">
@@ -5641,7 +5661,7 @@ function AnalyticsWorkspacePreview({
 
   return (
     <div
-      className={`relative flex h-full min-h-[280px] w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? "h-full min-h-0" : "h-full min-h-[280px] md:min-h-full"
+      className={`relative flex h-full min-h-[280px] w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "h-full min-h-[280px] md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: ANALYTICS_CHAT_SCROLL_STYLE }} />
@@ -5651,7 +5671,7 @@ function AnalyticsWorkspacePreview({
       />
 
       <div className={WORKSPACE_PREVIEW_INNER_CENTER}>
-        <div className={`${WORKSPACE_PREVIEW_DASHBOARD_FRAME} max-w-[820px] w-full ml-auto mr-[-40px] h-[580px] my-[40px] overflow-hidden rounded-xl border border-white/60 bg-[#F2F0E9]/75 backdrop-blur-xl md:flex-row`}>
+        <div className={`${WORKSPACE_PREVIEW_DASHBOARD_FRAME} max-w-[820px] w-full max-md:mx-auto max-md:my-3 overflow-hidden rounded-xl border border-white/60 bg-[#F2F0E9]/75 backdrop-blur-xl h-auto min-h-0 max-md:min-h-[420px] md:ml-auto md:mr-[-40px] md:my-[40px] md:h-[580px] md:flex-row`}>
           {/* Left: chat — warm beige, compact like reference */}
           <div className="flex h-full min-h-0 w-full flex-col border-b border-[#E8E4DC] md:w-[40%] md:border-b-0 md:border-r md:border-[#E8E4DC]">
             <div className="analytics-chat-scroll flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto bg-[#F9F8F3] p-4 sm:p-5">
@@ -5875,7 +5895,7 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
         </div>
 
         {/* RIGHT: workspace preview — pricing UI for Pricing Intelligence; product signals UI for others */}
-        <div className="relative flex min-h-[320px] w-full flex-1 flex-col overflow-hidden sm:min-h-[400px] md:min-h-0 md:h-full md:w-[66%]">
+        <div className="relative flex min-h-[320px] w-full flex-1 flex-col overflow-x-hidden overflow-y-auto max-md:min-h-[380px] sm:min-h-[400px] md:min-h-0 md:h-full md:w-[66%] md:overflow-hidden">
           {item.id === "03" ? (
             <PricingIntelligenceHtmlPreview fillHeight />
           ) : item.id === "06" ? (

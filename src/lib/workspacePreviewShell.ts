@@ -20,12 +20,19 @@ export const WORKSPACE_PREVIEW_SHELL_STYLE: CSSProperties = {
 
 /** Padding so soft radial / linear glow stays visible around the dashboard on all sides. */
 export const WORKSPACE_PREVIEW_GLOW_GUTTER =
-  "p-3 sm:p-4 md:p-5 lg:p-6" as const
+  "p-2.5 sm:p-4 md:p-5 lg:p-6" as const
 
-/** Centers the main dashboard card inside the glow layer. */
+/** Centers the main dashboard card inside the glow layer (top-aligned on small screens so nothing is clipped). */
 export const WORKSPACE_PREVIEW_INNER_CENTER =
-  "relative z-10 flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center min-h-0" as const
+  "relative z-10 flex h-full min-h-0 w-full flex-1 flex-col items-center justify-start md:justify-center min-h-0 max-md:items-stretch max-md:pt-1" as const
 
 /** Slightly smaller than the inset so gradient shows top, bottom, left, and right. */
 export const WORKSPACE_PREVIEW_DASHBOARD_FRAME =
-  "flex h-[96%] w-[96%] max-h-full max-w-full min-h-0 flex-col" as const
+  "flex h-auto min-h-0 w-full max-w-full flex-col md:h-[96%] md:w-[96%] md:max-h-full" as const
+
+/**
+ * Used with fillHeight on feature-card previews: `min-h-0` avoids flex overflow bugs on desktop,
+ * but on mobile it can collapse the preview; a floor keeps the mock UI readable.
+ */
+export const WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS =
+  "h-full min-h-0 max-md:min-h-[520px]" as const
