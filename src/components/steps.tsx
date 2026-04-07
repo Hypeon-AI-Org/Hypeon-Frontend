@@ -9,11 +9,11 @@ const MarketerSteps = () => {
         },
         {
             number: "2",
-            text: "Let Hypeon maps every signal, gap and opportunity in your market",
+            text: "Let Hypeon map every signal, gap and opportunity in your market",
         },
         {
             number: "3",
-            text: "Launch monitor and scale real time"
+            text: "Launch, monitor, and scale in real time"
         },
     ];
 

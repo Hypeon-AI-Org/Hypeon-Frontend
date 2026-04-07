@@ -127,11 +127,11 @@ export default function AboutImpact() {
             >
 
               <p>
-              Yash Kumar is a global marketer who has spent years deep in the trenches of e-commerce growth — from ideation to execution, across Google, Meta, YouTube, TikTok, and Pinterest. He's built campaigns from scratch, handled everything from creative production and ad copy to technical tracking and performance optimization, and worked hands-on with brands across markets and continents.
+              Yash Kumar is a global marketer who has spent years deep in the trenches of e-commerce growth — from ideation to execution, across Google, Meta, YouTube, TikTok, and Pinterest. He's built campaigns from scratch, handled everything from creatives production and ad copy to technical tracking and performance optimization, and worked hands-on with brands across markets and continents.
               </p>
 
               <p>
-              The idea behind HypeOn wasn't born in a boardroom. It came from watching the same pattern repeat: smart people making expensive decisions with incomplete information. Teams would pick products based on gut, bid on stale keywords, and scale creative because someone "had a feeling." Meanwhile, every ad platform claimed credit for the same sale — so nobody knew where the money was actually going.
+              The idea behind HypeOn wasn't born in a boardroom. It came from watching the same pattern repeat: smart people making expensive decisions with incomplete information. Teams would pick products based on gut instinct, bid on stale keywords, and scale creative because someone "had a feeling." Meanwhile, every ad platform claimed credit for the same sale — so nobody knew where the money was actually going.
               </p>
 
               <p>

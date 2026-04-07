@@ -8,7 +8,7 @@ const cards = [
   {
     title: 'The Problem',
     description:
-      "Teams pick products on gut, bid on stale keywords, and scale creative because someone 'had a feeling.'",
+      "Teams pick products on gut instinct, bid on stale keywords, and scale creatives because someone 'had a feeling.'",
     icon: 'target',
   },
   {

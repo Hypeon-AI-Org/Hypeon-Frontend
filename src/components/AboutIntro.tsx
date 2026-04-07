@@ -22,7 +22,7 @@ export default function AboutIntro() {
         <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
         HypeOn AI helps e-commerce teams figure out what to sell next{' '}
           <span className="font-medium text-base lg:text-lg text-gray-500">how to sell it better</span>
-          <span className="font-medium text-base lg:text-lg text-gray-500">and where to put their budget for the highest return using real-time signals.</span>.
+          <span className="font-medium text-base lg:text-lg text-gray-500"> and where to put their budget for the highest return using real-time signals.</span>.
         </p>
         <p className="text-sm text-slate-400 mt-10 mb-4">Official partners</p>
         <div className="flex justify-center items-center gap-8 flex-wrap">
