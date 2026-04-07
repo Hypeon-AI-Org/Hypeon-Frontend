@@ -6,7 +6,14 @@ import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
 import GtmOnConsent from "@/components/GtmOnConsent";
+import MetaPixelOnConsent from "@/components/MetaPixelOnConsent";
+import MetaPixelPageView from "@/components/MetaPixelPageView";
 import { consentModeUpdateFromPrefs } from "@/lib/googleConsentMode";
+import {
+  getMetaPixelBootstrapScript,
+  META_PIXEL_ID,
+  META_PIXEL_SCRIPT_ID,
+} from "@/lib/metaPixel";
 
 const CONSENT_KEY = "hypeon_cookie_consent_v1";
 type ConsentCookie = {
@@ -51,6 +58,7 @@ export default async function RootLayout({
 }>) {
   const consent = await readConsentFromRequestCookie();
   const allowGtm = Boolean(consent?.marketing || consent?.analytics);
+  const allowMetaPixel = Boolean(consent?.marketing);
   const consentUpdateJson = JSON.stringify(
     consentModeUpdateFromPrefs({
       marketing: Boolean(consent?.marketing),
@@ -80,6 +88,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-N3J2S7LP');`}
           </Script>
         )}
+        {allowMetaPixel && (
+          <Script id={META_PIXEL_SCRIPT_ID} strategy="afterInteractive">
+            {getMetaPixelBootstrapScript()}
+          </Script>
+        )}
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&display=swap" rel="stylesheet" />
       </head>
@@ -95,11 +108,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             />
           </noscript>
         )}
+        {allowMetaPixel && (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        )}
         <ScaleProvider>
           <ScrollRevealSetup />
           {children}
           <CookieBanner />
           <GtmOnConsent />
+          <MetaPixelOnConsent />
+          <MetaPixelPageView />
         </ScaleProvider>
       </body>
     </html>
