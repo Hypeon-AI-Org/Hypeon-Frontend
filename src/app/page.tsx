@@ -32,7 +32,7 @@ export default function Home() {
       <Products />
       <ValueProp />
       <ImpactSection />
-      <AdIntelReplica />
+
       <FounderDecisionMap />
       <Partners />
       <Features />
@@ -41,7 +41,7 @@ export default function Home() {
       <TeamsAchieve />
     
       <FAQ />
-      <CompetitorReportLead />
+     
       <Footer />
     </main>
   );
