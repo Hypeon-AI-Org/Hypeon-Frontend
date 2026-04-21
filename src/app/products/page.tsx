@@ -30,6 +30,7 @@ export default function ProductsPage() {
    
         <CopilotSection />
         <TechnologySection />
+        <PrecisionScaleBento />
       
         <MarketingDecisioning />
         <HypeOnAnalytics />
