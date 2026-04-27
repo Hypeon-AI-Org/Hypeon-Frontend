@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { cookies } from "next/headers";
-
+import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
