@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { cookies } from "next/headers";
-import "./globals.css";
+
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
@@ -51,6 +51,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "fza2dgTuUQVS7-VUdg8YiazMXq8QndJ9dtL7sUBCfD8",
+    other: {
+      "facebook-domain-verification": "y322ekcwtnzw7qybbx2wxvaaqdjfnp",
+    },
   },
 };
 
