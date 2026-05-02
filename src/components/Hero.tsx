@@ -248,6 +248,7 @@ export default function Hero() {
   const [hasContext, setHasContext] = useState(false);
   const [isLgUp, setIsLgUp] = useState(false);
   const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
+  const [chatCycle, setChatCycle] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
@@ -313,7 +314,7 @@ export default function Hero() {
       isActive = false;
       timers.forEach(clearTimeout);
     };
-  }, [textToType]);
+  }, [textToType, chatCycle]);
 
   useEffect(() => {
     let isActive = true;
@@ -324,6 +325,17 @@ export default function Hero() {
       setTimeout(() => { if (isActive) setChatStep(4); }, 1500);
     } else if (chatStep === 4) {
       setTimeout(() => { if (isActive) setChatStep(5); }, 1100);
+    } else if (chatStep === 5) {
+      setTimeout(() => {
+        if (!isActive) return;
+        setInputValue('');
+        setSearchValue('');
+        setHasContext(false);
+        setSetupPhase(0);
+        setActiveArtifact('topAds');
+        setChatStep(0);
+        setChatCycle((c) => c + 1);
+      }, 5000);
     }
     return () => { isActive = false; };
   }, [chatStep]);
@@ -571,57 +583,57 @@ export default function Hero() {
 
                           {/* Complete Response */}
                           {chatStep >= 4 && (
-                            <div className="animate-fade-up space-y-3 w-full text-[12px] leading-relaxed">
+                            <div className="animate-fade-up space-y-4 w-full text-[11px] leading-[1.55] tracking-[-0.005em]">
 
                               {/* Intro */}
-                              <p className="text-slate-700 font-medium">
-                                I&apos;ve analyzed <span className="px-1.5 py-0.5 rounded bg-slate-50 text-slate-900 font-semibold border border-slate-200">
+                              <p className="text-slate-600">
+                                I&apos;ve analyzed <span className="px-1 py-0.5 rounded bg-slate-50 text-slate-900 font-semibold border border-slate-200">
                                   Nike&apos;s top-performing ads
                                 </span> on Meta in Sweden and their audience demographics. Based on the last 500 ads, not the full catalog.
                               </p>
 
                               {/* Top Ad Analysis */}
-                              <div className="space-y-2">
-                                <p className="text-slate-900 font-semibold">
-                                  Top Ad Analysis: <span className="font-normal italic text-slate-700">&ldquo;Stay Light in Nike Ava X&rdquo;</span>
+                              <div className="space-y-1.5">
+                                <p className="text-slate-900 font-semibold text-[12px]">
+                                  Top Ad Analysis <span className="font-normal italic text-slate-500">— &ldquo;Stay Light in Nike Ava X&rdquo;</span>
                                 </p>
                                 <p className="text-slate-600">
-                                  The top ad by reach is <span className="font-semibold text-slate-900">&ldquo;Stay Light in Nike Ava X&rdquo;</span>, which ran from <span className="font-semibold text-slate-900">April 22, 2026</span>, and is still active. It reached an estimated <span className="font-semibold text-slate-900">34,762</span> people, making it the highest-performing ad in the current sample.
+                                  The top ad by reach is <span className="font-semibold text-slate-900">&ldquo;Stay Light in Nike Ava X&rdquo;</span>, which ran from <span className="font-semibold text-slate-900">April 22, 2026</span> and is still active. It reached an estimated <span className="font-semibold text-slate-900">34,762</span> people — the highest-performing ad in the current sample.
                                 </p>
-                                <ul className="space-y-1.5 mt-2 pl-1">
-                                  <li className="flex gap-2">
-                                    <span className="text-slate-400 mt-0.5">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Visual Strategy:</span> The ad&apos;s format is unknown from the data, but the messaging suggests a focus on lightness and a stripped-down silhouette, likely featuring the Nike Ava shoe.</span>
+                                <ul className="space-y-1 mt-1.5">
+                                  <li className="flex gap-1.5">
+                                    <span className="text-slate-300 mt-px">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Visual:</span> Likely focuses on lightness and a stripped-down silhouette, featuring the Nike Ava shoe.</span>
                                   </li>
-                                  <li className="flex gap-2">
-                                    <span className="text-slate-400 mt-0.5">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Messaging:</span> The copy emphasizes comfort and design: <span className="italic">&ldquo;The new stripped-down silhouette is the lightest expression of Nike Ava.&rdquo;</span></span>
+                                  <li className="flex gap-1.5">
+                                    <span className="text-slate-300 mt-px">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Messaging:</span> <span className="italic">&ldquo;The new stripped-down silhouette is the lightest expression of Nike Ava.&rdquo;</span></span>
                                   </li>
-                                  <li className="flex gap-2">
-                                    <span className="text-slate-400 mt-0.5">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Targeting:</span> This ad, like others in the sample, was served to an audience aged <span className="font-semibold text-slate-900">18-44</span> in Sweden, with no specific gender targeting.</span>
+                                  <li className="flex gap-1.5">
+                                    <span className="text-slate-300 mt-px">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Targeting:</span> Audience aged <span className="font-semibold text-slate-900">18-44</span> in Sweden, no specific gender targeting.</span>
                                   </li>
                                 </ul>
                               </div>
 
 
                               {/* Audience Demographics */}
-                              <div className="space-y-2 pt-1">
-                                <p className="text-slate-900 font-semibold">Audience Demographics</p>
+                              <div className="space-y-1.5">
+                                <p className="text-slate-900 font-semibold text-[12px]">Audience Demographics</p>
                                 <p className="text-slate-600">
-                                  Nike&apos;s ads in Sweden reached a predominantly male audience, accounting for an estimated <span className="font-semibold text-slate-900">145,719</span> individuals, with a small number of unknown gender. The age distribution shows the highest reach among <span className="font-semibold text-slate-900">35-44</span> year olds (71,508), followed closely by <span className="font-semibold text-slate-900">25-34</span> year olds (62,499).
+                                  Predominantly male — an estimated <span className="font-semibold text-slate-900">145,719</span> individuals. Highest reach among <span className="font-semibold text-slate-900">35-44</span> year olds (71,508), then <span className="font-semibold text-slate-900">25-34</span> (62,499).
                                 </p>
-                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] pt-1">
-                                  <a className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Gender Distribution: Nike SE</a>
-                                  <a className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Age Distribution: Nike SE</a>
+                                <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10.5px] pt-0.5">
+                                  <a className="text-slate-600 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Gender Distribution: Nike SE</a>
+                                  <a className="text-slate-600 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Age Distribution: Nike SE</a>
                                 </div>
                               </div>
 
                               {/* Campaign Context */}
-                              <div className="space-y-2 pt-1">
-                                <p className="text-slate-900 font-semibold">Campaign Context</p>
+                              <div className="space-y-1.5">
+                                <p className="text-slate-900 font-semibold text-[12px]">Campaign Context</p>
                                 <p className="text-slate-600">
-                                  This ad is part of a recent push, with all top 10 ads launching around the same time in <span className="font-semibold text-slate-900">late April 2026</span>. Other strong creatives include <span className="italic">&ldquo;Nike Air Performance&rdquo;</span>, which focuses on a basketball classic design.
+                                  All top 10 ads launched in <span className="font-semibold text-slate-900">late April 2026</span>. Other strong creatives include <span className="italic">&ldquo;Nike Air Performance&rdquo;</span>, focusing on a basketball classic design.
                                 </p>
                               </div>
 
