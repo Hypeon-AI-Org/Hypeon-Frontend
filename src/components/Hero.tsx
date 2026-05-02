@@ -7,7 +7,22 @@ import {
   TrendingDown,
   ArrowRight,
   Lock,
-  Activity
+  Activity,
+  Search,
+  Calendar,
+  Clock,
+  Users,
+  LayoutGrid,
+  X,
+  Maximize2,
+  Crosshair,
+  User as UserIcon,
+  MessageCircle,
+  Plus,
+  Zap,
+  ChevronDown,
+  BadgeCheck,
+  BarChart3
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
@@ -23,37 +38,281 @@ const PLATFORM_LOGOS = [
   { name: 'Pinterest', src: '/logos/pinterest.png' },
 ] as const;
 
+const NikeSwoosh = ({ className }: { className?: string }) => (
+  <Image
+    src="/logos/nike_logo.jpg"
+    alt="Nike"
+    width={48}
+    height={18}
+    className={className}
+   
+    unoptimized
+  />
+);
+
+type AdItem = {
+  brand: string;
+  status: 'Active' | 'Inactive';
+  date: string;
+  duration: string;
+  productName: string;
+  description: string;
+  reach: string;
+  spend: string;
+  ageRange: string;
+  gender: 'Male' | 'Female' | 'All';
+  image: string;
+  imageBg: string;
+};
+
+const TOP_ADS: AdItem[] = [
+  
+  {
+    brand: 'Nike',
+    status: 'Active',
+    date: 'Apr 20, 2026',
+    duration: '13 days',
+    productName: 'Stay Light in Nike Ava X',
+    description: 'Responsive cushioning meets everyday running comfort, mile after mile.',
+    reach: '18.9K',
+    spend: '€548',
+    ageRange: '25-44',
+    gender: 'Male',
+    image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=400&q=80',
+    imageBg: 'bg-neutral-100',
+    
+   
+  },
+  {
+    brand: 'Nike',
+    status: 'Inactive',
+    date: 'Mar 30, 2026',
+    duration: '8 days',
+    productName: 'Nike Dri-FIT Move',
+    description: 'Train through every layer of the season with breathable performance fabric.',
+    reach: '14.6K',
+    spend: '€421',
+    ageRange: '18-34',
+    gender: 'All',
+    image: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=400&q=80',
+    imageBg: 'bg-neutral-100',
+  },
+  {
+    brand: 'Nike',
+    status: 'Active',
+    date: 'Apr 24, 2026',
+    duration: '9 days',
+    productName: 'Air Max Plus',
+    description: 'Bold lines, all-day cushioning, unmistakably icon — the Air Max Plus is back.',
+    reach: '12.3K',
+    spend: '€388',
+    ageRange: '18-34',
+    gender: 'Male',
+    image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80',
+    imageBg: 'bg-neutral-100',
+  },
+  {
+    brand: 'Nike',
+    status: 'Active',
+    date: 'Apr 25, 2026',
+    duration: '8 days',
+    productName: 'SB Force 58',
+    description: 'Built for skate, dressed for the streets — low-pro support meets street style.',
+    reach: '9.8K',
+    spend: '€311',
+    ageRange: '18-34',
+    gender: 'Male',
+    image: 'https://images.unsplash.com/photo-1605408499391-6368c628ef42?auto=format&fit=crop&w=400&q=80',
+    imageBg: 'bg-neutral-100',
+  },
+];
+
+type ArtifactTab =  'topAds' | 'gender' | 'age' ;
+
+type BarDatum = { label: string; value: number; color: string };
+
+const NIKE_GENDER: BarDatum[] = [
+  { label: 'male', value: 145700, color: '#22C55E' },
+  { label: 'female', value: 47200, color: '#3B82F6' },
+  { label: 'unknown', value: 5800, color: '#A855F7' },
+];
+
+const NIKE_AGE: BarDatum[] = [
+  { label: '35-44', value: 71500, color: '#22C55E' },
+  { label: '25-34', value: 62500, color: '#3B82F6' },
+  { label: '18-24', value: 32400, color: '#A855F7' },
+  { label: '45-54', value: 18700, color: '#F97316' },
+  { label: '55-64', value: 9200, color: '#EC4899' },
+  { label: '65+', value: 3100, color: '#14B8A6' },
+  { label: 'Unknown', value: 1300, color: '#94A3B8' },
+];
+
+const formatStat = (n: number) => {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return `${n}`;
+};
+
+function ChartArtifact({
+  title,
+  axisLabel,
+  perLabel,
+  data,
+}: {
+  title: string;
+  axisLabel: string;
+  perLabel: string;
+  data: BarDatum[];
+}) {
+  const max = Math.max(...data.map((d) => d.value));
+  const total = data.reduce((s, d) => s + d.value, 0);
+  const avg = Math.round(total / data.length);
+  const highest = data.reduce((p, c) => (c.value > p.value ? c : p));
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      className="flex-1 flex flex-col min-h-0"
+    >
+      <div className="px-5 pt-5 pb-3 flex items-start justify-between gap-3 bg-[#fafafa]">
+        <div className="min-w-0">
+          <h4 className="text-[15px] font-semibold text-slate-900 tracking-tight truncate">{title}</h4>
+          <p className="text-xs text-slate-500 mt-0.5">(Assistant)</p>
+        </div>
+        <button type="button" className="flex-shrink-0 p-1.5 rounded-md border border-slate-200 bg-white text-slate-500 hover:text-slate-900 transition-colors">
+          <Maximize2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-5 pb-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <div className="relative h-56 flex pl-10 pr-1">
+            <div className="absolute left-0 top-0 bottom-7 w-9 flex flex-col justify-between text-[10px] text-slate-400 text-right pr-1.5">
+              <span>{formatStat(max)}</span>
+              <span>{formatStat(Math.round(max / 2))}</span>
+              <span>0</span>
+            </div>
+            <div className="flex-1 flex items-end justify-around gap-2 pb-7 border-l border-slate-100 pl-2">
+              {data.map((d) => {
+                const heightPct = max > 0 ? (d.value / max) * 100 : 0;
+                return (
+                  <div key={d.label} className="flex flex-col items-center justify-end h-full flex-1 max-w-[42px] relative">
+                    <motion.div
+                      initial={{ height: 0 }}
+                      animate={{ height: `${heightPct}%` }}
+                      transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+                      className="w-full rounded-t-sm"
+                      style={{ backgroundColor: d.color, minHeight: d.value > 0 ? 3 : 0 }}
+                    />
+                    <span className="absolute bottom-0 text-[10px] text-slate-600 truncate max-w-full translate-y-5">{d.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <p className="text-center text-[10px] text-slate-400 mt-2">{axisLabel}</p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 mt-5 px-1">
+          <div>
+            <p className="text-[10px] text-slate-500">Total</p>
+            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(total)}</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">Reach</p>
+          </div>
+          <div>
+            <p className="text-[10px] text-slate-500">Average</p>
+            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(avg)}</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">{perLabel}</p>
+          </div>
+          <div>
+            <p className="text-[10px] text-slate-500">Highest</p>
+            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(highest.value)}</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">{highest.label}</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Hero() {
   const dashboardRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
   const [inputValue, setInputValue] = useState('');
   const [chatStep, setChatStep] = useState(0);
+  const [setupPhase, setSetupPhase] = useState(0);
+  const [searchValue, setSearchValue] = useState('');
+  const [hasContext, setHasContext] = useState(false);
+  const [isLgUp, setIsLgUp] = useState(false);
+  const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
 
-  const textToType = 'Give me the top 20 trending products in the Fashion Industry for US. ';
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const update = () => setIsLgUp(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const textToType = 'What are the top performing ads and audience demographics?';
 
   useEffect(() => {
     let isActive = true;
-    let currentText = '';
-    let typingIndex = 0;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const after = (ms: number, fn: () => void) => {
+      const id = setTimeout(() => { if (isActive) fn(); }, ms);
+      timers.push(id);
+    };
 
-    function typeChar() {
-      if (!isActive) return;
-      if (typingIndex < textToType.length) {
-        currentText += textToType.charAt(typingIndex);
-        setInputValue(currentText);
-        typingIndex++;
-        setTimeout(typeChar, 35);
-      } else {
-        if (isActive) setChatStep(1);
-        setTimeout(() => {
-          if (isActive) setChatStep(2);
-        }, 600);
-      }
+    // Phase 1: open Add context popover
+    after(800, () => setSetupPhase(1));
+
+    // Phase 1b: type "nike" into the search
+    const searchWord = 'nike';
+    let baseDelay = 1500;
+    for (let i = 1; i <= searchWord.length; i++) {
+      const slice = searchWord.slice(0, i);
+      after(baseDelay, () => setSearchValue(slice));
+      baseDelay += 90;
     }
 
-    const timeout = setTimeout(typeChar, 1000);
-    return () => { isActive = false; clearTimeout(timeout); };
+    // Phase 2: show brand suggestions
+    after(baseDelay + 300, () => setSetupPhase(2));
+
+    // Phase 3: select Nike → chip appears, popover closes
+    after(baseDelay + 1500, () => {
+      setHasContext(true);
+      setSetupPhase(3);
+    });
+
+    // Phase 4: start typing the question
+    after(baseDelay + 2300, () => {
+      let currentText = '';
+      let idx = 0;
+      const typeChar = () => {
+        if (!isActive) return;
+        if (idx < textToType.length) {
+          currentText += textToType.charAt(idx);
+          setInputValue(currentText);
+          idx++;
+          const id = setTimeout(typeChar, 35);
+          timers.push(id);
+        } else {
+          if (isActive) setChatStep(1);
+          const id = setTimeout(() => { if (isActive) setChatStep(2); }, 600);
+          timers.push(id);
+        }
+      };
+      typeChar();
+    });
+
+    return () => {
+      isActive = false;
+      timers.forEach(clearTimeout);
+    };
   }, [textToType]);
 
   useEffect(() => {
@@ -63,6 +322,8 @@ export default function Hero() {
       setTimeout(() => { if (isActive) setChatStep(3); }, 400);
     } else if (chatStep === 3) {
       setTimeout(() => { if (isActive) setChatStep(4); }, 1500);
+    } else if (chatStep === 4) {
+      setTimeout(() => { if (isActive) setChatStep(5); }, 1100);
     }
     return () => { isActive = false; };
   }, [chatStep]);
@@ -213,17 +474,7 @@ export default function Hero() {
           <div ref={dashboardRef} className="card-3d-wrap relative transform-gpu">
 
             {/* Float Element: Notification */}
-            <div
-              className="hidden lg:flex absolute -right-12 top-10 z-20 bg-white p-4 rounded-2xl shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)] border border-slate-100 items-center gap-3 animate-float max-w-xs origin-bottom-left"
-            >
-              <div className="w-10 h-10 bg-slate-50 border border-slate-100 rounded-[10px] flex items-center justify-center text-slate-900">
-                <TrendingDown className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xs font-bold text-slate-400 tracking-wider uppercase mb-0.5">ROAS ALERT</div>
-                <div className="text-sm font-medium text-slate-900">Ad spend inefficiency detected. Need me to adjust it?</div>
-              </div>
-            </div>
+
 
             <div
               className="relative bg-white rounded-2xl overflow-hidden ring-1 ring-slate-200/50 flex flex-col items-center"
@@ -248,7 +499,7 @@ export default function Hero() {
                 <div className="flex items-center gap-3">
                   <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-pinks-50 text-black-700 rounded-full text-xs font-semibold border border-green-100 tracking-wide">
                     <div className="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"></div>
-                    SYNCED WITH SHOPIFY
+                    SYNCED WITH META ADS
                   </div>
                   <button className="text-slate-400 hover:text-slate-900 transition-colors">
                     <PanelLeft className="w-5 h-5" />
@@ -257,166 +508,531 @@ export default function Hero() {
               </div>
 
               {/* Chat Canvas */}
-              <div className="w-full h-[600px] flex flex-col relative bg-[#fcfcfc]">
+              <div className="w-full h-[600px] flex flex-row relative bg-[#fcfcfc]">
 
-                <div className="flex-1 overflow-y-auto px-6 sm:px-12 py-10 pb-40 w-full max-w-4xl mx-auto scrollbar-thin scrollbar-thumb-slate-300">
+                {/* ── LEFT: Chat column ── */}
+                <motion.div
+                  animate={{ width: chatStep >= 5 && isLgUp ? '50%' : '100%' }}
+                  transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                  className="relative h-full flex flex-col min-w-0"
+                >
+                  <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-8 pb-36 w-full max-w-3xl mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
-                  {/* Empty state context / AI greeting */}
-                  {chatStep < 2 && (
-                    <div className="w-full text-center mt-20 animate-fade-in opacity-80">
-                      <div className="flex items-center justify-center mb-6">
-                        <div className=" rounded-full h-[60px] w-[60px] flex items-center justify-center overflow-hidden">
+                    {/* Empty state context / AI greeting */}
+                    {chatStep < 2 && (
+                      <div className="w-full text-center mt-20 animate-fade-in opacity-80">
+                        <div className="flex items-center justify-center mb-6">
+                          <div className=" rounded-full h-[60px] w-[60px] flex items-center justify-center overflow-hidden">
+                            <Image
+                              src={logo}
+                              alt="HypeOn AI Logo"
+                              width={60}
+                              height={60}
+                            />
+                          </div>
+                        </div>
+                        <h3 className="text-xl font-medium text-slate-900 mb-2">Your AI-powered ad insights</h3>
+                        <p className="text-sm text-slate-500">Ask about creatives, spend, or positioning. Click “+ Add Context” to pull from our curated brand library powered by Explore.</p>
+                      </div>
+                    )}
+
+                    {/* User sent message */}
+                    {chatStep >= 2 && (
+                      <div className="flex w-full justify-end mb-8 animate-fade-up">
+                        <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-slate-900 text-[12px] font-medium leading-relaxed shadow-sm text-left">
+                          {textToType}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* AI Response Container */}
+                    {chatStep >= 3 && (
+                      <div className="flex justify-start w-full animate-fade-up mt-6">
+                        <div className="rounded-full h-[28px] w-[28px] flex items-center justify-center overflow-hidden flex-shrink-0">
                           <Image
                             src={logo}
                             alt="HypeOn AI Logo"
-                            width={60}
-                            height={60}
-
+                            width={28}
+                            height={28}
                           />
                         </div>
-                      </div>
-                      <h3 className="text-xl font-medium text-slate-900 mb-2">How can I grow your store today?</h3>
-                      <p className="text-sm text-slate-500">I have access to your Shopify data, TikTok Ads, and Meta Ads.</p>
-                    </div>
-                  )}
+                        <div className="ml-3 sm:ml-4 flex-1 min-w-0 text-left">
 
-                  {/* User sent message */}
-                  {chatStep >= 2 && (
-                    <div className="flex w-full justify-end mb-10 animate-fade-up">
-                      <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-5 py-4 max-w-[85%] text-slate-900 text-[15px] font-medium leading-relaxed shadow-sm text-left">
-                        {textToType}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* AI Response Container */}
-                  {chatStep >= 3 && (
-                    <div className="flex justify-start w-full animate-fade-up mt-8">
-                      <div className=" rounded-full h-[28px] w-[28px] flex items-center justify-center overflow-hidden">
-                        <Image
-                          src={logo}
-                          alt="HypeOn AI Logo"
-                          width={28}
-                          height={28}
-
-                        />
-                      </div>
-                      <div className="ml-5 flex-1 min-w-0 text-left">
-
-                        {/* Thinking Dots */}
-                        {chatStep === 3 && (
-                          <div className="bg-white border border-slate-100 px-5 py-4 rounded-2xl rounded-tl-sm w-max shadow-sm h-12 flex flex-col justify-center">
-                            <div className="flex space-x-1.5 items-center">
-                              <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" />
-                              <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
-                              <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                          {/* Thinking Dots */}
+                          {chatStep === 3 && (
+                            <div className="bg-white border border-slate-100 px-5 py-4 rounded-2xl rounded-tl-sm w-max shadow-sm h-12 flex flex-col justify-center">
+                              <div className="flex space-x-1.5 items-center">
+                                <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" />
+                                <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
+                                <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
 
-                        {/* Complete Response */}
-                        {/* Complete Response */}
-                        {chatStep >= 4 && (
-                          <div className="animate-fade-up space-y-6 w-full">
+                          {/* Complete Response */}
+                          {chatStep >= 4 && (
+                            <div className="animate-fade-up space-y-3 w-full text-[12px] leading-relaxed">
 
-                            {/* AI Intro Text */}
-                            <div className="bg-white border border-slate-100 shadow-sm rounded-2xl rounded-tl-sm p-6 w-full">
-                              <p className="text-[15px] text-slate-700 leading-relaxed font-medium">
-                                I've analyzed <span className="px-1.5 py-0.5 rounded bg-gray-50 text-slate-900 font-semibold border border-black-100">
-                                  12.4M live fashion ad creatives
-                                </span> across Meta & TikTok  US.
-                                Here are the top 20 Fashion products ranked by projected profitability and ad velocity.
+                              {/* Intro */}
+                              <p className="text-slate-700 font-medium">
+                                I&apos;ve analyzed <span className="px-1.5 py-0.5 rounded bg-slate-50 text-slate-900 font-semibold border border-slate-200">
+                                  Nike&apos;s top-performing ads
+                                </span> on Meta in Sweden and their audience demographics. Based on the last 500 ads, not the full catalog.
                               </p>
+
+                              {/* Top Ad Analysis */}
+                              <div className="space-y-2">
+                                <p className="text-slate-900 font-semibold">
+                                  Top Ad Analysis: <span className="font-normal italic text-slate-700">&ldquo;Stay Light in Nike Ava X&rdquo;</span>
+                                </p>
+                                <p className="text-slate-600">
+                                  The top ad by reach is <span className="font-semibold text-slate-900">&ldquo;Stay Light in Nike Ava X&rdquo;</span>, which ran from <span className="font-semibold text-slate-900">April 22, 2026</span>, and is still active. It reached an estimated <span className="font-semibold text-slate-900">34,762</span> people, making it the highest-performing ad in the current sample.
+                                </p>
+                                <ul className="space-y-1.5 mt-2 pl-1">
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-400 mt-0.5">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Visual Strategy:</span> The ad&apos;s format is unknown from the data, but the messaging suggests a focus on lightness and a stripped-down silhouette, likely featuring the Nike Ava shoe.</span>
+                                  </li>
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-400 mt-0.5">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Messaging:</span> The copy emphasizes comfort and design: <span className="italic">&ldquo;The new stripped-down silhouette is the lightest expression of Nike Ava.&rdquo;</span></span>
+                                  </li>
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-400 mt-0.5">•</span>
+                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Targeting:</span> This ad, like others in the sample, was served to an audience aged <span className="font-semibold text-slate-900">18-44</span> in Sweden, with no specific gender targeting.</span>
+                                  </li>
+                                </ul>
+                              </div>
+
+
+                              {/* Audience Demographics */}
+                              <div className="space-y-2 pt-1">
+                                <p className="text-slate-900 font-semibold">Audience Demographics</p>
+                                <p className="text-slate-600">
+                                  Nike&apos;s ads in Sweden reached a predominantly male audience, accounting for an estimated <span className="font-semibold text-slate-900">145,719</span> individuals, with a small number of unknown gender. The age distribution shows the highest reach among <span className="font-semibold text-slate-900">35-44</span> year olds (71,508), followed closely by <span className="font-semibold text-slate-900">25-34</span> year olds (62,499).
+                                </p>
+                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] pt-1">
+                                  <a className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Gender Distribution: Nike SE</a>
+                                  <a className="text-slate-700 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Age Distribution: Nike SE</a>
+                                </div>
+                              </div>
+
+                              {/* Campaign Context */}
+                              <div className="space-y-2 pt-1">
+                                <p className="text-slate-900 font-semibold">Campaign Context</p>
+                                <p className="text-slate-600">
+                                  This ad is part of a recent push, with all top 10 ads launching around the same time in <span className="font-semibold text-slate-900">late April 2026</span>. Other strong creatives include <span className="italic">&ldquo;Nike Air Performance&rdquo;</span>, which focuses on a basketball classic design.
+                                </p>
+                              </div>
+
+                              {/* Artifact chips */}
+                              {chatStep >= 5 && (
+                                <div className="relative z-10 flex flex-wrap gap-2 pt-2 animate-fade-up">
+                                  {([
+                                    { id: 'topAds', label: 'Top Ads', Icon: LayoutGrid },
+                                    { id: 'gender', label: 'Gender', Icon: BarChart3 },
+                                    { id: 'age', label: 'Age', Icon: BarChart3 },
+                                    
+                                  ] as const).map(({ id, label, Icon }) => {
+
+                                    const active = activeArtifact === id;
+                                    return (
+                                      <button
+                                        key={id}
+                                        type="button"
+                                        onClick={() => setActiveArtifact(id)}
+                                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border bg-white text-xs font-semibold transition-colors cursor-pointer ${
+                                          active
+                                            ? 'border-slate-900 text-slate-900 ring-1 ring-slate-900/5'
+                                            : 'border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                                        }`}
+                                      >
+                                        <Icon className="w-3 h-3" /> {label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              )}
+
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+
+                  {/* Input + Add-context Footer */}
+                  <div className="absolute w-full bottom-0 left-0 px-5 sm:px-8 pt-8 pb-2 bg-gradient-to-t from-[#fcfcfc] via-[#fcfcfc] to-transparent">
+                    <div className="max-w-3xl mx-auto relative">
+
+                      {/* Add context popover */}
+                      <AnimatePresence>
+                        {(setupPhase === 1 || setupPhase === 2) && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                            className="absolute left-0 right-0 bottom-full mb-3 bg-white rounded-2xl border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.18)] p-4 z-30 origin-bottom"
+                          >
+                            {/* Popover header */}
+                            <div className="flex items-center justify-between mb-3">
+                              <span className="text-[14px] font-semibold text-slate-900">Add context</span>
+                              <div className="flex items-center gap-2">
+                                <button className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-slate-200 text-[11px] font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                                  <span className="w-3.5 h-3.5 rounded-full overflow-hidden flex flex-col leading-none border border-slate-200">
+                                    <span className="flex-1 bg-[#006AA7]" />
+                                    <span className="h-[2px] bg-[#FECC00]" />
+                                    <span className="flex-1 bg-[#006AA7]" />
+                                  </span>
+                                  SE
+                                  <ChevronDown className="w-3 h-3 text-slate-400" />
+                                </button>
+                                <button className="text-slate-400 hover:text-slate-700 transition-colors">
+                                  <X className="w-4 h-4" />
+                                </button>
+                              </div>
                             </div>
 
-                            {/* Table Container */}
-                            <div className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 max-h-[380px] overflow-auto">
+                            {/* Platform tabs */}
+                            <div className="flex items-center gap-1 mb-3 overflow-x-auto">
+                              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100 text-[12px] font-medium whitespace-nowrap">
+                                <Image src="/logos/meta.png" alt="Meta" width={14} height={14} className="w-3.5 h-3.5 rounded-full object-contain" />
+                                Meta
+                              </button>
+                              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-slate-600 text-[12px] font-medium hover:bg-slate-50 whitespace-nowrap">
+                                <span className="w-3.5 h-3.5 rounded-full bg-white border border-slate-200 text-[9px] font-bold flex items-center justify-center text-[#4285F4]">G</span>
+                                Google
+                              </button>
+                              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-slate-600 text-[12px] font-medium hover:bg-slate-50 whitespace-nowrap">
+                                <span className="w-3.5 h-3.5 grid grid-cols-2 gap-px">
+                                  <span className="bg-[#F25022]" />
+                                  <span className="bg-[#7FBA00]" />
+                                  <span className="bg-[#00A4EF]" />
+                                  <span className="bg-[#FFB900]" />
+                                </span>
+                                Microsoft
+                              </button>
+                              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-slate-600 text-[12px] font-medium hover:bg-slate-50 whitespace-nowrap">
+                                <span className="w-3.5 h-3.5 rounded-full bg-[#E60023] text-white text-[9px] font-bold flex items-center justify-center">P</span>
+                                Pinterest
+                              </button>
+                            </div>
 
-                              <table className="min-w-full text-left text-sm">
-                                <thead>
-                                  <tr className="border-b border-slate-100 text-slate-500 uppercase text-xs tracking-wider">
-                                    <th className="py-3 pr-6">Product</th>
-                                    <th className="py-3 pr-6">Brand</th>
-                                    <th className="py-3 pr-6">Price</th>
-                                    <th className="py-3 pr-6">HypeScore</th>
-                                    <th className="py-3">Avg CPC</th>
-                                  </tr>
-                                </thead>
+                            {/* Search input */}
+                            <div className={`relative flex items-center gap-2 px-3 py-2.5 rounded-lg border ${setupPhase === 2 ? 'border-blue-300 ring-2 ring-blue-100' : 'border-slate-200'} bg-white transition-all`}>
+                              <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                              <span className="text-[13px] text-slate-900 flex-1 truncate">
+                                {searchValue || <span className="text-slate-400">Search Meta brand or type a keyword...</span>}
+                                {searchValue && setupPhase < 3 && (
+                                  <span className="inline-block w-px h-3.5 bg-slate-700 ml-px align-middle animate-pulse" />
+                                )}
+                              </span>
+                            </div>
 
-                                <tbody className="divide-y divide-slate-50">
+                            {/* Suggestions list */}
+                            <AnimatePresence>
+                              {setupPhase === 2 && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: -4 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="mt-2 -mx-1"
+                                >
+                                  <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg hover:bg-slate-50 text-left">
+                                    <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                                    <span className="text-[13px] text-slate-700">Search ads containing &ldquo;{searchValue}&rdquo;</span>
+                                  </button>
+
+                                  <div className="text-[10px] uppercase tracking-wider text-slate-400 px-3 pt-3 pb-1 font-semibold">ADVERTISERS</div>
 
                                   {[
-                                    ["Oversized Graphic Tee", "Urban Monkey", "$15.65", "96", "$0.10"],
-                                    ["Cargo Utility Pants", "Snitch", "$22.88", "94", "$0.11"],
-                                    ["Korean Co-ord Set", "Sassafras", "$26.49", "92", "$0.12"],
-                                    ["Chunky Sneakers", "HRX", "$42.16", "91", "$0.14"],
-                                    ["Y2K Shoulder Bag", "Mango", "$33.72", "90", "$0.10"],
-                                    ["Minimal Silver Chains", "Giva", "$18.06", "89", "$0.08"],
-                                    ["Linen Summer Shirt", "Rare Rabbit", "$30.11", "88", "$0.12"],
-                                    ["Relaxed Fit Jeans", "Levi's", "$39.75", "87", "$0.15"],
-                                    ["Platform Sandals", "H&M", "$27.70", "86", "$0.11"],
-                                    ["Oversized Hoodie", "Bonkers Corner", "$24.08", "85", "$0.11"],
-                                    ["Satin Slip Dress", "Forever New", "$48.18", "84", "$0.16"],
-                                    ["Retro Sunglasses", "Fastrack", "$19.27", "83", "$0.09"],
-                                    ["Athleisure Joggers", "Nike", "$45.77", "82", "$0.17"],
-                                    ["Faux Leather Jacket", "Zara", "$72.28", "81", "$0.18"],
-                                    ["Street Style Cap", "Adidas", "$15.65", "80", "$0.08"],
-                                    ["Boho Maxi Dress", "AND", "$42.16", "79", "$0.13"],
-                                    ["Structured Blazer", "Mango", "$54.20", "78", "$0.17"],
-                                    ["Graphic Sweatshirt", "Bewakoof", "$20.47", "77", "$0.10"],
-                                    ["Statement Earrings", "Zaveri Pearls", "$12.04", "76", "$0.07"],
-                                    ["Knit Polo T-Shirt", "Uniqlo", "$27.70", "75", "$0.11"]
-                                  ].map((item, i) => (
-                                    <tr key={i} className="hover:bg-slate-50 transition-colors">
-                                      <td className="py-3 pr-6 font-medium text-slate-900">{item[0]}</td>
-                                      <td className="py-3 pr-6 text-slate-600">{item[1]}</td>
-                                      <td className="py-3 pr-6 text-slate-700">{item[2]}</td>
-                                      <td className="py-3 pr-6">
-                                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-black-50 text-black-700 border border-black-100">
-                                          {item[3]}
-                                        </span>
-                                      </td>
-                                      <td className="py-3 text-slate-700">{item[4]}</td>
-                                    </tr>
+                                    { name: 'Nike', tag: 'Sportswear Store', fb: '39.6M', ig: '@nike (297.3M)', highlight: true },
+                                    { name: 'Nike Football', tag: 'Product/service', fb: '40.3M', ig: '@nikefootball (46.0M)', highlight: false },
+                                    { name: 'Nike Run Club', tag: 'Sports & Recreation Venue', fb: '15.4M', ig: '@nikerunning (6.3M)', highlight: false },
+                                  ].map((b) => (
+                                    <button
+                                      key={b.name}
+                                      className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left transition-colors ${b.highlight ? 'bg-slate-50' : 'hover:bg-slate-50'}`}
+                                    >
+                                      <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-black">
+                                        <NikeSwoosh className="w-5 h-5 text-white" />
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                          <span className="text-[13px] font-semibold text-slate-900">{b.name}</span>
+                                          <BadgeCheck className="w-3.5 h-3.5 text-blue-500 fill-blue-100" strokeWidth={2.5} />
+                                          <span className="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded font-medium">{b.tag}</span>
+                                        </div>
+                                        <div className="flex items-center gap-3 text-[11px] text-slate-500 mt-0.5">
+                                          <span className="flex items-center gap-1">
+                                            <Image src="/logos/meta.png" alt="Meta" width={12} height={12} className="w-3 h-3 rounded-full object-contain" />
+                                            {b.fb} followers
+                                          </span>
+                                          <span className="flex items-center gap-1">
+                                            <Image src="/logos/instagram.png" alt="Instagram" width={12} height={12} className="w-3 h-3 rounded-sm object-contain" />
+                                            {b.ig}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <BadgeCheck className="w-3.5 h-3.5 text-blue-500 fill-blue-100 flex-shrink-0" strokeWidth={2.5} />
+                                    </button>
                                   ))}
-
-                                </tbody>
-                              </table>
-
-                            </div>
-
-                          </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </motion.div>
                         )}
+                      </AnimatePresence>
+
+                      {/* Multi-row input box */}
+                      <div className="bg-white rounded-2xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-within:border-slate-300 focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+                        {/* Top row: input + chip */}
+                        <div className="flex items-start gap-2 px-4 pt-3.5 pb-1">
+                          <input
+                            type="text"
+                            readOnly
+                            value={inputValue}
+                            placeholder="Ask anything..."
+                            className="flex-1 min-w-0 bg-transparent text-[14px] text-slate-900 font-medium placeholder-slate-400 outline-none"
+                          />
+                          <AnimatePresence>
+                            {hasContext && (
+                              <motion.span
+                                initial={{ opacity: 0, scale: 0.85, x: 6 }}
+                                animate={{ opacity: 1, scale: 1, x: 0 }}
+                                exit={{ opacity: 0, scale: 0.85 }}
+                                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                                className="flex items-center gap-1.5 pl-1.5 pr-1 py-0.5 bg-white border border-slate-200 rounded-full text-[11px] font-medium text-slate-700 flex-shrink-0"
+                              >
+                                <Image src="/logos/meta.png" alt="Meta" width={14} height={14} className="w-3.5 h-3.5 rounded-full object-contain" />
+                                Nike
+                                <button className="w-3.5 h-3.5 flex items-center justify-center text-slate-400 hover:text-slate-700">
+                                  <X className="w-2.5 h-2.5" />
+                                </button>
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </div>
+
+                        {/* Bottom row: controls + send */}
+                        <div className="flex items-center justify-between px-2.5 pb-2 pt-1">
+                          <div className="flex items-center gap-0.5 text-slate-600">
+                            <button className="flex items-center gap-1 px-2 py-1 text-[12px] hover:bg-slate-50 rounded-md transition-colors">
+                              <MessageCircle className="w-3.5 h-3.5" />
+                              Chat
+                              <ChevronDown className="w-3 h-3 text-slate-400" />
+                            </button>
+                            <span className="w-px h-3 bg-slate-200" />
+                            <button className={`flex items-center gap-1 px-2 py-1 text-[12px] rounded-md transition-colors ${(setupPhase === 1 || setupPhase === 2) ? 'bg-slate-100 text-slate-900' : 'hover:bg-slate-50'}`}>
+                              <Plus className="w-3.5 h-3.5" />
+                              Add context
+                            </button>
+                          
+                            
+                          </div>
+                          <button
+                            className={`w-8 h-8 flex items-center justify-center rounded-full transition-all ${inputValue.length > 0 || chatStep >= 2
+                              ? 'bg-black text-white hover:bg-slate-800 scale-100'
+                              : 'bg-[#e8e8e8] text-slate-400 scale-95'
+                              }`}
+                          >
+                            <ArrowUp className="w-4 h-4" strokeWidth={2.5} />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Secure badge */}
+                      <div className="flex justify-center mt-1.5 text-[10px] font-semibold tracking-wide text-slate-400 space-x-1.5">
+                 
+
                       </div>
                     </div>
-                  )}
+                  </div>
+                </motion.div>
 
-                </div>
-
-                {/* Minimalist Input Footer */}
-                <div className="absolute w-full bottom-0 left-0 px-6 sm:px-12 py-6 bg-gradient-to-t from-[#fcfcfc] via-[#fcfcfc] to-transparent pt-12">
-                  <div className="max-w-3xl mx-auto relative group flex items-center bg-white rounded-2xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-within:border-slate-300 focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
-                    <input
-                      type="text"
-                      readOnly
-                      value={inputValue}
-                      placeholder="Ask HypeOn AI anything about your store..."
-                      className="w-full bg-transparent py-4 pl-5 pr-14 text-[15px] text-slate-900 font-medium placeholder-slate-400 outline-none"
-                    />
-                    <button
-                      className={`absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-xl transition-all ${inputValue.length > 0 || chatStep >= 2
-                        ? 'bg-black text-white hover:bg-slate-800 scale-100'
-                        : 'bg-[#f5f5f5] text-slate-400 scale-95'
-                        }`}
+                {/* ── RIGHT: Artifacts panel (slides in after response) ── */}
+                <AnimatePresence>
+                  {chatStep >= 5 && (
+                    <motion.div
+                      initial={{ x: '100%', opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: '100%', opacity: 0 }}
+                      transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+                      className="hidden lg:flex w-1/2 h-full flex-col border-l border-slate-200 bg-[#fafafa]"
                     >
-                      <ArrowUp className="w-4 h-4" strokeWidth={2.5} />
-                    </button>
-                  </div>
-                  <div className="flex justify-center mt-3 text-xs font-semibold tracking-wide text-slate-400 space-x-1.5">
-                    <Lock className="w-3 h-3" />
-                    <span>256-BIT SECURE CONNECTION TO STORE</span>
-                  </div>
-                </div>
+                      {/* Tab strip */}
+                      <div className="relative z-20 flex items-center justify-between px-3 pt-3 pb-0 border-b border-slate-200/70">
+                        <div className="flex items-center gap-1">
+                          {([
+                                 { id: 'topAds', label: 'Top Ads', Icon: LayoutGrid },
+                            { id: 'gender', label: 'Gender', Icon: BarChart3 },
+                            { id: 'age', label: 'Age', Icon: BarChart3 },
+                       
+                          ] as const).map(({ id, label, Icon }) => {
+                            const active = activeArtifact === id;
+                            return (
+                              <button
+                                key={id}
+                                type="button"
+                                onClick={() => setActiveArtifact(id)}
+                                className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+                                  active
+                                    ? 'text-slate-900 border-b-2 border-slate-900 -mb-[1px]'
+                                    : 'text-slate-500 hover:text-slate-900'
+                                }`}
+                              >
+                                <Icon className="w-3.5 h-3.5" />
+                                {label}
+                                <X className="w-3 h-3 ml-1 opacity-50" />
+                              </button>
+                            );
+                          })}
+                        </div>
+                        <div className="flex items-center gap-2 pr-1">
+                          <span className="text-[11px] font-medium text-slate-500 px-2 py-1 rounded-md border border-slate-200 bg-white">All artifacts (3)</span>
+                        </div>
+                      </div>
+
+                      {/* Tab content: Gender / Age */}
+                      {activeArtifact !== 'topAds' && (
+                        <ChartArtifact
+                          key={activeArtifact}
+                          title={activeArtifact === 'gender' ? 'Nike: Gender Distribution (SE)' : 'Nike: Age Distribution (SE)'}
+                          axisLabel={activeArtifact === 'gender' ? 'Gender' : 'Age Group'}
+                          perLabel={activeArtifact === 'gender' ? 'per gender' : 'per age group'}
+                          data={activeArtifact === 'gender' ? NIKE_GENDER : NIKE_AGE}
+                        />
+                      )}
+
+                      {activeArtifact === 'topAds' && (
+                        <motion.div
+                          key="topAds"
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                          className="flex-1 flex flex-col min-h-0"
+                        >
+                          {/* Header */}
+                          <div className="px-5 pt-5 pb-3 flex items-start justify-between gap-3 bg-[#fafafa]">
+                            <div className="min-w-0">
+                              <h4 className="text-[15px] font-semibold text-slate-900 tracking-tight truncate">
+                                Top Performing Ads Gallery: Nike SE
+                              </h4>
+                            
+                            </div>
+                            <button className="flex-shrink-0 p-1.5 rounded-md border border-slate-200 bg-white text-slate-500 hover:text-slate-900 transition-colors">
+                              <Maximize2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+
+                          {/* Filter row */}
+                          <div className="px-5 pb-3 flex items-center gap-2">
+                            <div className="flex-1 flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-slate-200">
+                              <Search className="w-3.5 h-3.5 text-slate-400" />
+                              <span className="text-[12px] text-slate-400">Filter ads by keyword, brand, platform...</span>
+                            </div>
+                            <span className="text-[11px] font-medium text-slate-500 whitespace-nowrap">10 ads</span>
+                          </div>
+
+                          {/* Ad cards grid */}
+                          <div className="flex-1 overflow-y-auto px-4 pb-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                            <div className="grid grid-cols-2 gap-3">
+                              {TOP_ADS.map((ad, i) => (
+                            <motion.div
+                              key={ad.productName}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.15 + i * 0.06, duration: 0.4 }}
+                              className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_-12px_rgba(0,0,0,0.12)] transition-shadow"
+                            >
+                              {/* Card header */}
+                              <div className="flex items-center justify-between px-2.5 pt-2 pb-1.5">
+                                <div className="flex items-center gap-1.5 min-w-0">
+                                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-black">
+                                    <NikeSwoosh className="w-3.5 h-3.5 text-white" />
+                                  </div>
+                                  <span className="text-[11px] font-semibold text-slate-900 truncate">{ad.brand}</span>
+                                </div>
+                                <span className={`flex items-center gap-1 text-[9px] font-medium flex-shrink-0 ${ad.status === 'Active' ? 'text-emerald-600' : 'text-slate-400'}`}>
+                                  <span className={`w-1 h-1 rounded-full ${ad.status === 'Active' ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                                  {ad.status}
+                                </span>
+                              </div>
+
+                              {/* Creative preview — real product photo */}
+                              <div className={`relative aspect-square ${ad.imageBg} overflow-hidden`}>
+                                <Image
+                                  src={ad.image}
+                                  alt={ad.productName}
+                                  fill
+                                  sizes="(min-width: 1024px) 180px, 50vw"
+                                  className="object-cover"
+                                />
+                                <div className="absolute bottom-1.5 right-1.5 flex items-center gap-0.5 bg-black/60 backdrop-blur-sm text-white text-[8px] font-semibold px-1.5 py-0.5 rounded">
+                                  Meta <ArrowUp className="w-2 h-2 rotate-45" strokeWidth={2.5} />
+                                </div>
+                              </div>
+
+                              {/* Date row */}
+                              <div className="flex items-center gap-2 px-2.5 pt-2 text-[9px] text-slate-500">
+                                <span className="flex items-center gap-0.5">
+                                  <Calendar className="w-2 h-2" /> {ad.date}
+                                </span>
+                                <span className="flex items-center gap-0.5">
+                                  <Clock className="w-2 h-2" /> {ad.duration}
+                                </span>
+                              </div>
+
+                              {/* Title + description */}
+                              <div className="px-2.5 pt-1 pb-1.5">
+                                <p className="text-[11px] font-bold text-slate-900 leading-tight line-clamp-1">
+                                  {ad.productName}
+                                </p>
+                                <p className="text-[10px] text-slate-600 leading-snug line-clamp-2 mt-0.5">
+                                  {ad.description}
+                                </p>
+                              </div>
+
+                              {/* Stats row */}
+                              <div className="flex items-center justify-between gap-1 px-2.5 pb-1.5 text-[9px] text-slate-500">
+                                <span className="flex items-center gap-0.5">
+                                  <Users className="w-2 h-2" /> {ad.reach}
+                                </span>
+                                <span className="flex items-center gap-0.5">
+                                  <span className="text-slate-400">€</span>{ad.spend}
+                                </span>
+                                <span className="flex items-center gap-0.5">
+                                  <UserIcon className="w-2 h-2" /> {ad.ageRange}
+                                </span>
+                                <span className="flex items-center gap-0.5">
+                                  <Crosshair className="w-2 h-2" /> {ad.gender}
+                                </span>
+                              </div>
+
+                              {/* Platform footer */}
+                              <div className="flex items-center justify-between px-2.5 py-1.5 border-t border-slate-100">
+                                <div className="flex items-center gap-1">
+                                  <Image src="/logos/meta.png" alt="Meta" width={12} height={12} className="w-3 h-3 rounded-full object-contain" />
+                                  <Image src="/logos/instagram.png" alt="Instagram" width={12} height={12} className="w-3 h-3 rounded-sm object-contain" />
+                                </div>
+                                <span className="w-3.5 h-3.5 rounded-full overflow-hidden flex flex-col text-[6px] leading-none border border-slate-200">
+                                  <span className="flex-1 bg-[#006AA7]" />
+                                  <span className="h-[2px] bg-[#FECC00]" />
+                                  <span className="flex-1 bg-[#006AA7]" />
+                                </span>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
               </div>
             </div>
