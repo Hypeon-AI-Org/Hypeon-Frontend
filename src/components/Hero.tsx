@@ -249,7 +249,6 @@ export default function Hero() {
   const [isLgUp, setIsLgUp] = useState(false);
   const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
   const [chatCycle, setChatCycle] = useState(0);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
@@ -259,35 +258,9 @@ export default function Hero() {
     return () => mq.removeEventListener('change', update);
   }, []);
 
-  // Gate the chat animation cycle until: hydration is done AND the chatbot is in view.
-  // In production, hydration takes longer than locally — starting timers immediately
-  // on mount means they fire while React is still hydrating, causing janky animations.
-  useEffect(() => {
-    const node = dashboardRef.current;
-    if (!node) return;
-    const start = () => {
-      const buffer = setTimeout(() => setIsReady(true), 600);
-      return () => clearTimeout(buffer);
-    };
-    if (typeof IntersectionObserver === 'undefined') return start();
-    let cleanup: (() => void) | undefined;
-    const obs = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        cleanup = start();
-        obs.disconnect();
-      }
-    }, { threshold: 0.15 });
-    obs.observe(node);
-    return () => {
-      obs.disconnect();
-      cleanup?.();
-    };
-  }, []);
-
   const textToType = 'What are the top performing ads and audience demographics?';
 
   useEffect(() => {
-    if (!isReady) return;
     let isActive = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const after = (ms: number, fn: () => void) => {
@@ -343,7 +316,7 @@ export default function Hero() {
       isActive = false;
       timers.forEach(clearTimeout);
     };
-  }, [textToType, chatCycle, isReady]);
+  }, [textToType, chatCycle]);
 
   useEffect(() => {
     let isActive = true;
@@ -379,11 +352,9 @@ export default function Hero() {
   }, [chatStep]);
 
   useEffect(() => {
-    if (!isReady) return;
     const heroSection = heroSectionRef.current;
     const dashboard = dashboardRef.current;
     if (!heroSection || !dashboard) return;
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let rafId: number | null = null;
     let lastX = 0;
@@ -393,11 +364,11 @@ export default function Hero() {
       if (!window.matchMedia('(min-width: 1024px)').matches) return;
       if (rafId === null) {
         rafId = requestAnimationFrame(() => {
-          const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
-          const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
-          const clampX = Math.max(-1.5, Math.min(1.5, xAxis));
-          const clampY = Math.max(-1.5, Math.min(1.5, yAxis));
-          if (Math.abs(clampX - lastX) > 0.3 || Math.abs(clampY - lastY) > 0.3) {
+          const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+          const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+          const clampX = Math.max(-2, Math.min(2, xAxis));
+          const clampY = Math.max(-2, Math.min(2, yAxis));
+          if (Math.abs(clampX - lastX) > 0.1 || Math.abs(clampY - lastY) > 0.1) {
             dashboard.style.transform = `rotateY(${clampX}deg) rotateX(${clampY}deg)`;
             lastX = clampX;
             lastY = clampY;
@@ -421,7 +392,7 @@ export default function Hero() {
       heroSection.removeEventListener('mousemove', handleMouseMove);
       heroSection.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [isReady]);
+  }, []);
   const words = [
     "Wrong Product.",
     "Wrong Channel.",
