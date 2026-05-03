@@ -269,11 +269,13 @@ export default function Hero() {
     };
 
     // Phase 1: open Add context popover
-    after(800, () => setSetupPhase(1));
+    // Delayed enough that the prior cycle's exit animations (messages,
+    // artifacts panel, chat width) finish before the next cycle starts.
+    after(1400, () => setSetupPhase(1));
 
     // Phase 1b: type "nike" into the search
     const searchWord = 'nike';
-    let baseDelay = 1500;
+    let baseDelay = 2100;
     for (let i = 1; i <= searchWord.length; i++) {
       const slice = searchWord.slice(0, i);
       after(baseDelay, () => setSearchValue(slice));
@@ -531,35 +533,61 @@ export default function Hero() {
                   <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-8 pb-36 w-full max-w-3xl mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
                     {/* Empty state context / AI greeting */}
-                    {chatStep < 2 && (
-                      <div className="w-full text-center mt-20 animate-fade-in opacity-80">
-                        <div className="flex items-center justify-center mb-6">
-                          <div className=" rounded-full h-[60px] w-[60px] flex items-center justify-center overflow-hidden">
-                            <Image
-                              src={logo}
-                              alt="HypeOn AI Logo"
-                              width={60}
-                              height={60}
-                            />
+                    <AnimatePresence>
+                      {chatStep < 2 && (
+                        <motion.div
+                          key="empty-state"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 0.8 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+                          className="w-full text-center mt-20"
+                        >
+                          <div className="flex items-center justify-center mb-6">
+                            <div className=" rounded-full h-[60px] w-[60px] flex items-center justify-center overflow-hidden">
+                              <Image
+                                src={logo}
+                                alt="HypeOn AI Logo"
+                                width={60}
+                                height={60}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <h3 className="text-xl font-medium text-slate-900 mb-2">Your AI-powered ad insights</h3>
-                        <p className="text-sm text-slate-500">Ask about creatives, spend, or positioning. Click “+ Add Context” to pull from our curated brand library powered by Explore.</p>
-                      </div>
-                    )}
+                          <h3 className="text-xl font-medium text-slate-900 mb-2">Your AI-powered ad insights</h3>
+                          <p className="text-sm text-slate-500">Ask about creatives, spend, or positioning. Click “+ Add Context” to pull from our curated brand library powered by Explore.</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {/* User sent message */}
-                    {chatStep >= 2 && (
-                      <div className="flex w-full justify-end mb-8 animate-fade-up">
-                        <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-slate-900 text-[12px] font-medium leading-relaxed shadow-sm text-left">
-                          {textToType}
-                        </div>
-                      </div>
-                    )}
+                    <AnimatePresence>
+                      {chatStep >= 2 && (
+                        <motion.div
+                          key="user-msg"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                          className="flex w-full justify-end mb-8"
+                        >
+                          <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-slate-900 text-[12px] font-medium leading-relaxed shadow-sm text-left">
+                            {textToType}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {/* AI Response Container */}
-                    {chatStep >= 3 && (
-                      <div className="flex justify-start w-full animate-fade-up mt-6">
+                    <AnimatePresence>
+                      {chatStep >= 3 && (
+                        <motion.div
+                          key="ai-response"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -8 }}
+                          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+                          className="flex justify-start w-full mt-6"
+                        >
                         <div className="rounded-full h-[28px] w-[28px] flex items-center justify-center overflow-hidden flex-shrink-0">
                           <Image
                             src={logo}
@@ -669,8 +697,9 @@ export default function Hero() {
                             </div>
                           )}
                         </div>
-                      </div>
-                    )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                   </div>
 
