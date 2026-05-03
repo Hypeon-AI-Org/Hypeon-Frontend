@@ -491,32 +491,31 @@ export default function Hero() {
 
 
             <div
-              className="relative bg-white rounded-2xl overflow-hidden ring-1 ring-slate-200/50 flex flex-col items-center"
+              className="relative bg-white rounded-3xl overflow-hidden ring-1 ring-slate-200/40 flex flex-col items-center"
               style={{
-                boxShadow: '0 30px 60px -12px rgba(0,0,0,0.12), 0 10px 30px -6px rgba(0,0,0,0.06)',
+                boxShadow: '0 30px 60px -12px rgba(0,0,0,0.10), 0 10px 30px -6px rgba(0,0,0,0.04)',
               }}
             >
               {/* Minimal Header */}
-              <div className="w-full bg-[#fcfcfc] border-b border-slate-100 px-6 py-4 flex items-center justify-between z-20">
-                <div className="flex items-center gap-3">
-                  <div className=" rounded-full h-[28px] w-[28px] flex items-center justify-center overflow-hidden">
+              <div className="w-full bg-white/80 backdrop-blur-sm border-b border-slate-100/80 px-6 py-3.5 flex items-center justify-between z-20">
+                <div className="flex items-center gap-2.5">
+                  <div className="rounded-full h-[26px] w-[26px] flex items-center justify-center overflow-hidden">
                     <Image
                       src={logo}
                       alt="HypeOn AI Logo"
-                      width={28}
-                      height={28}
-
+                      width={26}
+                      height={26}
                     />
                   </div>
-                  <span className="text-sm font-semibold text-slate-900 tracking-tight">HypeOn Assistant</span>
+                  <span className="text-[13.5px] font-semibold text-slate-900 tracking-tight">HypeOn Assistant</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-pinks-50 text-black-700 rounded-full text-xs font-semibold border border-green-100 tracking-wide">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-500 animate-pulse"></div>
-                    SYNCED WITH META ADS
+                <div className="flex items-center gap-2">
+                  <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 text-slate-600 rounded-full text-[10.5px] font-medium border border-slate-200/60 tracking-wide">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    Synced with Meta Ads
                   </div>
-                  <button className="text-slate-400 hover:text-slate-900 transition-colors">
-                    <PanelLeft className="w-5 h-5" />
+                  <button className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                    <PanelLeft className="w-4 h-4" />
                   </button>
                 </div>
               </div>
