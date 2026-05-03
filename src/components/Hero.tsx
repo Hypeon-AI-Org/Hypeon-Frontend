@@ -541,14 +541,14 @@ export default function Hero() {
                   <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-8 pb-36 w-full max-w-3xl mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
                     {/* Empty state context / AI greeting */}
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                       {chatStep < 2 && (
                         <motion.div
                           key="empty-state"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 0.8 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+                          exit={{ opacity: 0, y: -12 }}
+                          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                           className="w-full text-center mt-20"
                         >
                           <div className="flex items-center justify-center mb-6">
@@ -572,10 +572,11 @@ export default function Hero() {
                       {chatStep >= 2 && (
                         <motion.div
                           key="user-msg"
-                          initial={{ opacity: 0, y: 8 }}
+                          layout
+                          initial={{ opacity: 0, y: 60 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
-                          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                           className="flex w-full justify-end mb-8"
                         >
                           <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-slate-900 text-[12px] font-medium leading-relaxed shadow-sm text-left">
@@ -590,7 +591,8 @@ export default function Hero() {
                       {chatStep >= 3 && (
                         <motion.div
                           key="ai-response"
-                          initial={{ opacity: 0, y: 8 }}
+                          layout
+                          initial={{ opacity: 0, y: 12 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
                           transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
