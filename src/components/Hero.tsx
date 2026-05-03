@@ -320,16 +320,21 @@ export default function Hero() {
 
   useEffect(() => {
     let isActive = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const after = (ms: number, fn: () => void) => {
+      const id = setTimeout(() => { if (isActive) fn(); }, ms);
+      timers.push(id);
+    };
+
     if (chatStep === 2) {
       setInputValue('');
-      setTimeout(() => { if (isActive) setChatStep(3); }, 400);
+      after(400, () => setChatStep(3));
     } else if (chatStep === 3) {
-      setTimeout(() => { if (isActive) setChatStep(4); }, 1500);
+      after(1500, () => setChatStep(4));
     } else if (chatStep === 4) {
-      setTimeout(() => { if (isActive) setChatStep(5); }, 1100);
+      after(1100, () => setChatStep(5));
     } else if (chatStep === 5) {
-      setTimeout(() => {
-        if (!isActive) return;
+      after(5000, () => {
         setInputValue('');
         setSearchValue('');
         setHasContext(false);
@@ -337,9 +342,13 @@ export default function Hero() {
         setActiveArtifact('topAds');
         setChatStep(0);
         setChatCycle((c) => c + 1);
-      }, 5000);
+      });
     }
-    return () => { isActive = false; };
+
+    return () => {
+      isActive = false;
+      timers.forEach(clearTimeout);
+    };
   }, [chatStep]);
 
   useEffect(() => {
