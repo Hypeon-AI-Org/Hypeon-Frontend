@@ -538,18 +538,18 @@ export default function Hero() {
                   transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                   className="relative h-full flex flex-col min-w-0"
                 >
-                  <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-8 pb-36 w-full max-w-3xl mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  <div className="flex-1 overflow-y-auto relative px-5 sm:px-8 py-8 pb-36 w-full max-w-3xl mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
-                    {/* Empty state context / AI greeting */}
-                    <AnimatePresence mode="wait">
+                    {/* Empty state context / AI greeting — absolutely positioned so it never occupies flow */}
+                    <AnimatePresence>
                       {chatStep < 2 && (
                         <motion.div
                           key="empty-state"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 0.8 }}
-                          exit={{ opacity: 0, y: -12 }}
-                          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                          className="w-full text-center mt-20"
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                          className="absolute inset-x-5 sm:inset-x-8 top-28 text-center pointer-events-none"
                         >
                           <div className="flex items-center justify-center mb-6">
                             <div className=" rounded-full h-[60px] w-[60px] flex items-center justify-center overflow-hidden">
@@ -572,11 +572,10 @@ export default function Hero() {
                       {chatStep >= 2 && (
                         <motion.div
                           key="user-msg"
-                          layout
-                          initial={{ opacity: 0, y: 60 }}
+                          initial={{ opacity: 0, y: 16 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
-                          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                           className="flex w-full justify-end mb-8"
                         >
                           <div className="bg-[#f0f0f0] rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-slate-900 text-[12px] font-medium leading-relaxed shadow-sm text-left">
@@ -591,7 +590,6 @@ export default function Hero() {
                       {chatStep >= 3 && (
                         <motion.div
                           key="ai-response"
-                          layout
                           initial={{ opacity: 0, y: 12 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
