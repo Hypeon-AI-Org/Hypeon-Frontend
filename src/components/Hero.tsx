@@ -828,7 +828,7 @@ export default function Hero() {
                       </AnimatePresence>
 
                       {/* Multi-row input box */}
-                      <div className="bg-white rounded-2xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-within:border-slate-300 focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+                      <div className="bg-[#fcfcfc] rounded-2xl border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] focus-within:border-slate-300 focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
                         {/* Top row: input + chip */}
                         <div className="flex items-start gap-2 px-4 pt-3.5 pb-1">
                           <input
