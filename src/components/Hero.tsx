@@ -610,57 +610,52 @@ export default function Hero() {
 
                           {/* Complete Response */}
                           {chatStep >= 4 && (
-                            <div className="animate-fade-up space-y-4 w-full text-[11px] leading-[1.55] tracking-[-0.005em]">
+                            <div className="animate-fade-up space-y-4 w-full text-[11.5px] leading-[1.65] tracking-[-0.005em] text-slate-600">
 
                               {/* Intro */}
-                              <p className="text-slate-600">
-                                I&apos;ve analyzed <span className="px-1 py-0.5 rounded bg-slate-50 text-slate-900 font-semibold border border-slate-200">
-                                  Nike&apos;s top-performing ads
-                                </span> on Meta in Sweden and their audience demographics. Based on the last 500 ads, not the full catalog.
+                              <p>
+                                I&apos;ve analyzed Nike&apos;s top-performing ads on Meta in Sweden and their audience demographics, based on the last 500 ads.
                               </p>
 
                               {/* Top Ad Analysis */}
                               <div className="space-y-1.5">
-                                <p className="text-slate-900 font-semibold text-[12px]">
-                                  Top Ad Analysis <span className="font-normal italic text-slate-500">— &ldquo;Stay Light in Nike Ava X&rdquo;</span>
-                                </p>
-                                <p className="text-slate-600">
-                                  The top ad by reach is <span className="font-semibold text-slate-900">&ldquo;Stay Light in Nike Ava X&rdquo;</span>, which ran from <span className="font-semibold text-slate-900">April 22, 2026</span> and is still active. It reached an estimated <span className="font-semibold text-slate-900">34,762</span> people — the highest-performing ad in the current sample.
+                                <p className="text-slate-900 font-medium text-[11.5px]">Top ad</p>
+                                <p>
+                                  &ldquo;Stay Light in Nike Ava X&rdquo; ran from April 22, 2026 and is still active. It reached an estimated 34,762 people — the highest in the current sample.
                                 </p>
                                 <ul className="space-y-1 mt-1.5">
-                                  <li className="flex gap-1.5">
-                                    <span className="text-slate-300 mt-px">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Visual:</span> Likely focuses on lightness and a stripped-down silhouette, featuring the Nike Ava shoe.</span>
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-300 mt-px">·</span>
+                                    <span>Visual centers on a stripped-down silhouette of the Nike Ava shoe.</span>
                                   </li>
-                                  <li className="flex gap-1.5">
-                                    <span className="text-slate-300 mt-px">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Messaging:</span> <span className="italic">&ldquo;The new stripped-down silhouette is the lightest expression of Nike Ava.&rdquo;</span></span>
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-300 mt-px">·</span>
+                                    <span>Messaging: &ldquo;The new stripped-down silhouette is the lightest expression of Nike Ava.&rdquo;</span>
                                   </li>
-                                  <li className="flex gap-1.5">
-                                    <span className="text-slate-300 mt-px">•</span>
-                                    <span className="text-slate-600"><span className="font-semibold text-slate-900">Targeting:</span> Audience aged <span className="font-semibold text-slate-900">18-44</span> in Sweden, no specific gender targeting.</span>
+                                  <li className="flex gap-2">
+                                    <span className="text-slate-300 mt-px">·</span>
+                                    <span>Targeting: ages 18–44 in Sweden, no specific gender.</span>
                                   </li>
                                 </ul>
                               </div>
 
-
                               {/* Audience Demographics */}
                               <div className="space-y-1.5">
-                                <p className="text-slate-900 font-semibold text-[12px]">Audience Demographics</p>
-                                <p className="text-slate-600">
-                                  Predominantly male — an estimated <span className="font-semibold text-slate-900">145,719</span> individuals. Highest reach among <span className="font-semibold text-slate-900">35-44</span> year olds (71,508), then <span className="font-semibold text-slate-900">25-34</span> (62,499).
+                                <p className="text-slate-900 font-medium text-[11.5px]">Audience</p>
+                                <p>
+                                  Predominantly male (≈145,719). Highest reach among 35–44 year olds (71,508), then 25–34 (62,499).
                                 </p>
                                 <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10.5px] pt-0.5">
-                                  <a className="text-slate-600 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Gender Distribution: Nike SE</a>
-                                  <a className="text-slate-600 underline decoration-slate-300 underline-offset-2 hover:text-slate-900 cursor-pointer">Age Distribution: Nike SE</a>
+                                  <a className="text-slate-500 underline decoration-slate-200 underline-offset-2 hover:text-slate-900 cursor-pointer">Gender distribution</a>
+                                  <a className="text-slate-500 underline decoration-slate-200 underline-offset-2 hover:text-slate-900 cursor-pointer">Age distribution</a>
                                 </div>
                               </div>
 
                               {/* Campaign Context */}
                               <div className="space-y-1.5">
-                                <p className="text-slate-900 font-semibold text-[12px]">Campaign Context</p>
-                                <p className="text-slate-600">
-                                  All top 10 ads launched in <span className="font-semibold text-slate-900">late April 2026</span>. Other strong creatives include <span className="italic">&ldquo;Nike Air Performance&rdquo;</span>, focusing on a basketball classic design.
+                                <p className="text-slate-900 font-medium text-[11.5px]">Campaigns</p>
+                                <p>
+                                  All top 10 ads launched in late April 2026. Other strong creatives include &ldquo;Nike Air Performance&rdquo;.
                                 </p>
                               </div>
 
