@@ -33,7 +33,7 @@ const CTASection = () => {
 
                 {/* Action Area */}
                 <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="group relative flex h-12 items-center justify-center overflow-hidden rounded-xl bg-black px-6 font-semibold text-white transition-all hover:scale-[1.02] active:scale-95">
+                    <a href="https://app.hypeon.ai/hub/login" className="group relative flex h-12 items-center justify-center overflow-hidden rounded-xl bg-black px-6 font-semibold text-white transition-all hover:scale-[1.02] active:scale-95">
                         Get the demo
                     </a>
 

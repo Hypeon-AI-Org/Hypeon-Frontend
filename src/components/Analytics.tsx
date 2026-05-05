@@ -82,7 +82,7 @@ export default function Products() {
           </ul>
 
           <div className="flex items-center gap-4 pt-2 sm:pt-4">
-            <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-black hover:bg-black text-white px-5 py-2.5 sm:py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block min-h-[44px] flex items-center">
+            <a href="https://app.hypeon.ai/hub/login" className="bg-black hover:bg-black text-white px-5 py-2.5 sm:py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block min-h-[44px] flex items-center">
               Get the demo
             </a>
           </div>

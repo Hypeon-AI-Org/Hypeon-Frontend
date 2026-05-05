@@ -184,7 +184,7 @@ function Navbar() {
             </a>
 
             <a
-              href="https://calendly.com/yash-hypeon/30min?month=2026-03"
+              href="https://app.hypeon.ai/hub/login"
               className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer whitespace-nowrap"
             >
               Get the demo
@@ -323,7 +323,7 @@ function Navbar() {
                 Log in
               </a>
               <a
-                href="https://calendly.com/yash-hypeon/30min?month=2026-03"
+                href="https://app.hypeon.ai/hub/login"
                 className="flex min-h-[48px] flex-1 items-center justify-center rounded-full bg-black px-4 text-[15px] font-bold text-white shadow-md transition-colors hover:bg-black/90 active:scale-[0.99] cursor-pointer"
               >
                 Get the demo

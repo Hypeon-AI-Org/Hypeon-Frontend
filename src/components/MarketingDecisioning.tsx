@@ -39,7 +39,7 @@ export default function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.4 }}
         >
-          <a href="https://calendly.com/yash-hypeon/30min?month=2026-03" className="bg-[#0A0A0A] text-white px-7 py-3 rounded-xl font-semibold text-[15px] hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 inline-block">
+          <a href="https://app.hypeon.ai/hub/login" className="bg-[#0A0A0A] text-white px-7 py-3 rounded-xl font-semibold text-[15px] hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 inline-block">
             Get the demo
           </a>
         </motion.div>

@@ -57,7 +57,7 @@ export default function AdIntelReplica() {
               className="mt-6 sm:mt-8 flex flex-col items-start"
             >
               <motion.a
-                href="https://app.hypeon.ai/login"
+                href="https://app.hypeon.ai/hub/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[40px] w-auto max-w-full items-center gap-2 self-start rounded-full bg-[#171923] py-2 pl-2 pr-4 text-xs font-semibold text-white shadow-[0_4px_14px_-4px_rgba(15,23,42,0.35)] transition-colors duration-200 hover:bg-[#1f2937] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171923]/40 focus-visible:ring-offset-2 sm:min-h-[46px] sm:gap-3.5 sm:py-2.5 sm:pl-2.5 sm:pr-7 sm:text-base"

@@ -45,7 +45,7 @@ export default function StartToday() {
         >
           {/* Primary CTA */}
           <motion.a
-            href="https://calendly.com/yash-hypeon/30min?month=2026-03"
+            href="https://app.hypeon.ai/hub/login"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
             className="px-7 py-3 min-h-[44px] flex items-center justify-center bg-black text-white rounded-full text-[15px] font-medium shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:bg-neutral-800 transition-all cursor-pointer"
