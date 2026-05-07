@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -15,7 +14,6 @@ import StartToday from "../../components/TeamGlobalMap";
 import { Activity } from "lucide-react";
 
 type TabKey = "intelligence" | "analytics";
-type IntelPlanKey = "starter" | "pro" | "enterprise";
 type RevenueKey = "5k" | "10k" | "20k" | "40k" | "83k" | "250k" | "750k" | "1m";
 
 const analyticsPricing: Record<
@@ -30,24 +28,6 @@ const analyticsPricing: Record<
   "250k": { starter: 229, growth: 499, pro: 1099 },
   "750k": { starter: 349, growth: 749, pro: 1599 },
   "1m": { starter: 499, growth: 999, pro: "Custom" },
-};
-
-/** List price (USD/mo). Enterprise is custom — see `intelDiscountView`. */
-const intelBasePrices: Record<IntelPlanKey, number> = {
-  starter: 59,
-  pro: 129,
-  enterprise: 0,
-};
-
-/** Launch sale price (80% off list for Starter & Pro). */
-const intelLaunchPrices: Record<"starter" | "pro", number> = {
-  starter: 11.99,
-  pro: 24.99,
-};
-
-const intelLaunchDiscountPct: Record<"starter" | "pro", number> = {
-  starter: 80,
-  pro: 80,
 };
 
 function CheckIcon() {
@@ -166,7 +146,6 @@ function Reveal({
 
 export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<TabKey>("intelligence");
-  const [intelPlan, setIntelPlan] = useState<IntelPlanKey>("starter");
   const [revenue, setRevenue] = useState<RevenueKey>("10k");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -177,22 +156,6 @@ export default function PricingPage() {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const btnIntelRef = useRef<HTMLButtonElement | null>(null);
   const btnAnalyticsRef = useRef<HTMLButtonElement | null>(null);
-
-  const intelDiscountView = useMemo(() => {
-    if (intelPlan === "enterprise") {
-      return { mode: "custom" as const };
-    }
-    const base = intelBasePrices[intelPlan];
-    const finalPrice = intelLaunchPrices[intelPlan];
-    const savings = Number((base - finalPrice).toFixed(2));
-    return {
-      mode: "discount" as const,
-      base,
-      finalPrice,
-      savings,
-      pct: intelLaunchDiscountPct[intelPlan],
-    };
-  }, [intelPlan]);
 
   const analyticsTier = analyticsPricing[revenue];
   const revLabel = revenue === "1m" ? "1M+" : revenue;
@@ -331,55 +294,6 @@ export default function PricingPage() {
           {/* ═══════════ INTELLIGENCE TAB ═══════════ */}
           {activeTab === "intelligence" && (
             <div>
-              {/* Discount Calculator */}
-              <Reveal delayMs={80}>
-                <div className="max-w-[520px] mx-auto mb-12 p-5 bg-white border border-gray-200 rounded-2xl shadow-sm text-left">
-                  <h3 className="text-base font-bold mb-1">Calculate your launch discount</h3>
-                  <p className="text-[13px] text-gray-400 mb-5">
-                    Early adopter pricing — limited time only
-                  </p>
-                  <div className="flex items-center justify-between gap-3 flex-wrap mb-3">
-                    <span className="text-sm font-medium text-gray-600">Select plan:</span>
-                    <select
-                      className="px-4 py-2.5 border-[1.5px] border-gray-200 rounded-full text-sm bg-white text-gray-900 font-semibold cursor-pointer outline-none shadow-[0_1px_0_rgba(17,24,39,0.04)]"
-                      value={intelPlan}
-                      onChange={(e) => setIntelPlan(e.target.value as IntelPlanKey)}
-                    >
-                      <option value="starter">Starter — $59/mo</option>
-                      <option value="pro">Pro — $129/mo</option>
-                      <option value="enterprise">Enterprise — Custom</option>
-                    </select>
-                  </div>
-
-                  <div className="p-4 bg-gray-100 border border-gray-200 rounded-[10px] mt-2">
-                    {intelDiscountView.mode === "custom" ? (
-                      <>
-                        <div className="text-xs font-semibold text-gray-500">
-                          Custom pricing — Talk to Sales
-                        </div>
-                        <div className="text-4xl font-bold text-gray-800 tracking-tight">
-                          Custom
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="text-xs font-semibold text-gray-500 line-through">
-                          ${intelDiscountView.base} / month
-                        </div>
-                        <div className="text-4xl font-bold text-gray-800 tracking-tight">
-                          ${intelDiscountView.finalPrice.toFixed(2)}{" "}
-                          <span className="text-sm font-normal text-gray-400">/ month</span>
-                        </div>
-                        <div className="text-[13px] text-gray-800 font-semibold mt-1">
-                          You save ${intelDiscountView.savings.toFixed(2)}/mo —{" "}
-                          {intelDiscountView.pct}% off launch discount
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </Reveal>
-
               {/* Intelligence Cards */}
               <Reveal delayMs={120}>
                 <section className="max-w-[1200px] mx-auto px-6 pb-16">
@@ -392,15 +306,11 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$59</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$11.99</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$59</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
-                    <div className="text-[13px] text-gray-400 mb-2">
+                    <div className="text-[13px] text-gray-400 mb-5">
                       Billed monthly · No commitment
-                    </div>
-                    <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                      80% off — launch price
                     </div>
                     <a
                       href="https://app.hypeon.ai/hub/login"
@@ -441,15 +351,11 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-medium text-gray-400 line-through mr-2">$129</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$24.99</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$129</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
                     </div>
-                    <div className="text-[13px] text-gray-400 mb-2">
+                    <div className="text-[13px] text-gray-400 mb-5">
                       Billed monthly · Save even more annually
-                    </div>
-                    <div className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full mb-5 w-fit">
-                      80% off — launch price
                     </div>
                     <a
                       href="https://app.hypeon.ai/hub/login"
@@ -491,7 +397,7 @@ export default function PricingPage() {
                       <span className="text-5xl font-bold tracking-[-2px] leading-none">Custom</span>
                     </div>
                     <div className="text-[13px] text-gray-400 mb-2">
-                      Tailored to your stack &mdash; talk to us for a quote
+                      Tailored to your stack  talk to us for a quote
                     </div>
                     <div className="mb-5" />
                     <a
@@ -812,7 +718,7 @@ export default function PricingPage() {
                     q: "I'm spending under $5k/mo on ads — is HypeOn worth it for me?",
                     a: (
                       <>
-                        If you&apos;re at that stage, start with Intelligence Starter at $11.99/mo.
+                        If you&apos;re at that stage, start with Intelligence Starter at $59/mo.
                         It&apos;ll show you which products to push, what keywords to target, and
                         what your competitors are running. Once your ad spend grows and attribution
                         starts getting messy, that&apos;s when Analytics pays for itself many times
@@ -897,12 +803,12 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Starter
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$11.99/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$59/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
                 Pro
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$24.99/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$129/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Enterprise
