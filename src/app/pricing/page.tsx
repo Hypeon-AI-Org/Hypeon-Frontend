@@ -313,7 +313,7 @@ export default function PricingPage() {
                       Billed monthly · No commitment
                     </div>
                     <a
-                      href="https://app.hypeon.ai/hub/login"
+                      href="https://app.hypeon.ai/hub/plans?plan=starter"
                       className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none"
                     >
                       Start 3-day free trial
@@ -358,7 +358,7 @@ export default function PricingPage() {
                       Billed monthly · Save even more annually
                     </div>
                     <a
-                      href="https://app.hypeon.ai/hub/login"
+                      href="https://app.hypeon.ai/hub/plans?plan=pro"
                       className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
                     >
                       Start 3-day free trial
