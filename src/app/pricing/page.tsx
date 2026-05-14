@@ -306,8 +306,12 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$59</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$79</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
+                      <span className="text-sm text-gray-400 line-through ml-2">$99</span>
+                    </div>
+                    <div className="text-[13px] text-emerald-600 font-medium mb-1">
+                      20% off - Launch discount
                     </div>
                     <div className="text-[13px] text-gray-400 mb-5">
                       Billed monthly · No commitment
@@ -351,8 +355,12 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$129</span>
+                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$149</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
+                      <span className="text-sm text-gray-400 line-through ml-2">$199</span>
+                    </div>
+                    <div className="text-[13px] text-emerald-600 font-medium mb-1">
+                      25% off - Launch discount
                     </div>
                     <div className="text-[13px] text-gray-400 mb-5">
                       Billed monthly · Save even more annually
@@ -718,7 +726,7 @@ export default function PricingPage() {
                     q: "I'm spending under $5k/mo on ads — is HypeOn worth it for me?",
                     a: (
                       <>
-                        If you&apos;re at that stage, start with Intelligence Starter at $59/mo.
+                        If you&apos;re at that stage, start with Intelligence Starter at $79/mo.
                         It&apos;ll show you which products to push, what keywords to target, and
                         what your competitors are running. Once your ad spend grows and attribution
                         starts getting messy, that&apos;s when Analytics pays for itself many times
@@ -803,12 +811,12 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Starter
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$59/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$79/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
                 Pro
                 <br />
-                <span className="font-normal text-gray-400 text-xs">$129/mo</span>
+                <span className="font-normal text-gray-400 text-xs">$149/mo</span>
               </th>
               <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Enterprise
