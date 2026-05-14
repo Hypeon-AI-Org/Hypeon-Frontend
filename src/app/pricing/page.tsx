@@ -306,15 +306,15 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
+                      <span className="text-2xl font-semibold text-gray-400 line-through mr-1">$99</span>
                       <span className="text-5xl font-bold tracking-[-2px] leading-none">$79</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
-                      <span className="text-sm text-gray-400 line-through ml-2">$99</span>
                     </div>
-                    <div className="text-[13px] text-emerald-600 font-medium mb-1">
-                      20% off - Launch discount
-                    </div>
-                    <div className="text-[13px] text-gray-400 mb-5">
+                    <div className="text-[13px] text-gray-400 mb-2">
                       Billed monthly · No commitment
+                    </div>
+                    <div className="inline-flex items-center self-start px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 text-[12px] font-semibold mb-5">
+                      20% off · Launch Price
                     </div>
                     <a
                       href="https://app.hypeon.ai/hub/checkout?plan=starter"
@@ -355,15 +355,15 @@ export default function PricingPage() {
                       intelligence.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
+                      <span className="text-2xl font-semibold text-gray-400 line-through mr-1">$199</span>
                       <span className="text-5xl font-bold tracking-[-2px] leading-none">$149</span>
                       <span className="text-sm text-gray-400 ml-1">/ month</span>
-                      <span className="text-sm text-gray-400 line-through ml-2">$199</span>
                     </div>
-                    <div className="text-[13px] text-emerald-600 font-medium mb-1">
-                      25% off - Launch discount
-                    </div>
-                    <div className="text-[13px] text-gray-400 mb-5">
+                    <div className="text-[13px] text-gray-400 mb-2">
                       Billed monthly · Save even more annually
+                    </div>
+                    <div className="inline-flex items-center self-start px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 text-[12px] font-semibold mb-5">
+                      25% off · Launch Price
                     </div>
                     <a
                       href="https://app.hypeon.ai/hub/checkout?plan=pro"
