@@ -473,7 +473,7 @@ export default function Hero() {
 
               {/* CTA — hover slide animation only lg+ (avoids sticky/fake hover on touch) */}
               <a
-  href="https://app.hypeon.ai/hub/login"
+  href="https://calendly.com/yash-hypeon/30min?month=2026-03"
   target="_blank"
   rel="noopener noreferrer"
   className="group relative inline-flex items-center gap-1.5 pl-1 pr-3 py-1 sm:gap-3 sm:pl-2 sm:pr-5 sm:py-2 rounded-full bg-black text-white transition-all duration-300 shadow-lg cursor-pointer overflow-hidden min-h-[40px] sm:min-h-[48px]"

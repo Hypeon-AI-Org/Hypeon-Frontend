@@ -409,9 +409,7 @@ export default function PricingPage() {
                     </div>
                     <div className="mb-5" />
                     <a
-                      href="https://calendly.com/yash-hypeon/30min"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="https://app.hypeon.ai/hub/login"
                       className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
                     >
                       Talk to Sales
@@ -610,9 +608,7 @@ export default function PricingPage() {
                     </div>
                     <div className="mb-5" />
                     <a
-                      href="https://calendly.com/yash-hypeon/30min"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="https://app.hypeon.ai/hub/login"
                       className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"                    >
                       Talk to Sales
                     </a>
