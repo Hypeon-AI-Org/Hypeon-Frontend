@@ -23,7 +23,7 @@ export default function Footer() {
       className: "lg:col-span-3 xl:col-span-3",
       links: [
         { label: "About Us", href: "/about" },
-        { label: "Contact Us", href: "mailto:info@hypeon.ai" },
+        { label: "Contact Us", href: "https://calendly.com/yash-hypeon/30min?month=2026-03" },
         { label: "Privacy", href: "/privacy-policy" },
       ],
     },
@@ -88,7 +88,13 @@ export default function Footer() {
                     {link.href.startsWith("http") ||
                     link.href.startsWith("#") ||
                     link.href.startsWith("mailto:") ? (
-                      <a href={link.href} className={linkClass}>
+                      <a
+                        href={link.href}
+                        className={linkClass}
+                        {...(link.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
                         {link.label}
                       </a>
                     ) : (
