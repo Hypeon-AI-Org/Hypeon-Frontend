@@ -5,6 +5,7 @@ import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
+import CompetitorReportPopup from "@/components/CompetitorReportPopup";
 import GtmOnConsent from "@/components/GtmOnConsent";
 import MetaPixelOnConsent from "@/components/MetaPixelOnConsent";
 import MetaPixelPageView from "@/components/MetaPixelPageView";
@@ -129,6 +130,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <ScrollRevealSetup />
           {children}
           <CookieBanner />
+          <CompetitorReportPopup />
           <GtmOnConsent />
           <MetaPixelOnConsent />
           <MetaPixelPageView />
