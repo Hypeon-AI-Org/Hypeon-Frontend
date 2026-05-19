@@ -37,7 +37,7 @@ export function buildCompetitorReportHtml(opts: CompetitorReportTemplateOpts): s
   const signupBlock =
     signup.length > 0
       ? `<p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;">
-          If you would like to see the full report, feel free to create an account here and pick a 7-day free trial:
+          If you would like to see the full report, feel free to create an account here and pick a 3-day free trial:
           <a href="${escapeHtml(signup)}" style="color:#2563eb;text-decoration:underline;">${escapeHtml(signup)}</a>
         </p>`
       : `<p style="margin:0 0 16px 0;font-size:16px;line-height:1.6;">
@@ -69,13 +69,15 @@ export function buildCompetitorReportHtml(opts: CompetitorReportTemplateOpts): s
           <p style="margin:0 0 16px 0;">Hi there,</p>
           <p style="margin:0 0 16px 0;">
             Thanks for the submission on Hypeon’s website! We have generated a report of
-            <strong>${name}</strong>, :
+            <strong>${name}</strong> :
           </p>
          
           ${signupBlock}
           ${facebookBlock}
           <p style="margin:0 0 16px 0;">Please let me know if you have any questions!</p>
-          <p style="margin:0 0 24px 0;">Warm regards,</p>
+          <p style="margin:0 0 4px 0;">Warm regards,</p>
+          <p style="margin:0;font-weight:bold;">Yash Kumar</p>
+          <p style="margin:0 0 24px 0;">Hypeon AI</p>
           <p style="margin:0;font-size:12px;line-height:1.5;color:#6b7280;">
             You’re receiving this because someone requested a competitor report using this email address on our site.
           </p>
