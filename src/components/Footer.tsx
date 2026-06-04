@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8 lg:pb-20 lg:pt-24">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-14 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
           {/* Brand — spans full width on mobile, both sm columns, then ~half on xl */}
-          <div className="sm:col-span-2 lg:col-span-3 xl:col-span-3">
+          <div className="sm:col-span-2 lg:col-span-6 xl:col-span-6">
             <div className="mb-5 flex items-center gap-2.5">
               <Image
                 src={logo}
