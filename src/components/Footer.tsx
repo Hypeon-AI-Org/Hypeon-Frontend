@@ -27,11 +27,6 @@ export default function Footer() {
         { label: "Privacy", href: "/privacy-policy" },
       ],
     },
-    {
-      title: "Resources",
-      className: "lg:col-span-3 xl:col-span-3",
-      links: [{ label: "Blog", href: "/blog" }],
-    },
   ] as const;
 
   return (
