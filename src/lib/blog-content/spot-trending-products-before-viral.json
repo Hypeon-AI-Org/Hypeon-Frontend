@@ -1,0 +1,129 @@
+{
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "The difference between a profitable trend play and a painful one is almost entirely about timing. By the time a product is obviously trending — when it's all over your feed and every dropshipper is selling it — the margin is gone, the ad costs have spiked, and you're buying inventory at the top. The winners got in three weeks earlier, while the signal was still quiet."
+    },
+    {
+      "type": "paragraph",
+      "text": "The good news: trends are not random. They follow a recognizable progression of leading indicators. Learn to read those indicators and you stop chasing trends and start anticipating them."
+    },
+    {
+      "type": "heading",
+      "text": "Why \"it's trending\" is already too late"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most product research tools tell you what's currently popular. That's a lagging indicator — by definition it reports the past. A product that shows up as \"trending\" in a tool has, by then, already attracted competitors, driven up ad CPMs, and started its slide down the back of the curve."
+    },
+    {
+      "type": "paragraph",
+      "text": "Leading indicators are different. They tell you what's about to happen. The whole game is shifting your attention from \"what's popular now\" to \"what's accelerating now.\" Acceleration precedes popularity by weeks — and those weeks are where the money is."
+    },
+    {
+      "type": "heading",
+      "text": "The 4-signal framework"
+    },
+    {
+      "type": "paragraph",
+      "text": "A real trend lights up all four of these. A fad or a dead end usually lights up one or two and fizzles."
+    },
+    {
+      "type": "subheading",
+      "text": "Signal 1 — Search velocity (not search volume)"
+    },
+    {
+      "type": "paragraph",
+      "text": "Don't ask \"how many people are searching for this?\" Ask \"how fast is that number changing?\" A keyword going from 200 to 1,400 monthly searches in three weeks is a far stronger buy signal than one sitting flat at 50,000. Velocity — the rate of change — is the leading edge of demand. Tools like Google Trends are useful here, but treat them as one input, because search often lags social discovery for visual D2C products."
+    },
+    {
+      "type": "image",
+      "src": "/images/marketfinder.webp",
+      "alt": "HypeOn market-gap board surfacing trending and untapped products",
+      "caption": "The open lane: rising demand with still-thin competition."
+    },
+    {
+      "type": "subheading",
+      "text": "Signal 2 — TikTok engagement curves"
+    },
+    {
+      "type": "paragraph",
+      "text": "For D2C, TikTok is usually the earliest place a product trend becomes visible — and HypeOn's data puts TikTok trend velocity at roughly 3.2x Instagram's. What you're looking for isn't a single viral video; it's a pattern: multiple unrelated creators posting about the same product, with view and engagement counts climbing video-over-video. One viral hit is luck. A rising curve across creators is a trend forming. (Learn to separate a genuine organic curve from paid amplification — that distinction is its own skill.)"
+    },
+    {
+      "type": "subheading",
+      "text": "Signal 3 — Competitor saturation (you want this LOW)"
+    },
+    {
+      "type": "paragraph",
+      "text": "This is the signal most people read backwards. High competitor activity feels reassuring — \"validation!\" — but it actually means you're late. The sweet spot is rising demand with still-thin competition. Check how many brands are already running ads on the product (via the Meta Ad Library and TikTok). Few advertisers + climbing demand = open lane. Many advertisers + climbing demand = a knife fight you're entering late."
+    },
+    {
+      "type": "subheading",
+      "text": "Signal 4 — Supply-chain readiness"
+    },
+    {
+      "type": "paragraph",
+      "text": "A trend you can't fulfill is a trend you can only watch. Before you commit, confirm the product is actually sourceable at a workable cost and lead time. The most painful miss in this game isn't picking the wrong product — it's picking the right one and being unable to get inventory before the window closes. Validate sourcing in parallel with the other three signals, not after."
+    },
+    {
+      "type": "heading",
+      "text": "How the signals work together"
+    },
+    {
+      "type": "paragraph",
+      "text": "The framework's power is in the intersection, not any single line."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**All four aligned ->** highest-conviction opportunity. Demand accelerating, social proof building, lane still open, and you can actually supply it. This is the three-weeks-early window.",
+        "**Search + TikTok up, but competition already high ->** you found it, but late. Margins will be thin; only enter with a genuine differentiation angle.",
+        "**TikTok up, search flat ->** very early, possibly too early, or a fad that won't convert to purchase intent. Watch, don't buy yet.",
+        "**Everything up except supply ->** a great idea you can't execute. Keep sourcing; revisit when lead times improve."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Reading four noisy signals across multiple platforms by hand, every week, is where most founders give up. This is precisely what HypeOn's trend discovery is built for — collapsing search velocity, TikTok engagement curves, competitor saturation, and demand momentum into a single read so you catch the alignment about three weeks before it goes mainstream, while there's still margin in the move."
+    },
+    {
+      "type": "heading",
+      "text": "A simple weekly routine"
+    },
+    {
+      "type": "paragraph",
+      "text": "You don't need to monitor everything constantly. You need a disciplined cadence:"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Once a week, scan your category for keywords whose velocity (not volume) is climbing.",
+        "Cross-check the top candidates against TikTok: are multiple creators driving a rising engagement curve?",
+        "Check the lane: how crowded is the Meta/TikTok ad space for it already?",
+        "Validate supply for anything that clears the first three.",
+        "Shortlist and watch. Most candidates will fizzle — that's fine. You're waiting for the rare one where all four align."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "How do I find trending products before they go viral?",
+      "a": "Track leading indicators rather than lagging ones: rising search velocity, accelerating TikTok engagement across multiple creators, low-but-rising competitor saturation, and confirmed supply availability. When all four align, you've typically found a product roughly three weeks before it peaks."
+    },
+    {
+      "q": "Is Google Trends good for finding trending products?",
+      "a": "It's useful for measuring search velocity, but it tends to lag social discovery for visual D2C products. Use it alongside TikTok signals rather than on its own — TikTok usually surfaces D2C trends earlier."
+    },
+    {
+      "q": "Why is low competition a good sign and not a warning?",
+      "a": "Because high competition means the trend is already widely known — you'd be entering late, into higher ad costs and thinner margins. Rising demand with thin competition is the open lane where you can still capture margin."
+    },
+    {
+      "q": "How early can you realistically spot a trend?",
+      "a": "With disciplined multi-signal tracking, roughly three weeks before a product hits mainstream awareness. Earlier than that and the signal is usually too noisy to distinguish a real trend from a fad."
+    }
+  ]
+}

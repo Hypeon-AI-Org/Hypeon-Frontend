@@ -1,0 +1,136 @@
+{
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Every founder asks the same question eventually: how much is my biggest competitor actually spending to win? The honest answer is that nobody outside that company can see the invoice. But \"you can't see the exact number\" and \"you can't estimate the number\" are two very different statements. With the right public sources and a consistent way of reading them, a careful estimate lands close enough to make real decisions."
+    },
+    {
+      "type": "paragraph",
+      "text": "This is the hub post. Each channel below has its own deep-dive guide; here you get the cross-channel method and a framework for stitching the pieces together."
+    },
+    {
+      "type": "heading",
+      "text": "What each method can and can't tell you"
+    },
+    {
+      "type": "paragraph",
+      "text": "Before the channel walkthroughs, calibrate your expectations. The public archives were mostly built for regulatory transparency, not competitive intelligence — so they show you what's running, not what it costs or whether it's working."
+    },
+    {
+      "type": "table",
+      "headers": ["Source", "What it reveals", "What it hides"],
+      "rows": [
+        ["Meta Ad Library", "Every active ad, run dates, creative, placements", "Exact spend, audience size, performance"],
+        ["Google Ads Transparency Center", "Verified advertiser's active Search/YouTube/Display creatives, formats, regions, run dates", "Spend, keywords, impressions, performance"],
+        ["TikTok Creative Center", "Top-performing ads by region/industry, engagement signals", "Per-advertiser spend, full ad inventory"],
+        ["Traffic estimators (SimilarWeb, etc.)", "Traffic volume, channel mix, paid-vs-organic split", "Precise spend, true conversion data"],
+        ["Aggregator (e.g. HypeOn)", "Cross-channel ad activity + spend estimates in one view", "(combines the above; estimate, not invoice)"]
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "key",
+      "text": "The single most important mindset shift: stop hunting for a spend number and start reading spend signals. Spend always leaves a footprint. Your job is to read the footprint."
+    },
+    {
+      "type": "heading",
+      "text": "The four signals that turn ads into spend estimates"
+    },
+    {
+      "type": "paragraph",
+      "text": "Across every channel, four observable signals do most of the work:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Ad volume.** An advertiser running 8 active creatives is operating at a different budget tier than one running 800. Raw count is a crude but reliable order-of-magnitude indicator.",
+        "**Run duration.** Ads that have run for 60–90+ days are almost always validated winners — nobody keeps paying to serve a loser. Long-running ads mark where the money concentrates.",
+        "**Creative refresh rate.** A brand pumping out new variations weekly is spending enough to burn through creative fast (high frequency forces refresh). Slow refresh suggests a lighter budget or a single hero creative.",
+        "**Reach and placement proxies.** Number of placements, geographies targeted, and (where visible) reach bands all scale with budget."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Read those four signals consistently across channels and you can rank competitors by spend tier and estimate the gap between you and them — usually to within a sensible margin."
+    },
+    {
+      "type": "image",
+      "src": "/images/Traffic.webp",
+      "alt": "Marketing channels flowing traffic into products, with a traffic-over-time chart",
+      "caption": "Layering traffic estimates over ad-archive signals shows where the budget concentrates."
+    },
+    {
+      "type": "heading",
+      "text": "Channel by channel"
+    },
+    {
+      "type": "subheading",
+      "text": "Meta (Facebook & Instagram) — the richest free source"
+    },
+    {
+      "type": "paragraph",
+      "text": "The Meta Ad Library is public and shows every active ad a brand runs, with run dates and placements. This is your best single window. Don't just look at what they're running — count active creatives, sort by how long each has run, and watch how fast new variations appear. A brand with 40 active creatives, several running 90+ days, refreshed weekly, is spending materially. See the dedicated Meta guide for turning these signals into a spend range within ~10%."
+    },
+    {
+      "type": "subheading",
+      "text": "Google Search & YouTube — strategy hides in the keywords"
+    },
+    {
+      "type": "paragraph",
+      "text": "The Google Ads Transparency Center (adstransparency.google.com) launched in 2023 and shows verified advertisers' active creatives across Search, YouTube, Display, and Gmail, with formats, regions, and run dates. It won't show keywords or spend — so pair it with a keyword/impression-share tool to map their keyword universe first, then estimate spend from there. Spend on Search is downstream of keyword strategy: map the keywords, and the budget estimate follows. Full method in the Google guide."
+    },
+    {
+      "type": "subheading",
+      "text": "TikTok — where \"organic\" is often paid"
+    },
+    {
+      "type": "paragraph",
+      "text": "TikTok Creative Center surfaces top-performing ads by industry and region. The trap on TikTok is that a lot of what looks organic is paid amplification. Learn to tell an algorithmic engagement curve from a paid-boosted one, and you'll spot competitors scaling on TikTok long before it's obvious elsewhere — a channel many D2C founders still under-monitor. Full method in the TikTok guide."
+    },
+    {
+      "type": "subheading",
+      "text": "The underused channels — Pinterest and Bing"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most competitive research stops at Meta and Google. That's exactly why Pinterest and Microsoft/Bing are worth a look: CPMs and CPCs run lower, competition is thinner, and the brands quietly scaling there are easy to miss. If a competitor is investing in these, it's a signal about their margin strategy worth understanding."
+    },
+    {
+      "type": "heading",
+      "text": "Stitching it together: the spend-tier estimate"
+    },
+    {
+      "type": "paragraph",
+      "text": "Here's how to combine everything into one usable estimate."
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "**Inventory each channel.** For your top 3 competitors, record active ad counts, longest-running creatives, and refresh cadence per channel.",
+        "**Add the traffic layer.** Use a traffic estimator to see each competitor's paid-vs-organic split and which channels drive their visits. This tells you where the budget is concentrated, not just where ads exist.",
+        "**Assign spend tiers.** Translate signals into tiers (e.g., <$10k/mo, $10–50k, $50–250k, $250k+). You're not chasing false precision — a tier plus a trend is enough to act on.",
+        "**Track the trend, not the snapshot.** A competitor's ad count jumping 40% in two weeks is a louder signal than any single-day total. Re-measure monthly."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can I see exactly how much a competitor spends on ads?",
+      "a": "No. There is no public tool that reveals a competitor's actual ad budget. You can estimate it from public ad archives and observable signals — ad volume, run duration, creative refresh rate, and reach proxies — which is enough to rank competitors by spend tier and track their direction."
+    },
+    {
+      "q": "Is it legal to research a competitor's ads?",
+      "a": "Yes. The Meta Ad Library, Google Ads Transparency Center, and TikTok Creative Center are public tools that any person can use. You're reading information advertisers are required to disclose. There's nothing covert about it."
+    },
+    {
+      "q": "Which channel reveals the most about competitor spend?",
+      "a": "Meta's Ad Library is the richest free source because it shows every active ad with run dates and placements. Google's Transparency Center is strong for creative and format intelligence but hides keywords and spend, so pair it with a keyword tool."
+    },
+    {
+      "q": "How accurate are competitor ad spend estimates?",
+      "a": "With consistent signal-reading, you can typically place a competitor in the right spend tier and estimate the gap to your own budget within a useful margin. Treat estimates as ranges and watch trends over time rather than fixating on a single dollar figure."
+    }
+  ]
+}

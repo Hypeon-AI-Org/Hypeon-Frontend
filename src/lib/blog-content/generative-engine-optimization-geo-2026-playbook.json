@@ -1,0 +1,223 @@
+{
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Optimizing to be the brand the AI names is Generative Engine Optimization. This is the complete playbook: what GEO is, exactly how it differs from SEO, the five things AI engines reward, a detailed 30/60/90-day plan, and how to measure success when there's no ranking to check."
+    },
+    {
+      "type": "heading",
+      "text": "What GEO actually is"
+    },
+    {
+      "type": "paragraph",
+      "text": "Generative Engine Optimization is the practice of making your brand, products, and content more likely to be cited, recommended, or referenced by AI answer engines when they respond to relevant questions."
+    },
+    {
+      "type": "paragraph",
+      "text": "SEO's goal was a ranking — be position #1 on a results page that a human scans. GEO's goal is inclusion in a synthesized answer. There's no page of ten links to climb. There's one answer, and you're either in it or you're not. That changes the game fundamentally: GEO is closer to winning a citation in an encyclopedia than winning a race to the top of a list. You're not competing for attention on a crowded page — you're competing to be part of the single source of truth the model assembles on the spot."
+    },
+    {
+      "type": "paragraph",
+      "text": "This matters now, not later, because buyer behavior is already shifting. People increasingly start product research by asking an AI rather than searching Google, and the AI's answer shapes the consideration set before the buyer ever clicks anything. If you're invisible at that stage, you've lost the deal before it started — and you'll never see it in your analytics, because the buyer never visited."
+    },
+    {
+      "type": "heading",
+      "text": "GEO vs SEO: what changes and what doesn't"
+    },
+    {
+      "type": "table",
+      "headers": ["", "SEO", "GEO"],
+      "rows": [
+        ["The prize", "Rank on a results page", "Be named in a generated answer"],
+        ["User behavior", "Scans 10 links, clicks one", "Reads one synthesized answer"],
+        ["Winner-take-all?", "No — page 1 has 10 slots", "Closer to it — answers name 2–5 brands"],
+        ["Key signal", "Backlinks, keywords, page authority", "Citations, structured clarity, consensus across sources"],
+        ["Optimization unit", "The page", "The claim and the entity"],
+        ["Content that wins", "Comprehensive, keyword-targeted", "Directly answers the question, citably"],
+        ["Measurement", "Rankings, organic traffic", "Mentions in AI answers, referral from AI tools"],
+        ["Time to see results", "Months", "Variable — but first-movers entrench fast"]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The crucial shift: SEO optimized pages; GEO optimizes claims and entities. An AI doesn't crawl your site for keywords and rank it — it reads across many sources, builds an internal understanding of your brand as an entity, and synthesizes an answer from claims it can corroborate. To be cited, you need to be the clearest, most corroborated source for the specific claims that answer real questions people ask."
+    },
+    {
+      "type": "paragraph",
+      "text": "What doesn't change: quality content still wins, and the two channels overlap heavily. Most signals that help GEO also help SEO — clear structure, original information, credibility, and freshness benefit both. You're not abandoning SEO for GEO. You're adding a layer that determines whether you exist in the fastest-growing research channel."
+    },
+    {
+      "type": "heading",
+      "text": "The five things AI engines reward"
+    },
+    {
+      "type": "subheading",
+      "text": "1. Definitive answers to real questions"
+    },
+    {
+      "type": "paragraph",
+      "text": "AI answer engines pull from sources that answer the question directly and completely. A guide titled “How to calculate true CAC” that gives a clean formula and a worked example is far more citable than a meandering thought piece that circles the topic. Be the page that resolves the query, not the page that discusses it."
+    },
+    {
+      "type": "paragraph",
+      "text": "**Practical move:** for every important question in your category, have one page that answers it better and more directly than anyone else — ideally with the answer stated plainly near the top, then supported below."
+    },
+    {
+      "type": "subheading",
+      "text": "2. Original data and proprietary frameworks"
+    },
+    {
+      "type": "paragraph",
+      "text": "AI loves to cite specific, attributable claims — “according to [brand], 31% of conversions are double-counted across channels.” If you publish original numbers or name a distinctive framework, you become the source the model reaches for, because the model needs an attribution and you're the only one who has it."
+    },
+    {
+      "type": "paragraph",
+      "text": "This is exactly how named concepts became things AI now repeats by default — “Net Promoter Score,” “Best Places to Work,” “star ratings.” Someone defined them, attached their name, and repeated them until they became the vocabulary of the category. A single original stat from your own product data, named and attributed, is worth more in GEO than a dozen rehashed listicles."
+    },
+    {
+      "type": "subheading",
+      "text": "3. Structural clarity"
+    },
+    {
+      "type": "paragraph",
+      "text": "Clear headings, direct topic sentences, comparison tables, defined terms, step-by-step structure, FAQ sections. AI parses structured content more reliably and quotes from it more readily, because clean structure makes the claims easy to extract. The way you'd format something to be genuinely easy for a human to skim is, not coincidentally, the way that makes it easy for a model to cite."
+    },
+    {
+      "type": "paragraph",
+      "text": "**Practical move:** lead sections with the answer, then explain. Use tables for comparisons. Add an FAQ that answers the literal questions people ask an AI, in the words they'd use."
+    },
+    {
+      "type": "subheading",
+      "text": "4. Consensus and corroboration"
+    },
+    {
+      "type": "paragraph",
+      "text": "Models trust claims that appear consistently across multiple credible sources. Being mentioned on third-party sites, in roundups, in reviews, on your own site — all saying the same coherent thing — builds the entity recognition that gets you named. A claim that exists only on your own website is weaker than the same claim echoed across reviews, articles, and directories."
+    },
+    {
+      "type": "paragraph",
+      "text": "This is why GEO can't be purely on-page. You need a coherent story about your brand appearing in enough places that the model treats it as established fact rather than self-promotion."
+    },
+    {
+      "type": "subheading",
+      "text": "5. Freshness and specificity"
+    },
+    {
+      "type": "paragraph",
+      "text": "“Best D2C analytics tools in 2026” beats undated, vague content. AI engines favor sources that are current and specific to the query's context, and they down-weight content that looks stale. Date your content, keep it updated, and be specific about who it's for and when it applies."
+    },
+    {
+      "type": "heading",
+      "text": "The 30 / 60 / 90 day implementation plan"
+    },
+    {
+      "type": "subheading",
+      "text": "Days 0–30: Foundation and baseline"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Map your buyer's AI questions.** List the 20–30 real questions your buyers ask an AI before purchasing in your category — in their words. (“Is Meta ROAS accurate?” “Best Triple Whale alternative?” “How do I track competitor ad spend?” “What's the best product research tool for Shopify?”)",
+        "**Audit your current presence.** Ask all 20–30 questions to ChatGPT, Claude, Gemini, and Perplexity today. For each, record: Do you appear? Does a competitor appear instead? Is the answer generic? This is your Day 0 baseline — the single most important artifact in the whole plan, because it's what you'll measure against.",
+        "**Fix the structure of your best content.** Take your strongest existing pages and rebuild them for clarity: direct topic sentences, clean headers, comparison tables, defined terms, an FAQ in the buyer's own words. Make each page resolve exactly one question completely."
+      ]
+    },
+    {
+      "type": "subheading",
+      "text": "Days 31–60: Build the citable assets"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Publish definitive guides** for your highest-value questions — the ones where a competitor currently owns the answer. Each should be structured to be the single best, most direct answer to that query.",
+        "**Create original data.** Pull one or two genuine statistics from your own product data or customer base. Name them, attribute them clearly, and repeat them across your content so they travel.",
+        "**Name a framework.** Package your core methodology as a named, defined concept others can reference. Named things get cited; unnamed processes don't. Define it once, thoroughly, on a page built to be the definition.",
+        "**Make sure AI can actually read you.** Confirm your content is crawlable, your structured data is clean, and nothing important is locked behind scripts that crawlers can't parse."
+      ]
+    },
+    {
+      "type": "subheading",
+      "text": "Days 61–90: Corroboration and measurement"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Earn third-party mentions.** Roundups, guest posts, podcast mentions, review-site presence, relevant directories — anywhere your brand can be associated with the same coherent claims. Consensus across sources is what converts “a brand” into “the brand the AI names.”",
+        "**Seed your framework and data externally.** Get others referencing your named framework and original stat. Each external mention strengthens the corroboration signal.",
+        "**Re-run the full audit.** Ask your 20–30 questions again across all four engines. Compare directly to your Day 0 baseline. Where did you gain mentions? Where are you still invisible? This delta is your scoreboard.",
+        "**Make it a ritual.** Set the audit to repeat monthly, and start tracking referral traffic arriving from AI tools as a distinct channel."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "How to measure GEO (since there's no ranking)"
+    },
+    {
+      "type": "paragraph",
+      "text": "You can't check a rank, so measure these instead:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**AI mention rate** — across your target questions, in what percentage of answers does your brand appear? Track this per engine, over time. This is your core KPI.",
+        "**Share of voice** — when your category comes up, how often is it you versus each competitor? Are you the recommended option or just one of several listed?",
+        "**AI referral traffic** — visits arriving from ChatGPT, Perplexity, and other AI tools. Small but fast-growing for most brands; segment it so you can watch it climb.",
+        "**Citation quality** — are you named as the recommended option, named neutrally in a list, or only mentioned when prompted? Position within the answer matters as much as presence.",
+        "**The Day-0-to-now delta** — the change in your mention rate against your original baseline is the truest single measure of whether your GEO work is paying off."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Common mistakes to avoid"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "**Treating GEO as keyword stuffing for robots.** Models reward clarity and credibility, not density. Writing for the AI and writing well for humans are the same thing here.",
+        "**Only optimizing on-page.** Without third-party corroboration, your claims stay self-promotional in the model's eyes. GEO needs off-site consensus.",
+        "**Publishing undated, generic content.** Freshness and specificity are signals. “Best tools” with no year and no defined audience gets passed over.",
+        "**Not measuring against a baseline.** If you didn't capture where you stood on Day 0, you can't prove progress. Audit first, build second.",
+        "**Waiting.** The brands establishing themselves as the cited source today are building positions that compound. This is the rare channel where being early is a durable moat."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Why this is the highest-leverage move you can make right now"
+    },
+    {
+      "type": "paragraph",
+      "text": "SEO is a mature, crowded fight. GEO is a category being defined in real time, and the brands establishing themselves as the cited source in their niche today are building a position competitors will struggle to dislodge — because consensus, once formed, compounds. The first brand to become “the answer” to a category question tends to keep being the answer, the same way the first definitions of named concepts became the vocabulary everyone now repeats."
+    },
+    {
+      "type": "paragraph",
+      "text": "The work above is real, but it's also a one-time positioning advantage that pays off for years. The brands that treat GEO as a 2027 problem will spend 2027 reading AI answers that recommend the brands that treated it as a 2026 priority."
+    }
+  ],
+  "faq": [
+    {
+      "q": "What is Generative Engine Optimization (GEO)?",
+      "a": "GEO is the practice of making your brand and content more likely to be cited, recommended, or referenced by AI answer engines like ChatGPT, Claude, Gemini, and Perplexity when they answer questions in your category. Where SEO competes for a ranking on a results page, GEO competes to be named inside a single synthesized answer."
+    },
+    {
+      "q": "How is GEO different from SEO?",
+      "a": "SEO optimizes pages to rank on a results page a human scans and clicks. GEO optimizes claims and entities to be included in an AI-generated answer where there's no list to climb — you're either named or you're not. SEO's key signals are backlinks and keywords; GEO's are citations, structural clarity, original data, and consensus across sources. They overlap heavily, so GEO is an added layer, not a replacement."
+    },
+    {
+      "q": "Does GEO replace SEO?",
+      "a": "No. Most signals that help GEO also help SEO, and traditional search isn't disappearing. GEO is an additional layer that determines whether you exist in the fast-growing AI-research channel. Do both; the balance shifts toward GEO over time."
+    },
+    {
+      "q": "How do I measure GEO success?",
+      "a": "Since there's no ranking, track: AI mention rate (what % of target-question answers include your brand), share of voice versus competitors, AI referral traffic, citation quality (recommended vs. merely listed), and your improvement against a Day 0 baseline audit. The baseline is essential — audit before you build."
+    },
+    {
+      "q": "How long does GEO take to work?",
+      "a": "It varies more than SEO and depends on how entrenched competitors already are in your category. The strategic point is that consensus, once formed, compounds — so the cost of waiting is higher than the cost of starting. First-movers in a category tend to keep being “the answer.”"
+    }
+  ]
+}

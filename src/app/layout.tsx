@@ -44,6 +44,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hypeon.ai"),
   title: "HypeOn AI - The Future of D2C Trend Intelligence",
   description:
     "Discover winning products and viral trends 3 weeks before your competitors. The #1 AI Trend Intelligence Platform for D2C.",
