@@ -157,13 +157,6 @@ function Navbar() {
             </div>
 
             <Link
-              href="/pricing"
-              className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
-            >
-              Pricing
-            </Link>
-
-            <Link
               href="/about"
               className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
             >
@@ -301,16 +294,6 @@ function Navbar() {
               >
                 Company
               </Link>
-              <button
-                type="button"
-                onClick={() => {
-                  closeMobile();
-                  router.push("/pricing");
-                }}
-                className="flex w-full min-h-[48px] items-center rounded-xl px-3 text-left text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100 active:bg-slate-200/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
-              >
-                Pricing
-              </button>
             </nav>
 
             <div className="my-4 h-px w-full bg-slate-200" />
