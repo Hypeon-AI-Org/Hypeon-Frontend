@@ -82,7 +82,7 @@ export default async function BlogPostPage({
         <div className="mx-auto mt-10 max-w-6xl px-5 sm:px-6 lg:grid lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
           {/* Sticky TOC (desktop) */}
           <aside className="hidden lg:block">
-            <div className="sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto pb-4">
+            <div data-lenis-prevent className="sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto pb-4">
               <TableOfContents
                 items={toc}
                 cta={{

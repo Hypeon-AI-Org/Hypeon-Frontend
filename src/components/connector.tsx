@@ -22,21 +22,29 @@ const FloatingCard = ({
     const card = cardRef.current;
     if (!card) return;
 
+    let rafId = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      card.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        const rect = card.getBoundingClientRect();
+        const x = clientX - rect.left - rect.width / 2;
+        const y = clientY - rect.top - rect.height / 2;
+        card.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0)`;
+      });
     };
 
     const handleMouseLeave = () => {
-      card.style.transform = 'translate(0, 0)';
+      card.style.transform = 'translate3d(0, 0, 0)';
     };
 
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };

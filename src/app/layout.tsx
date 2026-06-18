@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import { cookies } from "next/headers";
 import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
+import SmoothScroll from "@/components/SmoothScroll";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
 import CompetitorReportPopup from "@/components/CompetitorReportPopup";
@@ -15,6 +17,12 @@ import {
   META_PIXEL_ID,
   META_PIXEL_SCRIPT_ID,
 } from "@/lib/metaPixel";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 const CONSENT_KEY = "hypeon_cookie_consent_v1";
 type ConsentCookie = {
@@ -76,7 +84,7 @@ export default async function RootLayout({
   );
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={inter.variable}>
       <head>
         <Script id="google-consent-mode-default" strategy="beforeInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -101,7 +109,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {getMetaPixelBootstrapScript()}
           </Script>
         )}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased selection:bg-brand-500 selection:text-white relative font-sans ">
@@ -128,6 +135,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </noscript>
         )}
         <ScaleProvider>
+          <SmoothScroll />
           <ScrollRevealSetup />
           {children}
           <CookieBanner />

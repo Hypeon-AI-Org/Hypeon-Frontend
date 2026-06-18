@@ -260,18 +260,18 @@ export default function Products() {
                                         </div>
                                         <div className="grid grid-cols-2 gap-3 mb-6">
                                             <div className="aspect-[7/16] bg-slate-100 rounded-xl overflow-hidden relative group shadow-inner">
-                                                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80" alt="Model" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                                <Image src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80" alt="Model" fill sizes="(max-width: 768px) 45vw, 220px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
                                                 <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                                                    <div className="w-8 h-8 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center shadow-lg"><Play className="w-3 h-3 text-white fill-white" /></div>
+                                                    <div className="w-8 h-8 rounded-full bg-white/60 flex items-center justify-center shadow-lg"><Play className="w-3 h-3 text-white fill-white" /></div>
                                                 </div>
-                                                <div className="absolute bottom-2 left-2 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-md text-[8px]  text-slate-800">Tommy John</div>
+                                                <div className="absolute bottom-2 left-2 px-2 py-1 bg-white/95 rounded-md text-[8px]  text-slate-800">Tommy John</div>
                                             </div>
                                             <div className="aspect-[7/16] bg-slate-100 rounded-xl overflow-hidden relative group shadow-inner">
-                                                <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=600&q=80" alt="Model" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                                <Image src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=600&q=80" alt="Model" fill sizes="(max-width: 768px) 45vw, 220px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
                                                 <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                                                    <div className="w-8 h-8 rounded-full bg-white/40 backdrop-blur-md flex items-center justify-center shadow-lg"><Play className="w-3 h-3 text-white fill-white" /></div>
+                                                    <div className="w-8 h-8 rounded-full bg-white/60 flex items-center justify-center shadow-lg"><Play className="w-3 h-3 text-white fill-white" /></div>
                                                 </div>
-                                                <div className="absolute bottom-2 left-2 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-md text-[8px]  text-slate-800">Fashion Nova</div>
+                                                <div className="absolute bottom-2 left-2 px-2 py-1 bg-white/95 rounded-md text-[8px]  text-slate-800">Fashion Nova</div>
                                             </div>
                                         </div>
                                         <button className="w-full mt-auto py-4 bg-black text-white text-[11px] rounded-xl uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-black/10">

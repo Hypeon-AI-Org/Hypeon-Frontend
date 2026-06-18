@@ -177,7 +177,7 @@ export default function CompetitorReportLead() {
               className="absolute -inset-[1px] rounded-[1.15rem] bg-gradient-to-br from-emerald-500/25 via-slate-300/20 to-violet-500/20 opacity-80 blur-[2px]"
               aria-hidden
             />
-            <div className="relative rounded-2xl border border-neutral-200/90 bg-white/95 px-4 pb-3 pt-4 shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)] backdrop-blur-md sm:px-8 sm:pb-5 sm:pt-8">
+            <div className="relative rounded-2xl border border-neutral-200/90 bg-white px-4 pb-3 pt-4 shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)] sm:px-8 sm:pb-5 sm:pt-8">
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4 sm:gap-5"

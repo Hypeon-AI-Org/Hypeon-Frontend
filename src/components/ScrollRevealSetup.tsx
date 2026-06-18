@@ -40,24 +40,30 @@ export default function ScrollRevealSetup() {
         elements.forEach((el) => observer.observe(el));
       });
 
+      // Cache parallax nodes once instead of re-querying the DOM on every
+      // scroll frame. Only attach the scroll listener if any exist.
+      const parallaxElements = Array.from(
+        document.querySelectorAll<HTMLElement>('.parallax-slow')
+      );
+
       let ticking = false;
       const handleScroll = () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const parallaxElements = document.querySelectorAll('.parallax-slow');
-            parallaxElements.forEach((el) => {
+            for (const el of parallaxElements) {
               const rect = el.getBoundingClientRect();
-              const speed = 0.3;
-              const yPos = -(rect.top * speed);
-              (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
-            });
+              const yPos = -(rect.top * 0.3);
+              el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            }
             ticking = false;
           });
           ticking = true;
         }
       };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
+      if (parallaxElements.length > 0) {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
 
       cleanup = () => {
         observer.disconnect();

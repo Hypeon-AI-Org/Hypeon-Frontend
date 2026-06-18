@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
+          "var(--font-inter)",
           "Inter",
           "ui-sans-serif",
           "system-ui",
@@ -28,6 +29,7 @@ export default {
           "sans-serif",
         ],
         display: [
+          "var(--font-inter)",
           "Inter",
           "ui-sans-serif",
           "system-ui",
@@ -41,6 +43,7 @@ export default {
           "sans-serif",
         ],
         inter: [
+          "var(--font-inter)",
           "Inter",
           "ui-sans-serif",
           "system-ui",

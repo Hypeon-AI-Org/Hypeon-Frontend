@@ -167,6 +167,7 @@ const Panel1 = () => {
     };
 
     const interval = setInterval(() => {
+      if (document.hidden) return; // don't redraw while the tab is in the background
       s1.current.shift(); s1.current.push(Math.max(8, Math.min(130, s1.current[s1.current.length - 1] + (Math.random() * 14 - 5))));
       s2.current.shift(); s2.current.push(Math.max(5, Math.min(105, s2.current[s2.current.length - 1] + (Math.random() * 10 - 4))));
       draw();
@@ -287,6 +288,7 @@ const Panel2 = () => {
     };
 
     const interval = setInterval(() => {
+      if (document.hidden) return; // don't redraw while the tab is in the background
       data.current.shift(); data.current.push(Math.max(20, Math.min(130, data.current[data.current.length - 1] + (Math.random() * 16 - 6))));
       draw();
     }, 1400);

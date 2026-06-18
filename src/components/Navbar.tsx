@@ -48,12 +48,21 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setIsScrolled((prev) => {
+          const next = window.scrollY > 60;
+          return prev === next ? prev : next;
+        });
+        ticking = false;
+      });
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -78,7 +87,7 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 bg-[oklch(0.988_0.0041_91.45)] backdrop-blur-xl border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 bg-[oklch(0.988_0.0041_91.45)] border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
               : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] pl-0 pr-1 sm:pr-5 md:pr-6 lg:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
@@ -227,7 +236,7 @@ function Navbar() {
             ${mobileMenuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-[0.98] opacity-0"}
           `}
         >
-          <div className="overflow-y-auto overscroll-contain px-3 py-3 sm:px-4 sm:py-4">
+          <div data-lenis-prevent className="overflow-y-auto overscroll-contain px-3 py-3 sm:px-4 sm:py-4">
             <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
               Menu
             </p>

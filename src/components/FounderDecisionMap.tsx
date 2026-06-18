@@ -104,9 +104,7 @@ const PRODUCT_SIGNALS_HTML_CSS = `
   -webkit-font-smoothing: antialiased;
 }
 .ps-html-root .ps-outer-card {
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border-radius: 24px;
   padding: 12px;
   width: 100%;
@@ -390,9 +388,7 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
 .ki-html-root .ki-outer-card {
   width: 100%;
   max-width: 900px;
-  background: rgba(255,255,255,0.48);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.65);
   border-radius: 24px;
   padding: 12px;
@@ -814,9 +810,7 @@ const PRICING_INTELLIGENCE_HTML_CSS = `
 .pi-html-root .pi-outer-card {
   width: 100%;
   max-width: 880px;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -1235,9 +1229,7 @@ const AI_INSIGHTS_HTML_CSS = `
   width: 100%;
   max-width: 960px;
   min-width: 0;
-  background: rgba(255,255,255,0.50);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.68);
   border-radius: 26px;
   padding: 12px;
@@ -1677,9 +1669,7 @@ const MARKET_EXPANSION_HTML_CSS = `
   width: 100%;
   max-width: 920px;
   min-width: 0;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -2011,9 +2001,7 @@ const REVENUE_ATTRIBUTION_HTML_CSS = `
   width: 100%;
   max-width: 880px;
   min-width: 0;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -2308,9 +2296,7 @@ const INVENTORY_AI_HTML_CSS = `
   width: 100%;
   max-width: 900px;
   min-width: 0;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -2652,9 +2638,7 @@ const COMPETITOR_SOCIAL_HTML_CSS = `
 .csi-html-root .csi-outer-card {
   width: 100%;
   max-width: 960px;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -3046,9 +3030,7 @@ const AD_INTELLIGENCE_HTML_CSS = `
   width: 100%;
   max-width: 920px;
   min-width: 0;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.82);
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: 24px;
   padding: 12px;
@@ -5671,7 +5653,7 @@ function AnalyticsWorkspacePreview({
       />
 
       <div className={WORKSPACE_PREVIEW_INNER_CENTER}>
-        <div className={`${WORKSPACE_PREVIEW_DASHBOARD_FRAME} max-w-[820px] w-full max-md:mx-auto max-md:my-3 overflow-hidden rounded-xl border border-white/60 bg-[#F2F0E9]/75 backdrop-blur-xl h-auto min-h-0 max-md:min-h-[420px] md:ml-auto md:mr-[-40px] md:my-[40px] md:h-[580px] md:flex-row`}>
+        <div className={`${WORKSPACE_PREVIEW_DASHBOARD_FRAME} max-w-[820px] w-full max-md:mx-auto max-md:my-3 overflow-hidden rounded-xl border border-white/60 bg-[#F2F0E9] h-auto min-h-0 max-md:min-h-[420px] md:ml-auto md:mr-[-40px] md:my-[40px] md:h-[580px] md:flex-row`}>
           {/* Left: chat — warm beige, compact like reference */}
           <div className="flex h-full min-h-0 w-full flex-col border-b border-[#E8E4DC] md:w-[40%] md:border-b-0 md:border-r md:border-[#E8E4DC]">
             <div className="analytics-chat-scroll flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto bg-[#F9F8F3] p-4 sm:p-5">

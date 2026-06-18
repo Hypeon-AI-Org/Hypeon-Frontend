@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useRef } from 'react';
 
 const container = {
   hidden: { opacity: 0 },
@@ -22,6 +23,10 @@ const item = {
 };
 
 export default function TikTokScrollSection() {
+  // Only run the infinite marquee animation while the grid is on screen,
+  // so it doesn't burn CPU (and frame budget) when scrolled away.
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const gridInView = useInView(gridRef, { margin: '200px 0px' });
 
   return (
     <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-14 overflow-hidden font-sans">
@@ -71,11 +76,11 @@ export default function TikTokScrollSection() {
         </motion.div>
 
         {/* AUTO SCROLL GRID */}
-        <div className="relative flex gap-6 h-[620px] overflow-hidden">
+        <div ref={gridRef} className="relative flex gap-6 h-[620px] overflow-hidden">
 
           {/* COLUMN 1 */}
           <motion.div
-            animate={{ y: ["0%", "-50%"] }}
+            animate={gridInView ? { y: ["0%", "-50%"] } : { y: "0%" }}
             transition={{
               duration: 22,
               repeat: Infinity,
@@ -99,7 +104,7 @@ export default function TikTokScrollSection() {
 
           {/* COLUMN 2 */}
           <motion.div
-            animate={{ y: ["0%", "-50%"] }}
+            animate={gridInView ? { y: ["0%", "-50%"] } : { y: "0%" }}
             transition={{
               duration: 18,
               repeat: Infinity,

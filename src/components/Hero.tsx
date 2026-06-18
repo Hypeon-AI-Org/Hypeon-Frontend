@@ -504,7 +504,7 @@ export default function Hero() {
               }}
             >
               {/* Minimal Header */}
-              <div className="w-full bg-white/80 backdrop-blur-sm border-b border-slate-100/80 px-6 py-3.5 flex items-center justify-between z-20">
+              <div className="w-full bg-white/95 border-b border-slate-100/80 px-6 py-3.5 flex items-center justify-between z-20">
                 <div className="flex items-center gap-2.5">
                   <div className="rounded-full h-[26px] w-[26px] flex items-center justify-center overflow-hidden">
                     <Image

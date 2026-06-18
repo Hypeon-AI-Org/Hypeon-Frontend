@@ -22,17 +22,21 @@ export default function AboutImpact() {
 
     observer.observe(ref.current);
 
+    let ticking = false;
     const handleScroll = () => {
-      if (!ref.current) return;
-
-      const rect = ref.current.getBoundingClientRect();
-
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        setOffset(window.scrollY - ref.current.offsetTop);
-      }
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        ticking = false;
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          setOffset(window.scrollY - ref.current.offsetTop);
+        }
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       observer.disconnect();
@@ -52,7 +56,7 @@ export default function AboutImpact() {
           <div
             className="md:sticky md:top-20"
             style={{
-              transform: `translateY(${translateY}px)`,
+              transform: `translate3d(0, ${translateY}px, 0)`,
               transition: 'transform 0.08s ease-out',
             }}
           >
