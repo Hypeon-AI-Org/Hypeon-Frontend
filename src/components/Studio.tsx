@@ -15,23 +15,25 @@ import MediaCarousel, { MEDIA, MarqueeVideo } from "./MediaCarousel";
    mouse / scroll parallax on the whole field.
 ============================================================ */
 
+// Real ad creatives from the marketer.com/ember hero, downloaded + optimized
+// into /public/hero (webp, ~520px wide) so they serve from our own domain.
 const CREATIVE_IMAGES = [
-    "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1469827160215-9d29e96e72f4?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?w=400&auto=format&fit=crop&q=70",
-    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&auto=format&fit=crop&q=70",
+    "/hero/ember-01.webp",
+    "/hero/ember-02.webp",
+    "/hero/ember-03.webp",
+    "/hero/ember-04.webp",
+    "/hero/ember-05.webp",
+    "/hero/ember-06.webp",
+    "/hero/ember-07.webp",
+    "/hero/ember-08.webp",
+    "/hero/ember-09.webp",
+    "/hero/ember-10.webp",
+    "/hero/ember-11.webp",
+    "/hero/ember-12.webp",
+    "/hero/ember-13.webp",
+    "/hero/ember-14.webp",
+    "/hero/ember-15.webp",
+    "/hero/ember-16.webp",
 ];
 
 /* Scatter field — positions in % of the viewport, tuned to the reference:
@@ -315,47 +317,55 @@ function StudioScoreboard() {
 
 const INDUSTRIES = ["Fashion", "Beauty", "Food & Beverage", "Home", "Wellness"] as const;
 
+// Real per-industry ad creatives from the marketer.com/ember "One engine.
+// Every industry." section, downloaded + optimized into /public/hero/ind
+// (webp). Each category keeps its own creatives, placed in the same grid.
 const INDUSTRY_IMAGES: Record<(typeof INDUSTRIES)[number], string[]> = {
     Fashion: [
-        "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=500&auto=format&fit=crop&q=75",
+        "/hero/ind/fashion-1.webp",
+        "/hero/ind/fashion-2.webp",
+        "/hero/ind/fashion-3.webp",
+        "/hero/ind/fashion-4.webp",
+        "/hero/ind/fashion-1.webp",
     ],
     Beauty: [
-        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=500&auto=format&fit=crop&q=75",
+        "/hero/ind/beauty-1.webp",
+        "/hero/ind/beauty-2.webp",
+        "/hero/ind/beauty-3.webp",
+        "/hero/ind/beauty-4.webp",
+        "/hero/ind/beauty-1.webp",
     ],
     "Food & Beverage": [
-        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1481931098730-318b6f776db0?w=500&auto=format&fit=crop&q=75",
+        "/hero/ind/food-1.webp",
+        "/hero/ind/food-2.webp",
+        "/hero/ind/food-3.webp",
+        "/hero/ind/food-4.webp",
+        "/hero/ind/food-1.webp",
     ],
     Home: [
-        "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&auto=format&fit=crop&q=75",
+        "/hero/ind/home-1.webp",
+        "/hero/ind/home-2.webp",
+        "/hero/ind/home-3.webp",
+        "/hero/ind/home-1.webp",
+        "/hero/ind/home-2.webp",
     ],
     Wellness: [
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=500&auto=format&fit=crop&q=75",
-        "https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=500&auto=format&fit=crop&q=75",
+        "/hero/ind/wellness-1.webp",
+        "/hero/ind/wellness-2.webp",
+        "/hero/ind/wellness-3.webp",
+        "/hero/ind/wellness-4.webp",
+        "/hero/ind/wellness-5.webp",
     ],
+};
+
+// Per-industry hero VIDEO (centre slot), pulled from the marketer.com/ember
+// industry pages (Mux) and optimized into /public/hero/ind-vid.
+const INDUSTRY_VIDEO: Record<(typeof INDUSTRIES)[number], string> = {
+    Fashion: "/hero/ind-vid/fashion.mp4",
+    Beauty: "/hero/ind-vid/beauty.mp4",
+    "Food & Beverage": "/hero/ind-vid/food.mp4",
+    Home: "/hero/ind-vid/home.mp4",
+    Wellness: "/hero/ind-vid/wellness.mp4",
 };
 
 function StudioIndustries() {
@@ -417,13 +427,18 @@ function StudioIndustries() {
                                 transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                                 className={`group overflow-hidden rounded-2xl border border-white/10 ${pos} ${isCenter ? "" : "aspect-[3/4]"}`}
                             >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                    src={src}
-                                    alt={`${active} creative`}
-                                    loading="lazy"
-                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
+                                {isCenter ? (
+                                    // centre slot = the industry video (lazy, pauses on scroll)
+                                    <MarqueeVideo key={active} src={INDUSTRY_VIDEO[active]} />
+                                ) : (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={src}
+                                        alt={`${active} creative`}
+                                        loading="lazy"
+                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                )}
                             </motion.div>
                         );
                     })}

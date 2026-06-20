@@ -147,8 +147,8 @@ function Navbar() {
                     <MegaItem
                       dark={isDark}
                       icon={<Sparkles className="w-5 h-5" />}
-                      title="HypeOn Intelligence"
-                      desc="Predict demand, niches, and winning products."
+                      title="Hypeon Ad Intelligence"
+                      desc="Decode winning competitor ad strategy, trained on 200M+ ads."
                       href="/products"
                       iconBg="bg-[#65D48C]"
                       iconColor="text-black"
@@ -279,8 +279,8 @@ function Navbar() {
                   <div className="space-y-1 border-t border-slate-200 bg-[oklch(0.988_0.0041_91.45)] px-2 pb-2 pt-2">
                     <MobileProductLink
                       icon={<Sparkles className="h-[18px] w-[18px]" />}
-                      title="HypeOn Intelligence"
-                      desc="Predict demand, niches, and winning products."
+                      title="Hypeon Ad Intelligence"
+                      desc="Decode winning competitor ad strategy, trained on 200M+ ads."
                       iconWrapClass="bg-[#65D48C] text-black"
                       onClick={() => {
                         closeMobile();

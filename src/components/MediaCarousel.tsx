@@ -116,37 +116,60 @@ export function MarqueeVideo({ src }: { src: string }) {
     );
 }
 
-/* A lightbox video that only plays while it is the centered item in the feed,
-   so opening the lightbox never spins up all ~27 clips simultaneously. */
-function LightboxVideo({ src }: { src: string }) {
-    const ref = useRef<HTMLVideoElement>(null);
+/* Map a video src to its pre-generated poster image. */
+function posterFor(src: string): string {
+    return src.replace("/carousel/", "/carousel/posters/").replace(/\.mp4$/, ".jpg");
+}
+
+/* Lightbox media slot for a video. Always shows a cheap poster IMAGE; mounts a
+   real <video> ONLY for the centered clip while the feed is idle. So while
+   scrolling there are zero <video> elements in the feed (just images) → smooth,
+   and the centered clip still autoplays the moment scrolling settles. */
+function LightboxVideo({ src, scrolling }: { src: string; scrolling: boolean }) {
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const inView = useRef(false);
+    const [play, setPlay] = useState(false);
+    const scrollingRef = useRef(scrolling);
+    scrollingRef.current = scrolling;
+
     useEffect(() => {
-        const el = ref.current;
+        const el = wrapRef.current;
         if (!el) return;
         const io = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) el.play().catch(() => {});
-                else el.pause();
+                inView.current = entry.isIntersecting;
+                setPlay(inView.current && !scrollingRef.current);
             },
             { threshold: 0.6 }
         );
         io.observe(el);
         return () => io.disconnect();
     }, []);
+
+    // stop showing the <video> while scrolling; bring it back once settled
+    useEffect(() => {
+        setPlay(inView.current && !scrolling);
+    }, [scrolling]);
+
     return (
-        <video
-            ref={ref}
-            src={src}
-            muted
-            loop
-            playsInline
-            controls
-            preload="none"
-            disablePictureInPicture
-            disableRemotePlayback
-            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-            className="h-full w-full bg-black/40 object-cover"
-        />
+        <div ref={wrapRef} className="relative h-full w-full bg-black/40">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={posterFor(src)} alt="" loading="lazy" className="h-full w-full object-cover" />
+            {play && (
+                <video
+                    src={src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                />
+            )}
+        </div>
     );
 }
 
@@ -158,10 +181,20 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
     const [active, setActive] = useState<number | null>(null);
     const [mounted, setMounted] = useState(false);
     const [inView, setInView] = useState(true);
+    const [feedScrolling, setFeedScrolling] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const feedScrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => setMounted(true), []);
+
+    // While the lightbox feed is being scrolled, pause its video (decode-free
+    // scroll); resume the centered clip ~150ms after it settles.
+    const onFeedScroll = () => {
+        setFeedScrolling((s) => (s ? s : true));
+        if (feedScrollTimer.current) clearTimeout(feedScrollTimer.current);
+        feedScrollTimer.current = setTimeout(() => setFeedScrolling(false), 150);
+    };
 
     // Pause the (compositor) marquee animation when the section is off-screen
     // so it isn't burning a layer the user can't see.
@@ -243,6 +276,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
                             {/* scrollable feed */}
                             <div
                                 data-lenis-prevent
+                                onScroll={onFeedScroll}
                                 className="relative z-10 h-full w-full snap-y snap-mandatory overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                                 onClick={() => setActive(null)}
                             >
@@ -258,7 +292,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
                                             className="aspect-[9/16] w-[min(90vw,48vh)] flex-shrink-0 snap-center overflow-hidden rounded-2xl border border-white/15 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.9)]"
                                         >
                                             {m.type === "video" ? (
-                                                <LightboxVideo src={m.src} />
+                                                <LightboxVideo src={m.src} scrolling={feedScrolling} />
                                             ) : (
                                                 // eslint-disable-next-line @next/next/no-img-element
                                                 <img src={m.src} alt="Creative preview" loading="lazy" className="h-full w-full object-cover" />
