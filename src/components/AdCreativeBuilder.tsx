@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 
@@ -15,18 +15,18 @@ import { Check } from "lucide-react";
    - reset is an INSTANT cut back to empty
 ============================================================ */
 
-const INPUTS = [
-    { label: "Brand", title: "HypeOn", sub: "" },
+const INPUTS: { label: string; title: string; sub: string; img?: string }[] = [
+    { label: "Brand", title: "Wallism", sub: "" },
     { label: "Size", title: "Story Size", sub: "1080 × 1920" },
-    { label: "Texts", title: "Unlock career…", sub: "Join now!" },
-    { label: "Image", title: "Asset 01", sub: "" },
+    { label: "Texts", title: "Your walls deserve…", sub: "Shop now!" },
+    { label: "Image", title: "Asset 01", sub: "", img: "/wallism/image_35.png" },
 ];
 
 // blue / red / blue score-badge text per the reference
 const ASSETS = [
-    { score: 96, color: "#1E3AED", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&auto=format&fit=crop&q=75" },
-    { score: 94, color: "#E11D2A", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&auto=format&fit=crop&q=75" },
-    { score: 93, color: "#1E3AED", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=75" },
+    { score: 96, color: "#1E3AED", img: "/wallism/image_35.png" },
+    { score: 94, color: "#E11D2A", img: "/wallism/image_38.png" },
+    { score: 93, color: "#1E3AED", img: "/wallism/image_39.png" },
 ];
 
 const CHECKS = [
@@ -53,24 +53,51 @@ const reveal = {
 
 export default function AdCreativeBuilder() {
     const [armed, setArmed] = useState(false); // cursor risen to the button
-    const [filled, setFilled] = useState(false);
+    const [filled, setFilled] = useState(false); // transient generate pulse (pill, bars, shimmer)
+    const [generated, setGenerated] = useState(false); // assets stay filled once generated
+    const [showCursor, setShowCursor] = useState(true); // hide the fake cursor on manual click
+    const sectionRef = useRef<HTMLElement>(null);
+    const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-    // cycle: cursor rises → clicks → fill+shimmer → hold → reset → cursor down (~3.2s)
-    useEffect(() => {
-        let clickT: ReturnType<typeof setTimeout>;
-        let resetT: ReturnType<typeof setTimeout>;
-        const run = () => {
-            setArmed(true);                                                   // cursor comes up
-            clickT = setTimeout(() => setFilled(true), 450);                  // click → generate
-            resetT = setTimeout(() => { setFilled(false); setArmed(false); }, 2100); // reset + cursor down
-        };
-        const startT = setTimeout(run, 500);
-        const loop = setInterval(run, 3200);
-        return () => { clearTimeout(startT); clearTimeout(clickT); clearTimeout(resetT); clearInterval(loop); };
+    const clearTimers = useCallback(() => {
+        timers.current.forEach(clearTimeout);
+        timers.current = [];
     }, []);
 
+    // one cycle: (cursor rises) → click → fill+shimmer → hold → reset.
+    // withCursor=false for a real user click (their own cursor is already there).
+    const runCycle = useCallback((withCursor: boolean) => {
+        clearTimers();
+        setShowCursor(withCursor);
+        setGenerated(false); // empty the assets so the fill animation replays
+        setFilled(false);
+        setArmed(true);
+        timers.current.push(setTimeout(() => { setFilled(true); setGenerated(true); }, withCursor ? 450 : 60));
+        timers.current.push(setTimeout(() => { setFilled(false); setArmed(false); }, withCursor ? 2100 : 1800));
+    }, [clearTimers]);
+
+    // auto-play ONCE when the section first comes into view (also on refresh if
+    // already visible), then never again. Manual "Generate" click re-runs it.
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        let done = false;
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !done) {
+                    done = true;
+                    runCycle(true);
+                    io.disconnect();
+                }
+            },
+            { threshold: 0.3 }
+        );
+        io.observe(el);
+        return () => { io.disconnect(); clearTimers(); };
+    }, [runCycle, clearTimers]);
+
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-16 sm:px-6 sm:py-20">
+        <section ref={sectionRef} className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-16 sm:px-6 sm:py-20">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -123,7 +150,13 @@ export default function AdCreativeBuilder() {
                                         <Check className="h-2 w-2 text-[#94a3b8]" strokeWidth={3} />
                                     </span>
                                 </div>
-                                <div className="mt-1.5 truncate text-[11px] font-bold leading-tight text-[#1B1C3A]">{inp.title}</div>
+                                <div className="mt-1.5 flex items-center gap-1.5">
+                                    {inp.img && (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img src={inp.img} alt="" className="h-4 w-4 flex-shrink-0 rounded-[3px] object-cover" />
+                                    )}
+                                    <span className="truncate text-[11px] font-bold leading-tight text-[#1B1C3A]">{inp.title}</span>
+                                </div>
                                 {inp.sub && <div className="truncate text-[9px] text-slate-400">{inp.sub}</div>}
                             </div>
                         ))}
@@ -145,16 +178,18 @@ export default function AdCreativeBuilder() {
                     <div className="relative -mt-1 mb-5 flex justify-center">
                         <motion.button
                             type="button"
+                            onClick={() => runCycle(false)}
                             animate={{ backgroundColor: filled ? "#94a3b8" : "#15082A", scale: filled ? 1.1 : 1 }}
                             transition={{ duration: 0.25, ease: "easeOut" }}
-                            className="rounded-[10px] px-7 py-2 text-[13px] font-bold text-white shadow-md"
+                            className="cursor-pointer rounded-[10px] px-7 py-2 text-[13px] font-bold text-white shadow-md"
                         >
                             Generate
                         </motion.button>
-                        {/* pink arrow cursor — rises from below to the pill, then clicks */}
+                        {/* pink arrow cursor — rises from below to the pill, then clicks.
+                            Hidden when the user clicks Generate themselves. */}
                         <motion.svg
                             initial={false}
-                            animate={{ y: armed ? 0 : 66, opacity: armed ? 1 : 0, scale: filled ? 0.82 : 1 }}
+                            animate={{ y: armed ? 0 : 66, opacity: armed && showCursor ? 1 : 0, scale: filled ? 0.82 : 1 }}
                             transition={{ y: { duration: 0.45, ease: "easeOut" }, opacity: { duration: 0.3 }, scale: { duration: 0.12, ease: "easeOut" } }}
                             className="absolute left-1/2 top-1/2 ml-7 mt-1 h-5 w-5 text-[#94a3b8] drop-shadow"
                             viewBox="0 0 24 24"
@@ -202,12 +237,11 @@ export default function AdCreativeBuilder() {
                                     <motion.div
                                         className="absolute inset-0"
                                         initial={false}
-                                        animate={{ clipPath: filled ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)" }}
-                                        transition={{ duration: filled ? 0.2 : 0, delay: filled ? 0.4 : 0, ease: "easeOut" }}
+                                        animate={{ clipPath: generated ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)" }}
+                                        transition={{ duration: generated ? 0.2 : 0, delay: generated ? 0.4 : 0, ease: "easeOut" }}
                                     >
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={a.img} alt="" className="h-full w-full object-cover" />
-                                        <div className="absolute inset-0 bg-[#D2202A]/30" />
                                         {/* shimmer sweep right after the fill */}
                                         <motion.div
                                             className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/55 to-transparent"
@@ -217,17 +251,6 @@ export default function AdCreativeBuilder() {
                                         />
                                     </motion.div>
 
-                                    {/* score badge — straddles the top edge, pops in after the fill */}
-                                    <motion.span
-                                        initial={false}
-                                        animate={{ opacity: filled ? 1 : 0, scale: filled ? 1 : 0.8 }}
-                                        transition={{ duration: filled ? 0.2 : 0, delay: filled ? 0.72 : 0, ease: "easeOut" }}
-                                        style={{ color: a.color }}
-                                        className="absolute -top-1.5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-white px-1.5 py-0.5 text-[7px] font-bold shadow-[0_2px_6px_rgba(0,0,0,0.15)] sm:text-[8px]"
-                                    >
-                                        <span className="h-1.5 w-1.5 rounded-sm" style={{ backgroundColor: a.color }} />
-                                        Score {a.score}/100
-                                    </motion.span>
                                 </div>
                             ))}
                         </div>

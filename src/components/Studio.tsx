@@ -502,15 +502,10 @@ function StudioProduction() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
+                        className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
                     >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900&auto=format&fit=crop&q=75"
-                            alt="AI-generated creative production"
-                            loading="lazy"
-                            className="aspect-[4/3] w-full object-cover"
-                        />
+                        {/* hypeon-studio showcase video (lazy, pauses on scroll) */}
+                        <MarqueeVideo src="/hypeon-studio.mp4" poster="/hypeon-studio-poster.jpg" />
                     </motion.div>
                 </div>
             </div>

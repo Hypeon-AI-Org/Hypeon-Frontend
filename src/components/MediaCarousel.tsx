@@ -58,7 +58,7 @@ export const MEDIA: Media[] = interleave();
 /* A marquee video that lazy-loads and only plays while within the viewport.
    `preload="none"` keeps it off the network until it is about to enter view
    (rootMargin), so we never fire ~50 metadata requests at once on page load. */
-export function MarqueeVideo({ src }: { src: string }) {
+export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) {
     const ref = useRef<HTMLVideoElement>(null);
     const inView = useRef(false);
     const loaded = useRef(false);
@@ -101,9 +101,10 @@ export function MarqueeVideo({ src }: { src: string }) {
     return (
         <video
             ref={ref}
-            // #t=0.1 makes the browser paint the first frame as a poster, so the
-            // tile shows an image even while paused / before it plays.
-            src={`${src}#t=0.1`}
+            // poster image shows instantly on load (so the tile is never empty),
+            // then the video plays over it once on-screen + idle.
+            poster={poster ?? posterFor(src)}
+            src={src}
             muted
             loop
             playsInline
@@ -181,6 +182,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
     const [active, setActive] = useState<number | null>(null);
     const [mounted, setMounted] = useState(false);
     const [inView, setInView] = useState(true);
+    const [hovered, setHovered] = useState(false);
     const [feedScrolling, setFeedScrolling] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -235,8 +237,10 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
                 thread) so it never fights page scroll. Paused when off-screen
                 or while the lightbox is open. */}
             <div
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
                 className="flex w-max gap-3 will-change-transform sm:gap-4 animate-[marquee_90s_linear_infinite] motion-reduce:animate-none"
-                style={{ animationPlayState: inView && active === null ? "running" : "paused" }}
+                style={{ animationPlayState: inView && active === null && !hovered ? "running" : "paused" }}
             >
                 {row.map((m, i) => (
                     <button

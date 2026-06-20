@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 
 import ProductsIntro from "../../components/ProductsIntro";
 import HypeScoreSection from "../../components/HypeScoreSection";
-import TrendingProducts from "../../components/TrendingProducts";
+import EveryPlatformSignal from "../../components/EveryPlatformSignal";
+import { TabHoppingSection, AskCopilotSection } from "../../components/CompareAndAsk";
 import HighValueKeywords from "../../components/HighValueKeywords";
 import WinningAdCreatives from "../../components/WinningAdCreatives";
 import PrecisionScaleBento from "../../components/PrecisionScaleBento";
@@ -24,7 +25,9 @@ export default function ProductsPage() {
 
       <main className="relative z-10">
         <ProductsIntro />
-        <TrendingProducts />
+        <EveryPlatformSignal />
+        <TabHoppingSection />
+        <AskCopilotSection />
         <HighValueKeywords />
         <WinningAdCreatives />
    

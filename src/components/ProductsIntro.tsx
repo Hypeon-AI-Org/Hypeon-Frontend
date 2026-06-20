@@ -18,11 +18,11 @@ export default function TrendalyticsSection() {
 
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl  font-bold tracking-tighter leading-tight mb-4">
-          See what's coming.<br />
-          <span className='text-brand-600'>Weeks before anyone else.</span>
+          All your Competitor ads<br />
+          <span className='text-brand-600'>Across every platform</span>
         </h1>
         <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
-          HypeOn Intelligence scans 20M+ signals daily across TikTok, Amazon, Google, Reddit, Pinterest and 90+ sources — and tells you what products will trend, which keywords convert, and which markets are wide open. Before your competitors see it...
+          Access 200M ads with share of voice, reach, creative and estimated spend data.
         </p>
         <a href="https://app.hypeon.ai/hub/login" className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-full text-[14px] inline-block">
           Get the demo
@@ -39,19 +39,15 @@ export default function TrendalyticsSection() {
       >
         <div className="bg-white border border-gray-200 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] overflow-hidden">
 
-          {/* The Actual Image Container */}
-          <div className="relative w-full aspect-[16/10] bg-[#fcfcfc]">
+          {/* The Actual Image Container — full 16:9 image, no crop/fade */}
+          <div className="relative w-full aspect-[16/9] bg-[#fcfcfc]">
             <Image
-              src="/images/dash.webp"
+              src="/dashboard_2.png"
               alt="Trendalytics Dashboard UI"
               fill
               priority
-              className="object-top object-cover"
+              className="object-cover"
             />
-
-            {/* White Blur/Fade Overlay */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none" />
-
           </div>
         </div>
       </motion.div>

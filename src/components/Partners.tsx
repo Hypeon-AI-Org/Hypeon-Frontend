@@ -122,7 +122,7 @@ export default function CombinedLayout() {
         `}>
 
           <div
-            data-lenis-prevent
+            {...(isExpanded ? { 'data-lenis-prevent': '' } : {})}
             role={isExpanded ? undefined : 'button'}
             tabIndex={isExpanded ? undefined : 0}
             onMouseEnter={() => !isExpanded && setViewState('hovered')}
