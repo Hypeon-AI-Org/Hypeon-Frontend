@@ -22,48 +22,28 @@ const WORKSPACE_BACKDROP_STYLE = {
 const sections = [
   {
     id: "01",
-    title: "Spot What Product to Sell Next ",
-    description: "See what's trending online and search before it hits mainstream. Get into winning products weeks before your competitors even notice the signal."
+    title: "Find Your Competitors' Best Performing Ads ",
+    description: " Stop guessing what works. See every ad your competitors are scaling — hooks, formats, spend signals — before you waste a krona testing."
   },
   {
     id: "02",
-    title: "See Your Real ROAS",
-    description: "Not what Google claims. Not what Meta reports. The actual return on every dollar you spent - across every channel - with zero duplication."
+    title: "Get Their Targeting & Themes",
+    description: " Know exactly who they're going after and what angle is winning. Steal the strategy, not just the creative."
   },
   {
     id: "03",
-    title: "Pricing Intelligence ",
-    description: "See what your competitors price  across every market before you set your prices. Stay competitive where it matters, charge more where you can, and never lose a sale because you were priced wrong."
+    title: "See What Their Customers Really Think",
+    description: "Scan competitor reviews across Trustpilot and Google. Find what their customers hate — and make it your biggest selling point."
   },
   {
     id: "05",
-    title: "Find Trending Keywords",
-    description: "Know exactly what your customers are typing into Google right now. Build campaigns around real demand - not last month's search volume."
+    title: "Static & Video Ads, Built in Seconds",
+    description: " Drop your product link. Get scroll-stopping creatives — built from the angles already winning in your category."
   },
   {
     id: "06",
-    title: "Know What Product to Develop",
-    description: "See exactly what, designs and product improvements your market is asking for - pulled from reviews, social and search signals. Stop guessing what customers want and start building what they'll actually pay for."
-  },
-  {
-    id: "07",
-    title: "Find Your Competitors' Best Performing Ads",
-    description: "See exactly which ads your competitors are running and which ones are actually working. Stop starting from scratch - know the winning angles, hooks and offers in your niche before you spend a penny testing."
-  },
-  {
-    id: "08",
-    title: "Competitor Social Media Analysis ",
-    description: "See exactly what content is working for them. Know their winning angles, top products and engagement spikes in real time."
-  },
-  {
-    id: "09",
-    title: "Competitor Trustpilot Analysis",
-    description: "Read your competitors' reviews so you know exactly what their customers hate about them. Turn their weaknesses into your biggest selling points."
-  },
-  {
-    id: "10",
-    title: "Know What Markets to Enter",
-    description: "Find pockets of demand that nobody is selling into yet. See exactly which geographies and demographics are underserved before the ad costs catch up."
+    title: "UGC Videos That Actually Sell",
+    description: " Authentic, testimonial-style video ads generated from real customer language. The format that outperforms studio shots 3:1."
   },
 ]
 
@@ -83,7 +63,7 @@ const PRODUCT_SIGNAL_IMAGES = [
 
 /** Card 01 HTML reference — PNGs decoded from your inline base64 (public/product-signals/). */
 const PRODUCT_SIGNAL_HTML_PREVIEW = [
-  { src: "/product-signals/0.png", alt: "Sneaker product" },
+  { src: "/produc/0.png", alt: "Sneaker product" },
   { src: "/product-signals/1.png", alt: "Tote bag" },
   { src: "/product-signals/2.png", alt: "Table lamp" },
   { src: "/product-signals/3.png", alt: "Product silhouette" },
@@ -3425,15 +3405,6 @@ const AD_INTELLIGENCE_HTML_CSS = `
 
 /** Card 01 — Product Signals preview matching the HTML reference (layout, typography, imagery). */
 function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
-  const [statusIdx, setStatusIdx] = useState(0)
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setStatusIdx((i) => (i + 1) % STATUS_MESSAGES.length)
-    }, 5000)
-    return () => clearInterval(t)
-  }, [])
-
   return (
     <div
       className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
@@ -3449,134 +3420,17 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
           <div className="ps-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="ps-panels min-h-0 flex-1">
               {/* LEFT PANEL */}
-              <div className="ps-left-panel">
-    
-                <div className="ps-chat-area">
-                  <div className="ps-user-bubble">Find trending products I can launch this month</div>
-                  <div className="ps-ai-message">
-                    <div className="ps-ai-icon" aria-hidden>
-                      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M10 3C6.13 3 3 6.13 3 10s3.13 7 7 7 7-3.13 7-7"
-                          stroke="#555"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M10 6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4"
-                          stroke="#555"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                        <circle cx="10" cy="10" r="1.5" fill="#555" />
-                      </svg>
-                    </div>
-                    <div className="ps-ai-text">
-                      Scanning Shopify stores, TikTok trends, and ad performance signals to identify breakout
-                      products.
-                    </div>
-                  </div>
-                  <div className="ps-loading-area">
-                    <div className="ps-spinner" aria-hidden />
-                    <div className="ps-loading-text">
-                      {STATUS_MESSAGES[statusIdx]} <span>...</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="ps-input-bar">
-                  <button type="button" className="ps-icon-btn" title="Attach" aria-label="Attach">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
-                    </svg>
-                  </button>
-                  <button type="button" className="ps-icon-btn" title="Email" aria-label="Email">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  </button>
-                  <input type="text" readOnly placeholder="" aria-label="Message" />
-                  <button type="button" className="ps-send-btn" title="Send" aria-label="Send">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <line x1="12" y1="19" x2="12" y2="5" />
-                      <polyline points="5 12 12 5 19 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+             
 
               {/* RIGHT PANEL */}
-              <div className="ps-right-panel">
-           
-                <div className="ps-section-card">
-                  <div className="ps-section-title">Product Signals</div>
-                  <div className="ps-products-row">
-                    <div className="ps-product-thumb">
-                      <NextImage
-                  src={PRODUCT_SIGNAL_HTML_PREVIEW[0].src}
-                  alt={PRODUCT_SIGNAL_HTML_PREVIEW[0].alt}
-                        width={48}
-                        height={48}
-                        className="object-contain"
-                      />
-                      <span className="ps-badge ps-badge-trending-light">Trending</span>
-
-                    </div>
-                    <div className="ps-product-thumb">
-                      <NextImage
-                        src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt}
-                        width={48}
-                        height={48}
-                        className="object-contain"
-                      />
-                      <span className="ps-badge ps-badge-trending-light">Trending</span>
-                    </div>
-                    <div className="ps-product-thumb">
-                      <NextImage
-                        src={PRODUCT_SIGNAL_HTML_PREVIEW[2].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[2].alt}
-                        width={48}
-                        height={50}
-                        className="object-contain"
-
-                      />
-                      <span className="ps-badge ps-badge-trending-light">Trending</span>
-                    </div>
-                    
-                  </div>
-                </div>
-                <div className="ps-section-card">
-                  <div className="ps-section-title">Early Indicators</div>
-                  <div className="ps-indicators-row">
-                    <div className="ps-indicator-chip">
-                      <span className="ps-chip-icon">♪</span>
-                      TikTok engagement increasing
-                    </div>
-                    <div className="ps-indicator-chip">
-                      <span className="ps-chip-icon">🔍</span>
-                      Search demand rising
-                    </div>
-                  </div>
-                </div>
-                <div className="ps-section-card">
-                  <div className="ps-section-title">Potential Winners</div>
-                  <div className="ps-winners-row">
-                    {[0, 1, 2].map((k) => (
-                      <div key={k} className="ps-winner-card">
-                        <div className="ps-winner-thumb" />
-                        <div className="ps-winner-lines">
-                          <div className="ps-winner-line" />
-                          <div className="ps-winner-line ps-short" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="ps-section-card">
-                  <div className="ps-section-title">Competition Level</div>
-                  <div className="ps-comp-label">Low saturation detected</div>
-                </div>
+              <div className="ps-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0 }}>
+                <NextImage
+                  src="/01.png"
+                  alt="Product signals"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
           </div>
@@ -3605,255 +3459,26 @@ function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
         <div className={`ki-html-root relative mx-auto max-w-[900px] ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
           <div className="ki-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="ki-panels min-h-0 flex-1">
-              <div className="ki-left-panel">
-                <div className="ki-panel-label">Assistant</div>
-                <div className="ki-chat-area">
-                  <div className="ki-user-bubble">What keywords should I be targeting right now?</div>
-                  <div className="ki-ai-row">
-                    <div className="ki-ai-icon" aria-hidden>
-                      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M9 2C6.5 2 4.5 4 4.5 6.5C4.5 8.5 6 10 8 10C9.5 10 10.5 9 10.5 7.5C10.5 6.5 9.8 5.8 9 5.8C8.4 5.8 8 6.2 8 6.7"
-                          stroke="#888"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M9 2C11.8 2 14 4.2 14 7C14 10.3 11.3 13 8 13C5.2 13 3 11 3 8.2"
-                          stroke="#888"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                        />
-                        <path d="M8 13C8 14.5 9 16 10.5 16" stroke="#888" strokeWidth="1.4" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                    <div className="ki-ai-text">
-                      Scanning live search data across Google, TikTok, and Pinterest. Ranking by Hype Score —
-                      combining search volume, CPC efficiency, competition pressure, and purchase intent.
-                    </div>
-                  </div>
-                  <div className="ki-loading-area">
-                    <div className="ki-spinner-row">
-                      <div className="ki-spinner" aria-hidden />
-                    </div>
-                    <div className="ki-loading-text">Scoring 2,400 keywords across 6 platforms...</div>
-                  </div>
-                </div>
-                <div className="ki-input-bar">
-                  <button type="button" className="ki-input-btn" title="Attach" aria-label="Attach">
-                    <svg viewBox="0 0 16 16" fill="none" stroke="#b0aca6" strokeWidth="1.6" strokeLinecap="round">
-                      <path d="M13.5 7.5l-6 6a4 4 0 01-5.66-5.66l6.5-6.5a2.5 2.5 0 013.54 3.54L5.4 11.36a1 1 0 01-1.41-1.41L9.5 4.5" />
-                    </svg>
-                  </button>
-                  <button type="button" className="ki-input-btn" title="Emoji" aria-label="Emoji">
-                    <svg viewBox="0 0 16 16" fill="none" stroke="#b0aca6" strokeWidth="1.6" strokeLinecap="round">
-                      <circle cx="8" cy="8" r="6" />
-                      <path d="M5.5 9.5c.7.9 1.8 1.5 2.5 1.5s1.8-.6 2.5-1.5" />
-                      <circle cx="6" cy="7" r=".7" fill="#b0aca6" />
-                      <circle cx="10" cy="7" r=".7" fill="#b0aca6" />
-                    </svg>
-                  </button>
-                  <input className="ki-input-field" type="text" readOnly placeholder="" aria-label="Message" />
-                  <button type="button" className="ki-send-btn" title="Send" aria-label="Send">
-                    <svg viewBox="0 0 12 12" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M6 10V2M2.5 5.5L6 2l3.5 3.5" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+             
 
-              <div className="ki-right-panel">
-                <div className="ki-panel-label">Intelligence</div>
-                <div className="ki-kw-header">
-                  <div className="ki-kw-indicator" />
-                  <div className="ki-kw-title">Keyword Intelligence</div>
+              <div className="ki-right-panel" style={{ display: "flex", flexDirection: "row", gap: 10, padding: 0, overflow: "hidden" }}>
+                <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
+                  <NextImage
+                    src="/cards/4089132ac7df0429.jpeg"
+                    alt="Keyword intelligence 1"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
-                <table className="ki-kw-table">
-                  <thead>
-                    <tr>
-                      <th>Keyword</th>
-                      <th>Search Vol</th>
-                      <th>CPC</th>
-                      <th>Competition</th>
-                      <th>Hype Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>minimal leather tote bag</td>
-                      <td>74,000/mo</td>
-                      <td>$0.68</td>
-                      <td>
-                        <span className="ki-badge ki-badge-low">Low</span>
-                      </td>
-                      <td>
-                        <span className="ki-hype-score ki-hype-91">91</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>sage linen table lamp</td>
-                      <td>48,200/mo</td>
-                      <td>$0.92</td>
-                      <td>
-                        <span className="ki-badge ki-badge-low">Low</span>
-                      </td>
-                      <td>
-                        <span className="ki-hype-score ki-hype-87">87</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>organic cotton crossbody</td>
-                      <td>61,500/mo</td>
-                      <td>$1.10</td>
-                      <td>
-                        <span className="ki-badge ki-badge-medium">Medium</span>
-                      </td>
-                      <td>
-                        <span className="ki-hype-score ki-hype-79">79</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>chunky platform sneakers</td>
-                      <td>112,000/mo</td>
-                      <td>$1.44</td>
-                      <td>
-                        <span className="ki-badge ki-badge-high">High</span>
-                      </td>
-                      <td>
-                        <span className="ki-hype-score ki-hype-64">64</span>
-                      </td>
-                    </tr>
-                    <tr className="ki-skeleton-row">
-                      <td>
-                        <div className="ki-skel-bar" style={{ width: 130 }} />
-                      </td>
-                      <td>
-                        <div className="ki-skel-bar ml-auto" style={{ width: 60 }} />
-                      </td>
-                      <td>
-                        <div className="ki-skel-bar ml-auto" style={{ width: 35 }} />
-                      </td>
-                      <td>
-                        <div className="ki-skel-bar mx-auto" style={{ width: 50 }} />
-                      </td>
-                      <td>
-                        <div className="ki-skel-bar ml-auto" style={{ width: 25 }} />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className="ki-bottom-row">
-                  <div className="ki-section-card">
-                    <div className="ki-section-card-title">Competition Pressure Map</div>
-                    <svg width="100%" viewBox="0 0 220 148" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
-                      <text
-                        x="7"
-                        y="82"
-                        transform="rotate(-90,7,82)"
-                        textAnchor="middle"
-                        fontFamily="DM Sans,sans-serif"
-                        fontSize="7"
-                        fill="#bbb"
-                        fontWeight="600"
-                        letterSpacing="0.5"
-                      >
-                        Search Volume
-                      </text>
-                      <text x="18" y="10" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#ccc">
-                        ▲
-                      </text>
-                      <text x="18" y="20" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#bbb">
-                        high
-                      </text>
-                      <text x="18" y="130" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#bbb">
-                        low
-                      </text>
-                      <rect x="28" y="8" width="92" height="59" rx="5" fill="rgba(170,215,185,0.5)" />
-                      <rect x="122" y="8" width="92" height="59" rx="5" fill="rgba(220,190,175,0.35)" />
-                      <rect x="28" y="69" width="92" height="59" rx="5" fill="rgba(210,207,200,0.22)" />
-                      <rect x="122" y="69" width="92" height="59" rx="5" fill="rgba(210,205,198,0.22)" />
-                      <text x="34" y="22" fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#3d8a58">
-                        Win Zone
-                      </text>
-                      <text x="200" y="22" textAnchor="end" fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="600" fill="#b8957a">
-                        Costly
-                      </text>
-                      <text x="34" y="122" fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="600" fill="#b0aca6">
-                        Niche
-                      </text>
-                      <text x="200" y="122" textAnchor="end" fontFamily="DM Sans,sans-serif" fontSize="7.5" fontWeight="600" fill="#b0aca6">
-                        Avoid
-                      </text>
-                      <text x="28" y="144" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#bbb">
-                        low →
-                      </text>
-                      <text x="121" y="144" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#bbb">
-                        Competition
-                      </text>
-                      <text x="214" y="144" textAnchor="end" fontFamily="DM Sans,sans-serif" fontSize="7" fill="#bbb">
-                        → high
-                      </text>
-                      <circle cx="62" cy="30" r="5" fill="#4a9a68" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" />
-                      <text x="70" y="34" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill="#555">
-                        leather tote
-                      </text>
-                      <circle cx="75" cy="50" r="5" fill="#4a9a68" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" />
-                      <text x="83" y="54" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill="#555">
-                        linen lamp
-                      </text>
-                      <circle cx="172" cy="34" r="5" fill="#e0904a" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" />
-                      <text x="148" y="26" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill="#555">
-                        platform sneakers
-                      </text>
-                      <circle cx="50" cy="98" r="5" fill="#aaa" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" />
-                      <text x="58" y="102" fontFamily="DM Sans,sans-serif" fontSize="7.5" fill="#888">
-                        jute crossbody
-                      </text>
-                    </svg>
-                  </div>
-                  <div className="ki-section-card">
-                    <div className="ki-section-card-title">CPC Efficiency Ranking</div>
-                    <div className="ki-cpc-list">
-                      <div className="ki-cpc-item">
-                        <div className="ki-cpc-top">
-                          <span className="ki-cpc-name">minimal leather tote</span>
-                          <span className="ki-cpc-price">$0.88</span>
-                        </div>
-                        <div className="ki-cpc-bar-track">
-                          <div className="ki-cpc-bar-fill ki-bar-blue" style={{ width: "42%" }} />
-                        </div>
-                      </div>
-                      <div className="ki-cpc-item">
-                        <div className="ki-cpc-top">
-                          <span className="ki-cpc-name">sage linen lamp</span>
-                          <span className="ki-cpc-price">$0.92</span>
-                        </div>
-                        <div className="ki-cpc-bar-track">
-                          <div className="ki-cpc-bar-fill ki-bar-blue" style={{ width: "50%" }} />
-                        </div>
-                      </div>
-                      <div className="ki-cpc-item">
-                        <div className="ki-cpc-top">
-                          <span className="ki-cpc-name">organic cotton crossbody</span>
-                          <span className="ki-cpc-price">$1.10</span>
-                        </div>
-                        <div className="ki-cpc-bar-track">
-                          <div className="ki-cpc-bar-fill ki-bar-blue" style={{ width: "68%" }} />
-                        </div>
-                      </div>
-                      <div className="ki-cpc-item">
-                        <div className="ki-cpc-top">
-                          <span className="ki-cpc-name">chunky platform sneakers</span>
-                          <span className="ki-cpc-price">$1.44</span>
-                        </div>
-                        <div className="ki-cpc-bar-track">
-                          <div className="ki-cpc-bar-fill ki-bar-red" style={{ width: "92%" }} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="ki-cpc-note">Lower CPC + High Hype Score = your best entry point.</div>
-                  </div>
+                <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
+                  <NextImage
+                    src="/cards/c3d90a8e65f75d5d.png"
+                    alt="Keyword intelligence 2"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
               </div>
             </div>
@@ -3880,166 +3505,18 @@ function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
         <div className={`pi-html-root relative mx-auto max-w-[880px] ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
           <div className="pi-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="pi-panels min-h-0 flex-1">
-              <div className="pi-left-panel">
-                <div className="pi-panel-label">Chat</div>
-                <div className="pi-chat-area">
-                  <div className="pi-user-bubble">
-                    Am I pricing my products correctly — or am I leaving margin on the table?
-                  </div>
-                  <div className="pi-ai-message">
-                    <div className="pi-ai-icon" aria-hidden>
-                      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7 1.5C4 1.5 1.5 4 1.5 7s2.5 5.5 5.5 5.5S12.5 10 12.5 7c0-1.5-.6-2.8-1.5-3.8"
-                          stroke="#888"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M10 4C9 3 7.5 2.5 6 3s-2.5 2-2 3.5 2.5 2.5 4 1.5"
-                          stroke="#888"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </div>
-                    <div className="pi-ai-text">
-                      Analyzing competitor pricing, demand elasticity signals, and conversion behavior to identify where you can increase price without losing customers.
-                    </div>
-                  </div>
-                  <div className="pi-loading-area">
-                    <div className="pi-spinner-dots">
-                      <div className="pi-dot" />
-                      <div className="pi-dot" />
-                      <div className="pi-dot" />
-                    </div>
-                    <div className="pi-loading-text">Evaluating price-performance signals across 340 competitor SKUs...</div>
-                  </div>
-                </div>
-                <div className="pi-input-bar">
-                  <button type="button" className="pi-input-btn" aria-label="Attach">
-                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                      <path
-                        d="M12.5 7.5L7 13c-1.9 1.9-5 1.9-6.9 0s-1.9-5 0-6.9l6-6c1.3-1.3 3.4-1.3 4.7 0s1.3 3.4 0 4.7L5.5 10c-.6.6-1.7.6-2.4 0s-.6-1.7 0-2.4L8.5 3"
-                        stroke="#999"
-                        strokeWidth="1.3"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </button>
-                  <button type="button" className="pi-input-btn" aria-label="Microphone">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <rect x="4.5" y="1" width="5" height="8" rx="2.5" stroke="#999" strokeWidth="1.2" />
-                      <path d="M2 7c0 2.8 2.2 5 5 5s5-2.2 5-5" stroke="#999" strokeWidth="1.2" strokeLinecap="round" />
-                      <line x1="7" y1="12" x2="7" y2="13.5" stroke="#999" strokeWidth="1.2" strokeLinecap="round" />
-                    </svg>
-                  </button>
-                  <input className="pi-text-input" type="text" readOnly placeholder="" aria-label="Message" />
-                  <button type="button" className="pi-send-btn" aria-label="Send">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path
-                        d="M6 10V2M6 2L2.5 5.5M6 2l3.5 3.5"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
+             
+
+              <div className="pi-middle-panel" style={{ position: "relative", overflow: "hidden", padding: 0 }}>
+                <NextImage
+                  src="/02.png"
+                  alt="Pricing intelligence"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
 
-              <div className="pi-middle-panel">
-                <div className="pi-benchmark-card">
-                  <div className="pi-section-title">Price Benchmark</div>
-                  <div className="pi-benchmark-content">
-                    <div className="pi-bag-thumb">
-                      <NextImage
-                         src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt}
-                        width={72}
-                        height={72}
-                        className="h-full w-full object-contain"
-                        sizes="72px"
-                      />
-                    </div>
-                    <div className="pi-benchmark-info">
-                      <div className="pi-competitor-range">Competitor range: $68 – $102</div>
-                      <div className="pi-your-price">
-                        <span>Your price: </span>$84
-                      </div>
-                      <div className="pi-price-slider-wrapper">
-                        <div className="pi-price-track">
-                          <div className="pi-price-range-fill" />
-                          <div className="pi-price-thumb" style={{ left: "47%" }} />
-                          <div className="pi-you-label" style={{ left: "47%" }}>
-                            You are here
-                          </div>
-                        </div>
-                        <div className="pi-price-labels">
-                          <span>$68</span>
-                          <span>$102</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pi-within-range">Within range — not premium positioned.</div>
-                </div>
-
-                <div className="pi-competitor-card">
-                  <div className="pi-section-title">Competitor Pricing</div>
-                  <div className="pi-competitor-row">
-                    <span className="pi-competitor-name">Brand A — $75</span>
-                    <span className="pi-badge pi-badge-gray">Budget positioning</span>
-                  </div>
-                  <div className="pi-competitor-row">
-                    <span className="pi-competitor-name">Brand B — $82</span>
-                    <span className="pi-badge pi-badge-midmarket">Mid-market</span>
-                  </div>
-                  <div className="pi-competitor-row">
-                    <span className="pi-competitor-name">Brand C — $96</span>
-                    <span className="pi-badge pi-badge-premium">Premium positioning</span>
-                  </div>
-                  <div className="pi-gap-note">Gap between $84 and $96 — premium positioning unclaimed.</div>
-                </div>
-              </div>
-
-              <div className="pi-right-panel">
-                <div className="pi-demand-card">
-                  <div className="pi-section-title">Demand Response</div>
-                  <div className="pi-demand-row">
-                    <span className="pi-demand-label">Conversion rate</span>
-                    <span className="pi-demand-value">
-                      stable above $80 <span className="pi-green-dot" />
-                    </span>
-                  </div>
-                  <div className="pi-demand-row">
-                    <span className="pi-demand-label">No measurable drop in add-to-cart at $89</span>
-                    <span className="pi-demand-value">
-                      <span className="pi-green-dot" />
-                    </span>
-                  </div>
-                  <div className="pi-demand-row">
-                    <span className="pi-demand-label">Purchase intent maintained at current price</span>
-                    <span className="pi-demand-value">
-                      <span className="pi-green-dot" />
-                    </span>
-                  </div>
-                  <div className="pi-demand-note">Demand is price-inelastic in this range.</div>
-                </div>
-
-                <div className="pi-opportunity-card">
-                  <div className="pi-section-title">Pricing Opportunity</div>
-                  <div className="pi-price-arrow">
-                    $84 <span className="pi-arrow">→</span> $94
-                  </div>
-                  <div className="pi-opp-detail">
-                    +€10 per unit x est. 380 units/mo = +€3,800 / mo margin
-                  </div>
-                  <div className="pi-opp-detail">No predicted conversion drop in this range</div>
-                  <div className="pi-opp-detail">Positions brand above mid-market competitors.</div>
-                </div>
-              </div>
             </div>
           </div>
           <div className="pi-sparkle" aria-hidden>
@@ -4505,20 +3982,6 @@ function RadLogoTikTok36({ withStroke }: { withStroke?: boolean }) {
 
 /** Card 02 — Real ROAS / revenue attribution (matches supplied HTML reference). */
 function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
-  const aiIcon = (
-    <div className="rad-ai-icon" aria-hidden>
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path
-          d="M7 2C8.5 3.5 9.5 5 9.5 7C9.5 9 8 10.5 7 11.5C6 10.5 4.5 9 4.5 7C4.5 5 5.5 3.5 7 2Z"
-          stroke="#666"
-          strokeWidth="1.1"
-          fill="none"
-        />
-        <circle cx="7" cy="7" r="1.4" fill="#888" />
-      </svg>
-    </div>
-  )
-
   return (
     <div
       className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
@@ -4533,188 +3996,15 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
         <div className={`rad-html-root relative mx-auto w-full min-w-0 max-w-[880px] ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
           <div className="rad-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="rad-panels min-h-0 flex-1">
-              <div className="rad-left-panel">
-                <div className="rad-panel-label">Revenue Attribution</div>
-                <div className="rad-chat-area">
-                  <div className="rad-user-bubble">
-                    Show me what&apos;s actually driving my revenue — not what the platforms claim
-                  </div>
-                  <div className="rad-ai-message">
-                    {aiIcon}
-                    <div className="rad-ai-text">Removing duplicated attribution across Meta, Google, and TikTok.</div>
-                  </div>
-                  <div className="rad-ai-message">
-                    {aiIcon}
-                    <div className="rad-ai-text">
-                      Calculating true revenue contribution per channel using last-touch and data-driven models.
-                    </div>
-                  </div>
-                  <div className="rad-loading-area">
-                    <div className="rad-spinner" aria-hidden />
-                    <div className="rad-loading-text">Reconciling 14,823 conversion events...</div>
-                  </div>
-                </div>
-                <div className="rad-input-bar">
-                  <button type="button" className="rad-icon-btn" aria-label="Attach">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-                    </svg>
-                  </button>
-                  <button type="button" className="rad-icon-btn" aria-label="Email">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  </button>
-                  <input className="rad-text-input" type="text" readOnly placeholder="" aria-label="Message" />
-                  <button type="button" className="rad-send-btn" aria-label="Send">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                      <line x1="12" y1="19" x2="12" y2="5" />
-                      <polyline points="5,12 12,5 19,12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div className="rad-right-panel">
-                <div className="rad-right-row">
-                  <div className="rad-section-card rad-channel-card">
-                    <div className="rad-section-title">Channel Performance</div>
-                    <div className="rad-channel-row">
-                      <div className="rad-channel-logo-wrap">
-                        <RadLogoMeta36 />
-                      </div>
-                      <div className="rad-channel-info">
-                        <div className="rad-roas-left">
-                          <span className="rad-roas-lbl">Reported ROAS:</span>
-                          <span className="rad-roas-val">4.1x</span>
-                        </div>
-                        <div className="rad-roas-right">
-                          <span className="rad-real-lbl">Real ROAS:</span>
-                          <span className="rad-real-val rad-val-red">2.3x</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="rad-channel-row">
-                      <div className="rad-channel-logo-wrap">
-                        <RadLogoGoogle36 />
-                      </div>
-                      <div className="rad-channel-info">
-                        <div className="rad-roas-left">
-                          <span className="rad-roas-lbl">Reported ROAS:</span>
-                          <span className="rad-roas-val">3.2x</span>
-                        </div>
-                        <div className="rad-roas-right">
-                          <span className="rad-real-lbl">Real ROAS:</span>
-                          <span className="rad-real-val rad-val-green">2.8x</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="rad-channel-row">
-                      <div className="rad-channel-logo-wrap">
-                        <RadLogoTikTok36 withStroke />
-                      </div>
-                      <div className="rad-channel-info">
-                        <div className="rad-roas-left">
-                          <span className="rad-roas-lbl">Reported ROAS:</span>
-                          <span className="rad-roas-val">5.6x</span>
-                        </div>
-                        <div className="rad-roas-right">
-                          <span className="rad-real-lbl">Real ROAS:</span>
-                          <span className="rad-real-val rad-val-red">1.4x</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rad-section-card rad-revenue-card">
-                    <div className="rad-section-title">Real Revenue</div>
-                    <div className="rad-rev-main">€38,200</div>
-                    <div className="rad-rev-platform">€61,400</div>
-                    <div className="rad-rev-label">True Revenue (7 days)</div>
-                    <div className="rad-overclaimed">€23,200 over-claimed</div>
-                  </div>
-                </div>
-
-                <div className="rad-right-row">
-                  <div className="rad-section-card rad-overlap-card">
-                    <div className="rad-section-title">Attribution Overlap</div>
-                    <div className="rad-venn-wrap">
-                      <svg className="rad-venn-svg" viewBox="0 0 140 108" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                        <circle cx="52" cy="43" r="28" fill="#5b9fcf" opacity="0.52" />
-                        <circle cx="88" cy="43" r="28" fill="#d97b3a" opacity="0.52" />
-                        <circle cx="70" cy="68" r="28" fill="#8b6dcc" opacity="0.52" />
-                        <text
-                          x="36"
-                          y="31"
-                          fontFamily="DM Sans,sans-serif"
-                          fontSize="8.5"
-                          fontWeight="700"
-                          fill="white"
-                          textAnchor="middle"
-                        >
-                          Meta
-                        </text>
-                        <text
-                          x="104"
-                          y="31"
-                          fontFamily="DM Sans,sans-serif"
-                          fontSize="8.5"
-                          fontWeight="700"
-                          fill="white"
-                          textAnchor="middle"
-                        >
-                          Google
-                        </text>
-                        <text
-                          x="70"
-                          y="86"
-                          fontFamily="DM Sans,sans-serif"
-                          fontSize="8.5"
-                          fontWeight="700"
-                          fill="white"
-                          textAnchor="middle"
-                        >
-                          TikTok
-                        </text>
-                      </svg>
-                    </div>
-                    <div className="rad-overlap-note">31% of conversions claimed by 2+ channels.</div>
-                  </div>
-
-                  <div className="rad-section-card rad-profit-card">
-                    <div className="rad-section-title">Profitability Signal</div>
-                    <div className="rad-profit-row">
-                      <div className="rad-profit-logo-wrap">
-                        <RadLogoGoogle36 />
-                      </div>
-                      <div className="rad-profit-info">
-                        <div className="rad-profit-name">Strongest real profitability</div>
-                      </div>
-                      <span className="rad-profit-badge rad-badge-scale">Scale</span>
-                    </div>
-                    <div className="rad-profit-row">
-                      <div className="rad-profit-logo-wrap">
-                        <RadLogoMeta36 />
-                      </div>
-                      <div className="rad-profit-info">
-                        <div className="rad-profit-name">Meta</div>
-                        <div className="rad-profit-desc">Moderate — watch overlap</div>
-                      </div>
-                      <span className="rad-profit-badge rad-badge-hold">Hold</span>
-                    </div>
-                    <div className="rad-profit-row">
-                      <div className="rad-profit-logo-wrap">
-                        <RadLogoTikTok36 />
-                      </div>
-                      <div className="rad-profit-info">
-                        <div className="rad-profit-name">TikTok</div>
-                        <div className="rad-profit-desc">Low real return — scale cautiously</div>
-                      </div>
-                      <span className="rad-profit-badge rad-badge-review">Review</span>
-                    </div>
-                  </div>
-                </div>
+              
+              <div className="rad-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0 }}>
+                <NextImage
+                  src="/03.png"
+                  alt="Revenue attribution"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
           </div>
@@ -4747,186 +4037,35 @@ function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
         <div className={`inv-html-root relative mx-auto max-w-[900px] min-w-0 ${WORKSPACE_PREVIEW_DASHBOARD_FRAME}`}>
           <div className="inv-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="inv-panels min-h-0 flex-1">
-              <div className="inv-left-panel">
-                <div className="inv-panel-label">Chat</div>
-                <div className="inv-chat-area">
-                  <div>
-                    <div className="inv-user-bubble">Am I going to run out of stock — and when?</div>
-                    <div className="inv-timestamp">11:02 AM</div>
-                  </div>
-                  <div className="inv-ai-row">
-                    <div className="inv-ai-icon" aria-hidden>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 2a10 10 0 1 0 10 10" />
-                        <path d="M12 6v6l4 2" />
-                      </svg>
-                    </div>
-                    <div className="inv-ai-message">
-                      Forecasting demand based on current sales velocity, trend trajectory, and seasonal signals. Comparing
-                      against your live inventory levels.
-                    </div>
-                  </div>
-                  <div className="inv-timestamp" style={{ paddingLeft: 34, marginTop: -8, textAlign: "left" }}>
-                    11:02 AM
-                  </div>
-                  <div className="inv-dots-row" aria-hidden>
-                    <div className="inv-dot inv-dot-active" />
-                    <div className="inv-dot inv-dot-active" />
-                    <div className="inv-dot" />
-                  </div>
-                  <div className="inv-loading-area">
-                    <div className="inv-spinner" aria-hidden />
-                    <span className="inv-loading-text">Modeling demand for next 30 days...</span>
-                  </div>
+              
+              <div className="inv-right-panel" style={{ display: "flex", flexDirection: "row", gap: 10, padding: 0, overflow: "hidden" }}>
+                <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
+                  <video
+                    src="/cards/df79c081631cc38a.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    onContextMenu={(e) => e.preventDefault()}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+                  />
                 </div>
-                <div className="inv-input-bar">
-                  <button type="button" className="inv-icon-btn" aria-label="Attach">
-                    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
-                    </svg>
-                  </button>
-                  <input type="text" readOnly placeholder="Ask about your growth, performance, or operations..." aria-label="Message" />
-                  <button type="button" className="inv-send-btn" aria-label="Send">
-                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="19" x2="12" y2="5" />
-                      <polyline points="5 12 12 5 19 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div className="inv-right-panel">
-                <div className="inv-results-header">Results</div>
-                <div className="inv-results-grid">
-                  <div className="inv-section-card">
-                    <div className="inv-section-title">Current Stock Status</div>
-                    <div className="inv-product-row">
-                      <div className="inv-product-thumb">
-                        <NextImage src={PRODUCT_SIGNAL_HTML_PREVIEW[0].src}
-                          alt={PRODUCT_SIGNAL_HTML_PREVIEW[0].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-product-info">
-                        <div className="inv-product-name">Cream Tote Bag</div>
-                        <div className="inv-product-sub">Tote Bag — Natural</div>
-                      </div>
-                      <div className="inv-badge inv-badge-units-high">142 units</div>
-                    </div>
-                    <div className="inv-product-row">
-                      <div className="inv-product-thumb">
-                        <NextImage src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
-                          alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-product-info">
-                        <div className="inv-product-name">Sage Arch Lamp</div>
-                        <div className="inv-product-sub">Arch Lamp — Sage</div>
-                      </div>
-                      <div className="inv-badge inv-badge-units-low">34 units</div>
-                    </div>
-                    <div className="inv-product-row">
-                      <div className="inv-product-thumb">
-                        <NextImage src={PRODUCT_SIGNAL_HTML_PREVIEW[2].src}
-                          alt={PRODUCT_SIGNAL_HTML_PREVIEW[2].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-product-info">
-                        <div className="inv-product-name">White Platform Sneaker</div>
-                        <div className="inv-product-sub">Platform Sneaker — White</div>
-                      </div>
-                      <div className="inv-badge inv-badge-units-blue">289 units</div>
-                    </div>
-                  </div>
-
-                  <div className="inv-section-card">
-                    <div className="inv-section-title">Sales Velocity</div>
-                    <div className="inv-vel-row">
-                      <div className="inv-vel-info">
-                        <div className="inv-vel-name">Tote Bag</div>
-                        <div className="inv-vel-sub">Natural</div>
-                      </div>
-                      <div className="inv-vel-right">
-                        <div className="inv-vel-label">Selling fast</div>
-                        <div className="inv-vel-bar-wrap">
-                          <div className="inv-vel-bar inv-bar-green" style={{ width: "82%" }} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="inv-vel-row">
-                      <div className="inv-vel-info">
-                        <div className="inv-vel-name">Arch Lamp</div>
-                        <div className="inv-vel-sub">Sage</div>
-                      </div>
-                      <div className="inv-vel-right">
-                        <div className="inv-vel-label">High velocity</div>
-                        <div className="inv-vel-bar-wrap">
-                          <div className="inv-vel-bar inv-bar-blue" style={{ width: "91%" }} />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="inv-vel-row">
-                      <div className="inv-vel-info">
-                        <div className="inv-vel-name">Sneaker</div>
-                        <div className="inv-vel-sub">White</div>
-                      </div>
-                      <div className="inv-vel-right">
-                        <div className="inv-vel-label">Steady</div>
-                        <div className="inv-vel-bar-wrap">
-                          <div className="inv-vel-bar inv-bar-orange" style={{ width: "46%" }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="inv-section-card">
-                    <div className="inv-section-title">Stockout Forecast</div>
-                    <div className="inv-stockout-row">
-                      <div className="inv-product-thumb">
-                        <NextImage  src={PRODUCT_SIGNAL_HTML_PREVIEW[0].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[0].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-stockout-info">
-                        <div className="inv-stockout-main">Stockout in ~9 days</div>
-                      </div>
-                      <div className="inv-stockout-urgent-wrap">
-                        <span style={{ fontSize: 13 }} aria-hidden>
-                          ⚠️
-                        </span>
-                        <span className="inv-badge-urgent">Urgent</span>
-                      </div>
-                    </div>
-                    <div className="inv-stockout-row">
-                      <div className="inv-product-thumb">
-                        <NextImage  src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-stockout-info">
-                        <div className="inv-stockout-main">Stockout risk in ~18 days</div>
-                      </div>
-                      <span className="inv-badge-review">Review</span>
-                    </div>
-                  </div>
-
-                  <div className="inv-section-card">
-                    <div className="inv-section-title">Reorder Recommendation</div>
-                    <div className="inv-reorder-row">
-                      <div className="inv-product-thumb">
-                        <NextImage  src={PRODUCT_SIGNAL_HTML_PREVIEW[2].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[2].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-reorder-info">
-                        <div className="inv-reorder-main">Reorder 200 units — lead time 14 days</div>
-                      </div>
-                      <span className="inv-badge-actnow">Act Now</span>
-                    </div>
-                    <div className="inv-reorder-row">
-                      <div className="inv-product-thumb">
-                        <NextImage  src={PRODUCT_SIGNAL_HTML_PREVIEW[1].src}
-                        alt={PRODUCT_SIGNAL_HTML_PREVIEW[1].alt} width={38} height={38} className="object-cover" sizes="38px" />
-                      </div>
-                      <div className="inv-reorder-info">
-                        <div className="inv-reorder-main">Reorder 150 units within 10 days</div>
-                      </div>
-                      <span className="inv-badge-schedule">Schedule</span>
-                    </div>
-                  </div>
+                <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
+                  <video
+                    src="/cards/f8df79bf1542eda5.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    onContextMenu={(e) => e.preventDefault()}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+                  />
                 </div>
               </div>
             </div>
