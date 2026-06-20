@@ -7,11 +7,13 @@ import { MapPin, GraduationCap,Linkedin } from "lucide-react";
 
 export default function AboutImpact() {
   const ref = useRef<HTMLDivElement | null>(null);
+  // The parallax card we move directly via .style (no React re-render per frame).
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
-  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     if (!ref.current) return;
+    const section = ref.current;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -20,7 +22,15 @@ export default function AboutImpact() {
       { threshold: 0.1 }
     );
 
-    observer.observe(ref.current);
+    observer.observe(section);
+
+    // Cache the section's document offset ONCE; recompute only on resize.
+    let baseTop = section.getBoundingClientRect().top + window.scrollY;
+    let sectionHeight = section.offsetHeight;
+    const recompute = () => {
+      baseTop = section.getBoundingClientRect().top + window.scrollY;
+      sectionHeight = section.offsetHeight;
+    };
 
     let ticking = false;
     const handleScroll = () => {
@@ -28,23 +38,26 @@ export default function AboutImpact() {
       ticking = true;
       window.requestAnimationFrame(() => {
         ticking = false;
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          setOffset(window.scrollY - ref.current.offsetTop);
+        if (!cardRef.current) return;
+        const scrollY = window.scrollY;
+        // Only update while the section is roughly on-screen. Pure math, no layout read.
+        const top = baseTop - scrollY;
+        if (top < window.innerHeight && top + sectionHeight > 0) {
+          const translateY = (scrollY - baseTop) * 0.1;
+          cardRef.current.style.transform = `translate3d(0, ${translateY}px, 0)`;
         }
       });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', recompute, { passive: true });
 
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', recompute);
     };
   }, []);
-
-  const translateY = offset * 0.1;
 
   return (
     <section ref={ref} className="py-14 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
@@ -54,10 +67,11 @@ export default function AboutImpact() {
 
           {/* LEFT CARD */}
           <div
+            ref={cardRef}
             className="md:sticky md:top-20"
             style={{
-              transform: `translate3d(0, ${translateY}px, 0)`,
-              transition: 'transform 0.08s ease-out',
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform',
             }}
           >
             <div

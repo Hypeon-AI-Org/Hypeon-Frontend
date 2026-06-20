@@ -40,20 +40,39 @@ export default function ScrollRevealSetup() {
         elements.forEach((el) => observer.observe(el));
       });
 
-      // Cache parallax nodes once instead of re-querying the DOM on every
-      // scroll frame. Only attach the scroll listener if any exist.
+      // Cache parallax nodes AND their resting document offsets once, so the
+      // scroll loop never reads layout (getBoundingClientRect) per frame —
+      // that was forcing a synchronous reflow on every scroll tick.
       const parallaxElements = Array.from(
         document.querySelectorAll<HTMLElement>('.parallax-slow')
       );
+      // Base document-top of each element (read layout ONCE here, never in the loop).
+      let baseTops = parallaxElements.map(
+        (el) => el.getBoundingClientRect().top + window.scrollY
+      );
+      // Promote to its own GPU layer so transform updates don't repaint siblings.
+      parallaxElements.forEach((el) => {
+        el.style.willChange = 'transform';
+      });
+
+      const recomputeTops = () => {
+        // Recompute on resize only (layout may have shifted).
+        parallaxElements.forEach((el) => (el.style.transform = ''));
+        baseTops = parallaxElements.map(
+          (el) => el.getBoundingClientRect().top + window.scrollY
+        );
+      };
 
       let ticking = false;
       const handleScroll = () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            for (const el of parallaxElements) {
-              const rect = el.getBoundingClientRect();
-              const yPos = -(rect.top * 0.3);
-              el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            const scrollY = window.scrollY;
+            for (let i = 0; i < parallaxElements.length; i++) {
+              // Position relative to viewport = base - scroll. Pure math, no layout read.
+              const relativeTop = baseTops[i] - scrollY;
+              const yPos = -(relativeTop * 0.3);
+              parallaxElements[i].style.transform = `translate3d(0, ${yPos}px, 0)`;
             }
             ticking = false;
           });
@@ -63,11 +82,13 @@ export default function ScrollRevealSetup() {
 
       if (parallaxElements.length > 0) {
         window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', recomputeTops, { passive: true });
       }
 
       cleanup = () => {
         observer.disconnect();
         window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', recomputeTops);
       };
     });
 

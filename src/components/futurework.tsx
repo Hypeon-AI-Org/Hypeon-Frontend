@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import LazyVideo from './LazyVideo'
 
 // Define your color palette for consistent styling
 const colors = {
@@ -54,15 +55,7 @@ export default function FunnelAILandingPage() {
             className="relative rounded-lg border shadow-xl overflow-hidden max-w-4xl mx-auto reveal-scale"
             style={{ borderColor: colors.border }}
           >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-auto"
-            >
-              <source src="/images/CHABOT56.mp4" type="video/mp4" />
-            </video>
+            <LazyVideo src="/images/CHABOT56.mp4" className="w-full h-auto" />
           </div>
         </main>
       </div>

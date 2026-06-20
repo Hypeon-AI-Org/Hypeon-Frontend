@@ -294,9 +294,10 @@ a[href] {
   will-change: auto;
 }
 
-/* Parallax effect */
+/* Parallax effect — driven per-frame by JS (ScrollRevealSetup); a CSS
+   transition here would lag/rubber-band every frame, so do NOT add one. */
 .parallax-slow {
-  transition: transform 0.3s ease-out;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Gradient animation on scroll */

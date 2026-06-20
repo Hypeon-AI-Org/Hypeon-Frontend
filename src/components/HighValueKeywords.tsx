@@ -108,10 +108,11 @@ export default function HighValueKeywords() {
                   <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
 
                     <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${metric.value}%` }}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
                       transition={{ delay: i * 0.15, duration: 0.8 }}
                       viewport={{ once: true }}
+                      style={{ width: `${metric.value}%`, transformOrigin: 'left' }}
                       className="h-full bg-[#1a1a1a] rounded-full"
                     />
 

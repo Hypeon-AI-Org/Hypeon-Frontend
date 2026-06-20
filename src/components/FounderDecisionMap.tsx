@@ -3429,7 +3429,7 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                   alt="Product signals"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain", objectPosition: "center" }}
                 />
               </div>
             </div>
@@ -3513,7 +3513,7 @@ function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
                   alt="Pricing intelligence"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain", objectPosition: "center" }}
                 />
               </div>
 
@@ -4003,7 +4003,7 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
                   alt="Revenue attribution"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain", objectPosition: "center" }}
                 />
               </div>
             </div>
