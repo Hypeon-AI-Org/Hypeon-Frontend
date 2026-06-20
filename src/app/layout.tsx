@@ -4,6 +4,7 @@ import Script from "next/script";
 import { cookies } from "next/headers";
 import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
+import IosErrorOverlay from "@/components/IosErrorOverlay";
 import SmoothScroll from "@/components/SmoothScroll";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
@@ -135,6 +136,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </noscript>
         )}
         <ScaleProvider>
+          <IosErrorOverlay />
           <SmoothScroll />
           <ScrollRevealSetup />
           {children}
