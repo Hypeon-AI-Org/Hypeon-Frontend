@@ -59,36 +59,37 @@ export const MEDIA: Media[] = interleave();
    `preload="none"` keeps it off the network until it is about to enter view
    (rootMargin), so we never fire ~50 metadata requests at once on page load. */
 export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) {
-    const ref = useRef<HTMLVideoElement>(null);
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const inView = useRef(false);
-    const loaded = useRef(false);
+    // Only MOUNT a real <video> while the tile is near the viewport. iOS Safari
+    // caps the number of simultaneous <video> elements (~16); this page has
+    // ~80+, which on iOS exhausts the decoder and blanks the whole page (Android
+    // has no such limit). Keeping off-screen tiles as a poster <img> caps live
+    // <video> elements to just the few on screen.
+    const [mountVideo, setMountVideo] = useState(false);
+    const posterSrc = poster ?? posterFor(src);
+
+    // Track in-view (mount/unmount the <video>) + pause while scrolling.
     useEffect(() => {
-        const el = ref.current;
+        const el = wrapRef.current;
         if (!el) return;
         const reconcile = () => {
-            if (inView.current) {
-                // First time it nears view: fetch just enough to paint the
-                // first frame (#t=0.1) as a poster, so the tile is never empty.
-                if (!loaded.current) {
-                    loaded.current = true;
-                    el.preload = "metadata";
-                    el.load();
-                }
-                // Play only when the page is NOT actively scrolling, so video
-                // decode never competes with the scroll → no stutter. While
-                // scrolling the tile still shows its first-frame poster.
-                if (!isScrolling()) el.play().catch(() => {});
-                else el.pause();
-            } else {
-                el.pause();
-            }
+            const v = videoRef.current;
+            if (!v) return;
+            // Play only when the page is NOT actively scrolling, so video decode
+            // never competes with the scroll → no stutter. While scrolling the
+            // tile still shows its poster.
+            if (inView.current && !isScrolling()) v.play().catch(() => {});
+            else v.pause();
         };
         const io = new IntersectionObserver(
             ([entry]) => {
                 inView.current = entry.isIntersecting;
+                setMountVideo(entry.isIntersecting);
                 reconcile();
             },
-            // start loading ~one card before it scrolls into view (any direction)
+            // start ~one card before it scrolls into view (any direction)
             { threshold: 0.01, rootMargin: "300px" }
         );
         io.observe(el);
@@ -98,22 +99,30 @@ export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) 
             unsubscribe();
         };
     }, []);
+
     return (
-        <video
-            ref={ref}
-            // poster image shows instantly on load (so the tile is never empty),
-            // then the video plays over it once on-screen + idle.
-            poster={poster ?? posterFor(src)}
-            src={src}
-            muted
-            loop
-            playsInline
-            preload="none"
-            disablePictureInPicture
-            disableRemotePlayback
-            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-            className="pointer-events-none h-full w-full bg-black/40 object-cover"
-        />
+        <div ref={wrapRef} className="relative h-full w-full bg-black/40">
+            {/* poster image always present so the tile is never empty (and so
+                off-screen tiles cost zero <video> elements on iOS) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={posterSrc} alt="" loading="lazy" className="h-full w-full object-cover" />
+            {mountVideo && (
+                <video
+                    ref={videoRef}
+                    poster={posterSrc}
+                    src={src}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    preload="metadata"
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                />
+            )}
+        </div>
     );
 }
 
