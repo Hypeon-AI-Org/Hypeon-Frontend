@@ -164,27 +164,36 @@ function MobileTile({ t, index }: { t: Tile; index: number }) {
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: `${t.x}%`, top: `${t.y}%`, width: t.w }}
         >
-            <motion.div
+            {/* one-shot reveal (opacity/scale) — pure CSS, runs once then settles */}
+            <div
                 className="will-change-transform"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: t.o, scale: 1, y: [0, drift, 0] }}
-                transition={{
-                    opacity: { duration: 0.7, delay: 0.05 + index * 0.025, ease: [0.22, 1, 0.36, 1] },
-                    scale: { duration: 0.7, delay: 0.05 + index * 0.025, ease: [0.22, 1, 0.36, 1] },
-                    y: { duration: t.dur, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 },
-                }}
+                style={{
+                    opacity: 0,
+                    ["--tile-o" as string]: t.o,
+                    animation: `studioTileReveal 0.7s cubic-bezier(0.22,1,0.36,1) ${(0.05 + index * 0.025).toFixed(3)}s forwards`,
+                } as React.CSSProperties}
             >
-                <div className="overflow-hidden rounded-md border border-white/10 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={CREATIVE_IMAGES[t.img]}
-                        alt=""
-                        loading="lazy"
-                        className="block h-auto w-full object-cover"
-                        style={{ aspectRatio: t.ar }}
-                    />
+                {/* endless gentle float — CSS keyframe on the compositor thread, so
+                    it never runs JS per-frame and never blocks scrolling */}
+                <div
+                    className="studio-tile-float will-change-transform"
+                    style={{
+                        ["--tile-drift" as string]: `${drift}px`,
+                        animation: `studioTileFloat ${t.dur}s ease-in-out ${(index * 0.12).toFixed(2)}s infinite`,
+                    } as React.CSSProperties}
+                >
+                    <div className="overflow-hidden rounded-md border border-white/10 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={CREATIVE_IMAGES[t.img]}
+                            alt=""
+                            loading="lazy"
+                            className="block h-auto w-full object-cover"
+                            style={{ aspectRatio: t.ar }}
+                        />
+                    </div>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }
