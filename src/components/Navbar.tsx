@@ -2,17 +2,21 @@
 'use client';
 
 import { useState, memo, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, BarChart3, ChevronDown, Sparkles } from 'lucide-react';
+import { Menu, X, BarChart3, ChevronDown, Sparkles, Wand2 } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<'products' | null>(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  // Dark navbar variant — only on the Studio page (dark background).
+  const isDark = pathname === "/studio";
 
   const closeMobile = useCallback(() => {
     setMobileMenuOpen(false);
@@ -87,7 +91,7 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? "h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 bg-[oklch(0.988_0.0041_91.45)] border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full"
+              ? `h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full border ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[oklch(0.988_0.0041_91.45)] border-slate-200"}`
               : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] pl-0 pr-1 sm:pr-5 md:pr-6 lg:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
@@ -108,7 +112,7 @@ function Navbar() {
                   className="h-[34px] w-[34px] sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 object-contain"
                 />
               </div>
-              <span className="font-semibold text-base sm:text-lg md:text-lg lg:text-base text-black tracking-tight leading-none flex items-center min-h-[34px] sm:min-h-8 md:min-h-9 lg:min-h-10">
+              <span className={`font-semibold text-base sm:text-lg md:text-lg lg:text-base tracking-tight leading-none flex items-center min-h-[34px] sm:min-h-8 md:min-h-9 lg:min-h-10 ${isDark ? "text-white" : "text-black"}`}>
                 HypeOn AI
               </span>
             </Link>
@@ -120,9 +124,9 @@ function Navbar() {
 
             {/* PRODUCTS DROPDOWN */}
             <div className="group flex items-center h-full">
-              <Link href="/products" className="flex items-center gap-1.5 text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer">
+              <Link href="/products" className={`flex items-center gap-1.5 text-sm sm:text-base font-medium hover:opacity-70 transition-opacity cursor-pointer ${isDark ? "text-white" : "text-black"}`}>
                 Products
-                <ChevronDown className="w-3.5 h-3.5 text-black group-hover:rotate-180 transition-transform duration-200" />
+                <ChevronDown className={`w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-200 ${isDark ? "text-white" : "text-black"}`} />
               </Link>
 
               {/* DROPDOWN */}
@@ -137,29 +141,32 @@ function Navbar() {
                   z-50
                 "
               >
-                <div className="rounded-3xl bg-[oklch(0.988_0.0041_91.45)] border border-slate-100 shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3">
-                  <div className="flex gap-3 h-[220px] hover:h-[380px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                <div className={`rounded-3xl border shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3 ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[oklch(0.988_0.0041_91.45)] border-slate-100"}`}>
+                  <div className="flex gap-3 h-[220px] hover:h-[400px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
 
                     <MegaItem
+                      dark={isDark}
                       icon={<Sparkles className="w-5 h-5" />}
                       title="HypeOn Intelligence"
                       desc="Predict demand, niches, and winning products."
                       href="/products"
                       iconBg="bg-[#65D48C]"
                       iconColor="text-black"
-                      illustration={<CopilotIllustration />}
+                      illustration={<CopilotIllustration dark={isDark} />}
                     />
 
 
 
+
                     <MegaItem
-                      icon={<BarChart3 className="w-5 h-5" />}
-                      title="HypeOn Analytics"
-                      desc="Cross-channel attribution, CAC, ROI, and actionable growth insights."
-                      href="/analytics"
-                      iconBg="bg-[#241C1A]"
-                      iconColor="text-[#E66245]"
-                      illustration={<AnalyticsIllustration short />}
+                      dark={isDark}
+                      icon={<Wand2 className="w-5 h-5" />}
+                      title="HypeOn Studio"
+                      desc="AI-powered ad creatives, curated by designers."
+                      href="/studio"
+                      iconBg="bg-[#E66245]"
+                      iconColor="text-white"
+                      illustration={<StudioIllustration short />}
                     /></div>
                 </div>
               </div>
@@ -167,7 +174,7 @@ function Navbar() {
 
             <Link
               href="/about"
-              className="text-sm sm:text-base font-medium text-black hover:opacity-70 transition-opacity cursor-pointer"
+              className={`text-sm sm:text-base font-medium hover:opacity-70 transition-opacity cursor-pointer ${isDark ? "text-white" : "text-black"}`}
             >
               Company
             </Link>
@@ -180,14 +187,14 @@ function Navbar() {
           <div className="hidden md:flex items-center shrink-0 gap-3 md:gap-4 lg:gap-5 pr-1">
             <a
               href="https://app.hypeon.ai/login"
-              className="text-sm md:text-base font-semibold text-black hover:opacity-70 transition-opacity cursor-pointer whitespace-nowrap"
+              className={`text-sm md:text-base font-semibold hover:opacity-70 transition-opacity cursor-pointer whitespace-nowrap ${isDark ? "text-white" : "text-black"}`}
             >
               Login
             </a>
 
             <a
               href="https://app.hypeon.ai/hub/login"
-              className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white bg-black hover:bg-black/80 transition-colors cursor-pointer whitespace-nowrap"
+              className={`inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white transition-colors cursor-pointer whitespace-nowrap ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/80"}`}
             >
               Get the demo
             </a>
@@ -198,7 +205,7 @@ function Navbar() {
           {/* MOBILE TOGGLE (< md) */}
           <button
             type="button"
-            className="md:hidden min-w-[48px] min-h-[48px] sm:min-w-[46px] sm:min-h-[46px] flex items-center justify-center rounded-full text-black max-sm:-mr-2 -mr-1 cursor-pointer transition-colors hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+            className={`md:hidden min-w-[48px] min-h-[48px] sm:min-w-[46px] sm:min-h-[46px] flex items-center justify-center rounded-full max-sm:-mr-2 -mr-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${isDark ? "text-white hover:bg-white/10 active:bg-white/15 focus-visible:ring-white/30" : "text-black hover:bg-black/[0.06] active:bg-black/[0.08] focus-visible:ring-black/20"}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-menu"
@@ -281,13 +288,13 @@ function Navbar() {
                       }}
                     />
                     <MobileProductLink
-                      icon={<BarChart3 className="h-[18px] w-[18px]" />}
-                      title="HypeOn Analytics"
-                      desc="Attribution, CAC, ROI, and growth insights."
-                      iconWrapClass="bg-[#241C1A] text-[#E66245]"
+                      icon={<Wand2 className="h-[18px] w-[18px]" />}
+                      title="HypeOn Studio"
+                      desc="AI-powered ad creatives, curated by designers."
+                      iconWrapClass="bg-[#E66245] text-white"
                       onClick={() => {
                         closeMobile();
-                        router.push("/analytics");
+                        router.push("/studio");
                       }}
                     />
                   </div>
@@ -343,6 +350,7 @@ function MegaItem({
   expandedIllustration,
   isActive,
   isInactive,
+  dark,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -354,6 +362,7 @@ function MegaItem({
   expandedIllustration?: React.ReactNode;
   isActive?: boolean;
   isInactive?: boolean;
+  dark?: boolean;
 }) {
   return (
     <Link
@@ -362,13 +371,16 @@ function MegaItem({
         group/card relative cursor-pointer
         text-left
         flex flex-col
-        p-4 rounded-2xl border border-slate-100/80
-        hover:border-slate-300/60 hover:bg-slate-50/50 hover:shadow-sm
+        p-4 rounded-2xl border
+        hover:shadow-sm
         transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
         h-full
         flex-1 hover:flex-[1.1]
         overflow-hidden
-        ${isActive ? 'min-w-[60%] ring-1 ring-slate-200 shadow-md bg-[oklch(0.988_0.0041_91.45)]' : 'bg-[oklch(0.988_0.0041_91.45)]'}
+        ${dark
+          ? 'border-white/10 bg-[#1c1512] hover:border-white/20 hover:bg-white/[0.06]'
+          : 'border-slate-100/80 bg-[oklch(0.988_0.0041_91.45)] hover:border-slate-300/60 hover:bg-slate-50/50'}
+        ${isActive ? (dark ? 'min-w-[60%] ring-1 ring-white/15 shadow-md' : 'min-w-[60%] ring-1 ring-slate-200 shadow-md') : ''}
         ${isInactive ? 'opacity-40 hover:opacity-100' : ''}
       `}
     >
@@ -391,8 +403,8 @@ function MegaItem({
       )}
 
       <div className={`mt-14 relative z-10 transition-transform duration-500 ${isActive ? 'translate-y-2 opacity-0' : 'translate-y-0 opacity-100'}`}>
-        <p className="font-semibold text-sm tracking-tight text-slate-900">{title}</p>
-        <p className={`text-sm text-slate-500 leading-snug mt-1.5 transition-all duration-500 ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
+        <p className={`font-semibold text-sm tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>{title}</p>
+        <p className={`text-sm leading-snug mt-1.5 transition-all duration-500 ${dark ? 'text-white/55' : 'text-slate-500'} ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
       </div>
     </Link>
   );
@@ -476,9 +488,9 @@ const IntelligenceIllustration = ({ short }: { short?: boolean }) => {
   );
 };
 
-const COPILOT_PLACEHOLDER = 'Analyze which products are driving the most';
+const COPILOT_PLACEHOLDER = 'Which products are winning?';
 
-const CopilotIllustration = ({ short }: { short?: boolean }) => {
+const CopilotIllustration = ({ short, dark }: { short?: boolean; dark?: boolean }) => {
   const [charIndex, setCharIndex] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const restartTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -531,12 +543,12 @@ const CopilotIllustration = ({ short }: { short?: boolean }) => {
   const isComplete = charIndex >= COPILOT_PLACEHOLDER.length;
 
   return (
-    <div className="w-[340px] bg-white rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-slate-100 p-1 flex flex-col">
+    <div className={`w-[260px] rounded-2xl border p-1 flex flex-col ${dark ? 'bg-[#2c2420] border-white/15 shadow-[0_16px_44px_rgba(0,0,0,0.6)]' : 'bg-white border-slate-100 shadow-[0_12px_40px_rgba(0,0,0,0.12)]'}`}>
       <div className="p-4 px-5 min-h-[52px]">
-        <p className="text-[14px] text-slate-700 tracking-tight leading-relaxed flex items-center flex-wrap">
+        <p className={`text-[14px] tracking-tight leading-relaxed flex items-center flex-wrap ${dark ? 'text-white/80' : 'text-slate-700'}`}>
           {visibleText}
           <span
-            className={`inline-block w-0.5 h-4 ml-0.5 bg-slate-400 align-middle ${isComplete ? 'animate-pulse' : ''
+            className={`inline-block w-0.5 h-4 ml-0.5 align-middle ${dark ? 'bg-white/50' : 'bg-slate-400'} ${isComplete ? 'animate-pulse' : ''
               }`}
             aria-hidden
           />
@@ -544,14 +556,14 @@ const CopilotIllustration = ({ short }: { short?: boolean }) => {
       </div>
 
       <div className="flex items-center gap-2 px-3 pb-3 pt-4 mt-auto">
-        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+        <div className={`h-9 w-9 flex items-center justify-center rounded-xl border transition-colors ${dark ? 'bg-white/5 border-white/10 text-white/40 hover:text-white/70 hover:bg-white/10' : 'bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}>
           <Paperclip className="w-4 h-4" />
         </div>
-        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+        <div className={`h-9 w-9 flex items-center justify-center rounded-xl border transition-colors ${dark ? 'bg-white/5 border-white/10 text-white/40 hover:text-white/70 hover:bg-white/10' : 'bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}>
           <PlusIcon className="w-4 h-4" />
         </div>
         <div className="flex-1"></div>
-        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-black text-white hover:bg-slate-800 transition-colors">
+        <div className={`h-9 w-9 flex items-center justify-center rounded-xl transition-colors ${dark ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-slate-800'}`}>
           <ArrowUp className="w-4 h-4" />
         </div>
       </div>
@@ -559,10 +571,50 @@ const CopilotIllustration = ({ short }: { short?: boolean }) => {
   );
 };
 
-const AnalyticsIllustration = ({ short }: { short?: boolean }) => (
-  <div className={`bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-slate-100 flex items-end justify-center gap-2 ${short ? 'w-[160px] h-[110px] p-4' : 'w-[240px] h-[140px] p-5 gap-3'}`}>
-    <div className={`${short ? 'w-8' : 'w-10'} bg-[#241C1A]/10 rounded-t-md transition-all duration-500 ease-out h-[30%] ${!short && 'animate-[grow_1s_ease-out_forwards]'}`}></div>
-    <div className={`${short ? 'w-8' : 'w-10'} bg-[#241C1A]/20 rounded-t-md transition-all duration-500 ease-out h-[50%] ${!short && 'animate-[grow_1s_ease-out_0.1s_forwards]'}`}></div>
+const STUDIO_THUMBS = [
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=200&auto=format&fit=crop&q=70",
+  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&auto=format&fit=crop&q=70",
+  "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=200&auto=format&fit=crop&q=70",
+  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&auto=format&fit=crop&q=70",
+  "https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?w=200&auto=format&fit=crop&q=70",
+  "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=200&auto=format&fit=crop&q=70",
+];
+
+// loose 3×2 scatter with clear gaps — no two overlap or line up
+const STUDIO_SPOTS = [
+  { left: "1%", top: "6%", w: 64 },
+  { left: "37%", top: "3%", w: 62 },
+  { left: "72%", top: "8%", w: 64 },
+  { left: "13%", top: "52%", w: 64 },
+  { left: "48%", top: "55%", w: 62 },
+  { left: "80%", top: "50%", w: 60 },
+];
+
+// bigger creative thumbnails, well-spaced, each rising gently from below and
+// fading in/out in its own spot — slow & smooth, no scale, no tilt.
+const StudioIllustration = ({ short }: { short?: boolean }) => (
+  <div
+    className={`relative ${short ? "h-[180px] w-[250px]" : "h-[230px] w-[350px]"}`}
+  >
+    {STUDIO_THUMBS.map((src, i) => (
+      <motion.img
+        // eslint-disable-next-line @next/next/no-img-element
+        key={i}
+        src={src}
+        alt=""
+        style={{ position: "absolute", left: STUDIO_SPOTS[i].left, top: STUDIO_SPOTS[i].top, width: STUDIO_SPOTS[i].w, aspectRatio: "3 / 4", zIndex: i }}
+        className="rounded-[10px] object-cover shadow-[0_10px_24px_rgba(0,0,0,0.2)]"
+        animate={{ opacity: [0, 1, 1, 0], y: [42, 6, -6, -42] }}
+        transition={{ duration: 2.8, times: [0, 0.24, 0.76, 1], ease: "easeInOut", repeat: Infinity, delay: i * 0.42 }}
+      />
+    ))}
+  </div>
+);
+
+const AnalyticsIllustration = ({ short, dark }: { short?: boolean; dark?: boolean }) => (
+  <div className={`rounded-xl border flex items-end justify-center gap-2 ${dark ? 'bg-[#2c2420] border-white/15 shadow-[0_16px_44px_rgba(0,0,0,0.6)]' : 'bg-white border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'} ${short ? 'w-[160px] h-[110px] p-4' : 'w-[240px] h-[140px] p-5 gap-3'}`}>
+    <div className={`${short ? 'w-8' : 'w-10'} ${dark ? 'bg-white/10' : 'bg-[#241C1A]/10'} rounded-t-md transition-all duration-500 ease-out h-[30%] ${!short && 'animate-[grow_1s_ease-out_forwards]'}`}></div>
+    <div className={`${short ? 'w-8' : 'w-10'} ${dark ? 'bg-white/20' : 'bg-[#241C1A]/20'} rounded-t-md transition-all duration-500 ease-out h-[50%] ${!short && 'animate-[grow_1s_ease-out_0.1s_forwards]'}`}></div>
     <div className={`${short ? 'w-8' : 'w-10'} bg-[#E66245] rounded-t-md transition-all duration-500 ease-out h-[80%] relative flex justify-center ${!short && 'animate-[grow_1s_ease-out_0.2s_forwards]'}`}>
       <div className={`absolute ${short ? '-top-6 text-xs' : '-top-7 text-sm'} font-bold text-[#E66245] ${!short && 'opacity-0 animate-[fade-in_0.5s_ease-out_0.8s_forwards]'}`}>{!short && '+48%'}</div>
     </div>

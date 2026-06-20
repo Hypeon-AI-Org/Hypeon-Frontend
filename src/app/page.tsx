@@ -10,12 +10,12 @@ import CompetitorReportLead from "../components/CompetitorReportLead";
 import FounderDecisionMap from '../components/FounderDecisionMap';
 import MarketerSteps from '../components/steps';
 import AdIntelReplica from '@/components/AdIntelReplica';
+import AdCreativeBuilder from '@/components/AdCreativeBuilder';
+import DashboardCTA from '@/components/DashboardCTA';
+import AdsShowcase from '@/components/AdsShowcase';
 
 import ImpactSection from '../components/ImpactSection';
 // Lazy load below-the-fold components
-const ValueProp = dynamic(() => import('@/components/ValueProp'), {
-  loading: () => <div className="min-h-screen" />,
-});
 const Features = dynamic(() => import('@/components/Features'), {
   loading: () => <div className="min-h-screen" />,
 });
@@ -30,18 +30,18 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Products />
-      <ValueProp />
+      <AdCreativeBuilder />
       <ImpactSection />
 <AdIntelReplica />
       <FounderDecisionMap />
       <Partners />
       <Features />
+      <AdsShowcase />
       <MarketerSteps />
 
-      <TeamsAchieve />
-    
       <FAQ />
      <CompetitorReportLead/>
+      <DashboardCTA />
       <Footer />
     </main>
   );
