@@ -439,7 +439,10 @@ export default function Hero() {
               {/* Headline: 36–40px mobile, 64–72px desktop; normal weight; animation scales with font */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-9 sm:mb-10">
                 Stop wasting budget <br className="sm:hidden" /> on the {" "}
-                <span className="relative inline-block align-baseline h-[1.3em] top-[0.32em] sm:top-0 min-w-[230px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
+                <span className="relative inline-grid align-baseline min-w-[230px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
+                  {/* invisible copy in the same grid cell sets the baseline/size;
+                      the animated word stacks on top of it sharing that baseline */}
+                  <span aria-hidden className="invisible whitespace-nowrap col-start-1 row-start-1">{words[index]}</span>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
@@ -462,7 +465,7 @@ export default function Hero() {
                         duration: 1,
                         ease: [0.16, 1, 0.3, 1]
                       }}
-                      className="absolute left-0 top-0 whitespace-nowrap"
+                      className="col-start-1 row-start-1 whitespace-nowrap"
                       style={{ fontFamily: "inherit", fontSize: "inherit", fontWeight: "inherit" }}
                     >
                       {words[index]}
