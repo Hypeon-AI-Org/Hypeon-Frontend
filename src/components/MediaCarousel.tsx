@@ -238,9 +238,10 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
 
     return (
         <section ref={sectionRef} className="relative overflow-hidden py-3 sm:py-8" style={{ backgroundColor: bg }}>
-            {/* edge fade masks for a premium clipped look */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-28" style={{ background: `linear-gradient(to right, ${bg}, transparent)` }} />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-28" style={{ background: `linear-gradient(to left, ${bg}, transparent)` }} />
+            {/* edge fade masks for a premium clipped look — hidden on mobile for the
+                light (homepage) carousel so the side cards aren't dimmed on phones */}
+            <div className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-28 ${isLight ? "hidden sm:block" : ""}`} style={{ background: `linear-gradient(to right, ${bg}, transparent)` }} />
+            <div className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-28 ${isLight ? "hidden sm:block" : ""}`} style={{ background: `linear-gradient(to left, ${bg}, transparent)` }} />
 
             {/* CSS-animated strip — runs on the compositor thread (off the main
                 thread) so it never fights page scroll. Paused when off-screen

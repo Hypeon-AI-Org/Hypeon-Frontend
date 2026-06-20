@@ -112,7 +112,7 @@ export default function Products() {
                     className="text-center max-w-3xl mx-auto mb-8 sm:mb-8"
                 >
                     <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
-                        AI Ad Platform .<span className="text-brand-600">Built for Performance.</span>
+                        The AI Ad Platform <span className="text-brand-600">Built for Performance.</span>
                     </h2>
                 </motion.div>
             </div>

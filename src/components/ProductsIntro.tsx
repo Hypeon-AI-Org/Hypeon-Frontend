@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function TrendalyticsSection() {
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] font-sans text-black py-12 sm:py-20 px-4">
+    <section className="bg-[oklch(0.988_0.0041_91.45)] font-sans text-black pt-24 pb-12 sm:pt-28 sm:pb-20 px-4">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

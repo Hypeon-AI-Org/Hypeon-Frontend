@@ -99,7 +99,7 @@ export default function ImpactSection() {
               className={`py-6 sm:py-8 px-4 sm:px-3 border-b sm:border-b-0 border-neutral-200 ${i !== 2 ? "lg:border-r border-neutral-200" : ""}`}
             >
               {/* Number */}
-              <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
+              <div className="text-3xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
                 
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </div>

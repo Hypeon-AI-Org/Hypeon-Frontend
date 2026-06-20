@@ -198,11 +198,16 @@ function MobileTile({ t, index }: { t: Tile; index: number }) {
     );
 }
 function MobileField() {
+    // On a narrow phone the headline box fills most of the width, so any tile in
+    // the central column lands directly on top of the text. Keep the dense scatter
+    // around the edges but drop tiles inside the central headline / CTA zone so the
+    // type stays clean and readable. Desktop (FloatingField) is unaffected.
+    const clearsHeadline = (t: Tile) => !(t.x > 24 && t.x < 76 && t.y > 24 && t.y < 84);
     return (
         // pushed down from the top so the scatter clears the fixed navbar and the
         // header (logo / menu) stays clean and tappable.
         <div className="absolute inset-x-0 bottom-0 top-14 origin-center sm:hidden" aria-hidden>
-            {TILES.map((t, i) => (
+            {TILES.filter(clearsHeadline).map((t, i) => (
                 <MobileTile key={i} t={t} index={i} />
             ))}
         </div>
