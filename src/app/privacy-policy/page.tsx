@@ -16,9 +16,9 @@ export default function PrivacyPolicyPage() {
     <div className="min-h-screen flex flex-col ">
       <Navbar />
 
-      <main className="flex-1 pt-24 pb-24">
+      <main className="flex-1 pt-24 pb-14">
         <section className="max-w-4xl mx-auto px-6 py-16 bg-[oklch(0.988_0.0041_91.45)] text-slate-600 leading-relaxed">
-          <h1 className="text-3xl font-semibold text-slate-900">
+          <h1 className="text-2xl font-semibold text-slate-900">
             Privacy <span className="text-brand-600">Policy</span>
           </h1>
 

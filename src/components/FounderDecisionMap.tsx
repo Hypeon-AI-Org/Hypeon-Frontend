@@ -4985,7 +4985,7 @@ export default function StackingCards() {
     >
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
           Every problem. Solved.
           <br />
           <span className="text-brand-600">In one platform.</span>

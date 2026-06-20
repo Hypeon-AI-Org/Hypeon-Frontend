@@ -44,7 +44,7 @@ export default function FAQ() {
 
                     {/* Left Column: Heading and Context */}
                     <div className="flex flex-col">
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter mb-8">
+                        <h2 className="text-2xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter mb-8">
                             FA<span className="text-brand-600">Q</span>
                         </h2>
 
@@ -83,7 +83,7 @@ export default function FAQ() {
                                     className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] sm:max-h-96 pb-4 opacity-100' : 'max-h-0 opacity-0'
                                         }`}
                                 >
-                                    <p className="text-[13px] sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
+                                    <p className="text-sm sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
                                         {faq.answer}
                                     </p>
                                 </div>

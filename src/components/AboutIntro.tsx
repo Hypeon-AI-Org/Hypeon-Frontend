@@ -13,10 +13,10 @@ export default function AboutIntro() {
   ];
 
   return (
-    <section className="font-sans relative pt-28 pb-12 overflow-hidden bg-[oklch(0.988_0.0041_91.45)]">
+    <section className="font-sans relative pt-24 pb-12 overflow-hidden bg-[oklch(0.988_0.0041_91.45)]">
       <div className="relative max-w-4xl mx-auto px-6 text-center reveal">
         <p className="text-sm text-slate-400 mb-3">We build</p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl  font-bold text-slate-900 tracking-tighter leading-tight mb-4">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl  font-bold text-slate-900 tracking-tighter leading-tight mb-4">
         Scale Smarter. <span className="text-brand-600">Scale Faster.</span>
         </h1>
         <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">

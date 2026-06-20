@@ -107,7 +107,7 @@ export default function AdCreativeBuilder() {
             >
                 {/* LEFT — copy (static) */}
                 <motion.div variants={reveal}>
-                    <h2 className="text-3xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
+                    <h2 className="text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
                         Generate High-Performing<br className="hidden sm:block" /> Ad Creatives
                     </h2>
                     <p className="mt-4 max-w-md text-[14px] leading-relaxed text-slate-500">

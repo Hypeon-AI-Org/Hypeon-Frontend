@@ -72,24 +72,24 @@ export default function SolutionsIntelligence() {
   ];
 
   return (
-    <section className="py-24 bg-slate-50 relative z-10">
+    <section className="py-14 bg-slate-50 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
             HypeOn <span className="text-brand-600">Intelligence</span>
           </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             The prediction engine that powers everything inside HypeOn — designed to identify what will work before it becomes obvious.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 reveal-stagger">
           {intelligenceFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div
                 key={index}
-                className="glass-card p-8 rounded-2xl hover:shadow-xl transition-all reveal-scale group relative overflow-hidden"
+                className="glass-card p-5 sm:p-8 rounded-2xl hover:shadow-xl transition-all reveal-scale group relative overflow-hidden"
               >
                 {/* Background glow on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>

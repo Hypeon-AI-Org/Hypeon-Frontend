@@ -29,7 +29,7 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-8 sm:py-12 sm:px-6">
+        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:py-12 sm:px-6">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -49,7 +49,7 @@ export function TabHoppingSection() {
                         <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white/70">
                             Save 10+ hours a week
                         </span>
-                        <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tighter text-white sm:text-4xl">
+                        <h2 className="mt-5 text-2xl font-bold leading-[1.1] tracking-tighter text-white sm:text-4xl">
                             Stop tab hopping<br className="hidden sm:block" /> between five libraries
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60">
@@ -152,7 +152,7 @@ export function AskCopilotSection() {
     ];
 
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-8 sm:py-12 sm:px-6">
+        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:py-12 sm:px-6">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -166,7 +166,7 @@ export function AskCopilotSection() {
                         <span className="inline-block rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                             Your AI ad-intel analyst
                         </span>
-                        <h2 className="mt-5 text-3xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
+                        <h2 className="mt-5 text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
                             Skip the dashboard.<br />Just ask Copilot
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-500">

@@ -152,13 +152,13 @@ export default function CompetitorReportPopup() {
                 type="button"
                 onClick={closePopup}
                 aria-label="Close"
-                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
               >
                 <X className="h-5 w-5" strokeWidth={1.6} />
               </button>
 
               <div className="mb-4 inline-flex items-center gap-2">
-                <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-neutral-200/90 bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-500 shadow-sm">
+                <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-neutral-200/90 bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 shadow-sm">
                   <Sparkles className="h-3 w-3 text-brand-600" strokeWidth={2} aria-hidden />
                   Competitor report
                 </span>

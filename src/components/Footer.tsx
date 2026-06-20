@@ -6,7 +6,7 @@ import Link from "next/link";
 import logo from "../../assets/HypeOn_Logo.png";
 
 const linkClass =
-  "flex min-h-10 w-full items-center text-sm font-normal leading-snug text-slate-400 transition-colors hover:text-white";
+  "flex min-h-11 w-full items-center text-sm font-normal leading-snug text-slate-400 transition-colors hover:text-white";
 
 export default function Footer({ bgClassName = "bg-[#0E1116]" }: { bgClassName?: string }) {
   const navColumns = [
@@ -116,13 +116,13 @@ export default function Footer({ bgClassName = "bg-[#0E1116]" }: { bgClassName?:
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event("hypeon:open-cookie-prefs"))}
-              className="text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
+              className="min-h-11 inline-flex items-center text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
             >
               Manage cookies
             </button>
             <Link
               href="/privacy-policy"
-              className="text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
+              className="min-h-11 inline-flex items-center text-xs text-slate-500 transition-colors hover:text-white sm:text-sm"
             >
               Privacy Policy
             </Link>

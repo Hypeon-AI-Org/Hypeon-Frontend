@@ -19,7 +19,7 @@ export default function StartToday() {
             START TODAY
           </p>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-tight">
             Stop guessing.
             <br />
             <span className="text-brand-600">

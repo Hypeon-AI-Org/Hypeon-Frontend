@@ -18,7 +18,7 @@ const CTASection = () => {
                 </div>
 
                 {/* Main Headline */}
-                <h2 className="mb-6 text-3xl tracking-tight text-black md:text-4xl">
+                <h2 className="mb-6 text-2xl tracking-tight text-black md:text-4xl">
                     Your competitors read dashboards.<br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-black">
                         You can read the truth.
@@ -41,7 +41,7 @@ const CTASection = () => {
                 </div>
 
                 {/* Trust Markers */}
-                <div className="mt-8 grid grid-cols-1 gap-6 border-t border-black/10 pt-8 sm:grid-cols-3">
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-6 border-t border-black/10 pt-8 sm:grid-cols-3">
                     <div className="flex flex-col items-center">
                         <span className="text-sm font-medium text-gray-500 uppercase tracking-widest">Setup</span>
                         <span className="text-base text-black">10 Minutes</span>

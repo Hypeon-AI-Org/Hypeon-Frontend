@@ -245,7 +245,7 @@ function Navbar() {
           `}
         >
           <div data-lenis-prevent className="overflow-y-auto overscroll-contain px-3 py-3 sm:px-4 sm:py-4">
-            <p className={`px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+            <p className={`px-1 pb-2 text-xs font-semibold uppercase tracking-[0.14em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
               Menu
             </p>
 

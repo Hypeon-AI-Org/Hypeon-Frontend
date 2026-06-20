@@ -64,7 +64,7 @@ export default function TableOfContents({ items, cta }: Props) {
                   href={`#${item.id}`}
                   onClick={(e) => handleClick(e, item.id)}
                   className={[
-                    "block py-1 text-[0.82rem] leading-snug transition-colors",
+                    "block py-2 text-[0.82rem] leading-snug transition-colors",
                     item.level === 3 ? "pl-4" : "",
                     isActive
                       ? "font-medium text-slate-900"
@@ -86,7 +86,7 @@ export default function TableOfContents({ items, cta }: Props) {
         </p>
         <a
           href={cta.href}
-          className="group mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-slate-900 px-4 py-2.5 text-[0.82rem] font-bold text-white transition-colors hover:bg-slate-800"
+          className="group mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-slate-900 px-4 py-3 text-[0.82rem] font-bold text-white transition-colors hover:bg-slate-800"
         >
           {cta.label}
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

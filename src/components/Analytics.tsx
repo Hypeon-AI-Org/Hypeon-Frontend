@@ -58,7 +58,7 @@ export default function Products() {
 
           
 
-          <h2 className="text-3xl sm:text-4xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-4xl tracking-tight text-neutral-900 leading-tight">
             Attribution reporting that <br /> <span className="text-brand-600">shows you the truth.</span>
           </h2>
 
@@ -71,7 +71,7 @@ export default function Products() {
             ].map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-center gap-2 text-slate-600 font-semibold text-xs sm:text-sm"
+                className="flex items-center gap-2 text-slate-600 font-semibold text-sm sm:text-sm"
               >
                 <span className="material-symbols-outlined text-slate-900 text-lg">
                   {item.icon}
@@ -82,7 +82,7 @@ export default function Products() {
           </ul>
 
           <div className="flex items-center gap-4 pt-2 sm:pt-4">
-            <a href="https://app.hypeon.ai/hub/login" className="bg-black hover:bg-black text-white px-5 py-2.5 sm:py-2 rounded-full text-xs font-bold transition-all shadow-md inline-block min-h-[44px] flex items-center">
+            <a href="https://app.hypeon.ai/hub/login" className="bg-black hover:bg-black text-white px-5 py-2.5 sm:py-2 rounded-full text-sm font-bold transition-all shadow-md inline-block min-h-[44px] flex items-center">
               Get the demo
             </a>
           </div>

@@ -53,7 +53,7 @@ export default function GrowthTimeline() {
   }, [visible]);
 
   return (
-    <section ref={ref} className="font-sans py-20 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
+    <section ref={ref} className="font-sans py-14 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
   <div className="max-w-6xl mx-auto px-6">
 
     {/* HEADER */}
@@ -66,7 +66,7 @@ export default function GrowthTimeline() {
       The Road Ahead
       </p>
 
-      <h2 className="text-3xl sm:text-4xl md:text-4xl   text-slate-900 tracking-tight">
+      <h2 className="text-2xl sm:text-4xl md:text-4xl   text-slate-900 tracking-tight">
       From idea to industry <span className="text-brand-600">standard.</span>
       </h2>
 
@@ -124,7 +124,7 @@ export default function GrowthTimeline() {
                 {m.title}
               </h3>
 
-              <p className="mt-1 text-xs text-slate-500 leading-relaxed">
+              <p className="mt-1 text-sm text-slate-500 leading-relaxed">
                 {m.desc}
               </p>
             </div>

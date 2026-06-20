@@ -116,13 +116,13 @@ export default function SolutionsAnalytics() {
   return (
     <>
       {/* Problems Section - Matching SolutionsProblems style */}
-      <section className="py-24 bg-white relative z-10 border-y border-slate-100">
+      <section className="py-14 bg-white relative z-10 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
               Marketing Analytics <span className="text-brand-600">Problems</span>
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-base text-slate-600 leading-relaxed">
               Marketing data is scattered, attribution is broken, and you can't see which channels actually drive growth. 
               Here's what you're dealing with:
             </p>
@@ -160,13 +160,13 @@ export default function SolutionsAnalytics() {
       </section>
 
       {/* Solutions Section - Matching SolutionsSolutions style */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+      <section className="py-14 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
               HypeOn <span className="text-brand-600">Analytics</span> Solutions
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-base text-slate-600 leading-relaxed">
               ML-powered AI agents and conversational analytics show where real marketing growth comes from and what to do next.
             </p>
           </div>

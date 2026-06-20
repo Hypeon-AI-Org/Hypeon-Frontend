@@ -17,11 +17,11 @@ export default function BlogIndexPage() {
     <div className="flex min-h-screen flex-col bg-[oklch(0.988_0.0041_91.45)]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-24 sm:pt-32">
+      <main className="flex-1 pt-24 pb-14 sm:pt-32">
         <div className="mx-auto max-w-2xl px-5 sm:px-6">
           {/* Header */}
           <header>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               Blog
             </h1>
             <p className="mt-1.5 text-sm text-slate-500">

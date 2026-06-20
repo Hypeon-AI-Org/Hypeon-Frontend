@@ -31,7 +31,7 @@ const MetricsSection = () => {
         {/* Header Section */}
         <div className="text-center mb-12">
           <p className="text-sm font-bold tracking-tight mb-4">Metrics</p>
-          <h2 className="text-3xl md:text-4xl font-display text-black mb-6">
+          <h2 className="text-2xl md:text-4xl font-display text-black mb-6">
             What the numbers <span className="text-brand-600">show</span>
           </h2>
           <p className="text-gray-600 text-[15px]">

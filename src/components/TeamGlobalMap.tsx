@@ -17,7 +17,7 @@ export default function StartToday() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl md:text-4xl   text-black tracking-tight"
+            className="text-2xl sm:text-4xl md:text-4xl   text-black tracking-tight"
           >
             Ready to move <span className="text-brand-600">faster</span>
           </motion.h2>
@@ -43,7 +43,7 @@ export default function StartToday() {
           >
             <Link
               href="https://app.hypeon.ai/hub/login"
-              className="px-6 py-2.5 rounded-lg bg-black text-white font-semibold text-sm hover:bg-black/95 transition-colors shadow-md"
+              className="px-6 py-3 rounded-lg bg-black text-white font-semibold text-sm hover:bg-black/95 transition-colors shadow-md"
             >
               Get the demo
             </Link>

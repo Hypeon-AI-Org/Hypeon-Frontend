@@ -87,7 +87,7 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-8 bg-[oklch(0.988_0.0041_91.45)]">
+    <section ref={ref} className="font-sans py-12 bg-[oklch(0.988_0.0041_91.45)]">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
 
         {/* LEFT IMAGE */}
@@ -122,7 +122,7 @@ export default function AboutStory() {
           </p>
 
           <h2
-            className={`text-3xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
+            className={`text-2xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
               visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >

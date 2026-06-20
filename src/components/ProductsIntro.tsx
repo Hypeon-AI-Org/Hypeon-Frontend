@@ -17,7 +17,7 @@ export default function TrendalyticsSection() {
         <div className="inline-flex items-center justify-center p-2 rounded-lg mb-6">
 
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl  font-bold tracking-tighter leading-tight mb-4">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl  font-bold tracking-tighter leading-tight mb-4">
           All your Competitor ads<br />
           <span className='text-brand-600'>Across every platform</span>
         </h1>

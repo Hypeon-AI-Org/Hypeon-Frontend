@@ -42,13 +42,13 @@ export default function SolutionsSolutions() {
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
+    <section className="py-14 relative overflow-hidden bg-gradient-to-b from-white via-brand-50/20 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
             How <span className="text-brand-600">HypeOn</span> Helps
           </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             One platform. One dashboard. Everything you need to make profitable decisions faster.
           </p>
         </div>

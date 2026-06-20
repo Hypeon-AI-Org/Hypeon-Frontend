@@ -32,7 +32,7 @@ export default function FunnelAILandingPage() {
 
           {/* Headline and Subheadline Section */}
           <div className="max-w-2xl mx-auto mb-12 reveal-left">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl tracking-tight mb-6" style={{ color: colors.textPrimary }}>
+            <h1 className="text-2xl sm:text-4xl md:text-4xl tracking-tight mb-6" style={{ color: colors.textPrimary }}>
               The future of attribution is <span className="text-brand-600">conversational</span>
             </h1>
             <p className="text-[15px]  leading-relaxed" style={{ color: colors.textSecondary }}>

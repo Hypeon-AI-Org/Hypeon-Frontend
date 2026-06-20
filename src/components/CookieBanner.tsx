@@ -239,7 +239,7 @@ export default function CookieBanner() {
               <p className="text-sm font-semibold text-slate-900">
                 Cookies personalise your experience
               </p>
-              <p className="mt-2 text-[13px] leading-relaxed text-slate-600">
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 {description} Learn more about our{" "}
                 <Link
                   href="/privacy-policy"
@@ -301,7 +301,7 @@ export default function CookieBanner() {
                 <div className="flex items-center justify-between gap-6 border-b border-slate-100 pb-3">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Essential</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">
                       These are required for the site to function.
                     </p>
                   </div>
@@ -311,7 +311,7 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Marketing</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">
                       Used to deliver information that’s more relevant to you.
                     </p>
                   </div>
@@ -325,7 +325,7 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Personalised</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">
                       These enhance our products by analysing usage data.
                     </p>
                   </div>
@@ -339,7 +339,7 @@ export default function CookieBanner() {
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">Analytics</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">
                       Helps us understand usage to improve the site.
                     </p>
                   </div>

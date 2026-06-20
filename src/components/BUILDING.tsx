@@ -20,7 +20,7 @@ export default function WhoWeAreBuildingFor() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-20 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
+    <section ref={ref} className="font-sans py-14 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
 
         {/* LEFT — Image */}
@@ -52,7 +52,7 @@ export default function WhoWeAreBuildingFor() {
             Our Mission
           </p>
 
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
+          <h2 className="mt-3 text-2xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
             Make product-market fit predictable, <span className="text-brand-600">not guessed.</span>
           </h2>
 

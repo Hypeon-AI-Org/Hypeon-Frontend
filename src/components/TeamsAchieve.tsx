@@ -43,7 +43,7 @@ export default function TeamsAchieve() {
         <motion.h2
           {...reveal}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight mb-8 sm:mb-10 lg:mb-12"
+          className="text-center text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight mb-8 sm:mb-10 lg:mb-12"
         >
           See what teams achieve with{' '}
           <span className="text-brand-600">HypeOn</span>
@@ -65,7 +65,7 @@ export default function TeamsAchieve() {
                   strokeWidth={1.25}
                   aria-hidden
                 />
-                <h3 className="text-[15px] font-medium text-black tracking-tight mb-1.5 sm:mb-2">
+                <h3 className="text-xl font-medium text-black tracking-tight mb-1.5 sm:mb-2">
                   {title}
                 </h3>
                 <p className="text-sm text-neutral-500 leading-relaxed">

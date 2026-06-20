@@ -91,7 +91,7 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto">
           {/* Text Content */}
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 reveal">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl text-black mb-4 sm:mb-6 text-balance tracking-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-4xl text-black mb-4 sm:mb-6 text-balance tracking-tight">
               The most True{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-gray-700 to-black">attribution platform</span>{' '}
               for <span className="text-brand-600">e-commerce</span>

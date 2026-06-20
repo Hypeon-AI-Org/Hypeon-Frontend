@@ -247,10 +247,10 @@ function StudioHero() {
                         <path d="M12 1.5 L13.4 10.6 L22.5 12 L13.4 13.4 L12 22.5 L10.6 13.4 L1.5 12 L10.6 10.6 Z" />
                     </svg>
 
-                    <h1 className="text-left font-sans text-xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
+                    <h1 className="text-left font-sans text-2xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
                         AI that<br />creates
                     </h1>
-                    <h2 className="mt-5 text-right font-sans text-xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
+                    <h2 className="mt-5 text-right font-sans text-2xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
                         runs your<br />winning ads
                     </h2>
                 </div>
@@ -306,10 +306,10 @@ function StudioScoreboard() {
                     className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
                 >
                     <div>
-                        <p className="mb-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#E66245]">
+                        <p className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-[#E66245]">
                             Paste <ArrowRight className="h-3 w-3" /> Generate <ArrowRight className="h-3 w-3" /> Ship
                         </p>
-                        <h2 className="max-w-xl text-4xl font-bold leading-[1.02] tracking-tighter sm:text-5xl">
+                        <h2 className="max-w-xl text-3xl font-bold leading-[1.02] tracking-tighter sm:text-5xl">
                             Real cuts. Real scores. Pick the winner.
                         </h2>
                     </div>
@@ -328,7 +328,7 @@ function StudioScoreboard() {
                         transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
                         className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.6)]"
                     >
-                        <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">Product URL</p>
+                        <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-white/40">Product URL</p>
                         <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
                             <span className="flex-1 truncate text-sm text-white/50">paste-url.com/your-product</span>
                             <button type="button" aria-label="Generate" className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#E66245] text-white transition-colors hover:bg-[#d6543a]">
@@ -432,7 +432,7 @@ function StudioIndustries() {
     const [active, setActive] = useState<(typeof INDUSTRIES)[number]>("Fashion");
 
     return (
-        <section className="bg-[#0a0a0a] py-20 text-white sm:py-28">
+        <section className="bg-[#0a0a0a] py-14 text-white sm:py-28">
             <div className="mx-auto max-w-6xl px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -441,7 +441,7 @@ function StudioIndustries() {
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     className="mx-auto max-w-2xl text-center"
                 >
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                    <h2 className="text-2xl font-bold tracking-tight sm:text-4xl">
                         One engine. Every industry.
                     </h2>
                     <p className="mx-auto mt-4 max-w-md text-white/55">
@@ -531,8 +531,8 @@ function StudioProduction() {
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">Hypeon Studio</h2>
-                        <p className="mt-4 text-lg text-white/80">
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Hypeon Studio</h2>
+                        <p className="mt-4 text-base text-white/80">
                             Original concepts, campaigns and full creative production.
                         </p>
                         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/50">
@@ -607,7 +607,7 @@ function StudioComparison() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="mx-auto max-w-md text-center"
                 >
-                    <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                         One prompt. <span className="text-white/40">Done!</span>
                     </h2>
                     <p className="mx-auto mt-4 text-white/50">
@@ -712,7 +712,7 @@ function StudioProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="mx-auto max-w-3xl text-center text-3xl font-medium leading-[1.15] tracking-tight sm:text-4xl md:text-[2.75rem]"
+                    className="mx-auto max-w-3xl text-center text-2xl font-medium leading-[1.15] tracking-tight sm:text-4xl md:text-[2.75rem]"
                 >
                     <span className="text-white/35">Our AI does 80% of the work,</span> <span className="text-white">so you only pay 20% for our service</span>
                 </motion.h2>

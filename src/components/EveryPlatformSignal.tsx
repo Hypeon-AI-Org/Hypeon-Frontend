@@ -103,7 +103,7 @@ export default function EveryPlatformSignal() {
         <section className="overflow-hidden bg-[oklch(0.988_0.0041_91.45)] py-12 sm:py-24">
             <div className="mx-auto max-w-5xl px-4 text-center">
                 {/* heading */}
-                <h2 className="text-3xl font-bold tracking-tighter text-[#1B1C3A] sm:text-4xl md:text-5xl">
+                <h2 className="text-2xl font-bold tracking-tighter text-[#1B1C3A] sm:text-4xl md:text-5xl">
                     Every platform, every signal
                 </h2>
                 <p className="mt-1 font-serif text-2xl italic text-slate-500 sm:text-3xl">

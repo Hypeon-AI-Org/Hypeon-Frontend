@@ -100,7 +100,7 @@ const KeywordRow: React.FC<KeywordRowProps> = ({ label, volume, clicks, cpc }) =
 
 export default function Products() {
     return (
-        <section className="relative py-3 sm:py-8 bg-[oklch(0.988_0.0041_91.45)]  overflow-hidden cursor-pointer  ">
+        <section className="relative py-12 sm:py-16 bg-[oklch(0.988_0.0041_91.45)]  overflow-hidden cursor-pointer  ">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Main Header Reveal */}
@@ -109,9 +109,9 @@ export default function Products() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center max-w-3xl mx-auto mb-3 sm:mb-8"
+                    className="text-center max-w-3xl mx-auto mb-8 sm:mb-8"
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
                         AI Ad Platform .<span className="text-brand-600">Built for Performance.</span>
                     </h2>
                 </motion.div>

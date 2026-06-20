@@ -35,7 +35,7 @@ export default function Features() {
           viewport={{ once: true }}
           className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-black mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-black mb-4 sm:mb-6">
             Why Founders Choose <span className="text-brand-600">HypeOn</span>
           </h2>
 

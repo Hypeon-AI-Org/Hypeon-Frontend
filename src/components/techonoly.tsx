@@ -39,7 +39,7 @@ const TechnologySection = () => {
         {/* LEFT COPY – scroll reveal */}
         <div className="w-full lg:w-[340px] pt-4 shrink-0 reveal-left">
           <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
-          <h2 className="text-3xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
+          <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
             Understand what your market wants — <span className="text-brand-600">before it peaks.</span>
           </h2>
           <p className="text-[14px] text-[#666] leading-[1.72] mb-7">

@@ -170,7 +170,7 @@ export default function PrecisionScaleBento() {
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-10 max-w-[640px]"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.15] mb-[18px]">
+          <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.15] mb-[18px]">
             Built for precision. <span className="text-brand-600">Designed for scale.</span>
           </h2>
           <p className="text-[14px] text-[#666] leading-[1.72] max-w-[520px]">
@@ -241,7 +241,7 @@ export default function PrecisionScaleBento() {
                 <BarChart2 className="h-[15px] w-[15px]" strokeWidth={2} />
               </IconBox>
               <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Creative Analysis</h3>
-              <p className="mt-2 max-w-[260px] text-[13px] leading-[1.58] text-[#666]">
+              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
                 Segmented images &amp; videos, with transcripts and text generated for deeper LLM
                 analysis.
               </p>
@@ -260,7 +260,7 @@ export default function PrecisionScaleBento() {
                 <Briefcase className="h-[15px] w-[15px]" strokeWidth={2} />
               </IconBox>
               <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Team Sync</h3>
-              <p className="mt-2 max-w-[260px] text-[13px] leading-[1.58] text-[#666]">
+              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
                 Share collections with one click. Build your own segmented ad lists and analysis.
               </p>
             </div>

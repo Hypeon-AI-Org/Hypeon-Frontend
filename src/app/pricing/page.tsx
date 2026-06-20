@@ -219,7 +219,7 @@ export default function PricingPage() {
         <div className="antialiased leading-relaxed text-gray-900">
           {/* ─── HERO ─── */}
           <Reveal>
-            <section className="text-center pt-28 pb-12 px-6 max-w-[1200px] mx-auto">
+            <section className="text-center pt-24 pb-12 px-6 max-w-[1200px] mx-auto">
               <div className="inline-flex items-center gap-2 text-gray-600 text-sm font-medium mb-6">
                 <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white shrink-0">
                   <Activity className="w-3 h-3" />
@@ -283,7 +283,7 @@ export default function PricingPage() {
               </p>
               {activeTab === "intelligence" && (
                 <div className="flex justify-center mt-2.5">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-gray-300 bg-white text-[10px] font-medium text-gray-800 shadow-sm leading-tight">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full border border-gray-300 bg-white text-xs font-medium text-gray-800 shadow-sm leading-tight">
                     30 day money-back guarantee
                   </span>
                 </div>
@@ -472,7 +472,7 @@ export default function PricingPage() {
                       <button
                         key={key}
                         type="button"
-                        className={`px-[22px] py-2.5 border-[1.5px] rounded-full text-[13px] font-bold cursor-pointer transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-sm motion-reduce:transition-none motion-reduce:transform-none ${
+                        className={`px-[22px] py-3 border-[1.5px] rounded-full text-[13px] font-bold cursor-pointer transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-sm motion-reduce:transition-none motion-reduce:transform-none ${
                         revenue === key
                           ? "bg-slate-800 text-white border-transparent"
                             : "border-gray-200 bg-white text-gray-600 hover:border-gray-900 hover:text-gray-900"
@@ -648,7 +648,7 @@ export default function PricingPage() {
           {/* ─── FAQ ─── */}
           <Reveal delayMs={80}>
             <section className="max-w-[980px] mx-auto px-6 pb-[72px]">
-              <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-10">
+              <h2 className="text-center text-2xl md:text-4xl font-bold tracking-tight mb-10">
                 Got questions? <span className="text-brand-600">We got answers.</span>
               </h2>
               <div className="bg-white/70 border border-gray-200 rounded-[20px] shadow-sm overflow-hidden">
@@ -800,7 +800,7 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
   return (
     <section className="max-w-[1200px] mx-auto px-6 pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Compare Intelligence Plans</h2>
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Intelligence Plans</h2>
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
@@ -922,7 +922,7 @@ function CompareAnalyticsTable({
   return (
     <section className="max-w-[1200px] mx-auto px-6 pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-brand-600">Plans</span></h2>
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-brand-600">Plans</span></h2>
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">

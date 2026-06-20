@@ -67,7 +67,7 @@ export default function AboutDecisionLayer() {
   ];
 
   return (
-    <section ref={ref} className="relative py-6 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
+    <section ref={ref} className="relative py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {cards.map((card, i) => (

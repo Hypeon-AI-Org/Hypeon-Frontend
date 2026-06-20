@@ -98,7 +98,7 @@ export default function AboutCoreLayers() {
   return (
     <section
       ref={ref}
-      className="relative py-20 bg-gradient-to-b bg-[oklch(0.988_0.0041_91.45)] overflow-hidden"
+      className="relative py-14 bg-gradient-to-b bg-[oklch(0.988_0.0041_91.45)] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-6">
 
@@ -111,7 +111,7 @@ export default function AboutCoreLayers() {
           The Platform
           </p>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight">
           Three engines. <span className="text-brand-600">One decision system.</span>
           </h2>
 
@@ -121,7 +121,7 @@ export default function AboutCoreLayers() {
         </div>
 
         {/* CARDS */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
           {layers.map((layer, i) => {
             const style = accentStyles[layer.accent as keyof typeof accentStyles];
 

@@ -228,7 +228,7 @@ export default function AboutVision() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-8 bg-[oklch(0.988_0.0041_91.45)] relative overflow-hidden">
+    <section ref={ref} className="font-sans py-12 bg-[oklch(0.988_0.0041_91.45)] relative overflow-hidden">
   <div className="relative max-w-6xl mx-auto px-6">
 
     {/* HEADER */}
@@ -273,7 +273,7 @@ export default function AboutVision() {
             {item.title}
           </h3>
 
-          <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+          <p className="mt-2 text-sm text-slate-600 leading-relaxed">
             {item.description}
           </p>
         </div>

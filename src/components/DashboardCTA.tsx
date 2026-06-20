@@ -46,7 +46,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                             whileHover={{ scale: 1.04 }}
-                            className="relative inline-flex items-center gap-2 overflow-hidden rounded-[0.8rem] bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0a] px-3.5 py-2 text-xs font-bold tracking-tight text-white shadow-[0_16px_38px_-10px_rgba(0,0,0,0.6)] ring-1 ring-white/15 sm:px-5 sm:py-2.5 sm:text-sm"
+                            className="relative inline-flex min-h-[44px] items-center gap-2 overflow-hidden rounded-[0.8rem] bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0a] px-3.5 py-2 text-sm font-bold tracking-tight text-white shadow-[0_16px_38px_-10px_rgba(0,0,0,0.6)] ring-1 ring-white/15 sm:px-5 sm:py-2.5 sm:text-sm"
                         >
                             {/* top sheen */}
                             <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent" />
