@@ -61,11 +61,15 @@ function TagRow({ items, reverse }: { items: typeof ROW1; reverse?: boolean }) {
 /* a platform pill, absolutely positioned at left/top % of the diagram box */
 function PlatformPill({ logo, name, left }: { logo: string; name?: string; left: string }) {
     return (
-        <div style={{ left, top: "22%" }} className="absolute z-10 -translate-x-1/2 -translate-y-1/2">
-            <div className="flex items-center gap-2.5 whitespace-nowrap rounded-full border border-slate-200 bg-white px-5 py-3 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.14)] sm:px-7 sm:py-4">
+        // Anchored by its BOTTOM edge at 31.25% (= the SVG paths' y=100 start),
+        // so the connector line always meets the pill regardless of pill height /
+        // screen size. (Centering on a fixed top drifted on mobile, where the
+        // fixed-px pill is large relative to the scaled SVG.)
+        <div style={{ left, top: "31.25%" }} className="absolute z-10 -translate-x-1/2 -translate-y-full">
+            <div className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200 bg-white px-2.5 py-2 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.14)] sm:gap-2.5 sm:px-7 sm:py-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={logo} alt={name ?? ""} className="h-6 w-6 object-contain sm:h-7 sm:w-7" />
-                {name && <span className="text-base font-semibold text-slate-800 sm:text-lg">{name}</span>}
+                <img src={logo} alt={name ?? ""} className="h-4 w-4 object-contain sm:h-7 sm:w-7" />
+                {name && <span className="text-[11px] font-semibold text-slate-800 sm:text-lg">{name}</span>}
             </div>
         </div>
     );
@@ -89,14 +93,14 @@ function Connector({ d }: { d: string }) {
 export default function EveryPlatformSignal() {
     // viewBox is 600×320; the HTML pills/node use the same coordinate system as %.
     const PATHS = [
-        "M75,100 C75,150 120,205 286,218",   // Meta
-        "M225,100 C225,155 262,200 294,216", // Google
-        "M375,100 C375,155 338,200 306,216", // TikTok
-        "M525,100 C525,150 480,205 314,218", // Pinterest
+        "M96,100 C96,150 130,205 286,218",   // Meta   (16%)
+        "M225,100 C225,155 262,200 294,216", // Google (37.5%)
+        "M375,100 C375,155 338,200 306,216", // TikTok (62.5%)
+        "M504,100 C504,150 470,205 314,218", // Pinterest (84%)
     ];
 
     return (
-        <section className="overflow-hidden bg-[oklch(0.988_0.0041_91.45)] py-16 sm:py-24">
+        <section className="overflow-hidden bg-[oklch(0.988_0.0041_91.45)] py-12 sm:py-24">
             <div className="mx-auto max-w-5xl px-4 text-center">
                 {/* heading */}
                 <h2 className="text-3xl font-bold tracking-tighter text-[#1B1C3A] sm:text-4xl md:text-5xl">
@@ -120,10 +124,10 @@ export default function EveryPlatformSignal() {
                     </svg>
 
                     {/* platform pills */}
-                    <PlatformPill logo="/logos/meta.png" name="Meta" left="12.5%" />
+                    <PlatformPill logo="/logos/meta.png" name="Meta" left="16%" />
                     <PlatformPill logo="/logos/google-ads.png" name="Google" left="37.5%" />
                     <PlatformPill logo="/logos/tiktok.webp" name="TikTok" left="62.5%" />
-                    <PlatformPill logo="/logos/pinterest.png" name="Pinterest" left="87.5%" />
+                    <PlatformPill logo="/logos/pinterest.png" name="Pinterest" left="84%" />
 
                     {/* central HypeOn node */}
                     <div style={{ left: "50%", top: "78%" }} className="absolute z-10 -translate-x-1/2 -translate-y-1/2">
@@ -134,7 +138,7 @@ export default function EveryPlatformSignal() {
                 </div>
 
                 {/* tracking pill */}
-                <div className="-mt-2 flex justify-center">
+                <div className="mt-4 sm:-mt-2 flex justify-center">
                     <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-[12px] font-semibold text-slate-600 shadow-sm">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-slate-400" />
                         Tracking 200M+ ads, 24/7

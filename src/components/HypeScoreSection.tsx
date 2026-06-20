@@ -30,7 +30,7 @@ export default function HypeScoreSection() {
   const activeFeature = features.find((f) => f.id === activeId) ?? features[0];
 
   return (
-    <section className="py-16 bg-white font-sans pr-20">
+    <section className="py-10 sm:py-16 bg-white font-sans lg:pr-20">
       <div className="max-w-5xl mx-auto px-5 grid md:grid-cols-[1fr_360px] gap-8 items-start">
         
         {/* LEFT – Text + feature list */}
@@ -84,7 +84,7 @@ export default function HypeScoreSection() {
         </div>
 
         {/* RIGHT – Visual card */}
-        <div className="sticky top-20 mt-20 flex justify-end reveal-right">
+        <div className="sticky top-20 mt-6 md:mt-20 flex justify-end reveal-right">
           <div
             className="w-full h-[360px] rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-center relative overflow-hidden transition-all duration-700 shadow-sm"
             style={{

@@ -28,7 +28,7 @@ export default function AdIntelReplica() {
   const [active, setActive] = useState<TabId>('insights');
 
   return (
-    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:py-16 overflow-hidden">
+    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:pt-6 lg:pb-16 overflow-hidden">
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-xl">

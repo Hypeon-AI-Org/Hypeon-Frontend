@@ -151,6 +151,55 @@ function FloatingField({ progress }: { progress: MotionValue<number> }) {
     );
 }
 
+/* Mobile creative field — render the SAME full scatter as desktop so the hero
+   reads as a dense field of creatives (not a sparse few), but statically: the
+   scroll-zoom + mouse parallax are jittery / meaningless on touch, so on phones
+   each tile just does a one-shot reveal + an endless gentle vertical float so
+   the field feels alive without fighting scroll. Visible only below `sm`;
+   desktop is untouched. The hero's overflow-hidden clips any edge bleed. */
+function MobileTile({ t, index }: { t: Tile; index: number }) {
+    const drift = index % 2 === 0 ? -9 : 9; // alternate up / down so it feels organic
+    return (
+        <div
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${t.x}%`, top: `${t.y}%`, width: t.w }}
+        >
+            <motion.div
+                className="will-change-transform"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: t.o, scale: 1, y: [0, drift, 0] }}
+                transition={{
+                    opacity: { duration: 0.7, delay: 0.05 + index * 0.025, ease: [0.22, 1, 0.36, 1] },
+                    scale: { duration: 0.7, delay: 0.05 + index * 0.025, ease: [0.22, 1, 0.36, 1] },
+                    y: { duration: t.dur, repeat: Infinity, ease: "easeInOut", delay: index * 0.12 },
+                }}
+            >
+                <div className="overflow-hidden rounded-md border border-white/10 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={CREATIVE_IMAGES[t.img]}
+                        alt=""
+                        loading="lazy"
+                        className="block h-auto w-full object-cover"
+                        style={{ aspectRatio: t.ar }}
+                    />
+                </div>
+            </motion.div>
+        </div>
+    );
+}
+function MobileField() {
+    return (
+        // pushed down from the top so the scatter clears the fixed navbar and the
+        // header (logo / menu) stays clean and tappable.
+        <div className="absolute inset-x-0 bottom-0 top-14 origin-center sm:hidden" aria-hidden>
+            {TILES.map((t, i) => (
+                <MobileTile key={i} t={t} index={i} />
+            ))}
+        </div>
+    );
+}
+
 /* Full-height hero (no pin, so no empty black gap). The field scales out from
    centre on scroll while the headline box / "+" / CTAs stay FIXED on top (they
    do NOT scale) — matching the reference. The next section follows right after. */
@@ -165,6 +214,8 @@ function StudioHero() {
         <section ref={ref} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505] text-white">
                 {/* Floating creative field (scales out from centre on scroll) */}
                 <FloatingField progress={scrollYProgress} />
+                {/* Mobile: same scatter, static + smooth (no scroll-zoom/parallax) */}
+                <MobileField />
 
             {/* Soft darkening behind the headline box so type stays crisp */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_48%_at_50%_50%,rgba(5,5,5,0.84)_45%,rgba(5,5,5,0.3)_72%,transparent_100%)]" />
@@ -196,7 +247,7 @@ function StudioHero() {
                 </div>
 
                 {/* CTAs below the box */}
-                <div className="mt-7 flex items-center justify-center gap-3">
+                <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                     <a
                         href="https://app.hypeon.ai/hub/login"
                         className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#E66245] py-2 pl-2 pr-5 text-[14px] font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"

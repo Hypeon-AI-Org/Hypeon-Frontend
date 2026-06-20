@@ -34,7 +34,7 @@ const TechnologySection = () => {
 
   return (
     <div className="bg-[oklch(0.988_0.0041_91.45)] text-[#111] antialiased text-[14px] font-sans">
-      <div className="flex flex-col lg:flex-row items-start gap-[40px] py-[60px] px-[16px] lg:px-[40px] max-w-[1100px] mx-auto">
+      <div className="flex flex-col lg:flex-row items-start gap-[24px] lg:gap-[40px] py-10 sm:py-[60px] px-[16px] lg:px-[40px] max-w-[1100px] mx-auto">
 
         {/* LEFT COPY – scroll reveal */}
         <div className="w-full lg:w-[340px] pt-4 shrink-0 reveal-left">
@@ -54,7 +54,7 @@ const TechnologySection = () => {
         <div className="flex-1 w-full border border-black rounded-[16px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
 
           {/* TAB GRID */}
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
             {[
               { name: "Trend Forecasting", desc: "Leverage predictive search, social, and market data to understand trend direction." },
               { name: "Social Media Intelligence", desc: "Analyze millions of social trends, and track brand and influencer engagement." },
@@ -65,7 +65,7 @@ const TechnologySection = () => {
                 key={i}
                 type="button"
                 onClick={() => handleTabClick(i)}
-                className={`w-full text-left p-[22px_26px] min-h-[44px] cursor-pointer border-b-[1.5px] border-[#e2e2e2] transition-colors select-none ${i % 2 === 0 ? "border-r-[1.5px]" : ""
+                className={`w-full text-left p-[22px_26px] min-h-[44px] cursor-pointer border-b-[1.5px] border-[#e2e2e2] transition-colors select-none ${i % 2 === 0 ? "sm:border-r-[1.5px]" : ""
                   } ${activeTab === i ? "bg-white" : "hover:bg-gray-50"}`}
               >
                 <div className={`text-[13px] font-bold mb-1 transition-colors ${activeTab === i ? "text-[#111]" : "text-[#c0c0c0]"}`}>
@@ -217,7 +217,7 @@ const Panel1 = () => {
       <div className="bg-[#fafafa] border-t border-[#f0f0f0] p-[12px_14px_14px]">
         <div className="flex justify-between items-center text-[13px] font-bold mb-[3px]">Accelerated Growth <a href="#" className="text-[11px] font-medium text-[#aaa] hover:text-[#555]">View in Summary Table ›</a></div>
         <div className="text-[11px] text-[#bbb] mb-[10px]">Year over year growth is positive and is rapidly increasing</div>
-        <div className="grid grid-cols-[1fr_100px_100px_90px] py-[3px] border-b border-[#eaeaea]">
+        <div className="grid grid-cols-[1fr_56px_72px_60px] sm:grid-cols-[1fr_100px_100px_90px] py-[3px] border-b border-[#eaeaea]">
           {["Trend", "Search Pattern", "Avg Search Weekly", "TY/LY Growth"].map((h, i) => <span key={h} className={`text-[10px] font-semibold text-[#ccc] ${i === 0 ? "text-left" : "text-right"}`}>{h}</span>)}
         </div>
         {[
@@ -226,7 +226,7 @@ const Panel1 = () => {
           { name: "Matcha Frother Set", vol: "10,351,969", growth: "8,144%", sparks: [1, 2, 2, 4, 7, 11, 17, 23, 29] },
           { name: "LED Face Mask", vol: "114,928", growth: "4,989%", sparks: [3, 4, 5, 6, 7, 9, 13, 17, 22] }
         ].map((row, i) => (
-          <div key={i} className="grid grid-cols-[1fr_100px_100px_90px] py-[6px] border-b border-[#f5f5f5] last:border-0 items-center">
+          <div key={i} className="grid grid-cols-[1fr_56px_72px_60px] sm:grid-cols-[1fr_100px_100px_90px] py-[6px] border-b border-[#f5f5f5] last:border-0 items-center">
             <div className="text-[12px] font-medium flex items-center gap-[7px]"><span className="w-[6px] h-[6px] rounded-full bg-gray-300" />{row.name}</div>
             <div className="flex items-end justify-end gap-[1.5px] h-[18px]">
               {row.sparks.map((v, j) => (

@@ -29,7 +29,7 @@ export default function TikTokScrollSection() {
   const gridInView = useInView(gridRef, { margin: '200px 0px' });
 
   return (
-    <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-14 overflow-hidden font-sans">
+    <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 overflow-hidden font-sans">
 
       <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center lg:pl-0.5">
 
@@ -76,7 +76,7 @@ export default function TikTokScrollSection() {
         </motion.div>
 
         {/* AUTO SCROLL GRID */}
-        <div ref={gridRef} className="relative flex gap-6 h-[620px] overflow-hidden">
+        <div ref={gridRef} className="relative flex gap-6 h-[460px] sm:h-[620px] overflow-hidden">
 
           {/* COLUMN 1 */}
           <motion.div

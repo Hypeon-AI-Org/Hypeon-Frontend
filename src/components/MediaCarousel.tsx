@@ -228,7 +228,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
     }, [active]);
 
     return (
-        <section ref={sectionRef} className="relative overflow-hidden py-6 sm:py-8" style={{ backgroundColor: bg }}>
+        <section ref={sectionRef} className="relative overflow-hidden py-3 sm:py-8" style={{ backgroundColor: bg }}>
             {/* edge fade masks for a premium clipped look */}
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-28" style={{ background: `linear-gradient(to right, ${bg}, transparent)` }} />
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-28" style={{ background: `linear-gradient(to left, ${bg}, transparent)` }} />
@@ -248,7 +248,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
                         key={i}
                         onClick={() => setActive(i % MEDIA.length)}
                         aria-label="View creative"
-                        className="group aspect-[9/16] w-[150px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-white/10 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)] sm:w-[190px]"
+                        className="group aspect-[9/16] w-[190px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-white/10 sm:w-[190px] sm:shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)]"
                     >
                         <div className="h-full w-full transition-transform duration-500 group-hover:scale-105">
                             {m.type === "video" ? (

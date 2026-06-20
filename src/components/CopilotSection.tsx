@@ -66,7 +66,7 @@ const itemVariants = {
 
 export default function FeatureGrid() {
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] py-14 px-6 overflow-hidden">
+    <section className="bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto text-center">
 
         {/* Header Animation */}

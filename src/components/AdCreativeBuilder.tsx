@@ -97,7 +97,7 @@ export default function AdCreativeBuilder() {
     }, [runCycle, clearTimers]);
 
     return (
-        <section ref={sectionRef} className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-16 sm:px-6 sm:py-20">
+        <section ref={sectionRef} className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-8 sm:px-6 sm:py-20">
             <motion.div
                 initial="hidden"
                 whileInView="visible"

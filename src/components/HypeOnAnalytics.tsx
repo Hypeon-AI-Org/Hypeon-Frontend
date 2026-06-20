@@ -19,8 +19,8 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] py-14 px-6 font-sans">
-      <div className="max-w-6xl mx-auto bg-[#111111] rounded-[32px] p-8 md:p-12 flex flex-col md:flex-row gap-16">
+    <section className="bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 px-6 font-sans">
+      <div className="max-w-6xl mx-auto bg-[#111111] rounded-[32px] p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-16">
 
         {/* Left Side: Header – scroll reveal */}
         <motion.div

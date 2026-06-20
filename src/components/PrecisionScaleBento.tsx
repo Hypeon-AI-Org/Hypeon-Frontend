@@ -162,7 +162,7 @@ export default function PrecisionScaleBento() {
   const [searchReplay, setSearchReplay] = useState(0);
 
   return (
-    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-[60px] overflow-hidden font-sans text-[14px] text-[#111] antialiased">
+    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-[60px] overflow-hidden font-sans text-[14px] text-[#111] antialiased">
       {/* Same container as TechnologySection (techonoly.tsx) so edges align */}
       <div className="max-w-[1100px] mx-auto px-[16px] lg:px-[40px]">
         <motion.div

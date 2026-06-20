@@ -47,20 +47,9 @@ function AnimatedNumber({
 
 export default function ImpactSection() {
   return (
-    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] ">
+    <section className="relative py-10 sm:py-12 lg:pt-6 lg:pb-6 bg-[oklch(0.988_0.0041_91.45)] ">
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Top Label */}
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-sm text-neutral-500 mb-6"
-        >
-         
-        </motion.p>
 
         {/* Headline */}
         <motion.h2
@@ -126,17 +115,6 @@ export default function ImpactSection() {
           ))}
 
         </div>
-
-        {/* Footer Note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-10 text-sm text-neutral-500"
-        >
- 
-        </motion.p>
 
       </div>
     </section>

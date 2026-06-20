@@ -218,7 +218,7 @@ function Navbar() {
 
       {/* MOBILE: dim + panel (< md) */}
       <div
-        className={`md:hidden fixed inset-0 z-[42] bg-[oklch(0.988_0.0041_91.45)] transition-opacity duration-300 ease-out ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`md:hidden fixed inset-0 z-[42] transition-opacity duration-300 ease-out ${isDark ? "bg-[#150f0d]" : "bg-[oklch(0.988_0.0041_91.45)]"} ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         aria-hidden
         onClick={closeMobile}
       />
@@ -238,22 +238,23 @@ function Navbar() {
       >
         <div
           className={`
-            flex w-full max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border border-slate-200 bg-[oklch(0.988_0.0041_91.45)] shadow-[0_20px_50px_rgba(15,23,42,0.08)]
+            flex w-full max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border shadow-[0_20px_50px_rgba(15,23,42,0.08)]
             transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+            ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[oklch(0.988_0.0041_91.45)]"}
             ${mobileMenuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-[0.98] opacity-0"}
           `}
         >
           <div data-lenis-prevent className="overflow-y-auto overscroll-contain px-3 py-3 sm:px-4 sm:py-4">
-            <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            <p className={`px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
               Menu
             </p>
 
             {/* Products accordion */}
-            <div className="rounded-xl border border-slate-200 bg-white">
+            <div className={`rounded-xl border ${isDark ? "border-white/10 bg-[#1c1512]" : "border-slate-200 bg-white"}`}>
               <button
                 type="button"
                 id="mobile-products-trigger"
-                className="flex w-full min-h-[48px] items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15 focus-visible:ring-inset"
+                className={`flex w-full min-h-[48px] items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-50 active:bg-slate-100 focus-visible:ring-black/15"}`}
                 aria-expanded={mobileDropdown === "products"}
                 aria-controls="mobile-products-panel"
                 onClick={() =>
@@ -261,7 +262,7 @@ function Navbar() {
                 }
               >
                 <span>Products</span>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600">
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/10 text-white/70" : "bg-slate-100 text-slate-600"}`}>
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ease-out ${mobileDropdown === "products" ? "rotate-180" : ""}`}
                     aria-hidden
@@ -276,8 +277,9 @@ function Navbar() {
                 className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${mobileDropdown === "products" ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
               >
                 <div className="min-h-0 overflow-hidden">
-                  <div className="space-y-1 border-t border-slate-200 bg-[oklch(0.988_0.0041_91.45)] px-2 pb-2 pt-2">
+                  <div className={`space-y-1 border-t px-2 pb-2 pt-2 ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[oklch(0.988_0.0041_91.45)]"}`}>
                     <MobileProductLink
+                      dark={isDark}
                       icon={<Sparkles className="h-[18px] w-[18px]" />}
                       title="Hypeon Ad Intelligence"
                       desc="Decode winning competitor ad strategy, trained on 200M+ ads."
@@ -288,6 +290,7 @@ function Navbar() {
                       }}
                     />
                     <MobileProductLink
+                      dark={isDark}
                       icon={<Wand2 className="h-[18px] w-[18px]" />}
                       title="HypeOn Studio"
                       desc="AI-powered ad creatives, curated by designers."
@@ -306,24 +309,24 @@ function Navbar() {
               <Link
                 href="/about"
                 onClick={closeMobile}
-                className="flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold text-slate-900 transition-colors hover:bg-slate-100 active:bg-slate-200/80 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+                className={`flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-100 active:bg-slate-200/80 focus-visible:ring-black/15"}`}
               >
                 Company
               </Link>
             </nav>
 
-            <div className="my-4 h-px w-full bg-slate-200" />
+            <div className={`my-4 h-px w-full ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
 
             <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
               <a
                 href="https://app.hypeon.ai/login"
-                className="flex min-h-[48px] flex-1 items-center justify-center rounded-full border border-slate-300 bg-white px-4 text-[15px] font-semibold text-slate-900 shadow-sm transition-colors hover:bg-slate-50 hover:border-slate-400 active:scale-[0.99] cursor-pointer"
+                className={`flex min-h-[48px] flex-1 items-center justify-center rounded-full border px-4 text-[15px] font-semibold shadow-sm transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "border-white/15 bg-white/5 text-white hover:bg-white/10 hover:border-white/25" : "border-slate-300 bg-white text-slate-900 hover:bg-slate-50 hover:border-slate-400"}`}
               >
                 Log in
               </a>
               <a
                 href="https://app.hypeon.ai/hub/login"
-                className="flex min-h-[48px] flex-1 items-center justify-center rounded-full bg-black px-4 text-[15px] font-bold text-white shadow-md transition-colors hover:bg-black/90 active:scale-[0.99] cursor-pointer"
+                className={`flex min-h-[48px] flex-1 items-center justify-center rounded-full px-4 text-[15px] font-bold text-white shadow-md transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/90"}`}
               >
                 Get the demo
               </a>
@@ -418,18 +421,20 @@ function MobileProductLink({
   desc,
   iconWrapClass,
   onClick,
+  dark,
 }: {
   icon: React.ReactNode;
   title: string;
   desc: string;
   iconWrapClass: string;
   onClick: () => void;
+  dark?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group flex w-full min-h-[52px] cursor-pointer items-center gap-3 rounded-xl p-2.5 text-left transition-colors hover:bg-white active:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/12"
+      className={`group flex w-full min-h-[52px] cursor-pointer items-center gap-3 rounded-xl p-2.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 ${dark ? "hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "hover:bg-white active:bg-slate-100 focus-visible:ring-black/12"}`}
     >
       <div
         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] shadow-sm ring-1 ring-black/[0.04] ${iconWrapClass}`}
@@ -437,10 +442,10 @@ function MobileProductLink({
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold tracking-tight text-slate-900">{title}</p>
-        <p className="mt-0.5 text-[13px] leading-snug text-slate-600">{desc}</p>
+        <p className={`text-sm font-semibold tracking-tight ${dark ? "text-white" : "text-slate-900"}`}>{title}</p>
+        <p className={`mt-0.5 text-[13px] leading-snug ${dark ? "text-white/55" : "text-slate-600"}`}>{desc}</p>
       </div>
-      <span className="shrink-0 text-slate-400 transition-transform group-active:translate-x-0.5" aria-hidden>
+      <span className={`shrink-0 transition-transform group-active:translate-x-0.5 ${dark ? "text-white/40" : "text-slate-400"}`} aria-hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 18l6-6-6-6" />
         </svg>

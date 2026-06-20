@@ -29,7 +29,7 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:px-6">
+        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-8 sm:py-12 sm:px-6">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -60,7 +60,7 @@ export function TabHoppingSection() {
                             href="https://app.hypeon.ai/hub/login"
                             className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#1B1C3A] transition-colors hover:bg-white/90"
                         >
-                            Start 7 day trial <ArrowRight className="h-4 w-4" />
+                            Start 3-day trial <ArrowRight className="h-4 w-4" />
                         </a>
                     </div>
 
@@ -68,15 +68,15 @@ export function TabHoppingSection() {
                     <div className="relative">
                         {/* Before */}
                         <div className="relative z-10 rounded-2xl bg-white p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
-                            <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-start justify-between gap-2 sm:gap-4">
                                 <div>
                                     <p className="text-[11px] font-semibold text-slate-400">Before</p>
                                     <p className="mt-1 text-lg font-bold leading-tight text-slate-900">
                                         Five tabs. Five logins.<br />Zero share-of-voice
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
-                                        <span className="rounded-full border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-500">8–12 h per week</span>
-                                        <span className="rounded-full border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-500">Fragmented data</span>
+                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-500 sm:px-2.5 sm:text-[11px]">8–12 h per week</span>
+                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-500 sm:px-2.5 sm:text-[11px]">Fragmented data</span>
                                     </div>
                                 </div>
                                 <div className="relative h-[142px] w-[150px] flex-shrink-0">
@@ -99,11 +99,13 @@ export function TabHoppingSection() {
                                     ))}
                                 </div>
                             </div>
-                        </div>
 
-                        {/* VS badge */}
-                        <div className="absolute left-8 top-[calc(50%-6px)] z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[#1B1C3A] text-xs font-bold text-white ring-4 ring-[#1B1C3A]">
-                            VS
+                            {/* VS badge — anchored to the Before card's bottom edge so it
+                                sits exactly on the seam between the two cards (the cards
+                                differ in height, so a container-50% would drift). */}
+                            <div className="absolute bottom-0 left-8 z-20 flex h-12 w-12 translate-y-[calc(50%+6px)] items-center justify-center rounded-full bg-[#1B1C3A] text-xs font-bold text-white ring-4 ring-[#1B1C3A]">
+                                VS
+                            </div>
                         </div>
 
                         {/* With HypeOn */}
@@ -126,8 +128,8 @@ export function TabHoppingSection() {
                                         One workspace.<br />One source of truth
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
-                                        <span className="rounded-full border border-white/20 px-2.5 py-1 text-[11px] font-medium text-white/80">Under 30 min per week</span>
-                                        <span className="rounded-full border border-white/20 px-2.5 py-1 text-[11px] font-medium text-white/80">One source of truth</span>
+                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[10px] font-medium text-white/80 sm:px-2.5 sm:text-[11px]">Under 30 min per week</span>
+                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[10px] font-medium text-white/80 sm:px-2.5 sm:text-[11px]">One source of truth</span>
                                     </div>
                                 </div>
                                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
@@ -144,13 +146,13 @@ export function TabHoppingSection() {
 
 export function AskCopilotSection() {
     const ANSWERS = [
-        <>Nike launched <b className="font-semibold text-slate-800">14 new creatives</b> in May, 9 testing &apos;comfort&apos; angle</>,
-        <><b className="font-semibold text-slate-800">+32% spend shift</b> toward TikTok vs April</>,
-        <>Top performing hook: <b className="font-semibold text-slate-800">&quot;Run your way&quot;</b> (estimated 4.2M impressions)</>,
+        <>Nike launched <span className="font-normal text-slate-800">14 new creatives</span> in May, 9 testing &apos;comfort&apos; angle</>,
+        <><span className="font-normal text-slate-800">+32% spend shift</span> toward TikTok vs April</>,
+        <>Top performing hook: <span className="font-normal text-slate-800">&quot;Run your way&quot;</span> (estimated 4.2M impressions)</>,
     ];
 
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:px-6">
+        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-8 sm:py-12 sm:px-6">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -177,7 +179,7 @@ export function AskCopilotSection() {
                                 href="https://app.hypeon.ai/hub/login"
                                 className="inline-flex items-center gap-2 rounded-full bg-[#1B1C3A] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1B1C3A]/90"
                             >
-                                Start 7 day trial <ArrowRight className="h-4 w-4" />
+                                Start 3-day trial <ArrowRight className="h-4 w-4" />
                             </a>
                             <a
                                 href="https://app.hypeon.ai/hub/login"
