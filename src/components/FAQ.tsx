@@ -6,27 +6,27 @@ import { Plus, Minus } from 'lucide-react';
 const faqData = [
     {
         question: "What is HypeOn and who is it for?",
-        answer: "HypeOn is a prediction and attribution intelligence platform built specifically for e-commerce founders and brand owners. It combines HypeOn Intelligence (what to sell, what keywords to target, what creatives to run, where competitors are weak) with HypeOn Analytics (exactly which marketing channel drove every sale, with no double counting). "
+        answer: "HypeOn is an AI-powered growth platform built specifically for D2C brands. It combines competitor ad intelligence, AI-powered ad creation, and scaling tools in one place — so you can see what's working in your market, build ads from winning angles, and launch across every channel without the chaos. It's built for D2C founders, growth marketers, and performance teams who are tired of guessing and want to move faster than their competitors."
     },
     {
-        question: "How is HypeOn different from Jungle Scout or AdSpy?",
-        answer: "Jungle Scout focuses only on Amazon product research. AdSpy focuses only on ad creative tracking. Neither tells you which channel actually drove your revenue, what your true CAC is by channel, or where competitors are gaining traffic. HypeOn is the only platform that covers trend discovery, keyword intelligence, creative analysis, competitor intelligence, GEO analysis, AND marketing attribution — all in one place, all connected, with an AI Copilot to make it actionable."
+        question: "How is HypeOn different from AdSpy or Meta Ad Library?",
+        answer: "AdSpy and the Meta Ad Library show you ads. HypeOn tells you what's actually working. We go beyond screenshots — surfacing which ads are actively scaling, how long they've been running, what angles and hooks are winning, what competitors' customers are complaining about in reviews, and which keywords are spiking right now. Then we let you turn all of that into live ads in seconds. It's the full loop, not just a library."
     },
     {
-        question: "What does attribution without double counting actually mean?",
-        answer: "Every ad platform (Google, Meta, TikTok) takes 100% credit for every sale it touched. So if a customer clicked a Google ad on Monday and a Facebook ad on Thursday before buying, both platforms claim that sale. Your real ROAS looks 2–4× better than it is. HypeOn's last-click attribution assigns every Shopify order to exactly ONE channel — the last touchpoint before purchase — using GA4 identity data and cross-device email bridging. You see reality, not platform propaganda."
+        question: "What does \"Find Competitors' Best Performing Ads\" actually mean?",
+        answer: "It means we don't just show you what ads exist — we show you which ones are winning. We track run time, spend trajectory, engagement signals, and creative format performance across Meta and TikTok. An ad that's been running for 23 days with increasing spend is a signal. A UGC testimonial outperforming studio shots 3:1 is a signal. HypeOn surfaces those signals so you brief smarter, not harder."
     },
     {
-        question: "Do I need a developer to set up HypeOn Analytics?",
-        answer: "The Hype Score is a proprietary 0–100 metric updated daily for every product and keyword in our database. It combines four signals: Demand Momentum (how fast demand is rising), Seasonal Fit (whether timing amplifies or limits demand right now), Margin Potential (estimated profitability), and Competition Pressure (how saturated the market is). A score above 70 means early-stage, high-potential opportunity. Above 85 means breaking out now. It's designed to tell you whether to launch, wait, or skip — before you've spent a penny."
+        question: "Do I need a developer to set up HypeOn?",
+        answer: "No. HypeOn connects to your ad accounts and product store in a few clicks — no code, no technical setup, no waiting on an agency. Most teams are up and running in under 10 minutes. If you run into anything, our support team is here."
     },
     {
-        question: "How accurate is the attribution coverage?",
-        answer: "HypeOn achieves 80–85% attribution coverage on average. The remaining 15–20% is technically unavoidable without mandatory login — it covers customers who browse incognito, use iOS ITP, or switch devices without providing an email. Any tool claiming 100% attribution is using probabilistic modelling (guessing) or is inaccurate. We believe in transparent, honest attribution with confidence levels — so you know exactly how much to trust each data point."
+        question: "How does HypeOn generate UGC and video ads?",
+        answer: "You drop your product link or describe what you sell. HypeOn pulls the winning hooks, formats, and angles from competitor ads already scaling in your category, builds a brief automatically, and generates video, UGC-style, and static creatives ready to launch. The output is based on what's proven to work in your niche — not a generic template."
     },
     {
-        question: "Can I use HypeOn for multiple brands or stores?",
-        answer: "Yes. The Agency / Enterprise plan supports multi-brand and multi-store setups with separate data environments for each brand. Agencies can manage multiple clients from a single dashboard with white-label reporting. Contact us for custom pricing based on the number of brands and combined ad spend."
+        question: "Can I use HypeOn across multiple brands or stores?",
+        answer: "Yes. HypeOn is built to handle multiple brands, multiple ad accounts, and multiple markets. Whether you're an agency managing several D2C clients or a brand expanding into new geographies, you can track, create, and scale across all of them from one workspace. Reach out to us about our Scale plan for custom multi-brand pricing."
     }
 ];
 

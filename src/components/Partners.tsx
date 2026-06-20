@@ -169,22 +169,22 @@ export default function CombinedLayout() {
                 ${isExpanded ? 'text-[15px] md:text-[16px] leading-[1.8] space-y-10' : 'text-sm leading-[1.7] space-y-6'}
               `}>
                 <p>
-                  Every e-commerce founder I know has the same morning routine. Open five dashboards. See five different revenue numbers. Try to figure out which one is real. None of them are.
+                  Every e-commerce founder I know has the same morning routine. Open five tabs to see what their competitors are doing. Screenshot a few ads. Guess which ones are actually working. Then sit down to brief a creative they won't see for two weeks. None of it is based on truth.
                 </p>
                 <p>
-                  Google takes credit for the sale. Meta takes credit for the same sale. TikTok does too. Add them up and you look like a genius. Check your bank account and the truth is 40–60% lower.
+                  A competitor goes viral and you scramble to reverse-engineer it. Was it the hook? The format? The targeting? By the time you've pieced it together, they've moved on to the next winner. You're always one step behind, not because you're slower, but because you're working blind.
                 </p>
                 {isExpanded && (
                   <>
                     <p>
-                      Meanwhile, you spend months researching a product. Launch it. Nothing happens. Two weeks later, someone else goes viral with the same thing. They saw the signal first. You didn't - because you were using the same tools as everyone else.
+                      Meanwhile, your agency takes three days to turn around a single ad. Your designer is backed up. And the trending product you spent months researching? Someone else launched it first. They saw the signal early. You didn't, because you were using the same tools as everyone else.
                     </p>
                     <p>
-                      This is the problem I kept running into. Not The lack of tools. The lack of truth. No one could tell me which channel actually made the sale. No one could show me what was about to trend before it peaked. No one could give me a straight answer on where to put my next pound of ad spend.
+                      This is the problem I kept running into. Not the lack of tools. The lack of an unfair advantage. No one could show me which competitor ads were truly scaling. No one could turn that intelligence into a ready-to-launch ad in minutes. No one could tell me what was about to trend before it peaked.
                     </p>
                     <p>So we built HypeOn.</p>
-                    <p>It scans 20 million signals a day to show you what's coming - weeks before it peaks. It attributes every order to one channel with zero double counting. And it answers your marketing questions in plain English, with specific numbers and specific actions.
-               
+                    <p>It decodes every competitor ad — spend, reach, the winning angles — so you start from what already works. It turns that intelligence into static, video, and UGC creatives in seconds, not weeks. And it spots breakout products and pricing gaps before the market catches on — so your next move is always the right one.
+
                     </p>
                     <div className="pt-12 border-t border-[#F0F0EB]">
                       <p className="font-semibold text-black text-[20px]">Yash Kumar</p>

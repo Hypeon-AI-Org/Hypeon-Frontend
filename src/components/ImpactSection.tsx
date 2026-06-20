@@ -82,23 +82,22 @@ export default function ImpactSection() {
 
           {[
             {
-              value: 68,
-              suffix: "%",
-              title: "Wasted ad spend identified & reallocated",
-              subtitle: "Across 100+ data sources"
+              value: 47,
+              suffix: "M+",
+              title: "Competitor ads analyzed",
+            
             },
             {
-              value: 83,
-              suffix: "%",
-              title: "Attribution coverage",
-              subtitle: "Without mandatory login"
+              value: 60,
+              suffix: "s",
+              title: "From prompt to launch-ready ad",
+              
             },
             {
-              value: 8,
-              suffix: "",
-              prefix: "3–",
-              title: "Weeks early on trends",
-              subtitle: "Before viral peak on average"
+              value:77,
+              suffix: "%",
+              title: "uplift in conversion rate",
+              
             },
           
           ].map((stat, i) => (
@@ -112,7 +111,7 @@ export default function ImpactSection() {
             >
               {/* Number */}
               <div className="text-4xl sm:text-5xl font-semibold tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-600 to-neutral-900 bg-clip-text text-transparent">
-                {stat.prefix}
+                
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </div>
 
@@ -122,9 +121,7 @@ export default function ImpactSection() {
               </p>
 
               {/* Subtitle */}
-              <p className="mt-1 text-sm text-neutral-500">
-                {stat.subtitle}
-              </p>
+          
             </motion.div>
           ))}
 
@@ -138,7 +135,7 @@ export default function ImpactSection() {
           viewport={{ once: true }}
           className="mt-10 text-sm text-neutral-500"
         >
-          Based on real founder data • First 90 days • All platforms, all channels
+ 
         </motion.p>
 
       </div>

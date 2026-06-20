@@ -686,7 +686,9 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
 .cad-outer-card {
   max-width: 820px !important;   /* 🔥 reduces size */
   height: 580px !important;      /* 🔥 consistent height */
-  margin: 40px -40px 40px auto !important;  /* 🔥 shift to the right */
+  /* Centered (not shifted past the right edge) so nothing gets clipped by the
+     card's overflow:hidden at any browser zoom. */
+  margin: 40px auto !important;
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
@@ -727,6 +729,34 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
     max-height: none !important;
     margin: 14px auto 20px auto !important;
   }
+}
+
+/* Mobile/tablet: the single full-bleed screenshot previews (cards 01/02/03)
+   hug their image's real aspect ratio so the white card frame doesn't leave
+   empty bands above/below the image. Each ratio matches the source PNG. */
+@media (max-width: 1023px) {
+  .fdm-img-prev { min-height: 0 !important; }
+  .ps-outer-card,
+  .pi-outer-card,
+  .rad-outer-card {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .ps-panels,
+  .pi-panels,
+  .rad-panels {
+    min-height: 0 !important;
+  }
+  .ps-right-panel,
+  .pi-middle-panel,
+  .rad-right-panel {
+    min-height: 0 !important;
+    flex: none !important;
+    overflow: hidden !important;
+  }
+  .ps-right-panel { aspect-ratio: 1076 / 723; }   /* 01.png */
+  .pi-middle-panel { aspect-ratio: 1109 / 807; }  /* 02.png */
+  .rad-right-panel { aspect-ratio: 932 / 623; }   /* 03.png */
 }
 
 .ps-panels,
@@ -3407,7 +3437,7 @@ const AD_INTELLIGENCE_HTML_CSS = `
 function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
+      className={`fdm-img-prev relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: PRODUCT_SIGNALS_HTML_CSS }} />
@@ -3493,7 +3523,7 @@ function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
 function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
+      className={`fdm-img-prev relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: PRICING_INTELLIGENCE_HTML_CSS }} />
@@ -3984,7 +4014,7 @@ function RadLogoTikTok36({ withStroke }: { withStroke?: boolean }) {
 function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
-      className={`relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
+      className={`fdm-img-prev relative flex w-full flex-col overflow-hidden ${WORKSPACE_PREVIEW_GLOW_GUTTER} md:min-h-full ${fillHeight ? WORKSPACE_PREVIEW_FILL_HEIGHT_CLASS : "min-h-[280px] h-full md:min-h-full"
         }`}
     >
       <style dangerouslySetInnerHTML={{ __html: REVENUE_ATTRIBUTION_HTML_CSS }} />
@@ -4980,6 +5010,9 @@ export default function StackingCards() {
 
 function Card({ item, index }: { item: (typeof sections)[number], index: number }) {
   const isDesktop = useIsDesktop()
+  // Cards 01/02/03 are single full-bleed screenshots that hug their image ratio
+  // on mobile — drop the tall min-heights so no empty band shows around them.
+  const isImagePreview = item.id === "01" || item.id === "02" || item.id === "03"
 
   return (
     <div
@@ -4989,7 +5022,11 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
         paddingTop: isDesktop ? `${index * 25}px` : 0
       }}
     >
-      <div className="relative flex w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_30px_-22px_rgba(15,23,42,0.18)] sm:rounded-[2.5rem] md:flex-row md:items-stretch lg:max-w-[1200px] min-h-[360px] sm:min-h-[460px] md:h-[min(76vh,680px)] md:min-h-[min(76vh,680px)]">
+      <div
+        className={`relative flex w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_30px_-22px_rgba(15,23,42,0.18)] sm:rounded-[2.5rem] md:flex-row md:items-stretch lg:max-w-[1200px] md:h-[min(76vh,680px)] md:min-h-[min(76vh,680px)] ${
+          isImagePreview ? "min-h-0" : "min-h-[360px] sm:min-h-[460px]"
+        }`}
+      >
         {/* LEFT: feature copy */}
         <div className="flex min-h-0 w-full shrink-0 flex-col justify-center bg-white p-5 sm:p-6 md:w-[34%] md:p-8 lg:p-12">
           <div className="mb-4 flex items-center gap-3 sm:mb-6">
@@ -5016,7 +5053,13 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
         </div>
 
         {/* RIGHT: workspace preview — pricing UI for Pricing Intelligence; product signals UI for others */}
-        <div className="relative flex min-h-[320px] w-full flex-1 flex-col overflow-x-hidden overflow-y-auto max-md:min-h-[380px] sm:min-h-[400px] md:min-h-0 md:h-full md:w-[66%] md:overflow-hidden">
+        <div
+          className={`relative flex w-full flex-1 flex-col overflow-x-hidden overflow-y-auto md:min-h-0 md:h-full md:w-[66%] md:overflow-hidden ${
+            isImagePreview
+              ? "min-h-0"
+              : "min-h-[320px] max-md:min-h-[380px] sm:min-h-[400px]"
+          }`}
+        >
           {item.id === "03" ? (
             <PricingIntelligenceHtmlPreview fillHeight />
           ) : item.id === "06" ? (

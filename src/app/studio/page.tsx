@@ -13,7 +13,7 @@ export default function StudioPage() {
         <Studio />
       </main>
 
-      <Footer />
+      <Footer bgClassName="bg-[#0a0a0a]" />
     </div>
   );
 }

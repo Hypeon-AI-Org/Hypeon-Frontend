@@ -188,10 +188,10 @@ function StudioHero() {
                     </svg>
 
                     <h1 className="text-left font-sans text-xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
-                        AI powered<br />ad creatives
+                        AI that<br />creates
                     </h1>
                     <h2 className="mt-5 text-right font-sans text-xl font-bold uppercase leading-[1.05] tracking-tighter sm:text-2xl md:text-3xl">
-                        Curated by<br />designers.
+                        runs your<br />winning ads
                     </h2>
                 </div>
 

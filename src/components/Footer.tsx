@@ -8,14 +8,14 @@ import logo from "../../assets/HypeOn_Logo.png";
 const linkClass =
   "flex min-h-10 w-full items-center text-sm font-normal leading-snug text-slate-400 transition-colors hover:text-white";
 
-export default function Footer() {
+export default function Footer({ bgClassName = "bg-[#0E1116]" }: { bgClassName?: string }) {
   const navColumns = [
     {
       title: "Product",
       className: "lg:col-span-3 xl:col-span-3",
       links: [
         { label: "HypeOn Intelligence", href: "/products" },
-        { label: "HypeOn Analytics", href: "/analytics" },
+        { label: "HypeOn Studio", href: "/studio" },
       ],
     },
     {
@@ -30,7 +30,7 @@ export default function Footer() {
   ] as const;
 
   return (
-    <footer className="relative m-0 w-full overflow-hidden bg-[#0E1116] font-sans">
+    <footer className={`relative m-0 w-full overflow-hidden ${bgClassName} font-sans`}>
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8 lg:pb-20 lg:pt-24">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-14 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
           {/* Brand — spans full width on mobile, both sm columns, then ~half on xl */}
@@ -48,9 +48,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="max-w-md text-sm leading-loose text-slate-400">
-              HypeOn AI helps e-commerce teams figure out what to sell next, how
-              to sell it better, and where to put their budget for the highest
-              return using real-time signals.
+              HypeOn AI helps e-commerce teams see what works, build it, and
+              scale it — using real-time signals.
             </p>
             <div className="mt-8 flex gap-1">
               <a
