@@ -6,7 +6,7 @@ import Studio from "@/components/Studio";
 
 export default function StudioPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0a0a0a]">
+    <div className="relative min-h-[100svh] overflow-hidden bg-[#0a0a0a]">
       <Navbar />
 
       <main className="relative z-10">
