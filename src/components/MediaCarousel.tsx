@@ -74,26 +74,35 @@ export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) 
     useEffect(() => {
         const el = wrapRef.current;
         if (!el) return;
-        const reconcile = () => {
+        // Single reconcile path for both the IntersectionObserver and the scroll
+        // signal. The golden rule for buttery scroll: do NO React work (no
+        // mount/unmount) while the page is scrolling. During a scroll we only
+        // pause the already-mounted <video> (cheap, decode-free); the moment the
+        // scroll settles we reconcile mount state and resume in-view clips.
+        const apply = () => {
             const v = videoRef.current;
-            if (!v) return;
-            // Play only when the page is NOT actively scrolling, so video decode
-            // never competes with the scroll → no stutter. While scrolling the
-            // tile still shows its poster.
-            if (inView.current && !isScrolling()) v.play().catch(() => {});
-            else v.pause();
+            if (isScrolling()) {
+                // Freeze decode mid-scroll, but never touch mount state — that
+                // would re-render on the main thread and stutter the scroll.
+                if (v) v.pause();
+                return;
+            }
+            setMountVideo(inView.current); // no-op when value is unchanged
+            if (v) {
+                if (inView.current) v.play().catch(() => {});
+                else v.pause();
+            }
         };
         const io = new IntersectionObserver(
             ([entry]) => {
                 inView.current = entry.isIntersecting;
-                setMountVideo(entry.isIntersecting);
-                reconcile();
+                apply();
             },
             // start ~one card before it scrolls into view (any direction)
             { threshold: 0.01, rootMargin: "300px" }
         );
         io.observe(el);
-        const unsubscribe = subscribeScroll(reconcile);
+        const unsubscribe = subscribeScroll(apply);
         return () => {
             io.disconnect();
             unsubscribe();

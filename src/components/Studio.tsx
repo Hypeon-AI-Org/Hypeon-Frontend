@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { isScrolling, subscribeScroll } from "@/lib/scrollActivity";
 import { ArrowRight, ArrowUpRight, Globe, Mic, Paperclip, Phone, Play, Sparkles, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -204,10 +205,24 @@ function MobileField() {
     // around the edges but drop tiles inside the central headline / CTA zone so the
     // type stays clean and readable. Desktop (FloatingField) is unaffected.
     const clearsHeadline = (t: Tile) => !(t.x > 24 && t.x < 76 && t.y > 24 && t.y < 84);
+
+    // Freeze every tile's endless float while the page is being scrolled. ~20
+    // tiles each running a compositor float keep recompositing every frame, which
+    // makes the mobile hero scroll feel sticky. Paused during scroll → buttery;
+    // they resume the instant the scroll settles. Desktop is untouched.
+    const [scrolling, setScrolling] = useState(false);
+    useEffect(() => {
+        setScrolling(isScrolling());
+        return subscribeScroll(setScrolling);
+    }, []);
+
     return (
         // pushed down from the top so the scatter clears the fixed navbar and the
         // header (logo / menu) stays clean and tappable.
-        <div className="absolute inset-x-0 bottom-0 top-14 origin-center sm:hidden" aria-hidden>
+        <div
+            className={`absolute inset-x-0 bottom-0 top-14 origin-center sm:hidden ${scrolling ? "studio-field-scrolling" : ""}`}
+            aria-hidden
+        >
             {TILES.filter(clearsHeadline).map((t, i) => (
                 <MobileTile key={i} t={t} index={i} />
             ))}

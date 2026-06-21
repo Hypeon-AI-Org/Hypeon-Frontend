@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Section, { Cell } from './Section';
 import { MEDIA, MarqueeVideo, type Media } from './MediaCarousel';
+import { isScrolling, subscribeScroll } from '@/lib/scrollActivity';
 
 /* ============================================================
    "Built for brands serious about growth" — two horizontally
@@ -37,15 +39,51 @@ function Card({ media }: { media: Media }) {
 
 /* Auto-scrolling marquee row. The card set is duplicated so translating the
    strip by -50% (the `marquee` keyframe) loops seamlessly. `reverse` flips the
-   direction — top row drifts left, bottom row drifts right. Pauses on hover. */
+   direction — top row drifts left, bottom row drifts right.
+
+   The animation is PAUSED while the page is actively scrolling and while the row
+   is off-screen. Pausing during scroll is the key to smoothness: a moving strip
+   keeps sweeping cards across the IntersectionObserver boundary, which fires
+   mount/unmount React renders on the main thread mid-scroll → stutter. Frozen
+   during scroll, scrolling stays buttery and the marquee resumes the instant the
+   scroll settles. Also pauses on hover. */
 function MarqueeRow({ items, reverse = false }: { items: Media[]; reverse?: boolean }) {
   const loop = [...items, ...items];
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(true);
+  const [scrolling, setScrolling] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  // Pause when the row scrolls off-screen (don't burn a compositor layer the
+  // user can't see).
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Freeze the strip while the page is being scrolled.
+  useEffect(() => {
+    setScrolling(isScrolling());
+    return subscribeScroll(setScrolling);
+  }, []);
+
+  const running = inView && !scrolling && !hovered;
+
   return (
-    <div className="group overflow-hidden">
+    <div ref={rowRef} className="overflow-hidden">
       <div
-        className={`flex w-max gap-4 sm:gap-5 py-6 sm:py-8 will-change-transform animate-[marquee_70s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none ${
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className={`flex w-max gap-4 sm:gap-5 py-6 sm:py-8 will-change-transform animate-[marquee_35s_linear_infinite] motion-reduce:animate-none ${
           reverse ? '[animation-direction:reverse]' : ''
         }`}
+        style={{ animationPlayState: running ? 'running' : 'paused' }}
       >
         {loop.map((media, i) => (
           <Card key={i} media={media} />

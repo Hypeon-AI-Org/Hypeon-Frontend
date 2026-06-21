@@ -421,6 +421,12 @@ a[href] {
     transform: translate3d(0, var(--tile-drift, -9px), 0);
   }
 }
+/* While the page is being scrolled, freeze the mobile tiles' endless float so
+   the compositor isn't re-animating ~20 layers every frame mid-scroll (keeps the
+   mobile hero scroll smooth). They resume the moment the scroll settles. */
+.studio-field-scrolling .studio-tile-float {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
   .studio-tile-float {
     animation: none !important;
