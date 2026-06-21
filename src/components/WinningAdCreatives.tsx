@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useRef } from 'react';
+import Section, { Cell } from './Section';
 
 const container = {
   hidden: { opacity: 0 },
@@ -29,12 +30,11 @@ export default function TikTokScrollSection() {
   const gridInView = useInView(gridRef, { margin: '200px 0px' });
 
   return (
-    <section className="relative  bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 overflow-hidden font-sans">
-
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center lg:pl-0.5">
+    <Section cols={2} className="font-sans">
 
         {/* LEFT TEXT */}
-        <motion.div className="z-20 bg-[oklch(0.988_0.0041_91.45)] lg:pl-6"
+        <Cell>
+        <motion.div className="z-20 flex h-full flex-col justify-center"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -74,8 +74,10 @@ export default function TikTokScrollSection() {
           </motion.div>
 
         </motion.div>
+        </Cell>
 
         {/* AUTO SCROLL GRID */}
+        <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
         <div ref={gridRef} className="relative flex gap-6 h-[460px] sm:h-[620px] overflow-hidden">
 
           {/* COLUMN 1 */}
@@ -126,10 +128,9 @@ export default function TikTokScrollSection() {
           </motion.div>
 
         </div>
+        </Cell>
 
-      </div>
-
-    </section>
+    </Section>
   );
 }
 

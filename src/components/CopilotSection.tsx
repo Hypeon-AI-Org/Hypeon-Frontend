@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Section, { Cell } from './Section';
 import {
   TrendingUp,
   ShoppingCart,
@@ -45,16 +46,6 @@ const features = [
   }
 ];
 // Animation Variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Delay between each card's animation
-    },
-  },
-};
-
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -66,10 +57,9 @@ const itemVariants = {
 
 export default function FeatureGrid() {
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 px-6 overflow-hidden">
-      <div className="max-w-5xl mx-auto text-center">
-
-        {/* Header Animation */}
+    <Section cols={3}>
+      {/* Header — full width, hairline below separates it from the card grid */}
+      <Cell className="md:col-span-3 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -80,42 +70,37 @@ export default function FeatureGrid() {
             Intelligence for how you actually <span className='text-brand-600'>sell.</span>
           </h2>
 
-          <p className="text-slate-500 text-[15px] max-w-2xl mx-auto mb-14 leading-relaxed">
+          <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">
             Whether you're on your own site, Amazon, TikTok Shop, or all three — HypeOn Intelligence works the way your business works.
           </p>
         </motion.div>
+      </Cell>
 
-        {/* Grid Animation */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }} // Triggers slightly before the element hits center
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="border border-slate-500 rounded-2xl p-6 text-left bg-[oklch(0.988_0.0041_91.45)] shadow-sm hover:shadow-md hover:border-slate-400 transition-all duration-300"
-              >
-                <div className="inline-flex items-center justify-center w-10 h-8 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
-                  <Icon size={iconSize} strokeWidth={1.75} />
-                </div>
-                <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-500 text-[14px] leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </div>
-    </section>
+      {/* Feature cards — each its own Cell so hairlines divide the grid */}
+      {features.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <Cell key={index} className="text-left">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <div className="inline-flex items-center justify-center w-10 h-8 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
+                <Icon size={iconSize} strokeWidth={1.75} />
+              </div>
+              <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
+                {feature.title}
+              </h3>
+              <p className="text-slate-500 text-[14px] leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          </Cell>
+        );
+      })}
+    </Section>
   );
 }

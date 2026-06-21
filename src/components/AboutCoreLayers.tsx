@@ -1,48 +1,35 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Section, { Cell } from './Section';
 
 const layers = [
   {
     tag: 'INTELLIGENCE',
-    title: 'HypeOn Intelligence',
+    title: 'Hypeon Intelligence',
     description:
-      'The trend engine. Surface rising products and keywords before your competitors notice the signal.',
+      'The intelligence engine. Decode any competitor\'s playbook in seconds — their spend, reach and winning angles, laid bare.',
     accent: 'green',
     features: [
-      'Emerging product opportunity detection',
-      'Trending keyword & buying-intent scoring',
-      'Competitor ad & creative analysis',
-      'Competitor social & Trustpilot intelligence',
-      'Market entry & whitespace detection',
+      'Competitor spend, reach & winning-angle decoding',
+      '200M+ ads across Meta, Google, TikTok, LinkedIn & Pinterest',
+      'Breakout product detection before they peak',
+      'Copilot — ask your ad data in plain English',
+      'Real ROAS & wasted-spend analytics across channels',
     ],
   },
   {
-    tag: 'COPILOT',
-    title: 'HypeOn Copilot',
+    tag: 'STUDIO',
+    title: 'HypeOn Studio',
     description:
-      'Your AI decision partner. Validates ideas and tells you what to do next with confidence.',
-    accent: 'blue',
-    features: [
-      'Idea validation against live demand',
-      'Action prioritization & sequencing',
-      'Inventory planning from forward demand',
-      'Budget allocation recommendations',
-      'Real-time opportunity alerts',
-    ],
-  },
-  {
-    tag: 'ANALYTICS',
-    title: 'HypeOn Analytics',
-    description:
-      'The truth layer. See your real ROAS across every channel with zero platform bias.',
+      'The creative engine. AI-first ad creative built to convert — turning intelligence into scroll-stopping assets in seconds, not weeks.',
     accent: 'orange',
     features: [
-      'Real ROAS across every channel, no duplication',
-      'True CPA per channel, side by side',
-      'Scale / Hold / Cut signals per campaign',
-      'Cross-channel budget optimization',
-      'Wasted spend identification',
+      'Scroll-stopping static, video & UGC in seconds',
+      'Trained on real performance data',
+      'On-brand every time',
+      'Fewer review rounds, faster briefs',
+      'Any asset for any platform',
     ],
   },
 ];
@@ -51,10 +38,6 @@ const accentStyles = {
   green: {
     border: 'border-t-[#22c55e]',
     tag: 'bg-emerald-100 text-emerald-700',
-  },
-  blue: {
-    border: 'border-t-blue-400',
-    tag: 'bg-blue-100 text-blue-700',
   },
   orange: {
     border: 'border-t-amber-400',
@@ -75,7 +58,7 @@ function CheckIcon() {
 }
 
 export default function AboutCoreLayers() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -96,81 +79,70 @@ export default function AboutCoreLayers() {
   }, []);
 
   return (
-    <section
-      ref={ref}
-      className="relative py-14 bg-gradient-to-b bg-[oklch(0.988_0.0041_91.45)] overflow-hidden"
-    >
-      <div className="max-w-6xl mx-auto px-6">
-
-        {/* HEADER */}
+    <Section cols={2} sectionRef={ref}>
+      {/* HEADER */}
+      <Cell className="md:col-span-2 text-center">
         <div
-          className={`max-w-2xl mx-auto text-center mb-10 transition-all duration-700
+          className={`max-w-2xl mx-auto transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
           <p className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-3">
-          The Platform
+            The Platform
           </p>
 
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight">
-          Three engines. <span className="text-brand-600">One decision system.</span>
+            Two engines. <span className="text-brand-600">One growth system.</span>
           </h2>
 
           <p className="mt-4 text-sm text-slate-500 leading-relaxed">
-          Intelligence for finding what's rising. Copilot for acting on it. Analytics for knowing what actually worked. Three layers that replace guesswork with evidence at every stage.
+            Intelligence for finding and decoding what&apos;s actually working — every competitor&apos;s spend, reach and winning angles. Studio for turning those insights into creative that converts. Two engines that replace guesswork with evidence, then ship the work.
           </p>
         </div>
+      </Cell>
 
-        {/* CARDS */}
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-          {layers.map((layer, i) => {
-            const style = accentStyles[layer.accent as keyof typeof accentStyles];
+      {/* CARDS — each engine is its own grid cell; the section hairlines form the dividers */}
+      {layers.map((layer, i) => {
+        const style = accentStyles[layer.accent as keyof typeof accentStyles];
 
-            return (
-              <div
-                key={layer.title}
-                className={`
-                  group relative rounded-2xl bg-white border border-slate-200 border-t-4 p-6
-                  shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500
-                  ${style.border}
-                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
-                `}
-                style={{ transitionDelay: `${i * 120}ms` }}
+        return (
+          <Cell key={layer.title}>
+            <div
+              className={`
+                group relative border-t-4 pt-5
+                transition-all duration-500
+                ${style.border}
+                ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+              `}
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
+              <span
+                className={`inline-block px-3 py-1 rounded-md text-xs font-semibold tracking-wide uppercase ${style.tag}`}
               >
+                {layer.tag}
+              </span>
 
-                {/* glow hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-white/40 to-transparent rounded-2xl" />
+              <h3 className="mt-4 text-xl font-semibold text-slate-900">
+                {layer.title}
+              </h3>
 
-                <span
-                  className={`inline-block px-3 py-1 rounded-md text-xs font-semibold tracking-wide uppercase ${style.tag}`}
-                >
-                  {layer.tag}
-                </span>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                {layer.description}
+              </p>
 
-                <h3 className="mt-4 text-xl font-semibold text-slate-900">
-                  {layer.title}
-                </h3>
-
-                <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  {layer.description}
-                </p>
-
-                <ul className="mt-5 space-y-3 text-sm text-slate-600">
-                  {layer.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <span className="mt-[3px] text-slate-900">
-                        <CheckIcon />
-                      </span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
-            );
-          })}
-        </div>
-
-      </div>
-    </section>
+              <ul className="mt-5 space-y-3 text-sm text-slate-600">
+                {layer.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2">
+                    <span className="mt-[3px] text-slate-900">
+                      <CheckIcon />
+                    </span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Cell>
+        );
+      })}
+    </Section>
   );
 }

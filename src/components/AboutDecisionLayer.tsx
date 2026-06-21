@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Section, { Cell } from './Section';
 
 function Counter({ value, visible }: { value: string; visible: boolean }) {
   const [count, setCount] = useState(0);
@@ -39,7 +40,7 @@ function Counter({ value, visible }: { value: string; visible: boolean }) {
 }
 
 export default function AboutDecisionLayer() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -67,39 +68,29 @@ export default function AboutDecisionLayer() {
   ];
 
   return (
-    <section ref={ref} className="relative py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {cards.map((card, i) => (
-            <div
-  key={card.label}
-  className={`
-    bg-[oklch(0.988_0.0041_91.45)]
-    rounded-lg
-    border border-slate-300
-    shadow-sm
-    px-8 py-6
-    text-center
-    w-full
-    transition-all duration-700 ease-out
-    ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
-  `}
-              style={{
-                transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)',
-                transitionDelay: `${i * 100}ms`,
-              }}
-            >
-              <p className="text-2xl md:text-3xl text-black">
-                <Counter value={card.value} visible={visible} />
-              </p>
+    <Section cols={3} sectionRef={ref}>
+      {cards.map((card, i) => (
+        <Cell key={card.label} className="text-center">
+          <div
+            className={`
+              transition-all duration-700 ease-out
+              ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+            `}
+            style={{
+              transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)',
+              transitionDelay: `${i * 100}ms`,
+            }}
+          >
+            <p className="text-2xl md:text-3xl text-black">
+              <Counter value={card.value} visible={visible} />
+            </p>
 
-              <p className="mt-1 text-xs text-slate-500">
-                {card.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            <p className="mt-1 text-xs text-slate-500">
+              {card.label}
+            </p>
+          </div>
+        </Cell>
+      ))}
+    </Section>
   );
 }

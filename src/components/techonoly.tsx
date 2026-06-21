@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Section, { Cell } from "./Section";
 const TechnologySection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [p2Done, setP2Done] = useState(false);
@@ -33,25 +34,25 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <div className="bg-[oklch(0.988_0.0041_91.45)] text-[#111] antialiased text-[14px] font-sans">
-      <div className="flex flex-col lg:flex-row items-start gap-[24px] lg:gap-[40px] py-10 sm:py-[60px] px-[16px] lg:px-[40px] max-w-[1100px] mx-auto">
+    <Section cols={2} className="text-[#111] antialiased text-[14px] font-sans" gridClassName="md:grid-cols-[340px_1fr]">
 
-        {/* LEFT COPY – scroll reveal */}
-        <div className="w-full lg:w-[340px] pt-4 shrink-0 reveal-left">
-          <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
-          <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
-            Understand what your market wants — <span className="text-brand-600">before it peaks.</span>
-          </h2>
-          <p className="text-[14px] text-[#666] leading-[1.72] mb-7">
-            We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
-          </p>
-          <button className="inline-block bg-[#111] text-white font-semibold text-[14px] py-[10px] px-[18px] rounded-full hover:opacity-80 transition-opacity">
-            Our Technology
-          </button>
-        </div>
+      {/* LEFT COPY – text cell */}
+      <Cell className="reveal-left">
+        <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
+        <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
+          Understand what your market wants — <span className="text-brand-600">before it peaks.</span>
+        </h2>
+        <p className="text-[14px] text-[#666] leading-[1.72] mb-7">
+          We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
+        </p>
+        <button className="inline-block bg-[#111] text-white font-semibold text-[14px] py-[10px] px-[18px] rounded-full hover:opacity-80 transition-opacity">
+          Our Technology
+        </button>
+      </Cell>
 
-        {/* RIGHT PANEL – scroll reveal */}
-        <div className="flex-1 w-full border border-black rounded-[16px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
+      {/* RIGHT PANEL – big decorative rounded card, framed by a bleed cell */}
+      <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
+        <div className="w-full border border-black rounded-[16px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
 
           {/* TAB GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -108,8 +109,8 @@ const TechnologySection = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Cell>
+    </Section>
   );
 };
 

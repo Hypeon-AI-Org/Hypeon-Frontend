@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { BarChart2, Briefcase, Search, Sparkles } from 'lucide-react';
+import Section, { Cell } from './Section';
 
 const reveal = {
   initial: { opacity: 0, y: 20 },
@@ -162,13 +163,13 @@ export default function PrecisionScaleBento() {
   const [searchReplay, setSearchReplay] = useState(0);
 
   return (
-    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-[60px] overflow-hidden font-sans text-[14px] text-[#111] antialiased">
-      {/* Same container as TechnologySection (techonoly.tsx) so edges align */}
-      <div className="max-w-[1100px] mx-auto px-[16px] lg:px-[40px]">
+    <Section cols={3} className="font-sans text-[14px] text-[#111] antialiased">
+      {/* heading cell — full width across the bento grid */}
+      <Cell className="md:col-span-3">
         <motion.div
           {...reveal}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-10 max-w-[640px]"
+          className="max-w-[640px]"
         >
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.15] mb-[18px]">
             Built for precision. <span className="text-brand-600">Designed for scale.</span>
@@ -178,15 +179,16 @@ export default function PrecisionScaleBento() {
             demographics, ad copy, creatives, targeting, and overall strategy.
           </p>
         </motion.div>
+      </Cell>
 
-        <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-3 lg:grid-rows-2 lg:gap-5">
-          {/* Semantic Search — top left, 2 cols */}
+      {/* Semantic Search — top left, 2 cols */}
+      <Cell bleed className="p-6 sm:p-7 md:col-span-2 md:row-start-2">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : lightCardHover}
             style={{ boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)' }}
             onHoverStart={() => setSearchReplay((n) => n + 1)}
-            className="group flex min-h-[260px] flex-col rounded-[14px] border border-[#E5E7EB] bg-[#F9FAFB] p-6 sm:p-7 lg:col-span-2 lg:row-start-1 lg:min-h-[320px]"
+            className="group flex h-full min-h-[260px] flex-col rounded-[14px] border border-[#E5E7EB] bg-[#F9FAFB] p-6 sm:p-7 lg:min-h-[320px]"
           >
             <div className="flex gap-4">
               <IconBox variant="muted">
@@ -228,50 +230,15 @@ export default function PrecisionScaleBento() {
               </div>
             </div>
           </motion.article>
+      </Cell>
 
-          {/* Creative Analysis — bottom left */}
-          <motion.article
-            {...reveal}
-            whileHover={reducedMotion ? undefined : lightCardHover}
-            style={{ boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)' }}
-            className="rounded-[14px] border border-[#E5E7EB] bg-white p-6 sm:p-7 lg:col-start-1 lg:row-start-2 lg:min-h-[200px]"
-          >
-            <div>
-              <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
-                <BarChart2 className="h-[15px] w-[15px]" strokeWidth={2} />
-              </IconBox>
-              <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Creative Analysis</h3>
-              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
-                Segmented images &amp; videos, with transcripts and text generated for deeper LLM
-                analysis.
-              </p>
-            </div>
-          </motion.article>
-
-          {/* Team Sync — bottom middle */}
-          <motion.article
-            {...reveal}
-            whileHover={reducedMotion ? undefined : lightCardHover}
-            style={{ boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)' }}
-            className="rounded-[16px] border border-[#E5E7EB] bg-white p-6 sm:p-7 lg:col-start-2 lg:row-start-2 lg:min-h-[200px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
-          >
-            <div>
-              <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
-                <Briefcase className="h-[15px] w-[15px]" strokeWidth={2} />
-              </IconBox>
-              <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Team Sync</h3>
-              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
-                Share collections with one click. Build your own segmented ad lists and analysis.
-              </p>
-            </div>
-          </motion.article>
-
-          {/* Estimated Spend — right, tall */}
+      {/* Estimated Spend — right, tall (spans both bento rows) */}
+      <Cell bleed className="p-6 sm:p-7 md:col-start-3 md:row-span-2 md:row-start-2">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : darkCardHover}
             style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)' }}
-            className="order-last flex min-h-[360px] flex-col rounded-[16px] border border-slate-700/40 bg-[#0F172A] p-6 sm:p-7 text-white lg:order-none lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:min-h-[526px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
+            className="flex h-full min-h-[360px] flex-col rounded-[16px] border border-slate-700/40 bg-[#0F172A] p-6 sm:p-7 text-white lg:min-h-[526px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
           >
             <div className="flex gap-4">
               <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border border-white/20 bg-white/5 text-white">
@@ -312,8 +279,48 @@ export default function PrecisionScaleBento() {
               </div>
             </div>
           </motion.article>
-        </div>
-      </div>
-    </section>
+      </Cell>
+
+      {/* Creative Analysis — bottom left */}
+      <Cell bleed className="p-6 sm:p-7 md:col-start-1 md:row-start-3">
+          <motion.article
+            {...reveal}
+            whileHover={reducedMotion ? undefined : lightCardHover}
+            style={{ boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)' }}
+            className="h-full rounded-[14px] border border-[#E5E7EB] bg-white p-6 sm:p-7 lg:min-h-[200px]"
+          >
+            <div>
+              <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
+                <BarChart2 className="h-[15px] w-[15px]" strokeWidth={2} />
+              </IconBox>
+              <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Creative Analysis</h3>
+              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
+                Segmented images &amp; videos, with transcripts and text generated for deeper LLM
+                analysis.
+              </p>
+            </div>
+          </motion.article>
+      </Cell>
+
+      {/* Team Sync — bottom middle */}
+      <Cell bleed className="p-6 sm:p-7 md:col-start-2 md:row-start-3">
+          <motion.article
+            {...reveal}
+            whileHover={reducedMotion ? undefined : lightCardHover}
+            style={{ boxShadow: '0 1px 2px rgba(15, 23, 42, 0.05)' }}
+            className="h-full rounded-[16px] border border-[#E5E7EB] bg-white p-6 sm:p-7 lg:min-h-[200px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
+          >
+            <div>
+              <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
+                <Briefcase className="h-[15px] w-[15px]" strokeWidth={2} />
+              </IconBox>
+              <h3 className="mt-4 text-[17px] font-semibold text-[#111] leading-snug">Team Sync</h3>
+              <p className="mt-2 max-w-[260px] text-[14px] leading-[1.58] text-[#666]">
+                Share collections with one click. Build your own segmented ad lists and analysis.
+              </p>
+            </div>
+          </motion.article>
+      </Cell>
+    </Section>
   );
 }

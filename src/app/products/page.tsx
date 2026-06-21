@@ -3,9 +3,7 @@
 import Background from "@/components/Background";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
 import ProductsIntro from "../../components/ProductsIntro";
-import HypeScoreSection from "../../components/HypeScoreSection";
 import EveryPlatformSignal from "../../components/EveryPlatformSignal";
 import { TabHoppingSection, AskCopilotSection } from "../../components/CompareAndAsk";
 import HighValueKeywords from "../../components/HighValueKeywords";
@@ -14,10 +12,9 @@ import PrecisionScaleBento from "../../components/PrecisionScaleBento";
 import CopilotSection from "../../components/CopilotSection";
 import HypeOnAnalytics from "../../components/HypeOnAnalytics";
 import MarketingDecisioning from "../../components/MarketingDecisioning";
-import ProductsCTA from "../../components/ProductsCTA";
 import TechnologySection from "../../components/techonoly";
-export default function ProductsPage() {
 
+export default function ProductsPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <Background />
@@ -30,14 +27,11 @@ export default function ProductsPage() {
         <AskCopilotSection />
         <HighValueKeywords />
         <WinningAdCreatives />
-   
         <CopilotSection />
         <TechnologySection />
         <PrecisionScaleBento />
-      
         <MarketingDecisioning />
         <HypeOnAnalytics />
-
       </main>
 
       <Footer />

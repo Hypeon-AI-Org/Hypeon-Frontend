@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Section, { Cell } from './Section';
 
 export default function CTASection() {
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-16 px-6 font-sans">
-      <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+    <Section cols={1} className="font-sans">
+      <Cell className="text-center">
+      <div className="mx-auto flex max-w-4xl flex-col items-center">
 
         {/* Animated Heading */}
         <motion.h2
@@ -60,6 +62,7 @@ export default function CTASection() {
         </motion.div>
 
       </div>
-    </section>
+      </Cell>
+    </Section>
   );
 }

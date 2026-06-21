@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
+import Section, { Cell } from "./Section";
 import {
     Captions, Megaphone, Eye, DollarSign, Activity, RefreshCw, ImageIcon,
     Target, Users, Globe, Languages, Bookmark, Type, LayoutGrid,
@@ -100,9 +101,9 @@ export default function EveryPlatformSignal() {
     ];
 
     return (
-        <section className="overflow-hidden bg-[oklch(0.988_0.0041_91.45)] py-12 sm:py-24">
-            <div className="mx-auto max-w-5xl px-4 text-center">
-                {/* heading */}
+        <Section cols={1}>
+            {/* heading cell */}
+            <Cell className="text-center">
                 <h2 className="text-2xl font-bold tracking-tighter text-[#1B1C3A] sm:text-4xl md:text-5xl">
                     Every platform, every signal
                 </h2>
@@ -113,9 +114,11 @@ export default function EveryPlatformSignal() {
                     We track Meta, Google, and TikTok 24/7 extracting the signals that matter,
                     structured and searchable.
                 </p>
+            </Cell>
 
-                {/* diagram */}
-                <div className="relative mx-auto mt-12 aspect-[600/320] w-full max-w-3xl">
+            {/* diagram cell — hairline separates it from the heading above */}
+            <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+                <div className="relative mx-auto aspect-[600/320] w-full max-w-3xl">
                     {/* curved connectors + flowing signal dots */}
                     <svg viewBox="0 0 600 320" className="absolute inset-0 h-full w-full" aria-hidden>
                         {PATHS.map((d, i) => (
@@ -138,19 +141,20 @@ export default function EveryPlatformSignal() {
                 </div>
 
                 {/* tracking pill */}
-                <div className="mt-4 sm:-mt-2 flex justify-center">
+                <div className="mt-4 flex justify-center">
                     <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-[12px] font-semibold text-slate-600 shadow-sm">
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-slate-400" />
                         Tracking 200M+ ads, 24/7
                     </span>
                 </div>
+            </Cell>
 
-                {/* two scrolling capability rows */}
-                <div className="relative mt-10 space-y-3 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-                    <TagRow items={ROW1} />
-                    <TagRow items={ROW2} reverse />
-                </div>
-            </div>
-        </section>
+            {/* two scrolling capability rows — cut cleanly at the section's
+                hairline edges (no fade mask) for the home cut-edge look */}
+            <Cell bleed className="space-y-3 overflow-hidden py-10">
+                <TagRow items={ROW1} />
+                <TagRow items={ROW2} reverse />
+            </Cell>
+        </Section>
     );
 }

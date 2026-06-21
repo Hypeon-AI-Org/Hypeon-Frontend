@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Section, { Cell } from './Section';
 
 const milestones = [
   {
@@ -10,8 +11,8 @@ const milestones = [
   },
   {
     year: 'Phase 2 · Product',
-    title: 'Intelligence + Copilot + Analytics',
-    desc: 'All three connected engines launched — forming a complete decision system across seven major data sources, replacing guesswork at every stage.',
+    title: 'Intelligence + Studio',
+    desc: 'Two connected engines launched — Hypeon Intelligence to decode competitors across every platform, and HypeOn Studio to turn those signals into scroll-stopping creative.',
   },
   {
     year: 'Phase 3 · Now',
@@ -26,7 +27,7 @@ const milestones = [
 ];
 
 export default function GrowthTimeline() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const lineRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [lineWidth, setLineWidth] = useState(0);
@@ -53,98 +54,95 @@ export default function GrowthTimeline() {
   }, [visible]);
 
   return (
-    <section ref={ref} className="font-sans py-14 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
-  <div className="max-w-6xl mx-auto px-6">
+    <Section cols={1} sectionRef={ref} className="font-sans">
+      {/* HEADER */}
+      <Cell
+        className={`text-center transition-all duration-700 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        }`}
+      >
+        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+          The Road Ahead
+        </p>
 
-    {/* HEADER */}
-    <div
-      className={`max-w-2xl mx-auto text-center mb-6 transition-all duration-700 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
-    >
-      <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
-      The Road Ahead
-      </p>
+        <h2 className="text-2xl sm:text-4xl md:text-4xl text-slate-900 tracking-tight">
+          From idea to industry <span className="text-brand-600">standard.</span>
+        </h2>
 
-      <h2 className="text-2xl sm:text-4xl md:text-4xl   text-slate-900 tracking-tight">
-      From idea to industry <span className="text-brand-600">standard.</span>
-      </h2>
+        <p className="mt-3 text-sm text-slate-600">
+          We&apos;re building for durability, not shortcuts.
+        </p>
+      </Cell>
 
-      <p className="mt-3 text-sm text-slate-600">
-        We&apos;re building for durability, not shortcuts.
-      </p>
-    </div>
+      {/* TIMELINE */}
+      <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+        <div className="relative">
+          {/* background line */}
+          <div className="absolute top-4 left-0 right-0 h-[1px] bg-slate-200 rounded-full" />
 
-    {/* TIMELINE */}
-    <div className="relative">
-
-      {/* background line */}
-      <div className="absolute top-4 left-0 right-0 h-[1px] bg-slate-200 rounded-full" />
-
-      {/* animated line */}
-      <div
-        ref={lineRef}
-        className="absolute top-4 left-0 h-[1px] bg-gradient-to-r from-brand-600 to-brand-500 rounded-full transition-all duration-1000"
-        style={{ width: `${lineWidth}%` }}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5 relative">
-        {milestones.map((m, i) => (
+          {/* animated line */}
           <div
-            key={m.title}
-            className={`
-              relative flex flex-col items-center text-center
-              transition-all duration-700
-              ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            `}
-            style={{ transitionDelay: `${300 + i * 120}ms` }}
-          >
-            {/* dot */}
-            <div className="relative z-10 flex justify-center pt-2 mb-4">
+            ref={lineRef}
+            className="absolute top-4 left-0 h-[1px] bg-gradient-to-r from-brand-600 to-brand-500 rounded-full transition-all duration-1000"
+            style={{ width: `${lineWidth}%` }}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 relative">
+            {milestones.map((m, i) => (
               <div
+                key={m.title}
                 className={`
-                  h-3 w-3 rounded-full bg-brand-600 ring-2 ring-white shadow
-                  transition-all duration-500
-                  ${visible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
+                  relative flex flex-col items-center text-center
+                  transition-all duration-700
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}
-                style={{ transitionDelay: `${500 + i * 100}ms` }}
-              />
-            </div>
+                style={{ transitionDelay: `${300 + i * 120}ms` }}
+              >
+                {/* dot */}
+                <div className="relative z-10 flex justify-center pt-2 mb-4">
+                  <div
+                    className={`
+                      h-3 w-3 rounded-full bg-brand-600 ring-2 ring-white shadow
+                      transition-all duration-500
+                      ${visible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
+                    `}
+                    style={{ transitionDelay: `${500 + i * 100}ms` }}
+                  />
+                </div>
 
-            {/* card */}
-            <div
-              className="w-full bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
-              hover:shadow-md hover:-translate-y-1 transition-all"
-            >
-              <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
-                {m.year}
-              </p>
+                {/* card */}
+                <div
+                  className="w-full bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
+                  hover:shadow-md hover:-translate-y-1 transition-all"
+                >
+                  <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
+                    {m.year}
+                  </p>
 
-              <h3 className="mt-1 text-base font-semibold text-slate-900">
-                {m.title}
-              </h3>
+                  <h3 className="mt-1 text-base font-semibold text-slate-900">
+                    {m.title}
+                  </h3>
 
-              <p className="mt-1 text-sm text-slate-500 leading-relaxed">
-                {m.desc}
-              </p>
-            </div>
+                  <p className="mt-1 text-sm text-slate-500 leading-relaxed">
+                    {m.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
 
-    {/* footer */}
-    <p
-      className={`
-        mt-6 text-center text-xs text-slate-500 max-w-xl mx-auto
-        transition-all duration-700 delay-700
-        ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-      `}
-    >
-      This roadmap is intentional, measurable, and focused on building long-term value.
-    </p>
-
-  </div>
-</section>
+        {/* footer */}
+        <p
+          className={`
+            mt-6 text-center text-xs text-slate-500 max-w-xl mx-auto
+            transition-all duration-700 delay-700
+            ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
+          `}
+        >
+          This roadmap is intentional, measurable, and focused on building long-term value.
+        </p>
+      </Cell>
+    </Section>
   );
 }

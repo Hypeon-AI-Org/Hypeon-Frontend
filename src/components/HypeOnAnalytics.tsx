@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import Section, { Cell } from "./Section";
 
 const faqs = [
   { question: "What is HypeOn and who is it for?", answer: "HypeOn is a prediction and attribution intelligence platform built specifically for e-commerce founders and brand owners. It combines HypeOn Intelligence (what to sell, what keywords to target, what creatives to run, where competitors are weak) with HypeOn Analytics (exactly which marketing channel drove every sale, with no double counting). It's for anyone running a Shopify store spending £5K–£500K+/month on ads who is tired of guessing." },
@@ -19,43 +20,42 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-14 px-6 font-sans">
-      <div className="max-w-6xl mx-auto bg-[#111111] rounded-[32px] p-6 sm:p-8 md:p-12 flex flex-col md:flex-row gap-8 md:gap-16">
-
-        {/* Left Side: Header – scroll reveal */}
+    <Section cols={2}>
+      {/* Left cell: Header – scroll reveal */}
+      <Cell>
         <motion.div
-          className="md:w-1/2"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <h2 className="text-white text-2xl md:text-4xl lg:text-4xl font-display font-bold mb-6 tracking-tighter">
+          <h2 className="text-[#1B1C3A] text-2xl md:text-4xl lg:text-4xl font-display font-bold mb-6 tracking-tighter">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-400 text-[16px] leading-relaxed max-w-md">
+          <p className="text-slate-500 text-[16px] leading-relaxed max-w-md">
             Read some of the most asked questions around Hypeon. If you cannot find your answer, reach out to us using the chat in the bottom-right corner!
           </p>
         </motion.div>
+      </Cell>
 
-        {/* Right Side: Accordion – scroll reveal */}
+      {/* Right cell: Accordion – scroll reveal. Vertical hairline separates it from the header. */}
+      <Cell>
         <motion.div
-          className="md:w-1/2 border-t border-gray-800"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
         >
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-800">
+            <div key={index} className="border-b border-slate-200">
               <button
                 type="button"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full py-4 flex justify-between items-center text-left text-white group min-h-[48px] cursor-pointer"
+                className="w-full py-4 flex justify-between items-center text-left text-[#1B1C3A] group min-h-[48px] cursor-pointer"
               >
                 <span className="text-[15px] font-medium pr-4">{faq.question}</span>
                 <ChevronDown
-                  className={`text-gray-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
+                  className={`text-slate-400 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
                   size={18}
                 />
               </button>
@@ -69,7 +69,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-6 text-gray-400 leading-relaxed text-[14px]">
+                    <div className="pb-6 text-slate-500 leading-relaxed text-[14px]">
                       {faq.answer}
                     </div>
                   </motion.div>
@@ -78,8 +78,7 @@ export default function FAQSection() {
             </div>
           ))}
         </motion.div>
-      </div>
-    </section>
+      </Cell>
+    </Section>
   );
-
 }

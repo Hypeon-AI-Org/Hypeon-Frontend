@@ -2,31 +2,32 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Section, { Cell } from './Section';
 
 
 const cards = [
   {
     title: 'The Problem',
     description:
-      "Teams pick products on gut instinct, bid on stale keywords, and scale creatives because someone 'had a feeling.'",
+      "Teams guess at what their competitors are doing, bid on stale keywords, and ship creatives because someone 'had a feeling.'",
     icon: 'target',
   },
   {
     title: 'Our Solution',
     description:
-      'We connect demand signals, competitor intelligence, pricing data, and attribution into clear decisions.',
+      'Two engines working together — Hypeon Intelligence decodes competitor spend, reach and winning angles, while HypeOn Studio turns those insights into creative that converts.',
     icon: 'lightning',
   },
   {
     title: 'Decisions, Not Dashboards',
     description:
-      "Instead of charts, we surface what matters: rising products, wasted spend, and clear opportunities.",
+      "Instead of charts, we surface what matters: your competitor's playbook, wasted spend, and clear opportunities.",
     icon: 'message',
   },
   {
     title: 'Built to Scale',
     description:
-      'Built for teams managing hundreds of SKUs where every decision compounds.',
+      'Trained on 200M+ ads, built for teams who need to spend less, sell more, and keep what they earn.',
     icon: 'network',
   },
 ];
@@ -66,7 +67,7 @@ function StoryIcon({ name }: { name: string }) {
 }
 
 export default function AboutStory() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -87,86 +88,83 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-12 bg-[oklch(0.988_0.0041_91.45)]">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+    <Section cols={2} sectionRef={ref} className="font-sans">
 
-        {/* LEFT IMAGE */}
+      {/* LEFT IMAGE */}
+      <Cell bleed className="flex items-center justify-center px-6 py-12 sm:px-10 sm:py-16">
         <div
-          className={`transition-all duration-700 ${
+          className={`w-full transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           <div className="relative max-w-md mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/4]">
-  <Image
-    src="/about/story.webp"
-    alt="Business analytics and market research"
-    fill
-    className="object-cover"
-    
-  />
+            <Image
+              src="/about/story.webp"
+              alt="Business analytics and market research"
+              fill
+              className="object-cover"
+            />
 
-  {/* overlay */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-</div>
-        </div>
-
-        {/* RIGHT CONTENT */}
-        <div>
-
-          <p
-            className={`text-xs tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            Why we exist
-          </p>
-
-          <h2
-            className={`text-2xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            Every failed launch starts with a <span className="text-brand-600">bad decision.</span>
-          </h2>
-
-          <p
-            className={`mt-3 text-slate-600 text-[15px] leading-relaxed transition-all ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            Most e-commerce teams don't lose money because they can't execute — 
-            they lose money because they execute on the wrong thing.
-          </p>
-
-          {/* CARDS */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-            {cards.map((card, i) => (
-              <div
-                key={card.title}
-                className={`bg-white rounded-lg border border-slate-200 shadow-sm p-4 transition-all hover:shadow-md ${
-                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                }`}
-                style={{ transitionDelay: `${200 + i * 80}ms` }}
-              >
-                <div className="mb-2">
-                  <StoryIcon name={card.icon} />
-                </div>
-
-                <h3 className="font-semibold text-slate-900 text-base">
-                  {card.title}
-                </h3>
-
-                <p className="mt-1 text-slate-600 text-sm leading-relaxed">
-                  {card.description}
-                </p>
-              </div>
-            ))}
-
+            {/* overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
           </div>
+        </div>
+      </Cell>
+
+      {/* RIGHT CONTENT */}
+      <Cell>
+        <p
+          className={`text-xs tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          Why we exist
+        </p>
+
+        <h2
+          className={`text-2xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          Every wasted dollar starts with a <span className="text-brand-600">bad decision.</span>
+        </h2>
+
+        <p
+          className={`mt-3 text-slate-600 text-[15px] leading-relaxed transition-all ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          Most e-commerce teams don't lose money because they can't execute —
+          they lose money because they execute on the wrong thing.
+        </p>
+
+        {/* CARDS */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          {cards.map((card, i) => (
+            <div
+              key={card.title}
+              className={`bg-white rounded-lg border border-slate-200 shadow-sm p-4 transition-all hover:shadow-md ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+              style={{ transitionDelay: `${200 + i * 80}ms` }}
+            >
+              <div className="mb-2">
+                <StoryIcon name={card.icon} />
+              </div>
+
+              <h3 className="font-semibold text-slate-900 text-base">
+                {card.title}
+              </h3>
+
+              <p className="mt-1 text-slate-600 text-sm leading-relaxed">
+                {card.description}
+              </p>
+            </div>
+          ))}
 
         </div>
-      </div>
-    </section>
+      </Cell>
+    </Section>
   );
 }

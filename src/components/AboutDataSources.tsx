@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Section, { Cell } from './Section';
 
 const PLATFORM_LOGOS = [
   { name: 'Meta Ads', src: '/logos/meta.png' },
@@ -14,42 +15,37 @@ const PLATFORM_LOGOS = [
 
 export default function AboutDataSources() {
   return (
-    <section className="font-sans py-10 mb-20 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 text-center reveal">
-
-        {/* Heading */}
-        <h2 className="text-2xl sm:text-4xl md:text-4xl  font-display font-bold tracking-tighter">
+    <Section cols={1} className="font-sans">
+      {/* Heading */}
+      <Cell className="text-center reveal">
+        <h2 className="text-2xl sm:text-4xl md:text-4xl font-display font-bold tracking-tighter">
           Millions of signals <span className="text-brand-600">Every day.</span>
         </h2>
 
-        {/* Subheading */}
         <p className="mt-6 text-slate-600 max-w-3xl mx-auto">
-          HypeOn analyzes millions of data points daily from the platforms where trends form and money actually moves.
+          HypeOn Intelligence tracks the platforms where money actually moves — decoding 200M+ ads to surface every competitor&apos;s spend, reach and winning angles, 24/7.
         </p>
+      </Cell>
 
-        {/* MARQUEE */}
-        <div className="marquee-container1 mt-10">
-          <div className="marquee-content">
+      {/* MARQUEE — cut cleanly at the section's hairline rails (overflow-hidden, no fade mask) */}
+      <Cell bleed className="overflow-hidden py-12 sm:py-16">
+        <div className="marquee-content">
+          {/* SET 1 */}
+          <div className="flex items-center gap-14 px-8">
+            {PLATFORM_LOGOS.map(({ name, src }) => (
+              <Platform key={src} label={name} src={src} />
+            ))}
+          </div>
 
-            {/* SET 1 */}
-            <div className="flex items-center gap-14 px-8">
-              {PLATFORM_LOGOS.map(({ name, src }) => (
-                <Platform key={src} label={name} src={src} />
-              ))}
-            </div>
-
-            {/* DUPLICATE SET FOR LOOP */}
-            <div className="flex items-center gap-14 px-8">
-              {PLATFORM_LOGOS.map(({ name, src }) => (
-                <Platform key={`dup-${src}`} label={name} src={src} />
-              ))}
-            </div>
-
+          {/* DUPLICATE SET FOR LOOP */}
+          <div className="flex items-center gap-14 px-8">
+            {PLATFORM_LOGOS.map(({ name, src }) => (
+              <Platform key={`dup-${src}`} label={name} src={src} />
+            ))}
           </div>
         </div>
-
-      </div>
-    </section>
+      </Cell>
+    </Section>
   );
 }
 

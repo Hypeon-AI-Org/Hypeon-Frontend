@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Section, { Cell } from './Section';
 import googleStartups from '../../assets/Google_Startups.png';
 import openAIBG from '../../assets/OpenAI_BG.png';
 import awsStartups from '../../assets/AWS_STUPS.png';
@@ -13,18 +14,23 @@ export default function AboutIntro() {
   ];
 
   return (
-    <section className="font-sans relative pt-24 pb-12 overflow-hidden bg-[oklch(0.988_0.0041_91.45)]">
-      <div className="relative max-w-4xl mx-auto px-6 text-center reveal">
+    <Section cols={1}>
+      {/* intro / mission cell */}
+      <Cell className="text-center reveal">
         <p className="text-sm text-slate-400 mb-3">We build</p>
-        <h1 className="text-2xl sm:text-4xl md:text-5xl  font-bold text-slate-900 tracking-tighter leading-tight mb-4">
-        Scale Smarter. <span className="text-brand-600">Scale Faster.</span>
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter leading-tight mb-4">
+          Scale Smarter. <span className="text-brand-600">Scale Faster.</span>
         </h1>
-        <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
-        HypeOn AI helps e-commerce teams figure out what to sell next{' '}
-          <span className="font-medium text-base lg:text-lg text-gray-500">how to sell it better</span>
-          <span className="font-medium text-base lg:text-lg text-gray-500"> and where to put their budget for the highest return using real-time signals.</span>.
+        <p className="text-base text-gray-500 max-w-xl mx-auto">
+          HypeOn AI is the AI ad platform that decodes your competitors&apos; playbook{' '}
+          <span className="font-medium text-base lg:text-lg text-gray-500">and turns it into scroll-stopping creative</span>
+          <span className="font-medium text-base lg:text-lg text-gray-500"> so you spend less, sell more, and keep what you earn.</span>
         </p>
-        <p className="text-sm text-slate-400 mt-10 mb-4">Official partners</p>
+      </Cell>
+
+      {/* partners cell — hairline separates it from the intro above */}
+      <Cell className="text-center">
+        <p className="text-sm text-slate-400 mb-4">Official partners</p>
         <div className="flex justify-center items-center gap-8 flex-wrap">
           {partners.map(({ src, alt, width, height }) => (
             <div key={alt} className="opacity-80 hover:opacity-100 transition-opacity">
@@ -34,12 +40,11 @@ export default function AboutIntro() {
                 width={width}
                 height={height}
                 className="object-contain"
-                
               />
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </Cell>
+    </Section>
   );
 }

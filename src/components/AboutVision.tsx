@@ -1,29 +1,30 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Section, { Cell } from './Section';
 
 const decisions = [
   {
     category: 'INTELLIGENCE',
-    title: 'Spot What Product to Sell Next',
+    title: "Decode Your Competitor's Playbook",
     description:
-      "See what's trending online and in search before it hits mainstream — weeks ahead of competitors.",
+      'See their spend, reach, and winning angles in seconds — trained on 200M+ ads.',
     icon: 'chart-up',
     iconColor: 'text-slate-900',
   },
   {
     category: 'INTELLIGENCE',
-    title: 'Find Trending Keywords',
+    title: 'Spot Breakout Products Early',
     description:
-      'Know exactly what your customers are typing right now. Build campaigns around real demand.',
+      "See what's breaking out across the market before it hits mainstream — weeks ahead of competitors.",
     icon: 'key',
     iconColor: 'text-slate-900',
   },
   {
     category: 'INTELLIGENCE',
-    title: 'Know What Product to Develop',
+    title: 'Track Every Platform 24/7',
     description:
-      'See exactly what improvements your market is asking for — pulled from reviews, social, and search.',
+      'Meta, Google, TikTok, LinkedIn, Pinterest, and Instagram — every signal, structured and searchable.',
     icon: 'leaf',
     iconColor: 'text-slate-900',
   },
@@ -52,31 +53,31 @@ const decisions = [
     iconColor: 'text-slate-900',
   },
   {
-    category: 'COPILOT',
-    title: 'Know What Markets to Enter',
+    category: 'INTELLIGENCE',
+    title: 'Ask Copilot, Your AI Analyst',
     description:
-      'Find pockets of demand nobody is selling into — before ad costs catch up.',
+      'Find pockets of demand nobody is selling into — just ask, and get an answer backed by evidence.',
     icon: 'building',
     iconColor: 'text-slate-900',
   },
   {
-    category: 'COPILOT',
-    title: 'Never Overstock or Stockout',
+    category: 'STUDIO',
+    title: 'Generate Scroll-Stopping Creative',
     description:
-      "Plan inventory around what's going to sell — not what sold three months ago.",
+      'Static, video, and UGC creatives in seconds — on-brand and built to convert.',
     icon: 'cube',
     iconColor: 'text-slate-900',
   },
   {
-    category: 'COPILOT',
-    title: 'Know Where to Move Budget',
+    category: 'STUDIO',
+    title: 'Create From Real Performance Data',
     description:
-      'HypeOn tells you which channels to scale, hold, or cut based on what actually drove revenue yesterday.',
+      'Every creative is trained on what actually drives results — AI-first, not guesswork.',
     icon: 'budget',
     iconColor: 'text-slate-900',
   },
   {
-    category: 'ANALYTICS',
+    category: 'INTELLIGENCE',
     title: 'See Your Real ROAS',
     description:
       'Not what Google claims. Not what Meta reports. Actual return on every dollar — zero duplication.',
@@ -84,7 +85,7 @@ const decisions = [
     iconColor: 'text-slate-900',
   },
   {
-    category: 'ANALYTICS',
+    category: 'INTELLIGENCE',
     title: 'Know Your Real CPA Per Channel',
     description:
       'True cost of every sale on every channel, side by side, with zero platform bias.',
@@ -92,7 +93,7 @@ const decisions = [
     iconColor: 'text-slate-900',
   },
   {
-    category: 'ANALYTICS',
+    category: 'INTELLIGENCE',
     title: 'Know Which Campaign to Scale',
     description:
       'One clear Scale, Hold, or Cut signal per campaign — every single morning.',
@@ -212,7 +213,7 @@ function DecisionIcon({ name, className }: { name: string; className?: string })
 }
 
 export default function AboutVision() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -228,59 +229,56 @@ export default function AboutVision() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-12 bg-[oklch(0.988_0.0041_91.45)] relative overflow-hidden">
-  <div className="relative max-w-6xl mx-auto px-6">
-
-    {/* HEADER */}
-    <div
-      className={`max-w-2xl mb-6 transition-all duration-700 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}
-    >
-      <p className="text-xs tracking-[0.2em] uppercase font-medium text-gray-500 mb-2">
-        What HypeOn Does
-      </p>
-
-      <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight tracking-tight">
-        12 decisions. <span className="text-brand-600">Zero guesswork.</span>
-      </h2>
-
-      <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-        The way your business works — every capability answers a question your team asks every week, with evidence, not opinion.
-      </p>
-    </div>
-
-    {/* GRID */}
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {decisions.map((item, i) => (
+    <Section cols={3} sectionRef={ref} className="font-sans">
+      {/* HEADER — spans the full grid row, hairline beneath separates it from the cards */}
+      <Cell className="md:col-span-3">
         <div
-          key={item.title}
-          className={`
-            bg-white rounded-lg border border-slate-200 shadow-sm p-5 text-left
-            transition-all duration-500 hover:shadow-md
-            ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-          `}
-          style={{
-            transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)',
-            transitionDelay: `${Math.min(i * 50, 400)}ms`,
-          }}
+          className={`max-w-2xl transition-all duration-700 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
         >
-          <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-slate-700 mb-3">
-            <DecisionIcon name={item.icon} className={`w-5 h-5 ${item.iconColor}`} />
-          </div>
+          <p className="text-xs tracking-[0.2em] uppercase font-medium text-gray-500 mb-2">
+            What HypeOn Does
+          </p>
 
-          <h3 className="font-semibold text-slate-900 text-base">
-            {item.title}
-          </h3>
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight tracking-tight">
+            12 decisions. <span className="text-brand-600">Zero guesswork.</span>
+          </h2>
 
-          <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-            {item.description}
+          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            Two engines, one workflow — every capability answers a question your team asks every week, with evidence, not opinion.
           </p>
         </div>
-      ))}
-    </div>
+      </Cell>
 
-  </div>
-</section>
+      {/* CARDS — each decision in its own Cell for internal hairlines */}
+      {decisions.map((item, i) => (
+        <Cell
+          key={item.title}
+          className={`text-left transition-all duration-500 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          <div
+            style={{
+              transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)',
+              transitionDelay: `${Math.min(i * 50, 400)}ms`,
+            }}
+          >
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-slate-700 mb-3">
+              <DecisionIcon name={item.icon} className={`w-5 h-5 ${item.iconColor}`} />
+            </div>
+
+            <h3 className="font-semibold text-slate-900 text-base">
+              {item.title}
+            </h3>
+
+            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+        </Cell>
+      ))}
+    </Section>
   );
 }

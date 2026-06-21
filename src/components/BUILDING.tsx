@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Section, { Cell } from './Section';
 
 export default function WhoWeAreBuildingFor() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -20,13 +21,13 @@ export default function WhoWeAreBuildingFor() {
   }, []);
 
   return (
-    <section ref={ref} className="font-sans py-14 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
+    <Section cols={2} sectionRef={ref} className="font-sans">
 
-        {/* LEFT — Image */}
+      {/* LEFT — Image (bleed: media fills the cell, hairline frames it) */}
+      <Cell bleed className="flex items-center px-6 py-12 sm:px-10 sm:py-16">
         <div
           className={`
-            relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-800
+            relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-slate-800
             transition-all duration-700
             ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'}
           `}
@@ -39,8 +40,10 @@ export default function WhoWeAreBuildingFor() {
             sizes="(max-width: 200px) 100vw, 50vw"
           />
         </div>
+      </Cell>
 
-        {/* RIGHT */}
+      {/* RIGHT — text */}
+      <Cell className="flex items-center">
         <div
           className={`
             text-center md:text-left
@@ -53,17 +56,17 @@ export default function WhoWeAreBuildingFor() {
           </p>
 
           <h2 className="mt-3 text-2xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
-            Make product-market fit predictable, <span className="text-brand-600">not guessed.</span>
+            Make growth predictable, <span className="text-brand-600">not guessed.</span>
           </h2>
 
           <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-lg md:max-w-none">
-            We&apos;re building the most trusted AI copilot for product and marketing decisions —
-            one that anticipates trends, shows what&apos;s actually working, and turns conviction
-            into a competitive advantage.
+            We&apos;re building two engines that work as one — Hypeon Intelligence to decode your
+            competitor&apos;s playbook, and HypeOn Studio to turn that insight into creative that
+            converts. Spend less, sell more, and keep what you earn.
           </p>
         </div>
+      </Cell>
 
-      </div>
-    </section>
+    </Section>
   );
 }

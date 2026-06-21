@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
+import Section, { Cell } from "./Section";
 
 /* ============================================================
    Two product sections recreated from the marketer.com layout,
@@ -29,7 +30,8 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:py-12 sm:px-6">
+        <Section cols={1}>
+            <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -140,7 +142,8 @@ export function TabHoppingSection() {
                     </div>
                 </div>
             </motion.div>
-        </section>
+            </Cell>
+        </Section>
     );
 }
 
@@ -152,7 +155,8 @@ export function AskCopilotSection() {
     ];
 
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 py-12 sm:py-12 sm:px-6">
+        <Section cols={1}>
+            <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -219,6 +223,7 @@ export function AskCopilotSection() {
                     </div>
                 </div>
             </motion.div>
-        </section>
+            </Cell>
+        </Section>
     );
 }
