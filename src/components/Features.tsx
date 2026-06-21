@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { BarChart2 } from "lucide-react"
 import Image from "next/image"
+import Section, { Cell } from "./Section"
 
 const PLATFORM_LOGOS = [
   { name: "Google Ads", src: "/logos/google.png" },
@@ -23,9 +24,10 @@ const integrations = [
 
 export default function Features() {
   return (
-    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
+    <Section>
+      <Cell>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div>
 
         {/* ===== Main Copy ===== */}
         <motion.div
@@ -35,6 +37,7 @@ export default function Features() {
           viewport={{ once: true }}
           className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 lg:mb-16"
         >
+          <div className="mb-4 flex items-center justify-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Why HypeOn</span></div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-black mb-4 sm:mb-6">
             Why Founders Choose <span className="text-brand-600">HypeOn</span>
           </h2>
@@ -96,6 +99,7 @@ export default function Features() {
         </motion.div>
 
       </div>
-    </section>
+      </Cell>
+    </Section>
   )
 }

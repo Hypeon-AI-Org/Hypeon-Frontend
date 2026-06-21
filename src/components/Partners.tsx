@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Mail, X } from 'lucide-react';
+import Section, { Cell } from './Section';
 
 // Import your assets
 import googleStartups from '../../assets/Google_Startups.png';
@@ -25,72 +26,61 @@ export default function CombinedLayout() {
 
   return (
     <main>
-      {/* 1. PARTNERS SECTION (NOW ON TOP) */}
-      <section className="bg-[oklch(0.988_0.0041_91.45)] border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
+      {/* 1. PARTNERS SECTION — built from real grid Cells so every divider is
+          a gap-px hairline that aligns with the rest of the page grid.
+          Mobile: label full-width, logos 2x2. Desktop: one tabular row. */}
+      <Section gridClassName="grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
+        <Cell className="col-span-2 md:col-span-1 flex items-center justify-center md:justify-start py-5 md:py-6 min-h-[72px] md:min-h-[88px]">
+          <p className="text-slate-700 font-medium text-sm sm:text-base">
+            Official partners
+          </p>
+        </Cell>
 
-          {/* Mobile: 2-col grid (title full-width, then 2x2 logos). Desktop: single flex row, tabular */}
-          <div className="grid grid-cols-2 md:flex md:flex-row md:items-stretch text-center">
+        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
+          <Image
+            src={googleStartups}
+            alt="Google Cloud for Startups"
+            width={110}
+            height={50}
+            className="w-[90px] sm:w-[110px] h-auto object-contain"
+          />
+        </Cell>
 
-            {/* Label: full width on mobile, first cell on desktop */}
-            <div className="col-span-2 md:flex-none py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-6 border-b md:border-b-0 md:border-r border-slate-200 flex items-center justify-center md:justify-start md:min-h-[88px]">
-              <p className="text-slate-700 font-medium text-sm sm:text-base">
-                Official partners
-              </p>
-            </div>
+        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
+          <Image
+            src={openAIBG}
+            alt="OpenAI for Startups"
+            width={95}
+            height={50}
+            className="w-[80px] sm:w-[95px] h-auto object-contain"
+          />
+        </Cell>
 
-            {/* Logo row: 2x2 grid on mobile, equal-width flex row on desktop */}
-            <div className="col-span-2 grid grid-cols-2 md:flex md:flex-1 md:flex-row md:min-h-[88px]">
-              {/* Google */}
-              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
-                <Image
-                  src={googleStartups}
-                  alt="Google Cloud for Startups"
-                  width={110}
-                  height={50}
-                  className="w-[90px] sm:w-[110px] h-auto object-contain"
-                />
-              </div>
+        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
+          <Image
+            src={awsStartups}
+            alt="AWS for Startups"
+            width={95}
+            height={50}
+            className="w-[80px] sm:w-[95px] h-auto object-contain"
+          />
+        </Cell>
 
-              {/* OpenAI */}
-              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b md:border-b-0 border-slate-200 md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
-                <Image
-                  src={openAIBG}
-                  alt="OpenAI for Startups"
-                  width={95}
-                  height={50}
-                  className="w-[80px] sm:w-[95px] h-auto object-contain"
-                />
-              </div>
-
-              {/* AWS */}
-              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-b border-r md:border-r border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
-                <Image
-                  src={awsStartups}
-                  alt="AWS for Startups"
-                  width={95}
-                  height={50}
-                  className="w-[80px] sm:w-[95px] h-auto object-contain"
-                />
-              </div>
-
-              {/* NVIDIA */}
-              <div className="py-4 sm:py-5 md:py-6 px-2 sm:px-3 md:px-5 border-slate-200 flex items-center justify-center min-h-[72px] sm:min-h-[80px] md:min-h-0 md:flex-1">
-                <Image
-                  src={nividia}
-                  alt="NVIDIA"
-                  width={95}
-                  height={50}
-                  className="w-[80px] sm:w-[95px] h-auto object-contain"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      {/* 2. FOUNDER SECTION (NOW BELOW) */}
-      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden bg-[oklch(0.988_0.0041_91.45)]  py-16">
+        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
+          <Image
+            src={nividia}
+            alt="NVIDIA"
+            width={95}
+            height={50}
+            className="w-[80px] sm:w-[95px] h-auto object-contain"
+          />
+        </Cell>
+      </Section>
+      {/* 2. FOUNDER SECTION (NOW BELOW) — wrapped in the grid so the hairline
+          frame + corner marks run continuously down the page. */}
+      <Section>
+        <Cell bleed>
+      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden bg-[var(--grid-bg)] py-16">
 
         {/* Very Light Grid Background */}
         <div
@@ -209,6 +199,8 @@ export default function CombinedLayout() {
           </div>
         </div>
       </section>
+        </Cell>
+      </Section>
     </main>
   );
 }

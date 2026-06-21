@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Products from '@/components/Products';
 import AboutCTA from "../components/AboutCTA";
 import FAQ from "../components/FAQ";
 import TeamsAchieve from "../components/TeamsAchieve";
@@ -13,6 +12,8 @@ import AdIntelReplica from '@/components/AdIntelReplica';
 import AdCreativeBuilder from '@/components/AdCreativeBuilder';
 import DashboardCTA from '@/components/DashboardCTA';
 import AdsShowcase from '@/components/AdsShowcase';
+import ProductEngines from '@/components/ProductEngines';
+import BuiltForBrands from '@/components/BuiltForBrands';
 
 import ImpactSection from '../components/ImpactSection';
 // Lazy load below-the-fold components
@@ -29,7 +30,8 @@ export default function Home() {
       <Background />
       <Navbar />
       <Hero />
-      <Products />
+      <ProductEngines />
+      <BuiltForBrands />
       <AdCreativeBuilder />
       <ImpactSection />
 <AdIntelReplica />

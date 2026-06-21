@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Layers } from "lucide-react";
+import Section, { Cell } from "./Section";
 
 /* Bottom-of-home CTA: a dashboard mockup with a glowing "Try For Free Now"
    button floating in the center. Drop your dashboard screenshot at
@@ -10,7 +11,8 @@ import { Layers } from "lucide-react";
 
 export default function DashboardCTA({ image = "/dashboard.png" }: { image?: string }) {
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] px-4 pb-0 pt-12 sm:px-6 sm:pt-20">
+        <Section>
+            <Cell bleed className="px-4 pb-0 pt-12 sm:px-6 sm:pt-20">
             <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -56,6 +58,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                     </div>
                 </div>
             </motion.div>
-        </section>
+            </Cell>
+        </Section>
     );
 }

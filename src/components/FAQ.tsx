@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import Section, { Cell } from "./Section";
 
 const faqData = [
     {
@@ -38,64 +39,54 @@ export default function FAQ() {
     };
 
     return (
-        <section className="py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-12">
+        <Section gridClassName="md:grid-cols-[1fr_2fr]">
 
-                    {/* Left Column: Heading and Context */}
-                    <div className="flex flex-col">
-                        <h2 className="text-2xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter mb-8">
-                            FA<span className="text-brand-600">Q</span>
-                        </h2>
+            {/* Left cell: heading + context (vertical hairline separates it from the accordion) */}
+            <Cell className="flex flex-col font-sans text-black">
+                <div className="mb-4 flex items-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Questions</span></div>
+                <h2 className="text-2xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter">
+                    Frequently<br className="hidden lg:block" /> asked
+                </h2>
+                <p className="mt-8 text-[14px] text-slate-500 leading-relaxed max-w-[280px]">
+                    Read some of the most asked questions around Hypeon. If you cannot find your answer, reach out to us using the chat in the bottom-right corner!
+                </p>
+            </Cell>
 
-                        <div className="mt-auto border-t border-slate-200 pt-8">
-                            <p className="text-[14px] text-slate-500 leading-relaxed max-w-[280px]">
-                                Read some of the most asked questions around Hypeon. If you cannot find your answer, reach out to us using the chat in the bottom-right corner!
+            {/* Right cell: accordion — each question is a hairline-separated row (inside grid) */}
+            <Cell bleed className="font-sans text-black">
+                {faqData.map((faq, index) => (
+                    <div
+                        key={index}
+                        className="border-b border-[var(--grid-line)] last:border-b-0 px-6 sm:px-8 lg:px-10"
+                    >
+                        <button
+                            type="button"
+                            onClick={() => toggleFAQ(index)}
+                            className="w-full flex items-center justify-between py-5 text-left hover:text-slate-600 transition-colors group relative min-h-[48px] cursor-pointer"
+                        >
+                            <span className="text-[15px] sm:text-[16px] font-medium text-slate-900 group-hover:text-slate-600 transition-colors pr-8">
+                                {faq.question}
+                            </span>
+                            <span className="ml-4 sm:ml-6 flex-shrink-0 text-slate-400">
+                                {openIndex === index ? (
+                                    <Minus className="w-5 h-5" />
+                                ) : (
+                                    <Plus className="w-5 h-5" />
+                                )}
+                            </span>
+                        </button>
+
+                        <div
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] sm:max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'
+                                }`}
+                        >
+                            <p className="text-sm sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
+                                {faq.answer}
                             </p>
                         </div>
                     </div>
-
-                    {/* Right Column: Accordion */}
-                    <div className="flex flex-col border-t border-slate-200">
-                        {faqData.map((faq, index) => (
-                            <div
-                                key={index}
-                                className="border-b border-slate-200"
-                            >
-                                <button
-                                    type="button"
-                                    onClick={() => toggleFAQ(index)}
-                                    className="w-full flex items-center justify-between py-3 sm:py-4 text-left hover:text-slate-600 transition-colors group relative min-h-[48px] sm:min-h-0 cursor-pointer"
-                                >
-                                    <span className="text-[15px] sm:text-[16px] font-medium text-slate-900 group-hover:text-slate-600 transition-colors pr-8 sm:pr-0">
-                                        {faq.question}
-                                    </span>
-                                    <span className="ml-4 sm:ml-6 flex-shrink-0 text-slate-400">
-                                        {openIndex === index ? (
-                                            <Minus className="w-5 h-5" />
-                                        ) : (
-                                            <Plus className="w-5 h-5" />
-                                        )}
-                                    </span>
-                                </button>
-
-                                <div
-                                    className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] sm:max-h-96 pb-4 opacity-100' : 'max-h-0 opacity-0'
-                                        }`}
-                                >
-                                    <p className="text-sm sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
-                                        {faq.answer}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                </div>
-
-                {/* Bottom CTA */}
-
-            </div>
-        </section>
+                ))}
+            </Cell>
+        </Section>
     );
 }

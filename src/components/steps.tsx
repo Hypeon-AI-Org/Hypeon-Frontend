@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Section, { Cell } from './Section';
 
 const MarketerSteps = () => {
     const steps = [
@@ -18,7 +19,17 @@ const MarketerSteps = () => {
     ];
 
     return (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 font-sans text-black ">
+        <Section>
+          <Cell>
+            <div className="font-sans text-black">
+
+            {/* Eyebrow */}
+            <div className="mb-4 flex items-center justify-center gap-2.5">
+                <span className="h-px w-6 bg-neutral-300" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                    How It Works
+                </span>
+            </div>
 
             {/* Header */}
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-10 lg:mb-14 tracking-tighter">
@@ -81,7 +92,9 @@ const MarketerSteps = () => {
                 </a>
             </div>
 
-        </section>
+            </div>
+          </Cell>
+        </Section>
     );
 };
 

@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { Globe, Loader2, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
+import Section, { Cell } from "./Section";
 
 const SUCCESS_MESSAGE_HIDE_MS = 5000;
 
@@ -76,7 +77,9 @@ export default function CompetitorReportLead() {
     : { duration: 10, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' };
 
   return (
-    <section className="relative overflow-hidden bg-[oklch(0.988_0.0041_91.45)] pt-10 pb-8 font-sans text-black sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
+    <Section>
+      <Cell>
+        <div className="relative overflow-hidden pt-10 pb-8 font-sans text-black sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
       {/* Ambient layers */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_80%_at_0%_0%,rgba(15,23,42,0.05),transparent_55%)]"
@@ -103,7 +106,7 @@ export default function CompetitorReportLead() {
         transition={orbTransition}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-16 xl:gap-20">
           {/* Copy — centered on mobile, left-aligned on desktop */}
           <motion.div
@@ -313,6 +316,8 @@ export default function CompetitorReportLead() {
           </motion.a>
         </motion.p>
       </div>
-    </section>
+        </div>
+      </Cell>
+    </Section>
   );
 }

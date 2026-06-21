@@ -3,6 +3,7 @@
 import { Fragment, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Section, { Cell } from './Section';
 
 const reveal = {
   initial: { opacity: 0, y: 24 },
@@ -28,10 +29,12 @@ export default function AdIntelReplica() {
   const [active, setActive] = useState<TabId>('insights');
 
   return (
-    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:pt-6 lg:pb-16 overflow-hidden">
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section>
+      <Cell>
+      <div className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-xl">
+            <div className="mb-4 flex items-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Ad Intelligence</span></div>
             <motion.h2
               {...reveal}
               transition={{ duration: 0.55, ease: 'easeOut' }}
@@ -141,7 +144,8 @@ export default function AdIntelReplica() {
           </motion.div>
         </div>
       </div>
-    </section>
+      </Cell>
+    </Section>
   );
 }
 

@@ -10,6 +10,7 @@ import {
 import { useRef, useState, useEffect } from "react"
 import NextImage from "next/image"
 import { ArrowUp, Image as ImageIcon, Music2, Paperclip, Search, Sparkles } from "lucide-react"
+import Section, { Cell } from "./Section"
 
 const WORKSPACE_BACKDROP_STYLE = {
   backgroundImage: "url('/images/back.png')",
@@ -4979,10 +4980,8 @@ export default function StackingCards() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section
-      ref={containerRef}
-      className="relative scroll-smooth bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:py-14"
-    >
+    <Section sectionRef={containerRef}>
+      <Cell bleed className="relative scroll-smooth py-10 sm:py-12 lg:py-14">
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
@@ -5004,7 +5003,8 @@ export default function StackingCards() {
 
       {/* Bottom Spacer */}
       <div className="h-[6vh]" />
-    </section>
+      </Cell>
+    </Section>
   )
 }
 

@@ -21,6 +21,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
 import MediaCarousel from "./MediaCarousel";
+import Section, { Cell } from "./Section";
 
 // --- Animation Variants ---
 const fadeInUp = {
@@ -100,26 +101,27 @@ const KeywordRow: React.FC<KeywordRowProps> = ({ label, volume, clicks, cpc }) =
 
 export default function Products() {
     return (
-        <section className="relative py-12 sm:py-16 bg-[oklch(0.988_0.0041_91.45)]  overflow-hidden cursor-pointer  ">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
+        <Section>
+            <Cell>
                 {/* Main Header Reveal */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center max-w-3xl mx-auto mb-8 sm:mb-8"
+                    className="text-center max-w-3xl mx-auto"
                 >
+                    <div className="mb-4 flex items-center justify-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">The Platform</span></div>
                     <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
                         The AI Ad Platform <span className="text-brand-600">Built for Performance.</span>
                     </h2>
                 </motion.div>
-            </div>
+            </Cell>
 
-            {/* Creative carousel — every image & video from /public/carousel,
-                alternating image → video. Full-bleed. */}
-            <MediaCarousel theme="light" />
-        </section>
+            {/* Creative carousel — clipped to the grid so it cuts off cleanly at the section edges */}
+            <Cell bleed className="overflow-hidden">
+                <MediaCarousel theme="light" />
+            </Cell>
+        </Section>
     );
 }

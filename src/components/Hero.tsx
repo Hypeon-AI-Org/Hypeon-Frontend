@@ -27,6 +27,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
+import Section, { Cell } from './Section';
 
 const PLATFORM_LOGOS = [
   { name: 'Meta Ads', src: '/logos/meta.png' },
@@ -417,7 +418,8 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
   return (
-    <section ref={heroSectionRef} className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pt-16 lg:pb-32 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden">
+    <Section sectionRef={heroSectionRef}>
+      <Cell bleed className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 lg:pt-16 lg:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
         {/* ── TOP: TEXT CONTENT (isolation + z-20 so CTA is always on top and clickable) ── */}
@@ -439,7 +441,7 @@ export default function Hero() {
               {/* Headline: 36–40px mobile, 64–72px desktop; normal weight; animation scales with font */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-9 sm:mb-10">
                 Stop wasting budget <br className="sm:hidden" /> on the {" "}
-                <span className="relative inline-grid align-baseline min-w-[230px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden">
+                <span className="relative inline-grid align-baseline min-w-[230px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden pb-[0.18em] -mb-[0.18em]">
                   {/* invisible copy in the same grid cell sets the baseline/size;
                       the animated word stacks on top of it sharing that baseline */}
                   <span aria-hidden className="invisible whitespace-nowrap col-start-1 row-start-1">{words[index]}</span>
@@ -1087,8 +1089,11 @@ export default function Hero() {
 
       </div>
 
-      <div className="mt-12 sm:mt-16 lg:mt-20 pt-6 sm:pt-8 lg:pt-10 reveal">
-        <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 lg:mb-8 text-center px-2">
+      </Cell>
+
+      {/* Trusted-by strip — its own thin grid band, hairline-separated like the partner row */}
+      <Cell className="reveal py-7 sm:py-9">
+        <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 text-center px-2">
           Trusted by founders scaling on
         </p>
         <div className="marquee-container overflow-x-hidden">
@@ -1116,8 +1121,8 @@ export default function Hero() {
             ))}
           </div>
         </div>
-      </div>
 
-    </section>
+      </Cell>
+    </Section>
   );
 }

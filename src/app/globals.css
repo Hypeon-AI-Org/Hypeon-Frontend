@@ -30,6 +30,21 @@ body {
   font-weight: 400;
 }
 
+/* ============================================================
+   Editorial grid system (marketer.com-style hairline grid).
+   One shared line color + width so section lines align down the
+   whole page. Monochrome — derived from the ink color, no accent.
+   ============================================================ */
+:root {
+  /* Light, warm hairline — kept very faint/subtle on the cream bg. */
+  --grid-line: #f1eee7;
+  /* Slightly stronger tone for the small "+" intersection marks. */
+  --grid-mark: #e4dfd3;
+  --grid-bg: oklch(0.988 0.0041 91.45); /* page cream — fills each cell */
+  --grid-max: 1280px;                    /* shared grid width (whole page) */
+  --grid-cell-p: 48px;                   /* desktop cell padding */
+}
+
 /* Body: 16px base, generous line-height (1.5 / leading-relaxed) */
 p {
   font-size: 1rem; /* 16px */
