@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
 import MediaCarousel, { MEDIA, MarqueeVideo } from "./MediaCarousel";
+import Section, { Cell } from "./Section";
 
 /* ============================================================
    Hypeon Studio — AI-powered ad creatives, curated by designers
@@ -300,9 +301,9 @@ const BADGE_TONE: Record<string, string> = {
 
 function StudioScoreboard() {
     return (
-        <section className="bg-[#050505] py-16 text-white sm:py-24">
-            <div className="mx-auto max-w-6xl px-6">
-                {/* header row */}
+        <Section cols={1} className="text-white">
+            {/* header row */}
+            <Cell>
                 <motion.div
                     initial={{ opacity: 0, y: 28 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -322,9 +323,11 @@ function StudioScoreboard() {
                         <Sparkles className="h-4 w-4 text-[#E66245]" /> Explore the gallery <ArrowRight className="h-4 w-4" />
                     </a>
                 </motion.div>
+            </Cell>
 
-                {/* content grid */}
-                <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(280px,360px)_1fr] lg:items-center">
+            {/* content grid */}
+            <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
+                <div className="grid gap-6 lg:grid-cols-[minmax(280px,360px)_1fr] lg:items-center">
                     {/* product URL card */}
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
@@ -373,8 +376,8 @@ function StudioScoreboard() {
                         ))}
                     </div>
                 </div>
-            </div>
-        </section>
+            </Cell>
+        </Section>
     );
 }
 
@@ -437,8 +440,8 @@ function StudioIndustries() {
     const [active, setActive] = useState<(typeof INDUSTRIES)[number]>("Fashion");
 
     return (
-        <section className="bg-[#0a0a0a] py-14 text-white sm:py-28">
-            <div className="mx-auto max-w-6xl px-6">
+        <Section cols={1} className="text-white">
+            <Cell>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -454,9 +457,11 @@ function StudioIndustries() {
                         could look like.
                     </p>
                 </motion.div>
+            </Cell>
 
+            <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
                 {/* Category pills */}
-                <div className="mt-10 flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap justify-center gap-2">
                     {INDUSTRIES.map((c) => (
                         <button
                             key={c}
@@ -517,8 +522,8 @@ function StudioIndustries() {
                         Explore the full engine <ArrowRight className="h-4 w-4" />
                     </Link>
                 </div>
-            </div>
-        </section>
+            </Cell>
+        </Section>
     );
 }
 
@@ -526,16 +531,15 @@ function StudioIndustries() {
 
 function StudioProduction() {
     return (
-        <section className="bg-[#050505] py-16 text-white sm:py-24">
-            <div className="mx-auto max-w-6xl px-6">
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                    {/* copy */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 28 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    >
+        <Section cols={2} className="text-white">
+            {/* copy */}
+            <Cell>
+                <motion.div
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
                         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Hypeon Studio</h2>
                         <p className="mt-4 text-base text-white/80">
                             Original concepts, campaigns and full creative production.
@@ -558,23 +562,24 @@ function StudioProduction() {
                             >
                                 Book a demo
                             </a>
-                        </div>
-                    </motion.div>
+                    </div>
+                </motion.div>
+            </Cell>
 
-                    {/* image */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
-                    >
-                        {/* hypeon-studio showcase video (lazy, pauses on scroll) */}
-                        <MarqueeVideo src="/hypeon-studio.mp4" poster="/hypeon-studio-poster.jpg" />
-                    </motion.div>
-                </div>
-            </div>
-        </section>
+            {/* image */}
+            <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
+                >
+                    {/* hypeon-studio showcase video (lazy, pauses on scroll) */}
+                    <MarqueeVideo src="/hypeon-studio.mp4" poster="/hypeon-studio-poster.jpg" />
+                </motion.div>
+            </Cell>
+        </Section>
     );
 }
 
@@ -602,9 +607,9 @@ const AGENT_STEPS: { text: string; agent: boolean }[] = [
 
 function StudioComparison() {
     return (
-        <section className="bg-[#0a0a0a] py-16 text-white sm:py-24">
-            <div className="mx-auto max-w-5xl px-6">
-                {/* header */}
+        <Section cols={2} className="text-white">
+            {/* header */}
+            <Cell className="md:col-span-2 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 28 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -619,17 +624,17 @@ function StudioComparison() {
                         Other tools make you do the work step by step. Hypeon works for you.
                     </p>
                 </motion.div>
+            </Cell>
 
-                {/* two columns */}
-                <div className="mt-12 grid gap-6 md:grid-cols-2">
-                    {/* traditional */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 28 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8"
-                    >
+            {/* traditional */}
+            <Cell>
+                <motion.div
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8"
+                >
                         <h3 className="text-lg font-semibold">Traditional Way</h3>
                         <p className="mt-2 text-sm leading-relaxed text-white/45">
                             Multiple tools, multiple steps, hours of manual work for every single ad.
@@ -642,16 +647,18 @@ function StudioComparison() {
                                 </li>
                             ))}
                         </ul>
-                    </motion.div>
+                </motion.div>
+            </Cell>
 
-                    {/* hypeon agent */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 28 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative overflow-hidden rounded-2xl border border-[#E66245]/40 bg-gradient-to-br from-[#161616] via-[#46251a] to-[#E66245] p-6 sm:p-8"
-                    >
+            {/* hypeon agent */}
+            <Cell>
+                <motion.div
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative overflow-hidden rounded-2xl border border-[#E66245]/40 bg-gradient-to-br from-[#161616] via-[#46251a] to-[#E66245] p-6 sm:p-8"
+                >
                         <div className="flex items-center gap-2">
                             <Image src={HypeOn_Logo} alt="Hypeon" width={24} height={24} className="h-6 w-6 rounded" />
                             <h3 className="text-lg font-semibold">Hypeon Agent</h3>
@@ -672,10 +679,9 @@ function StudioComparison() {
                                 </li>
                             ))}
                         </ul>
-                    </motion.div>
-                </div>
-            </div>
-        </section>
+                </motion.div>
+            </Cell>
+        </Section>
     );
 }
 
@@ -709,9 +715,9 @@ const PROCESS_PILLS = [
 function StudioProcess() {
     const [open, setOpen] = useState(-1);
     return (
-        <section className="bg-[#0a0a0a] py-16 text-white sm:py-24">
-            <div className="mx-auto max-w-6xl px-6">
-                {/* heading */}
+        <Section cols={2} className="text-white">
+            {/* heading */}
+            <Cell className="md:col-span-2">
                 <motion.h2
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -721,17 +727,17 @@ function StudioProcess() {
                 >
                     <span className="text-white/35">Our AI does 80% of the work,</span> <span className="text-white">so you only pay 20% for our service</span>
                 </motion.h2>
+            </Cell>
 
-                {/* content */}
-                <div className="mt-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                    {/* image + chat overlay */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.96 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
-                    >
+            {/* image + chat overlay */}
+            <Cell>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
+                >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&auto=format&fit=crop&q=75"
@@ -755,15 +761,17 @@ function StudioProcess() {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                </motion.div>
+            </Cell>
 
-                    {/* numbered steps */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 28 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    >
+            {/* numbered steps */}
+            <Cell>
+                <motion.div
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
                         {PROCESS_STEPS.map((s, i) => {
                             const isOpen = open === i;
                             return (
@@ -800,10 +808,9 @@ function StudioProcess() {
                                 <ArrowUpRight className="h-4 w-4" />
                             </span>
                         </a>
-                    </motion.div>
-                </div>
-            </div>
-        </section>
+                </motion.div>
+            </Cell>
+        </Section>
     );
 }
 
@@ -850,7 +857,7 @@ function StudioGallery() {
 
 export default function Studio() {
     return (
-        <div className="bg-[#0a0a0a]">
+        <div className="bg-[#0a0a0a]" style={{ ["--grid-bg" as string]: "#0a0a0a", ["--grid-line" as string]: "rgba(255,255,255,0.12)", ["--grid-mark" as string]: "rgba(255,255,255,0.22)" } as React.CSSProperties}>
             <StudioHero />
             <MediaCarousel />
             <StudioIndustries />
