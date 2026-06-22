@@ -11,8 +11,8 @@ import Section, { Cell } from "./Section";
 
 // the generated ad creatives
 const ASSETS = [
-    { img: "/wallism/image_35.png" },
-    { img: "/wallism/image_38.png" },
+    { img: "/wallism/d4ec3e83b2332402.png" },
+    { img: "/wallism/2cc5a6cac5e10415.jpeg" },
 ];
 
 const CHECKS = [
