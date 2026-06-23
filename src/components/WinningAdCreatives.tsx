@@ -51,7 +51,7 @@ export default function TikTokScrollSection() {
             className="text-2xl sm:text-4xl md:text-4xl font-bold text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg tracking-tighter"
           >
             We understand and <br /> analyze Ads so <br />
-            <span className="text-brand-600">you don&apos;t have to.</span>
+            <span className="text-[#696863]">you don&apos;t have to.</span>
           </motion.h2>
 
           <motion.p

@@ -91,7 +91,7 @@ export default function AboutCoreLayers() {
           </p>
 
           <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight">
-            Two engines. <span className="text-brand-600">One growth system.</span>
+            Two engines. <span className="text-[#696863]">One growth system.</span>
           </h2>
 
           <p className="mt-4 text-sm text-slate-500 leading-relaxed">

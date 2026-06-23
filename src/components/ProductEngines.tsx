@@ -39,11 +39,11 @@ const INTELLIGENCE: Engine = {
   icon: <Sparkles className="h-3.5 w-3.5" strokeWidth={2.4} />,
   iconBg: 'bg-emerald-500',
   eyebrow: 'The Intelligence Engine',
-  accent: 'text-brand-600',
+  accent: 'text-[#696863]',
   heading: (
     <>
       Your competitor&apos;s playbook,{' '}
-      <span className="text-brand-600">decoded in seconds.</span>
+      <span className="text-[#696863]">decoded in seconds.</span>
     </>
   ),
   question: 'What happens when you never run blind again?',
@@ -63,11 +63,11 @@ const STUDIO: Engine = {
   icon: <Wand2 className="h-3.5 w-3.5" strokeWidth={2.4} />,
   iconBg: 'bg-orange-500',
   eyebrow: 'The Creative Engine',
-  accent: 'text-brand-600',
+  accent: 'text-[#696863]',
   heading: (
     <>
       Beyond AI-powered.{' '}
-      <span className="text-brand-600">AI-first creative,</span> built to convert.
+      <span className="text-[#696863]">AI-first creative,</span> built to convert.
     </>
   ),
   question: 'What happens when creative keeps up with the data?',

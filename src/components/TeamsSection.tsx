@@ -70,7 +70,7 @@ const TeamsSection = () => {
             transition={{ delay: 0.1 }}
             className="text-2xl sm:text-4xl md:text-4xl font-semibold tracking-tight text-gray-900 mb-6"
           >
-            Why brands choose <span className="text-brand-600">HypeOn Analytics</span>
+            Why brands choose <span className="text-[#696863]">HypeOn Analytics</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

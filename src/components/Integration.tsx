@@ -37,7 +37,7 @@ const Integrations = () => {
         <div className="grid lg:grid-cols-2 gap-8 items-start mb-16">
           <div className="space-y-6">
             <h2 className="text-2xl sm:text-4xl md:text-4xl tracking-tight text-gray-900 leading-[1.1]">
-              Connect every channel.<span className="text-brand-600">Miss nothing</span>
+              Connect every channel.<span className="text-[#696863]">Miss nothing</span>
             </h2>
             <p className="text-[15px] md:text-lg text-gray-500 leading-relaxed max-w-[550px]">
               Every platform your brand runs on — ad channels, your store, email, marketplaces. HypeOn connects all of them in one click and keeps everything synced automatically.

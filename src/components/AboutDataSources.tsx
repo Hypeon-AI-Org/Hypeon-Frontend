@@ -19,7 +19,7 @@ export default function AboutDataSources() {
       {/* Heading */}
       <Cell className="text-center reveal">
         <h2 className="text-2xl sm:text-4xl md:text-4xl font-display font-bold tracking-tighter">
-          Millions of signals <span className="text-brand-600">Every day.</span>
+          Millions of signals <span className="text-[#696863]">Every day.</span>
         </h2>
 
         <p className="mt-6 text-slate-600 max-w-3xl mx-auto">

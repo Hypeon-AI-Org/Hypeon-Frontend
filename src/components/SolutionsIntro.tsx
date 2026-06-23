@@ -8,7 +8,7 @@ export default function SolutionsIntro() {
         {/* Headline */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tighter leading-tight">
           Growth with{" "}
-          <span className="text-brand-600">Profitability</span>
+          <span className="text-[#696863]">Profitability</span>
         </h1>
 
         {/* Subheading */}

@@ -46,7 +46,7 @@ export default function TeamsAchieve() {
           className="text-center text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight mb-8 sm:mb-10 lg:mb-12"
         >
           See what teams achieve with{' '}
-          <span className="text-brand-600">HypeOn</span>
+          <span className="text-[#696863]">HypeOn</span>
         </motion.h2>
 
         <motion.div

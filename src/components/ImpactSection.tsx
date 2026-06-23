@@ -88,7 +88,7 @@ export default function ImpactSection() {
         >
           Spend less. Sell more.
           <br />
-          <span className="text-brand-600">
+          <span className="text-[#696863]">
             Keep what you earn.
           </span>
         </motion.h2>

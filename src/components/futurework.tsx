@@ -33,7 +33,7 @@ export default function FunnelAILandingPage() {
           {/* Headline and Subheadline Section */}
           <div className="max-w-2xl mx-auto mb-12 reveal-left">
             <h1 className="text-2xl sm:text-4xl md:text-4xl tracking-tight mb-6" style={{ color: colors.textPrimary }}>
-              The future of attribution is <span className="text-brand-600">conversational</span>
+              The future of attribution is <span className="text-[#696863]">conversational</span>
             </h1>
             <p className="text-[15px]  leading-relaxed" style={{ color: colors.textSecondary }}>
               Ask your data anything — in plain English. The Copilot is wired directly into your live attribution layer and gives you specific, numbered answers. No dashboards to dig through. No analysts to wait for.

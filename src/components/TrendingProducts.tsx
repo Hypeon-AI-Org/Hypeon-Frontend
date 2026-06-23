@@ -51,7 +51,7 @@ export default function HypeScoreSection() {
           </p>
 
           <h2 className="text-3xl sm:text-4xl md:text-4xl  text-[#0f172a] leading-[1.1] mb-4 sm:mb-6 max-w-xl font-bold tracking-tighter">
-            Know what they're doing.<span className='text-brand-600'>Know what they're missing.</span>
+            Know what they're doing.<span className='text-[#696863]'>Know what they're missing.</span>
           </h2>
 
           <p className="text-slate-500 text-[14px] sm:text-[15px] leading-relaxed max-w-md mb-6 md:mb-8">

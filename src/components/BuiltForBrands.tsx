@@ -106,7 +106,7 @@ export default function BuiltForBrands() {
         >
           Built for brands
           <br />
-          <span className="text-neutral-400">serious about growth.</span>
+          <span className="text-[#696863]">serious about growth.</span>
         </motion.h2>
       </Cell>
 

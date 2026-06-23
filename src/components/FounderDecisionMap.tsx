@@ -4984,10 +4984,10 @@ export default function StackingCards() {
       <Cell bleed className="relative scroll-smooth py-10 sm:py-12 lg:py-14">
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-[#11271F]">
           Every problem. Solved.
           <br />
-          <span className="text-brand-600">In one platform.</span>
+          <span className="text-[#696863]">In one platform.</span>
         </h2>
         <p className="mt-4 sm:mt-6 text-sm sm:text-[15px] text-neutral-500 max-w-3xl mx-auto px-2">
           Here’s how HypeOn maps directly to the decisions you make every week as a founder.

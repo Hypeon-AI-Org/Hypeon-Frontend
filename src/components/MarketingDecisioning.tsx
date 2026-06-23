@@ -18,7 +18,7 @@ export default function CTASection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-2xl md:text-4xl lg:text-4xl font-sans font-bold text-gray-900 leading-[1.1] tracking-tighter mb-6"
         >
-          Stop researching with <span className="text-brand-600">yesterday's</span> <br className="text-brand-600" /> data.
+          Stop researching with <span className="text-[#696863]">yesterday's</span> <br className="text-[#696863]" /> data.
         </motion.h2>
 
         {/* Animated Subtext */}

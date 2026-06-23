@@ -5,7 +5,7 @@ const mailto = "mailto:info@hypeon.ai";
 
 function ContactEmail() {
   return (
-    <a href={mailto} className="text-brand-600 hover:underline">
+    <a href={mailto} className="text-[#696863] hover:underline">
       info@hypeon.ai
     </a>
   );
@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
       <main className="flex-1 pt-24 pb-14">
         <section className="max-w-4xl mx-auto px-6 py-16 bg-[oklch(0.988_0.0041_91.45)] text-slate-600 leading-relaxed">
           <h1 className="text-2xl font-semibold text-slate-900">
-            Privacy <span className="text-brand-600">Policy</span>
+            Privacy <span className="text-[#696863]">Policy</span>
           </h1>
 
           <p className="mt-2 text-sm text-slate-500">
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
               Our website located at{" "}
               <a
                 href="https://hypeon.ai"
-                className="text-brand-600 hover:underline"
+                className="text-[#696863] hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >

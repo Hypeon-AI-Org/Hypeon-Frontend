@@ -94,7 +94,7 @@ export default function Hero() {
             <h1 className="text-2xl sm:text-4xl md:text-4xl text-black mb-4 sm:mb-6 text-balance tracking-tight">
               The most True{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-gray-700 to-black">attribution platform</span>{' '}
-              for <span className="text-brand-600">e-commerce</span>
+              for <span className="text-[#696863]">e-commerce</span>
             </h1>
 
             <p className="text-sm sm:text-[15px] text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">

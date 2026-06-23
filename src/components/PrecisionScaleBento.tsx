@@ -172,7 +172,7 @@ export default function PrecisionScaleBento() {
           className="max-w-[640px]"
         >
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.15] mb-[18px]">
-            Built for precision. <span className="text-brand-600">Designed for scale.</span>
+            Built for precision. <span className="text-[#696863]">Designed for scale.</span>
           </h2>
           <p className="text-[14px] text-[#666] leading-[1.72] max-w-[520px]">
             We track your competitors&apos; Meta ads 24/7 and pull data on reach, estimated spend,

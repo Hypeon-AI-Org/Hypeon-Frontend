@@ -56,7 +56,7 @@ export default function ZoomControl() {
               }}
               className={`px-4 py-2 text-left text-sm transition-colors ${
                 scale === s
-                  ? "bg-brand-500/15 font-medium text-brand-600"
+                  ? "bg-brand-500/15 font-medium text-[#696863]"
                   : "text-ink hover:bg-black/5"
               }`}
             >

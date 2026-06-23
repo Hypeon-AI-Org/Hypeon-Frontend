@@ -39,7 +39,7 @@ export default function Features() {
         >
           <div className="mb-4 flex items-center justify-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Why HypeOn</span></div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-black mb-4 sm:mb-6">
-            Why Founders Choose <span className="text-brand-600">HypeOn</span>
+            Why Founders Choose <span className="text-[#696863]">HypeOn</span>
           </h2>
 
           <h3 className="text-2xl sm:text-3xl font-semibold text-black mb-4 sm:mb-6 tracking-tight">

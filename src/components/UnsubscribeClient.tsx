@@ -82,7 +82,7 @@ export default function UnsubscribeClient() {
           <p className="text-lg text-red-700">{errorMessage}</p>
           <Link
             href="/"
-            className="inline-block text-sm font-medium text-brand-600 underline-offset-2 hover:underline"
+            className="inline-block text-sm font-medium text-[#696863] underline-offset-2 hover:underline"
           >
             Back to home
           </Link>

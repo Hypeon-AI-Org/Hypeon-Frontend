@@ -67,7 +67,7 @@ export default function FeatureGrid() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-tight">
-            Intelligence for how you actually <span className='text-brand-600'>sell.</span>
+            Intelligence for how you actually <span className='text-[#696863]'>sell.</span>
           </h2>
 
           <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">

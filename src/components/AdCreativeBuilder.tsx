@@ -50,7 +50,7 @@ export default function AdCreativeBuilder() {
                         </span>
                     </div>
                     <h2 className="text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
-                        Generate High-Performing<br className="hidden sm:block" /> Ad Creatives
+                        Generate High-Performing<br className="hidden sm:block" /> <span className="text-[#696863]">Ad Creatives</span>
                     </h2>
                     <p className="mt-4 max-w-md text-[14px] leading-relaxed text-slate-500">
                         Generate high-converting AI ad creatives in seconds using proprietary AI

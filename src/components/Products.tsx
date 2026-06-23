@@ -113,7 +113,7 @@ export default function Products() {
                 >
                     <div className="mb-4 flex items-center justify-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">The Platform</span></div>
                     <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
-                        The AI Ad Platform <span className="text-brand-600">Built for Performance.</span>
+                        The AI Ad Platform <span className="text-[#696863]">Built for Performance.</span>
                     </h2>
                 </motion.div>
             </Cell>

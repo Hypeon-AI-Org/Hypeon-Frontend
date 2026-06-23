@@ -42,7 +42,7 @@ export default function AdIntelReplica() {
             >
               Instantly decode
               <br />
-              <span className="text-brand-600">competitor ad strategy</span>
+              <span className="text-[#696863]">competitor ad strategy</span>
             </motion.h2>
 
             <motion.p

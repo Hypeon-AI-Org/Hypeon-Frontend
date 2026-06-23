@@ -76,7 +76,7 @@ export default function SolutionsIntelligence() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
-            HypeOn <span className="text-brand-600">Intelligence</span>
+            HypeOn <span className="text-[#696863]">Intelligence</span>
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
             The prediction engine that powers everything inside HypeOn — designed to identify what will work before it becomes obvious.

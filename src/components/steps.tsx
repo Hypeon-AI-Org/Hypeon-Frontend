@@ -33,7 +33,7 @@ const MarketerSteps = () => {
 
             {/* Header */}
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-10 lg:mb-14 tracking-tighter">
-                It's easy to start growing <br /> with <span className='text-brand-600'>Hypeon.</span>
+                It's easy to start growing <br /> with <span className='text-[#696863]'>Hypeon.</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-center">

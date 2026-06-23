@@ -81,7 +81,7 @@ export default function ComparisonBlackWhite() {
           className="text-center mb-8 sm:mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black">
-            One platform vs <span className="text-brand-600">six tools.</span>
+            One platform vs <span className="text-[#696863]">six tools.</span>
           </h2>
           <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-500 max-w-3xl mx-auto px-2">
             Stop paying for tools that don’t talk to each other — while still leaving half your intelligence gaps unfilled.

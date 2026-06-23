@@ -46,7 +46,7 @@ export default function SolutionsSolutions() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-blur">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tighter">
-            How <span className="text-brand-600">HypeOn</span> Helps
+            How <span className="text-[#696863]">HypeOn</span> Helps
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
             One platform. One dashboard. Everything you need to make profitable decisions faster.
@@ -71,7 +71,7 @@ export default function SolutionsSolutions() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <CheckCircle2 className="w-5 h-5 text-brand-600 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-[#696863] flex-shrink-0" />
                         <h3 className="text-lg font-semibold text-slate-900">
                           {solution.title}
                         </h3>

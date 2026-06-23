@@ -159,7 +159,7 @@ export default function CompetitorReportPopup() {
 
               <div className="mb-4 inline-flex items-center gap-2">
                 <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-neutral-200/90 bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 shadow-sm">
-                  <Sparkles className="h-3 w-3 text-brand-600" strokeWidth={2} aria-hidden />
+                  <Sparkles className="h-3 w-3 text-[#696863]" strokeWidth={2} aria-hidden />
                   Competitor report
                 </span>
               </div>
@@ -277,7 +277,7 @@ export default function CompetitorReportPopup() {
                   role="status"
                 >
                   {submitState === 'success' && (
-                    <span className="font-medium text-brand-600">
+                    <span className="font-medium text-[#696863]">
                       Check your inbox — we&apos;ve sent your report details.
                     </span>
                   )}

@@ -118,7 +118,7 @@ export default function CompetitorReportLead() {
           >
             <motion.div variants={fadeUp} className="mb-4 inline-flex items-center gap-2">
               <span className="inline-flex h-8 items-center gap-1.5 rounded-full border border-neutral-200/90 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500 shadow-sm backdrop-blur-sm sm:text-xs sm:tracking-[0.2em]">
-                <Sparkles className="h-3.5 w-3.5 text-brand-600" strokeWidth={2} aria-hidden />
+                <Sparkles className="h-3.5 w-3.5 text-[#696863]" strokeWidth={2} aria-hidden />
                 Competitor report
               </span>
             </motion.div>
@@ -279,7 +279,7 @@ export default function CompetitorReportLead() {
                   role="status"
                 >
                   {submitState === 'success' && (
-                    <span className="font-medium text-brand-600">
+                    <span className="font-medium text-[#696863]">
                       Check your inbox — we’ve sent your report details.
                     </span>
                   )}

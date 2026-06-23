@@ -227,7 +227,7 @@ export default function PricingPage() {
                 Built on millions of data signals
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tighter mb-4 text-gray-900">
-                Plans and <span className="text-brand-600">pricing</span>
+                Plans and <span className="text-[#696863]">pricing</span>
               </h1>
               <p className="text-base text-gray-600 max-w-[520px] leading-relaxed mb-1.5 mx-auto">
                 Get started with HypeOn
@@ -649,7 +649,7 @@ export default function PricingPage() {
           <Reveal delayMs={80}>
             <section className="max-w-[980px] mx-auto px-6 pb-[72px]">
               <h2 className="text-center text-2xl md:text-4xl font-bold tracking-tight mb-10">
-                Got questions? <span className="text-brand-600">We got answers.</span>
+                Got questions? <span className="text-[#696863]">We got answers.</span>
               </h2>
               <div className="bg-white/70 border border-gray-200 rounded-[20px] shadow-sm overflow-hidden">
                 {[
@@ -922,7 +922,7 @@ function CompareAnalyticsTable({
   return (
     <section className="max-w-[1200px] mx-auto px-6 pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-brand-600">Plans</span></h2>
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-[#696863]">Plans</span></h2>
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">

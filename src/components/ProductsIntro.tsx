@@ -20,7 +20,7 @@ export default function TrendalyticsSection() {
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl  font-bold tracking-tighter leading-tight mb-4">
             All your Competitor ads<br />
-            <span className='text-brand-600'>Across every platform</span>
+            <span className='text-[#696863]'>Across every platform</span>
           </h1>
           <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
             Access 200M ads with share of voice, reach, creative and estimated spend data.

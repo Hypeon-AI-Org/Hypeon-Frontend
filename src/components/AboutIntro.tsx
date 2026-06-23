@@ -19,7 +19,7 @@ export default function AboutIntro() {
       <Cell className="text-center reveal pt-24 sm:pt-28">
         <p className="text-sm text-slate-400 mb-3">We build</p>
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter leading-tight mb-4">
-          Scale Smarter. <span className="text-brand-600">Scale Faster.</span>
+          Scale Smarter. <span className="text-[#696863]">Scale Faster.</span>
         </h1>
         <p className="text-base text-gray-500 max-w-xl mx-auto">
           HypeOn AI is the AI ad platform that decodes your competitors&apos; playbook{' '}

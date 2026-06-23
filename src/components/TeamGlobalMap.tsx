@@ -17,7 +17,7 @@ export default function StartToday() {
           viewport={{ once: true }}
           className="text-2xl sm:text-4xl md:text-4xl text-black tracking-tight"
         >
-          Ready to move <span className="text-brand-600">faster</span>
+          Ready to move <span className="text-[#696863]">faster</span>
         </motion.h2>
 
         <motion.p
