@@ -369,7 +369,7 @@ function ArcCard({
 
   return (
     <motion.div
-      className="absolute w-[16%] sm:w-[7.8%] lg:w-[6.1%] rounded-md sm:rounded-lg overflow-hidden shadow-[0_8px_22px_rgba(15,23,42,0.14)] will-change-transform"
+      className="absolute w-[14%] sm:w-[6.8%] lg:w-[5.2%] rounded-md sm:rounded-lg overflow-hidden shadow-[0_8px_22px_rgba(15,23,42,0.14)] will-change-transform"
       style={{
         left,
         top,
