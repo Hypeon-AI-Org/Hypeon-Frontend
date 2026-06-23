@@ -43,6 +43,16 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // Static hero/industry media is never mutated in place — cache it hard
+        // so production doesn't re-download every webp/mp4 on each visit or
+        // industry-tab switch (the dev server serves these instantly from
+        // localhost, which is why slowness only shows up in production).
+        source: '/hero/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
         source: '/:path*',
         headers: [
           {

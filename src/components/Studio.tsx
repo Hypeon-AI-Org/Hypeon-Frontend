@@ -454,6 +454,20 @@ const INDUSTRY_VIDEO: Record<(typeof INDUSTRIES)[number], string> = {
 function StudioIndustries() {
     const [active, setActive] = useState<(typeof INDUSTRIES)[number]>("Fashion");
 
+    // Warm the browser cache for EVERY industry's stills up front (once, after
+    // mount). The webp tiles are tiny (≤160 KB) so prefetching all of them is
+    // cheap, and it makes pill switches instant instead of fetching + decoding
+    // on click. Only the active tab's <img> are in the DOM, so without this the
+    // first paint of each new tab waits on the network.
+    useEffect(() => {
+        const urls = Array.from(new Set(Object.values(INDUSTRY_IMAGES).flat()));
+        urls.forEach((src) => {
+            const img = new window.Image();
+            img.decoding = "async";
+            img.src = src;
+        });
+    }, []);
+
     return (
         <Section cols={1} className="text-white">
             <Cell>
@@ -520,7 +534,9 @@ function StudioIndustries() {
                                     <img
                                         src={src}
                                         alt={`${active} creative`}
-                                        loading="lazy"
+                                        loading="eager"
+                                        decoding="async"
+                                        fetchPriority="high"
                                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                 )}
