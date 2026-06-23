@@ -257,7 +257,7 @@ function StudioHero() {
                 transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="relative z-10 mx-6 w-full max-w-lg"
             >
-                <div className="relative rounded-none border border-white/30 px-6 py-8 sm:px-8 sm:py-9">
+                <div className="relative rounded-2xl border border-white/15 px-6 py-8 sm:px-8 sm:py-9">
                     {/* centre 4-point star marker */}
                     <svg
                         viewBox="0 0 24 24"
