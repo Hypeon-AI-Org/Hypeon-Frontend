@@ -671,7 +671,7 @@ export default function Hero() {
   }, [reduce, flow, arcActive]);
   return (
     <Section sectionRef={heroSectionRef} dots={false} gridClassName="!border-transparent">
-      <Cell bleed className="relative !border-transparent pt-20 sm:pt-24 pb-2 sm:pb-2 lg:pt-16 lg:pb-4 overflow-x-clip">
+      <Cell bleed className="relative !border-transparent pt-20 sm:pt-24 pb-2 sm:pb-2 lg:pt-16 lg:pb-4">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
         {/* ── TOP: TEXT CONTENT (isolation + z-20 so CTA is always on top and clickable) ── */}
@@ -750,29 +750,32 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Creative arc — fanned wall of real ad creatives flowing along the curve.
-            Width is capped + cards are sized in % of the container, so spacing and card
-            size scale together → the arc never breaks apart on zoom / resize. */}
-        <div ref={arcWrapRef} className="pointer-events-none relative z-30 mt-4 sm:-mt-16 lg:-mt-24">
-          <div className="relative mx-auto w-full max-w-[1650px] h-[300px] sm:h-[370px] lg:h-[420px]">
-            {(() => {
-              // Mobile shows ~half the cards (evenly sampled) so the narrow fan stays
-              // spaced and clean; desktop renders the full arc unchanged.
-              const cards = isMobile ? arcCards.filter((_, idx) => idx % 2 === 0) : arcCards;
-              return cards.map((item, i) => (
-                <ArcCard key={i} item={item} i={i} n={cards.length} reduce={reduce} flow={flow} active={arcActive} isMobile={isMobile} />
-              ));
-            })()}
-          </div>
+      </div>
+
+      {/* Creative arc — fanned wall of real ad creatives flowing along the curve.
+          Pulled OUT of the max-w-7xl wrapper so it spans the full Cell width with no
+          left/right gap. Cards are sized in % of the container, so spacing and card
+          size scale together → the arc never breaks apart on zoom / resize. */}
+      <div ref={arcWrapRef} className="pointer-events-none relative z-30 mt-4 sm:-mt-16 lg:-mt-24 left-1/2 -translate-x-1/2 w-[1750px] max-w-[100vw] overflow-x-clip">
+        <div className="relative mx-auto w-full h-[300px] sm:h-[370px] lg:h-[420px]">
+          {(() => {
+            // Mobile shows ~half the cards (evenly sampled) so the narrow fan stays
+            // spaced and clean; desktop renders the full arc unchanged.
+            const cards = isMobile ? arcCards.filter((_, idx) => idx % 2 === 0) : arcCards;
+            return cards.map((item, i) => (
+              <ArcCard key={i} item={item} i={i} n={cards.length} reduce={reduce} flow={flow} active={arcActive} isMobile={isMobile} />
+            ));
+          })()}
+          {/* Edge fades — soft gradient masks so cards melt into the background at the left/right edges instead of cutting off hard */}
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-40 w-24 sm:w-40 lg:w-56 bg-gradient-to-r from-[var(--grid-bg)] to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-40 w-24 sm:w-40 lg:w-56 bg-gradient-to-l from-[var(--grid-bg)] to-transparent" />
         </div>
-
-
       </div>
 
       </Cell>
 
       {/* Trusted-by strip — grid-free, clean band under the hero */}
-      <Cell className="reveal !border-transparent pt-2 pb-7 sm:pt-3 sm:pb-9 sm:-mt-10 lg:-mt-16">
+      <Cell className="reveal !border-transparent pt-10 pb-7 sm:pt-14 sm:pb-9 sm:mt-2 lg:mt-4">
         <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 text-center px-2">
           Trusted by founders scaling on
         </p>
