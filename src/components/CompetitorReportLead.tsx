@@ -72,40 +72,10 @@ export default function CompetitorReportLead() {
     }
   }
 
-  const orbTransition = reduceMotion
-    ? { duration: 0 }
-    : { duration: 10, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' };
-
   return (
     <Section>
       <Cell>
         <div className="relative overflow-hidden pt-10 pb-8 font-sans text-black sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
-      {/* Ambient layers */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_80%_at_0%_0%,rgba(15,23,42,0.05),transparent_55%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_100%_100%,rgba(51,230,122,0.08),transparent_55%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.4] bg-[linear-gradient(to_right,rgba(148,163,184,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.09)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:linear-gradient(to_bottom,black_20%,transparent)]"
-        aria-hidden
-      />
-
-      {/* Soft animated orb */}
-      <motion.div
-        className="pointer-events-none absolute -right-28 top-1/4 h-56 w-56 rounded-full bg-gradient-to-br from-emerald-200/30 via-slate-200/20 to-violet-200/25 blur-3xl sm:-right-24 sm:h-72 sm:w-72"
-        aria-hidden
-        animate={
-          reduceMotion
-            ? {}
-            : { scale: [1, 1.08, 1], opacity: [0.45, 0.65, 0.45] }
-        }
-        transition={orbTransition}
-      />
-
       <div className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-16 xl:gap-20">
           {/* Copy — centered on mobile, left-aligned on desktop */}

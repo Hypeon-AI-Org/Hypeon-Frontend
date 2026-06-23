@@ -111,7 +111,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         )}
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@24,400,0&display=swap" rel="stylesheet" />
       </head>
-      <body className="antialiased selection:bg-brand-500 selection:text-white relative font-sans ">
+      <body className="antialiased selection:bg-neutral-100 selection:text-inherit relative font-sans ">
         {allowGtm && (
           <noscript>
             <iframe

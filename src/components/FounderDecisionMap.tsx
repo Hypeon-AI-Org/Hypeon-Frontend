@@ -11,6 +11,7 @@ import { useRef, useState, useEffect } from "react"
 import NextImage from "next/image"
 import { ArrowUp, Image as ImageIcon, Music2, Paperclip, Search, Sparkles } from "lucide-react"
 import Section, { Cell } from "./Section"
+import LazyVideo from "./LazyVideo"
 
 const WORKSPACE_BACKDROP_STYLE = {
   backgroundImage: "url('/images/back.png')",
@@ -4071,30 +4072,14 @@ function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
               
               <div className="inv-right-panel" style={{ display: "flex", flexDirection: "row", gap: 10, padding: 0, overflow: "hidden" }}>
                 <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
-                  <video
+                  <LazyVideo
                     src="/cards/df79c081631cc38a.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    disablePictureInPicture
-                    disableRemotePlayback
-                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-                    onContextMenu={(e) => e.preventDefault()}
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
                   />
                 </div>
                 <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
-                  <video
+                  <LazyVideo
                     src="/cards/f8df79bf1542eda5.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    disablePictureInPicture
-                    disableRemotePlayback
-                    controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-                    onContextMenu={(e) => e.preventDefault()}
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
                   />
                 </div>

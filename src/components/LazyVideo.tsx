@@ -6,6 +6,7 @@ type LazyVideoProps = {
   src: string;
   poster?: string;
   className?: string;
+  style?: React.CSSProperties;
   /** Margin around the viewport that counts as "in view" (default starts loading slightly early). */
   rootMargin?: string;
 };
@@ -19,6 +20,7 @@ export default function LazyVideo({
   src,
   poster,
   className,
+  style,
   rootMargin = '200px 0px',
 }: LazyVideoProps) {
   const ref = useRef<HTMLVideoElement | null>(null);
@@ -55,6 +57,11 @@ export default function LazyVideo({
       preload="none"
       poster={poster}
       className={className}
+      style={style}
+      disablePictureInPicture
+      disableRemotePlayback
+      controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+      onContextMenu={(e) => e.preventDefault()}
     >
       {mounted && <source src={src} type="video/mp4" />}
     </video>

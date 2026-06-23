@@ -24,7 +24,7 @@ import {
   BadgeCheck,
   BarChart3
 } from 'lucide-react';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, useInView, useMotionValue, useTransform, animate, type MotionValue } from "framer-motion";
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import Section, { Cell } from './Section';
@@ -238,7 +238,180 @@ function ChartArtifact({
   );
 }
 
+// Shared entrance motion for the hero copy cluster
+const heroParentVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+const heroChildVariants = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+};
+
+// Real metric that counts up once when scrolled into view
+function CountUpStat({
+  value,
+  prefix = '',
+  suffix = '',
+  label,
+  reduce,
+}: {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  reduce: boolean | null;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const mv = useMotionValue(0);
+  const rounded = useTransform(mv, (v) => Math.round(v));
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const unsub = rounded.on('change', (v) => setDisplay(v));
+    return () => unsub();
+  }, [rounded]);
+
+  useEffect(() => {
+    if (reduce) {
+      setDisplay(value);
+      return;
+    }
+    if (inView) {
+      const controls = animate(mv, value, { duration: 1.4, ease: [0.22, 1, 0.36, 1] });
+      return () => controls.stop();
+    }
+  }, [inView, reduce, value, mv]);
+
+  return (
+    <span ref={ref} className="inline-flex items-baseline gap-1.5 text-slate-500">
+      <span className="text-slate-900 font-semibold tabular-nums">
+        {prefix}
+        {reduce ? value : display}
+        {suffix}
+      </span>
+      {label}
+    </span>
+  );
+}
+
+// One creative card in the fanned arc — travels continuously ALONG the arc
+// (driven by a shared `flow` value, so positions update off the React render).
+function ArcCard({
+  item,
+  i,
+  n,
+  reduce,
+  flow,
+  active,
+  isMobile,
+}: {
+  item: { src: string; poster?: string; video?: boolean };
+  i: number;
+  n: number;
+  reduce: boolean | null;
+  flow: MotionValue<number>;
+  active: boolean;
+  isMobile: boolean;
+}) {
+  const f0 = i / n;                                  // this card's base slot on the loop
+  const frac = (v: number) => (((f0 + v) % 1) + 1) % 1; // wrapped position 0..1
+  const u = (v: number) => (frac(v) - 0.5) * 2;          // -1 (left) … 1 (right)
+
+  // Shallow, wide parabolic "smile" bowl matching the Spyglass reference:
+  //  • flat upright base across the centre (cards barely tilt in the middle),
+  //  • tilt + lift grow toward the ends, which curl up to ~A° with tops pointing outward,
+  //  • horizontal spread fills the full width, denser toward the curling ends.
+  // Mobile uses a flatter, wider, gentler fan (fewer + less-tilted cards) so the
+  // narrow screen reads as a clean deck instead of a cramped overlapping V.
+  const A = isMobile ? 38 : 68;                      // max tilt at the arc ends (deg)
+  const SPREAD = isMobile ? 44 : 49;                 // horizontal half-width of the fan (%)
+  const LIFT = isMobile ? 34 : 52;                   // how high the ends sweep up (%)
+  const BASE = isMobile ? 8 : 4;                     // resting top offset at the centre (%)
+  const SCALE_DROP = isMobile ? 0.03 : 0.06;         // how much the ends shrink
+
+  const left = useTransform(flow, (v) => `${50 + u(v) * SPREAD}%`);
+  // deep, wide parabola: lowest (largest top%) at centre, sweeping high up at the ends
+  const top = useTransform(flow, (v) => `${BASE + (1 - u(v) * u(v)) * LIFT}%`);
+  // tilt grows evenly across the arc (linear) so neighbours never open wedge gaps
+  const rotate = useTransform(flow, (v) => `${u(v) * A}deg`);
+  const edge = 0.045;                                // only the extreme ends fade; gradient masks hide the seam
+  // how far INTO the arc a card is: 0 right at the seam, 1 once fully settled
+  const settle = (v: number) => Math.max(0, Math.min(1, Math.min(frac(v), 1 - frac(v)) / edge));
+  // ends sit a touch smaller; no big pop — they just fade in/out at the same size
+  const scale = useTransform(flow, (v) => 1 - Math.abs(u(v)) * SCALE_DROP);
+  const zIndex = useTransform(flow, (v) => Math.round(40 - Math.abs(u(v)) * 30));
+  const opacity = useTransform(flow, (v) => {
+    if (reduce) return 1;
+    return settle(v);                                // soft fade in/out at the entry & exit edges
+  });
+
+  // Perf: every card paints a lightweight static poster instantly. Only the few
+  // cards in a NARROW central band ever mount + decode an actual <video>; the rest
+  // stay as plain images. So the browser decodes ~5-6 clips at once instead of all
+  // N → no freeze on load / navigation and a smooth, jank-free scroll.
+  const [decode, setDecode] = useState(false);
+  useEffect(() => {
+    if (!item.video) return;
+    const PLAY_BAND = 0.13;                           // |u| < 0.13 → only the centre ~5-6 cards decode
+    const apply = (vf: number) => {
+      const should = active && Math.abs(u(vf)) < PLAY_BAND && settle(vf) > 0.05;
+      // guarded setState: React bails when the value is unchanged, so this only
+      // fires twice per card per loop (entering / leaving the band) — no render storm.
+      setDecode((prev) => (prev === should ? prev : should));
+    };
+    apply(flow.get());
+    const unsub = flow.on('change', apply);
+    return () => unsub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flow, item.video, active]);
+
+  return (
+    <motion.div
+      className="absolute w-[16%] sm:w-[7.8%] lg:w-[6.1%] rounded-md sm:rounded-lg overflow-hidden shadow-[0_8px_22px_rgba(15,23,42,0.14)] will-change-transform"
+      style={{
+        left,
+        top,
+        rotate,
+        scale,
+        zIndex,
+        opacity,
+        x: '-50%',
+        transformOrigin: 'bottom center',
+      }}
+    >
+      {/* Base layer — static poster, always painted, zero decode cost */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={item.poster ?? item.src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="block w-full aspect-[9/16] rounded-[6px] object-cover"
+      />
+      {/* Video overlay — mounted only while this card sits in the central band */}
+      {item.video && decode && (
+        <video
+          src={item.src}
+          poster={item.poster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noremoteplayback noplaybackrate"
+          preload="auto"
+          className="absolute inset-0 w-full h-full rounded-[6px] object-cover pointer-events-none"
+        />
+      )}
+    </motion.div>
+  );
+}
+
 export default function Hero() {
+  const reduce = useReducedMotion();
   const dashboardRef = useRef<HTMLDivElement>(null);
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
@@ -248,12 +421,21 @@ export default function Hero() {
   const [searchValue, setSearchValue] = useState('');
   const [hasContext, setHasContext] = useState(false);
   const [isLgUp, setIsLgUp] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
   const [chatCycle, setChatCycle] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
     const update = () => setIsLgUp(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
@@ -394,104 +576,193 @@ export default function Hero() {
       heroSection.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
-  const words = [
-    "Wrong Product.",
-    "Wrong Channel.",
-    "Wrong Ads.",
-    "Wrong Pricing.",
-    "Wrong Markets.",
-    "Wrong Audience.",
-    "Wrong Campaign.",
-    "Wrong Geo.",
-    "Wrong Creative.",
-    "Wrong Trend.",
-    "Wrong Inventory.",
-    "Wrong Customer."
+
+  // Auto-typing example queries in the search bar (Spyglass-style)
+  const queries = [
+    "Give me the top-performing ads of Nike in Sweden",
+    "Generate 3 video ads from Nike's winning angle",
+    "How much is Nike spending on Meta right now?",
+    "What hooks is Nike using in its scaling ads?",
+    "Which Nike creatives have run the longest?",
+    "Create a static ads for Nike's Jordan",
   ];
-  const [index, setIndex] = useState(0);
-
+  const [typed, setTyped] = useState('');
+  const [query, setQuery] = useState('');
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 2800); // slower cycle so each word is readable longer
+    if (reduce) { setTyped(queries[0]); return; }
+    let qi = 0, ci = 0, deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      const q = queries[qi];
+      if (!deleting) {
+        ci++;
+        setTyped(q.slice(0, ci));
+        if (ci >= q.length) { deleting = true; timer = setTimeout(tick, 1900); return; }
+        timer = setTimeout(tick, 45);
+      } else {
+        ci--;
+        setTyped(q.slice(0, ci));
+        if (ci <= 0) { deleting = false; qi = (qi + 1) % queries.length; timer = setTimeout(tick, 350); return; }
+        timer = setTimeout(tick, 22);
+      }
+    };
+    timer = setTimeout(tick, 700);
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduce]);
 
-    return () => clearInterval(interval);
+  // Fanned arc of real ad creatives — fewer clips keeps decode + compositing light.
+  // Each card carries a poster (static first frame) so it paints instantly with no
+  // decode-on-load, and only the central cards ever play the actual video.
+  const posterFor = (src: string) => {
+    if (src.startsWith('/carousel/')) return src.replace('/carousel/', '/carousel/posters/').replace('.mp4', '.jpg');
+    if (src.includes('/ind-vid/')) {
+      const name = src.split('/').pop()!.replace('.mp4', '');
+      return `/hero/ind/${name}-1.webp`;
+    }
+    return undefined;
+  };
+  const arcCards: { src: string; poster?: string; video?: boolean }[] = [
+    '/hero/ind-vid/beauty.mp4',
+    '/carousel/045e53458f4485d2.mp4',
+    '/carousel/23f0d4105b094537.mp4',
+    '/hero/ind-vid/fashion.mp4',
+    '/carousel/261138129033eb1f.mp4',
+    '/carousel/3b8e3a66515db4d9.mp4',
+    '/hero/ind-vid/food.mp4',
+    '/carousel/452d34244c08eaee.mp4',
+    '/carousel/4eea476d13528502.mp4',
+    '/hero/ind-vid/home.mp4',
+    '/carousel/50b18d1681e20f36.mp4',
+    '/carousel/51d8e138f293c225.mp4',
+    '/hero/ind-vid/wellness.mp4',
+    '/carousel/51ebaa4623434df4.mp4',
+    '/carousel/5f272eed280c0c30.mp4',
+    '/carousel/750b44dd8efb32ae.mp4',
+    '/carousel/763d35e0dc0bfaa4.mp4',
+    '/carousel/832a4ff8861195cd.mp4',
+    '/carousel/8933fd906cc15adb.mp4',
+    '/carousel/8fb3c5a47348d3aa.mp4',
+    '/carousel/a3b3be8e2817097f.mp4',
+    '/carousel/b22cdc25095d2d23.mp4',
+    // Arc renders static poster frames only — these tiny, constantly-moving cards
+    // gain nothing from live video, but decoding ~20 MP4s froze load + scroll.
+  ].map((src) => ({ src, poster: posterFor(src), video: false }));
+
+  // Continuous flow that carries the cards along the arc — only runs while the hero
+  // is actually on-screen, so scrolling past costs nothing (no per-frame work).
+  const flow = useMotionValue(0);
+  const arcWrapRef = useRef<HTMLDivElement>(null);
+  const [arcActive, setArcActive] = useState(false);
+  useEffect(() => {
+    const el = arcWrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setArcActive(entry.isIntersecting),
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
+  useEffect(() => {
+    if (reduce || !arcActive) return;
+    const controls = animate(flow, 1, { duration: 22, ease: 'linear', repeat: Infinity });
+    return () => controls.stop();
+  }, [reduce, flow, arcActive]);
   return (
-    <Section sectionRef={heroSectionRef}>
-      <Cell bleed className="relative pt-20 sm:pt-24 pb-6 sm:pb-8 lg:pt-16 lg:pb-12 overflow-hidden">
+    <Section sectionRef={heroSectionRef} dots={false} gridClassName="!border-transparent">
+      <Cell bleed className="relative !border-transparent pt-20 sm:pt-24 pb-2 sm:pb-2 lg:pt-16 lg:pb-4 overflow-x-clip">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
         {/* ── TOP: TEXT CONTENT (isolation + z-20 so CTA is always on top and clickable) ── */}
         <div className="relative z-20 isolation-isolate overflow-hidden">
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 md:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-8 sm:pb-10 lg:pb-12">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 md:px-8 lg:px-12 pt-8 sm:pt-10 md:pt-12 lg:pt-14 pb-0">
 
-            <div className="max-w-5xl text-left pl-0 lg:pl-16 w-full">
+            <motion.div
+              className="max-w-3xl mx-auto text-center w-full flex flex-col items-center"
+              variants={reduce ? undefined : heroParentVariants}
+              initial={reduce ? false : 'hidden'}
+              animate={reduce ? undefined : 'show'}
+            >
 
-              {/* Badge */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-10">
+              {/* Eyebrow — real, verifiable metric (not a fake "trusted by") */}
+              <motion.div variants={reduce ? undefined : heroChildVariants} className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                 <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white flex-shrink-0">
                   <Activity className="w-3 h-3" />
                 </span>
-                <span className="text-slate-600 font-medium text-sm sm:text-base tracking-tight">
-                  Built on millions of data signals
+                <span className="text-slate-600 font-medium text-xs sm:text-sm tracking-tight">
+                  Trained on 200M+ ads · 47M+ competitor ads analyzed
                 </span>
-              </div>
+              </motion.div>
 
-              {/* Headline: 36–40px mobile, 64–72px desktop; normal weight; animation scales with font */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900 mb-9 sm:mb-10">
-                Stop wasting budget <br className="sm:hidden" /> on the {" "}
-                <span className="relative inline-grid align-baseline min-w-[230px] sm:min-w-[340px] md:min-w-[440px] lg:min-w-[560px] xl:min-w-[680px] overflow-hidden pb-[0.18em] -mb-[0.18em]">
-                  {/* invisible copy in the same grid cell sets the baseline/size;
-                      the animated word stacks on top of it sharing that baseline */}
-                  <span aria-hidden className="invisible whitespace-nowrap col-start-1 row-start-1">{words[index]}</span>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={words[index]}
-                      initial={{
-                        opacity: 0,
-                        y: "0.4em",
-                        filter: "blur(0.15em)"
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        filter: "blur(0px)"
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: "-0.4em",
-                        filter: "blur(0.15em)"
-                      }}
-                      transition={{
-                        duration: 1,
-                        ease: [0.16, 1, 0.3, 1]
-                      }}
-                      className="col-start-1 row-start-1 whitespace-nowrap"
-                      style={{ fontFamily: "inherit", fontSize: "inherit", fontWeight: "inherit" }}
-                    >
-                      {words[index]}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-              </h1>
+              {/* Headline */}
+              <motion.h1
+                variants={reduce ? undefined : heroChildVariants}
+                className="text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tighter leading-[1.12] text-neutral-900"
+              >
+                Find &amp; create <br className="sm:hidden" /> the winning ads
+              </motion.h1>
 
-              {/* CTA — hover slide animation only lg+ (avoids sticky/fake hover on touch) */}
-              <a
-  href="https://app.hypeon.ai/login"
-  className="group relative inline-flex items-center gap-1.5 pl-1 pr-3 py-1 sm:gap-3 sm:pl-2 sm:pr-5 sm:py-2 rounded-full bg-black text-white transition-all duration-300 shadow-lg cursor-pointer overflow-hidden min-h-[40px] sm:min-h-[48px]"
->
-  {/* The Icon Container */}
-  <div className="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white text-black transition-all duration-500 ease-in-out lg:group-hover:translate-x-[130px]">
-    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-  </div>
+              {/* Subheadline */}
+              <motion.p
+                variants={reduce ? undefined : heroChildVariants}
+                className="max-w-[620px] mx-auto mt-6 text-base sm:text-lg text-slate-600 leading-relaxed"
+              >
+                Spy on any brand&apos;s ads, find what&apos;s working, and create your own
+                launch-ready static, video &amp; UGC ads — all in one place.
+              </motion.p>
 
-  {/* The Text Container */}
-  <span className="text-sm font-medium transition-all duration-500 ease-in-out lg:group-hover:-translate-x-10 sm:text-lg">
-    Get the demo
-  </span>
-</a>
-            </div>
+              {/* Search bar — auto-types example queries; the arrow is the CTA into the app */}
+              <motion.div variants={reduce ? undefined : heroChildVariants} className="w-full max-w-2xl mx-auto mt-8 sm:mt-10">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'https://app.hypeon.ai/login';
+                  }}
+                  className="group flex items-center gap-3 rounded-full border border-slate-200 bg-white/80 backdrop-blur px-5 py-3.5 sm:px-6 sm:py-4 shadow-sm transition-shadow hover:shadow-md focus-within:shadow-md"
+                >
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={typed || "Ask anything about any brand's ads…"}
+                    aria-label="Search any brand's ads"
+                    className="flex-1 min-w-0 bg-transparent text-left text-sm sm:text-base text-slate-700 placeholder:text-slate-500 outline-none"
+                  />
+                  <button
+                    type="submit"
+                    aria-label="Search"
+                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black text-white flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
+                  >
+                    <ArrowUp className="w-4 h-4" />
+                  </button>
+                </form>
+              </motion.div>
+
+              {/* Caption under the search bar */}
+              <motion.p
+                variants={reduce ? undefined : heroChildVariants}
+                className="mt-4 text-[11px] sm:text-xs font-medium tracking-wide text-slate-400"
+              >
+                Join hundreds of founders + brands scaling with HypeOn
+              </motion.p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Creative arc — fanned wall of real ad creatives flowing along the curve.
+            Width is capped + cards are sized in % of the container, so spacing and card
+            size scale together → the arc never breaks apart on zoom / resize. */}
+        <div ref={arcWrapRef} className="pointer-events-none relative z-30 mt-4 sm:-mt-16 lg:-mt-24">
+          <div className="relative mx-auto w-full max-w-[1650px] h-[300px] sm:h-[370px] lg:h-[420px]">
+            {(() => {
+              // Mobile shows ~half the cards (evenly sampled) so the narrow fan stays
+              // spaced and clean; desktop renders the full arc unchanged.
+              const cards = isMobile ? arcCards.filter((_, idx) => idx % 2 === 0) : arcCards;
+              return cards.map((item, i) => (
+                <ArcCard key={i} item={item} i={i} n={cards.length} reduce={reduce} flow={flow} active={arcActive} isMobile={isMobile} />
+              ));
+            })()}
           </div>
         </div>
 
@@ -500,8 +771,8 @@ export default function Hero() {
 
       </Cell>
 
-      {/* Trusted-by strip — its own thin grid band, hairline-separated like the partner row */}
-      <Cell className="reveal py-7 sm:py-9">
+      {/* Trusted-by strip — grid-free, clean band under the hero */}
+      <Cell className="reveal !border-transparent pt-2 pb-7 sm:pt-3 sm:pb-9 sm:-mt-10 lg:-mt-16">
         <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 text-center px-2">
           Trusted by founders scaling on
         </p>

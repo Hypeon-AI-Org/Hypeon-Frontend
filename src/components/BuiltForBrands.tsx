@@ -27,7 +27,10 @@ function Card({ media }: { media: Media }) {
       {/* inner frame — media sits inset inside the white matte */}
       <div className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-100">
         {media.type === 'video' ? (
-          <MarqueeVideo src={media.src} />
+          // Only the cards in the centre ~40% of the screen actually decode/play;
+          // the rest stay as cheap posters. Caps concurrent video decodes to a
+          // handful so the marquee stays 100% smooth at full speed.
+          <MarqueeVideo src={media.src} rootMargin="0px -30%" />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={media.src} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />

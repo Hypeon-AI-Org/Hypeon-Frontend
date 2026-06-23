@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Text selection — intentional brand tint instead of the browser's grey box */
+::selection {
+  background-color: rgba(16, 185, 129, 0.22); /* soft emerald */
+  color: inherit;
+}
+::-moz-selection {
+  background-color: rgba(16, 185, 129, 0.22);
+  color: inherit;
+}
+
 /* Lenis smooth scrolling (required runtime styles) */
 html.lenis,
 html.lenis body {
@@ -115,17 +125,17 @@ a[href] {
 
 /* Glassmorphism Light */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* near-opaque instead of backdrop-filter: a fixed full-width blurred layer
+     re-samples everything scrolling underneath every frame → major scroll jank */
+  background: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Pill-shaped transparent navbar */
 .glass-nav-pill {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
@@ -178,7 +188,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(0, 30px, 0);
   transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
-  will-change: opacity, transform;
 }
 
 .reveal.active {
@@ -192,7 +201,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(0, 20px, 0) scale(0.9);
   transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-scale.active {
@@ -206,7 +214,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(-50px, 0, 0);
   transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-left.active {
@@ -220,7 +227,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(50px, 0, 0);
   transition: opacity 0.6s cubic-bezier(0.5, 0, 0, 1), transform 0.6s cubic-bezier(0.5, 0, 0, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-right.active {
@@ -250,7 +256,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(0, 0, 0) rotate(-5deg) scale(0.95);
   transition: opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-rotate.active {
@@ -264,7 +269,6 @@ a[href] {
   opacity: 0;
   transform: translate3d(0, 20px, 0);
   transition: opacity 0.45s cubic-bezier(0.5, 0, 0, 1), transform 0.45s cubic-bezier(0.5, 0, 0, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-stagger.active>*:nth-child(1) {
@@ -431,6 +435,12 @@ a[href] {
   .studio-tile-float {
     animation: none !important;
   }
+}
+
+/* Hero dashboard slideshow — active dot progress fill */
+@keyframes shotProgress {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
 /* Marquee Animation */

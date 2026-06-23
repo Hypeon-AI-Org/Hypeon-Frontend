@@ -7,7 +7,6 @@ import FAQ from "../components/FAQ";
 import TeamsAchieve from "../components/TeamsAchieve";
 import CompetitorReportLead from "../components/CompetitorReportLead";
 import FounderDecisionMap from '../components/FounderDecisionMap';
-import MarketerSteps from '../components/steps';
 import AdIntelReplica from '@/components/AdIntelReplica';
 import AdCreativeBuilder from '@/components/AdCreativeBuilder';
 import DashboardCTA from '@/components/DashboardCTA';
@@ -39,7 +38,6 @@ export default function Home() {
       <Partners />
       <Features />
       <AdsShowcase />
-      <MarketerSteps />
 
       <FAQ />
      <CompetitorReportLead/>

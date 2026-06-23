@@ -58,7 +58,7 @@ export const MEDIA: Media[] = interleave();
 /* A marquee video that lazy-loads and only plays while within the viewport.
    `preload="none"` keeps it off the network until it is about to enter view
    (rootMargin), so we never fire ~50 metadata requests at once on page load. */
-export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) {
+export function MarqueeVideo({ src, poster, rootMargin = "300px" }: { src: string; poster?: string; rootMargin?: string }) {
     const wrapRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const inView = useRef(false);
@@ -99,7 +99,7 @@ export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) 
                 apply();
             },
             // start ~one card before it scrolls into view (any direction)
-            { threshold: 0.01, rootMargin: "300px" }
+            { threshold: 0.01, rootMargin }
         );
         io.observe(el);
         const unsubscribe = subscribeScroll(apply);
@@ -107,7 +107,7 @@ export function MarqueeVideo({ src, poster }: { src: string; poster?: string }) 
             io.disconnect();
             unsubscribe();
         };
-    }, []);
+    }, [rootMargin]);
 
     return (
         <div ref={wrapRef} className="relative h-full w-full bg-black/40">

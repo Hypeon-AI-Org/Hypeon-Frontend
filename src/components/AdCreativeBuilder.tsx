@@ -16,7 +16,7 @@ const ASSETS = [
 ];
 
 const CHECKS = [
-    { text: "High-ROI ad creatives in seconds", link: "(ROI Calculator here)" },
+    { text: "High-ROI ad creatives in seconds" },
     { text: "Any ad asset you need for any platform" },
     { text: "On-brand and customizable outputs" },
 ];
@@ -43,12 +43,6 @@ export default function AdCreativeBuilder() {
             {/* LEFT — copy */}
             <Cell className="flex flex-col justify-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal}>
-                    <div className="mb-4 flex items-center gap-2.5">
-                        <span className="h-px w-6 bg-neutral-300" />
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
-                            The Creative Engine
-                        </span>
-                    </div>
                     <h2 className="text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
                         Generate High-Performing<br className="hidden sm:block" /> <span className="text-[#696863]">Ad Creatives</span>
                     </h2>
@@ -63,10 +57,7 @@ export default function AdCreativeBuilder() {
                                 <span className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-slate-200">
                                     <Check className="h-2.5 w-2.5 text-slate-500" strokeWidth={3} />
                                 </span>
-                                <span>
-                                    {c.text}{" "}
-                                    {c.link && <a href="/" className="font-semibold text-slate-500 underline">{c.link}</a>}
-                                </span>
+                                <span>{c.text}</span>
                             </li>
                         ))}
                     </ul>

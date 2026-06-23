@@ -34,7 +34,6 @@ export default function AdIntelReplica() {
       <div className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-xl">
-            <div className="mb-4 flex items-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Ad Intelligence</span></div>
             <motion.h2
               {...reveal}
               transition={{ duration: 0.55, ease: 'easeOut' }}

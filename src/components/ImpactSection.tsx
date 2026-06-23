@@ -68,16 +68,8 @@ export default function ImpactSection() {
   return (
     <Section cols={3}>
 
-      {/* Heading + Eyebrow (full width) */}
+      {/* Heading (full width) */}
       <Cell className="md:col-span-3">
-        {/* Eyebrow */}
-        <div className="mb-4 flex items-center gap-2.5">
-          <span className="h-px w-6 bg-neutral-300" />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            The Impact
-          </span>
-        </div>
-
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 25 }}

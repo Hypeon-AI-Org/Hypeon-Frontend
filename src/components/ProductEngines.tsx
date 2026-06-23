@@ -94,10 +94,6 @@ function EngineText({ e, className = '' }: { e: Engine; className?: string }) {
           <span className="text-sm font-semibold tracking-tight text-black">{e.badge}</span>
         </div>
 
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
-          {e.eyebrow}
-        </p>
-
         <h3 className="max-w-md text-2xl font-bold leading-[1.12] tracking-tighter text-black sm:text-3xl lg:text-[2.1rem]">
           {e.heading}
         </h3>
