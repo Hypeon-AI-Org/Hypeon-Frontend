@@ -58,7 +58,7 @@ export const MEDIA: Media[] = interleave();
 /* A marquee video that lazy-loads and only plays while within the viewport.
    `preload="none"` keeps it off the network until it is about to enter view
    (rootMargin), so we never fire ~50 metadata requests at once on page load. */
-export function MarqueeVideo({ src, poster, rootMargin = "300px" }: { src: string; poster?: string; rootMargin?: string }) {
+export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = false }: { src: string; poster?: string; rootMargin?: string; eagerPoster?: boolean }) {
     const wrapRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const inView = useRef(false);
@@ -114,7 +114,14 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px" }: { src: strin
             {/* poster image always present so the tile is never empty (and so
                 off-screen tiles cost zero <video> elements on iOS) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={posterSrc} alt="" loading="lazy" className="h-full w-full object-cover" />
+            <img
+                src={posterSrc}
+                alt=""
+                loading={eagerPoster ? "eager" : "lazy"}
+                decoding="async"
+                {...(eagerPoster ? { fetchPriority: "high" as const } : {})}
+                className="h-full w-full object-cover"
+            />
             {mountVideo && (
                 <video
                     ref={videoRef}

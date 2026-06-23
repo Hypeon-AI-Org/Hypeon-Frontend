@@ -460,7 +460,10 @@ function StudioIndustries() {
     // on click. Only the active tab's <img> are in the DOM, so without this the
     // first paint of each new tab waits on the network.
     useEffect(() => {
-        const urls = Array.from(new Set(Object.values(INDUSTRY_IMAGES).flat()));
+        const posters = Object.values(INDUSTRY_VIDEO).map((v) =>
+            v.replace("/ind-vid/", "/ind-vid/posters/").replace(/\.mp4$/, ".jpg")
+        );
+        const urls = Array.from(new Set([...Object.values(INDUSTRY_IMAGES).flat(), ...posters]));
         urls.forEach((src) => {
             const img = new window.Image();
             img.decoding = "async";
@@ -527,8 +530,19 @@ function StudioIndustries() {
                                 className={`group overflow-hidden rounded-2xl border border-white/10 ${pos} ${isCenter ? "" : "aspect-[3/4]"}`}
                             >
                                 {isCenter ? (
-                                    // centre slot = the industry video (lazy, pauses on scroll)
-                                    <MarqueeVideo key={active} src={INDUSTRY_VIDEO[active]} />
+                                    // centre slot = the industry video (lazy, pauses on scroll).
+                                    // Pass the poster explicitly — posterFor() only resolves the
+                                    // /posters/ subfolder for /carousel/ paths, so industry videos
+                                    // need it spelled out or the poster 404s and the tile shows
+                                    // black until the mp4 loads. eagerPoster paints it immediately.
+                                    <MarqueeVideo
+                                        key={active}
+                                        src={INDUSTRY_VIDEO[active]}
+                                        poster={INDUSTRY_VIDEO[active]
+                                            .replace("/ind-vid/", "/ind-vid/posters/")
+                                            .replace(/\.mp4$/, ".jpg")}
+                                        eagerPoster
+                                    />
                                 ) : (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img
