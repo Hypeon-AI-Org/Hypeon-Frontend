@@ -775,7 +775,7 @@ export default function Hero() {
       </Cell>
 
       {/* Trusted-by strip — grid-free, clean band under the hero */}
-      <Cell className="reveal !border-transparent pt-10 pb-7 sm:pt-14 sm:pb-9 sm:mt-2 lg:mt-4">
+      <Cell className="reveal !border-transparent pt-4 pb-7 sm:pt-4 sm:pb-9 sm:-mt-8 lg:-mt-16">
         <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 text-center px-2">
           Trusted by founders scaling on
         </p>
