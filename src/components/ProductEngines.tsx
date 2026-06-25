@@ -36,7 +36,7 @@ type Engine = {
 const INTELLIGENCE: Engine = {
   badge: 'Hypeon Intelligence',
   icon: <Sparkles className="h-3.5 w-3.5" strokeWidth={2.4} />,
-  iconBg: 'bg-emerald-500',
+  iconBg: 'bg-[#383d49]',
   eyebrow: 'The Intelligence Engine',
   accent: 'text-[#696863]',
   heading: (
@@ -60,7 +60,7 @@ const INTELLIGENCE: Engine = {
 const STUDIO: Engine = {
   badge: 'HypeOn Studio',
   icon: <Wand2 className="h-3.5 w-3.5" strokeWidth={2.4} />,
-  iconBg: 'bg-orange-500',
+  iconBg: 'bg-[#383d49]',
   eyebrow: 'The Creative Engine',
   accent: 'text-[#696863]',
   heading: (

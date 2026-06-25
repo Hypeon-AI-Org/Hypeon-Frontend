@@ -150,8 +150,8 @@ function Navbar() {
                       title="Hypeon Ad Intelligence"
                       desc="Decode winning competitor ad strategy, trained on 200M+ ads."
                       href="/products"
-                      iconBg="bg-[#65D48C]"
-                      iconColor="text-black"
+                      iconBg={isDark ? "bg-[#65D48C]" : "bg-[#383d49]"}
+                      iconColor={isDark ? "text-black" : "text-white"}
                       illustration={<CopilotIllustration dark={isDark} />}
                     />
 
@@ -164,7 +164,7 @@ function Navbar() {
                       title="HypeOn Studio"
                       desc="AI-powered ad creatives, curated by designers."
                       href="/studio"
-                      iconBg="bg-[#E66245]"
+                      iconBg={isDark ? "bg-[#E66245]" : "bg-[#383d49]"}
                       iconColor="text-white"
                       illustration={<StudioIllustration short />}
                     /></div>
@@ -283,7 +283,7 @@ function Navbar() {
                       icon={<Sparkles className="h-[18px] w-[18px]" />}
                       title="Hypeon Ad Intelligence"
                       desc="Decode winning competitor ad strategy, trained on 200M+ ads."
-                      iconWrapClass="bg-[#65D48C] text-black"
+                      iconWrapClass={isDark ? "bg-[#65D48C] text-black" : "bg-[#383d49] text-white"}
                       onClick={() => {
                         closeMobile();
                         router.push("/products");
@@ -294,7 +294,7 @@ function Navbar() {
                       icon={<Wand2 className="h-[18px] w-[18px]" />}
                       title="HypeOn Studio"
                       desc="AI-powered ad creatives, curated by designers."
-                      iconWrapClass="bg-[#E66245] text-white"
+                      iconWrapClass={isDark ? "bg-[#E66245] text-white" : "bg-[#383d49] text-white"}
                       onClick={() => {
                         closeMobile();
                         router.push("/studio");
