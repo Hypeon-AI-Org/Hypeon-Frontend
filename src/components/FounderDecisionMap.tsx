@@ -694,6 +694,7 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  padding: 1px !important;       /* 🔥 thinner white frame around all cards */
 }
 
 /* Mobile + tablet: keep the card centered and fully visible */
