@@ -146,7 +146,7 @@ function Navbar() {
 
                     <MegaItem
                       dark={isDark}
-                      icon={<Sparkles className="w-5 h-5" />}
+                      icon={<Sparkles className="w-[18px] h-[18px]" />}
                       title="Hypeon Ad Intelligence"
                       desc="Decode winning competitor ad strategy, trained on 200M+ ads."
                       href="/products"
@@ -160,7 +160,7 @@ function Navbar() {
 
                     <MegaItem
                       dark={isDark}
-                      icon={<Wand2 className="w-5 h-5" />}
+                      icon={<Wand2 className="w-[18px] h-[18px]" />}
                       title="HypeOn Studio"
                       desc="AI-powered ad creatives, curated by designers."
                       href="/studio"
@@ -387,7 +387,7 @@ function MegaItem({
         ${isInactive ? 'opacity-40 hover:opacity-100' : ''}
       `}
     >
-      <div className={`relative z-10 flex h-11 w-11 items-center justify-center rounded-[12px] mb-auto transition-transform duration-500 ${isActive ? 'scale-90 origin-top-left' : ''} ${iconBg || 'bg-slate-900'} ${iconColor || 'text-white'}`}>
+      <div className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-[10px] mb-auto transition-transform duration-500 ${isActive ? 'scale-90 origin-top-left' : ''} ${iconBg || 'bg-slate-900'} ${iconColor || 'text-white'}`}>
         {icon}
       </div>
 
@@ -493,7 +493,7 @@ const IntelligenceIllustration = ({ short }: { short?: boolean }) => {
   );
 };
 
-const COPILOT_PLACEHOLDER = 'Which products are winning?';
+const COPILOT_PLACEHOLDER = 'Give me top performing ads';
 
 const CopilotIllustration = ({ short, dark }: { short?: boolean; dark?: boolean }) => {
   const [charIndex, setCharIndex] = useState(0);
@@ -550,7 +550,7 @@ const CopilotIllustration = ({ short, dark }: { short?: boolean; dark?: boolean 
   return (
     <div className={`w-[260px] rounded-2xl border p-1 flex flex-col ${dark ? 'bg-[#2c2420] border-white/15 shadow-[0_16px_44px_rgba(0,0,0,0.6)]' : 'bg-white border-slate-100 shadow-[0_12px_40px_rgba(0,0,0,0.12)]'}`}>
       <div className="p-4 px-5 min-h-[52px]">
-        <p className={`text-[14px] tracking-tight leading-relaxed flex items-center flex-wrap ${dark ? 'text-white/80' : 'text-slate-700'}`}>
+        <p className={`text-[14px] tracking-tight leading-relaxed flex items-center whitespace-nowrap ${dark ? 'text-white/80' : 'text-slate-700'}`}>
           {visibleText}
           <span
             className={`inline-block w-0.5 h-4 ml-0.5 align-middle ${dark ? 'bg-white/50' : 'bg-slate-400'} ${isComplete ? 'animate-pulse' : ''
