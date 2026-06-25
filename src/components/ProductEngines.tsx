@@ -122,7 +122,7 @@ export default function ProductEngines() {
       <Cell bleed className="relative flex min-h-[360px] items-center justify-center overflow-hidden !border-b-0 bg-neutral-100 p-6 sm:p-10 lg:min-h-[460px]">
         <motion.div {...reveal} className="relative w-full max-w-[600px]">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-[0_18px_40px_-20px_rgba(15,23,42,0.10)]">
-            <MarqueeVideo src="/hypeon-dem.mp4" fit="contain" />
+            <MarqueeVideo src="/hypeon-dem.mp4" fit="contain" rootMargin="1500px" eagerPoster />
           </div>
         </motion.div>
       </Cell>
