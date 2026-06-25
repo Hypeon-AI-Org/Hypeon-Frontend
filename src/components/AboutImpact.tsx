@@ -133,7 +133,7 @@ export default function AboutImpact() {
             </p>
 
             <h2 className="mt-2 text-2xl sm:text-4xl md:text-4xl text-slate-900 leading-tight">
-              Building the intelligence layer for the next generation of brands.
+              The founder who turns ad chaos into winning creative.
             </h2>
           </header>
 
@@ -144,7 +144,7 @@ export default function AboutImpact() {
           >
             <p>
               Yash Kumar is a global marketer who has spent years deep in the
-              trenches of e-commerce growth — from ideation to execution, across
+              trenches of e-commerce growth - from ideation to execution, across
               Google, Meta, YouTube, TikTok, and Pinterest. He&apos;s built
               campaigns from scratch, handled everything from creatives
               production and ad copy to technical tracking and performance
@@ -154,16 +154,17 @@ export default function AboutImpact() {
 
             <p>
               The idea behind HypeOn wasn&apos;t born in a boardroom. It came
-              from watching the same pattern repeat: smart people making
-              expensive decisions with incomplete information. Teams would pick
-              products based on gut instinct, bid on stale keywords, and scale
-              creative because someone &quot;had a feeling.&quot; Meanwhile,
-              every ad platform claimed credit for the same sale — so nobody knew
-              where the money was actually going.
+              from watching the same gap repeat: finding what works and building
+              from it are two completely different jobs - and teams were stuck
+              doing both by hand. Hours lost scrolling competitor ad libraries.
+              Two-week waits on agencies for a single creative. Ads launched on
+              gut feel, with no proof behind them.
             </p>
 
             <p>
-              Yash founded HypeOn AI in 2025 to break that loop. He was selected
+              Yash founded HypeOn AI in 2025 to close that gap - one platform
+              that finds the winning ads in any category and turns them into your
+              own static, video, and UGC creatives in minutes. He was selected
               for the AI Founders Program at /function1 in Dubai, where HypeOn
               showcased its competitive intelligence and AI-first creative
               technology to builders, creators, and investors shaping the future
@@ -178,13 +179,13 @@ export default function AboutImpact() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-black rounded-l-lg" />
 
               <p className="text-slate-800 italic text-base leading-relaxed">
-                &quot;Most teams don&apos;t lose because they can&apos;t execute.
-                They lose because they execute on the wrong thing. We built
-                HypeOn to make sure the decision happens before the spend.&quot;
+                &quot;Most teams don&apos;t lose because they lack ideas. They
+                lose because they start from a blank page. We built HypeOn so the
+                winning angle is found - and built - before you spend.&quot;
               </p>
 
               <cite className="mt-3 block text-slate-700 font-semibold text-xs not-italic">
-                — Yash Kumar, Founder & CEO
+                - Yash Kumar, Founder & CEO
               </cite>
             </blockquote>
           </div>

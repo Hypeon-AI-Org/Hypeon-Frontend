@@ -7,12 +7,12 @@ const milestones = [
   {
     year: 'Phase 1 · Founded',
     title: 'The Problem & The Vision',
-    desc: 'HypeOn AI was founded in 2025 after watching e-commerce teams repeatedly make expensive decisions with lagging data and platform-inflated attribution.',
+    desc: 'HypeOn AI was founded in 2025 after watching e-commerce teams start every campaign from a blank page - guessing at angles and launching on gut feel.',
   },
   {
     year: 'Phase 2 · Product',
-    title: 'Intelligence + Studio',
-    desc: 'Two connected engines launched — Hypeon Intelligence to decode competitors across every platform, and HypeOn Studio to turn those signals into scroll-stopping creative.',
+    title: 'Find + Create',
+    desc: 'Two connected engines launched - HypeOn Intelligence to find the ads already winning in any category, and HypeOn Studio to turn them into scroll-stopping static, video, and UGC creative.',
   },
   {
     year: 'Phase 3 · Now',
@@ -21,8 +21,8 @@ const milestones = [
   },
   {
     year: 'The Ambition',
-    title: 'Define How E-Commerce Decides',
-    desc: 'Become the global standard for product and marketing decisions — the system teams open before they spend, not after.',
+    title: 'Define How Brands Win',
+    desc: 'Become the global standard for how e-commerce brands find what works and build their next winning ad - before they spend, not after.',
   },
 ];
 
@@ -112,7 +112,7 @@ export default function GrowthTimeline() {
 
                 {/* card */}
                 <div
-                  className="w-full bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
+                  className="w-full flex-1 bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
                   hover:shadow-md hover:-translate-y-1 transition-all"
                 >
                   <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
