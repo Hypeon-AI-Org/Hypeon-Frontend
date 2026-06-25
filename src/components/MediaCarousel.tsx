@@ -58,7 +58,8 @@ export const MEDIA: Media[] = interleave();
 /* A marquee video that lazy-loads and only plays while within the viewport.
    `preload="none"` keeps it off the network until it is about to enter view
    (rootMargin), so we never fire ~50 metadata requests at once on page load. */
-export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = false }: { src: string; poster?: string; rootMargin?: string; eagerPoster?: boolean }) {
+export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = false, fit = "cover" }: { src: string; poster?: string; rootMargin?: string; eagerPoster?: boolean; fit?: "cover" | "contain" }) {
+    const fitClass = fit === "contain" ? "object-contain" : "object-cover";
     const wrapRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const inView = useRef(false);
@@ -110,7 +111,7 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = 
     }, [rootMargin]);
 
     return (
-        <div ref={wrapRef} className="relative h-full w-full bg-black/40">
+        <div ref={wrapRef} className={`relative h-full w-full ${fit === "contain" ? "bg-neutral-100" : "bg-black/40"}`}>
             {/* poster image always present so the tile is never empty (and so
                 off-screen tiles cost zero <video> elements on iOS) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -120,7 +121,7 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = 
                 loading={eagerPoster ? "eager" : "lazy"}
                 decoding="async"
                 {...(eagerPoster ? { fetchPriority: "high" as const } : {})}
-                className="h-full w-full object-cover"
+                className={`h-full w-full ${fitClass}`}
             />
             {mountVideo && (
                 <video
@@ -135,7 +136,7 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = 
                     disablePictureInPicture
                     disableRemotePlayback
                     controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
-                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                    className={`pointer-events-none absolute inset-0 h-full w-full ${fitClass}`}
                 />
             )}
         </div>

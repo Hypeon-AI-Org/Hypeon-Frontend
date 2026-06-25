@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Wand2 } from 'lucide-react';
 import Section, { Cell } from './Section';
@@ -120,15 +119,11 @@ export default function ProductEngines() {
   return (
     <Section cols={2}>
       {/* Row 1 — Intelligence: visual left, text right */}
-      <Cell bleed className="relative flex min-h-[320px] items-center justify-center overflow-hidden bg-neutral-100 p-6 sm:p-10 lg:min-h-[420px]">
+      <Cell bleed className="relative flex min-h-[360px] items-center justify-center overflow-hidden !border-b-0 bg-neutral-100 p-6 sm:p-10 lg:min-h-[460px]">
         <motion.div {...reveal} className="relative w-full max-w-[600px]">
-          <Image
-            src="/dashboard_2.png"
-            alt="Hypeon Ad Intelligence dashboard"
-            width={1920}
-            height={1080}
-            className="h-auto w-full rounded-xl border border-neutral-200 shadow-[0_24px_50px_-18px_rgba(15,23,42,0.25)]"
-          />
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-[0_18px_40px_-20px_rgba(15,23,42,0.10)]">
+            <MarqueeVideo src="/hypeon-dem.mp4" fit="contain" />
+          </div>
         </motion.div>
       </Cell>
       <EngineText e={INTELLIGENCE} />

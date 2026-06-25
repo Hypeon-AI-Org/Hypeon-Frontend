@@ -3455,13 +3455,11 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
              
 
               {/* RIGHT PANEL */}
-              <div className="ps-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0 }}>
-                <NextImage
-                  src="/01.png"
-                  alt="Product signals"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "contain", objectPosition: "center" }}
+              <div className="ps-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0, background: "#f5f3ef" }}>
+                <LazyVideo
+                  src="/hypeon-dem.mp4"
+                  poster="/hypeon-dem.jpg"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                 />
               </div>
             </div>
