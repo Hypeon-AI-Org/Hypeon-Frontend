@@ -4028,13 +4028,11 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
           <div className="rad-outer-card flex h-full max-h-full min-h-0 flex-col">
             <div className="rad-panels min-h-0 flex-1">
               
-              <div className="rad-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0 }}>
-                <NextImage
-                  src="/03.png"
-                  alt="Revenue attribution"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: "contain", objectPosition: "center" }}
+              <div className="rad-right-panel" style={{ position: "relative", overflow: "hidden", padding: 0, background: "#f5f3ef" }}>
+                <LazyVideo
+                  src="/hypeon-demo78.mp4"
+                  poster="/hypeon-demo78.jpg"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                 />
               </div>
             </div>
