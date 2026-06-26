@@ -4071,12 +4071,14 @@ function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                 <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
                   <LazyVideo
                     src="/cards/df79c081631cc38a.mp4"
+                    poster="/cards/df79c081631cc38a.jpg"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
                   />
                 </div>
                 <div style={{ position: "relative", flex: 1, minWidth: 0, aspectRatio: "9 / 16", overflow: "hidden", borderRadius: 16 }}>
                   <LazyVideo
                     src="/cards/f8df79bf1542eda5.mp4"
+                    poster="/cards/f8df79bf1542eda5.jpg"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
                   />
                 </div>

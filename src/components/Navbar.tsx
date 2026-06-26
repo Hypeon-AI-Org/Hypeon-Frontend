@@ -6,6 +6,7 @@ import { Menu, X, BarChart3, ChevronDown, Sparkles, Wand2 } from 'lucide-react';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import { useRouter, usePathname } from "next/navigation";
+import { primeIOSVideo } from '@/lib/videoAutoplay';
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -484,6 +485,7 @@ const IntelligenceIllustration = ({ short }: { short?: boolean }) => {
         muted
         loop
         playsInline
+        onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
         className="w-full h-auto object-cover"
       />
 

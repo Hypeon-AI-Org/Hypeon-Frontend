@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { isScrolling, subscribeScroll } from "@/lib/scrollActivity";
+import { primeIOSVideo } from "@/lib/videoAutoplay";
 
 /* ============================================================
    MediaCarousel — seamless horizontal scroll of every creative
@@ -136,6 +137,9 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = 
                     disablePictureInPicture
                     disableRemotePlayback
                     controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    // iOS won't inline-autoplay a React video off the muted prop
+                    // alone; re-assert muted + kick off play once it has data.
+                    onLoadedData={(e) => { if (inView.current && !isScrolling()) primeIOSVideo(e.currentTarget); }}
                     className={`pointer-events-none absolute inset-0 h-full w-full ${fitClass}`}
                 />
             )}
@@ -193,6 +197,7 @@ function LightboxVideo({ src, scrolling }: { src: string; scrolling: boolean }) 
                     disablePictureInPicture
                     disableRemotePlayback
                     controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+                    onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
                     className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                 />
             )}

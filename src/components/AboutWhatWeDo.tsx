@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Section, { Cell } from './Section';
+import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 export default function AboutWhatWeDo() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -36,15 +37,17 @@ export default function AboutWhatWeDo() {
         >
           {/* VIDEO BACKGROUND — lazy-loaded for fast initial render */}
           <video
+            // src as an attribute (not a late-injected <source>) so iOS Safari
+            // actually fetches and renders the clip instead of staying blank.
+            src={visible ? '/images/vide.mp4' : undefined}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
+            onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
             className="absolute inset-0 w-full h-full object-cover"
-          >
-            {visible && <source src="/images/vide.mp4" type="video/mp4" />}
-          </video>
+          />
 
           {/* DARK OVERLAY */}
           <div className="absolute inset-0 bg-black/60"></div>

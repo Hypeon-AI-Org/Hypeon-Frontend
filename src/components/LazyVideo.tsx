@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 type LazyVideoProps = {
   src: string;
@@ -24,8 +25,10 @@ export default function LazyVideo({
   rootMargin = '200px 0px',
 }: LazyVideoProps) {
   const ref = useRef<HTMLVideoElement | null>(null);
-  // Once mounted, keep the <source> in the DOM (don't tear down a loaded video).
+  // Once the clip scrolls into view we set its `src` (and keep it set) so the
+  // download/decode never happens until needed, then never tears back down.
   const [mounted, setMounted] = useState(false);
+  const inView = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -33,10 +36,13 @@ export default function LazyVideo({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        inView.current = entry.isIntersecting;
         if (entry.isIntersecting) {
           setMounted(true);
-          // play() can reject if not yet ready / autoplay blocked — ignore.
-          el.play().catch(() => {});
+          // If already mounted (scrolled back in), src is present → play now.
+          // On the very FIRST intersection src isn't set yet; the effect below
+          // primes playback once React commits the src.
+          if (el.src) primeIOSVideo(el);
         } else {
           el.pause();
         }
@@ -48,9 +54,20 @@ export default function LazyVideo({
     return () => observer.disconnect();
   }, [rootMargin]);
 
+  // Once the src has been committed (first time the clip enters view), kick off
+  // playback. Runs after React paints the src, so iOS actually has media to play.
+  useEffect(() => {
+    if (mounted && inView.current) primeIOSVideo(ref.current);
+  }, [mounted]);
+
   return (
     <video
       ref={ref}
+      // Set src directly (not a late-injected <source> child): iOS Safari only
+      // loads a <source> added after creation if you also call video.load(),
+      // whereas setting the src attribute auto-starts the fetch on every browser.
+      src={mounted ? src : undefined}
+      autoPlay
       muted
       loop
       playsInline
@@ -61,9 +78,9 @@ export default function LazyVideo({
       disablePictureInPicture
       disableRemotePlayback
       controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+      onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
       onContextMenu={(e) => e.preventDefault()}
-    >
-      {mounted && <source src={src} type="video/mp4" />}
-    </video>
+    />
+
   );
 }

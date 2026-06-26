@@ -27,6 +27,7 @@ import {
 import { motion, AnimatePresence, useReducedMotion, useInView, useMotionValue, useTransform, animate, type MotionValue } from "framer-motion";
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
+import { primeIOSVideo } from '@/lib/videoAutoplay';
 import Section, { Cell } from './Section';
 
 const PLATFORM_LOGOS = [
@@ -403,6 +404,7 @@ function ArcCard({
           disableRemotePlayback
           controlsList="nodownload noremoteplayback noplaybackrate"
           preload="auto"
+          onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
           className="absolute inset-0 w-full h-full rounded-[6px] object-cover pointer-events-none"
         />
       )}

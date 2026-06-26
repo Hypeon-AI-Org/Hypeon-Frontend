@@ -134,7 +134,7 @@ export default function ProductEngines() {
       <Cell bleed className="relative flex min-h-[360px] items-center justify-center overflow-hidden bg-neutral-100 p-6 sm:p-10 md:order-2 lg:min-h-[460px]">
         <motion.div {...reveal} className="relative w-full max-w-[600px]">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 shadow-[0_24px_50px_-18px_rgba(15,23,42,0.25)]">
-            <MarqueeVideo src="/hypeon-studio.mp4" poster="/plenty-studio-poster.jpg" />
+            <MarqueeVideo src="/hypeon-studio.mp4" poster="/hypeon-studio-poster.jpg" />
           </div>
         </motion.div>
       </Cell>
