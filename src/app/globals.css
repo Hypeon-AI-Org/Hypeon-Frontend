@@ -44,6 +44,16 @@ body {
   font-weight: 400;
 }
 
+/* Mobile only (<640px): kill the rubber-band overscroll bounce that made the
+   studio hero box appear to stretch while scrolling on phones. Desktop is
+   untouched (this rule never applies at the sm breakpoint and up). */
+@media (max-width: 639px) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+}
+
 /* ============================================================
    Editorial grid system (marketer.com-style hairline grid).
    One shared line color + width so section lines align down the
