@@ -41,7 +41,7 @@ export default function ScrollRevealSetup() {
       });
 
       // Cache parallax nodes AND their resting document offsets once, so the
-      // scroll loop never reads layout (getBoundingClientRect) per frame —
+      // scroll loop never reads layout (getBoundingClientRect) per frame -
       // that was forcing a synchronous reflow on every scroll tick.
       const parallaxElements = Array.from(
         document.querySelectorAll<HTMLElement>('.parallax-slow')

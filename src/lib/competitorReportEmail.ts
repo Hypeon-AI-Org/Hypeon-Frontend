@@ -60,7 +60,7 @@ export function buildCompetitorReportHtml(opts: CompetitorReportTemplateOpts): s
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hypeon — competitor report</title>
+    <title>Hypeon - competitor report</title>
   </head>
   <body style="margin:0;padding:0;background:#ffffff;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff;">

@@ -48,7 +48,7 @@ export default function Features() {
 
           <p className="text-base sm:text-lg text-neutral-600 leading-relaxed px-2">
             Before HypeOn, founders paid for separate tools to spy, create, and
-            scale — then stitched the results together by hand.
+            scale - then stitched the results together by hand.
             <span className="text-black font-medium">
               {" "}HypeOn does all three in one workflow, so you move at the speed of the trend, not your tool stack.
             </span>

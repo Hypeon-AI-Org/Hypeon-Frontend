@@ -8,10 +8,10 @@ import { isScrolling, subscribeScroll } from "@/lib/scrollActivity";
 import { primeIOSVideo } from "@/lib/videoAutoplay";
 
 /* ============================================================
-   MediaCarousel — seamless horizontal scroll of every creative
+   MediaCarousel - seamless horizontal scroll of every creative
    in /public/carousel, alternating image → video → image → video.
    • The strip moves with a CSS keyframe animation (compositor
-     thread) — NOT framer-motion JS — so it never competes with
+     thread) - NOT framer-motion JS - so it never competes with
      page scroll / Lenis and stays smooth.
    • videos lazy-load + auto-play (muted, looped) ONLY while on
      screen, so we never load or decode all ~30 clips at once.
@@ -84,7 +84,7 @@ export function MarqueeVideo({ src, poster, rootMargin = "300px", eagerPoster = 
         const apply = () => {
             const v = videoRef.current;
             if (isScrolling()) {
-                // Freeze decode mid-scroll, but never touch mount state — that
+                // Freeze decode mid-scroll, but never touch mount state - that
                 // would re-render on the main thread and stutter the scroll.
                 if (v) v.pause();
                 return;
@@ -260,12 +260,12 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
 
     return (
         <section ref={sectionRef} className="relative overflow-hidden py-3 sm:py-8" style={{ backgroundColor: bg }}>
-            {/* edge fade masks for a premium clipped look — hidden on mobile for the
+            {/* edge fade masks for a premium clipped look - hidden on mobile for the
                 light (homepage) carousel so the side cards aren't dimmed on phones */}
             <div className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-28 ${isLight ? "hidden sm:block" : ""}`} style={{ background: `linear-gradient(to right, ${bg}, transparent)` }} />
             <div className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-28 ${isLight ? "hidden sm:block" : ""}`} style={{ background: `linear-gradient(to left, ${bg}, transparent)` }} />
 
-            {/* CSS-animated strip — runs on the compositor thread (off the main
+            {/* CSS-animated strip - runs on the compositor thread (off the main
                 thread) so it never fights page scroll. Paused when off-screen
                 or while the lightbox is open. */}
             <div
@@ -294,7 +294,7 @@ export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "li
                 ))}
             </div>
 
-            {/* Lightbox — vertical scroll feed of every creative, in a portal on
+            {/* Lightbox - vertical scroll feed of every creative, in a portal on
                 <body> so it sits above the navbar. */}
             {mounted && createPortal(
                 <AnimatePresence>

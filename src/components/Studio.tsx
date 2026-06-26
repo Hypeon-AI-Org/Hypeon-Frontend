@@ -11,7 +11,7 @@ import MediaCarousel, { MEDIA, MarqueeVideo } from "./MediaCarousel";
 import Section, { Cell } from "./Section";
 
 /* ============================================================
-   Hypeon Studio — AI-powered ad creatives, curated by designers
+   Hypeon Studio - AI-powered ad creatives, curated by designers
    Recreates the reference motion: a field of creative thumbnails
    scattered around the headline, each drifting slowly + a soft
    mouse / scroll parallax on the whole field.
@@ -38,7 +38,7 @@ const CREATIVE_IMAGES = [
     "/hero/ember-16.webp",
 ];
 
-/* Scatter field — positions in % of the viewport, tuned to the reference:
+/* Scatter field - positions in % of the viewport, tuned to the reference:
    small dim tiles toward the edges, a few brighter ones, all avoiding the
    central headline box. `o` = resting opacity (depth), `w` = width in px,
    `ar` = aspect ratio, `feat` = eligible for the periodic spotlight pop. */
@@ -80,17 +80,17 @@ const TILES: Tile[] = [
 ];
 
 /* A single creative tile. Per the deep video analysis, tiles are STATIC at
-   rest (no idle float/rotation) — depth is baked into fixed size + opacity.
+   rest (no idle float/rotation) - depth is baked into fixed size + opacity.
    Layers:
-     • anchor — static centering (top/left %)
-     • mouse  — true 3D parallax on BOTH X and Y, depth-weighted (interactive)
-     • reveal — one-shot fade + scale-in on load only
+     • anchor - static centering (top/left %)
+     • mouse  - true 3D parallax on BOTH X and Y, depth-weighted (interactive)
+     • reveal - one-shot fade + scale-in on load only
    The radial "rise from the background" zoom is at the field level. */
 function FloatingTile({ t, index, mouse }: {
     t: Tile; index: number; mouse: { x: number; y: number };
 }) {
     return (
-        // anchor: static centering — no animated transform here
+        // anchor: static centering - no animated transform here
         <div
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: `${t.x}%`, top: `${t.y}%`, width: t.w }}
@@ -101,7 +101,7 @@ function FloatingTile({ t, index, mouse }: {
                 animate={{ x: mouse.x * t.depth * -40, y: mouse.y * t.depth * -40 }}
                 transition={{ type: "spring", stiffness: 40, damping: 20, mass: 0.6 }}
             >
-                {/* one-shot load reveal only — no looping idle motion */}
+                {/* one-shot load reveal only - no looping idle motion */}
                 <motion.div
                     className="will-change-transform"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -125,9 +125,9 @@ function FloatingTile({ t, index, mouse }: {
 }
 
 /* The whole field scales UP about screen-centre as you scroll (1.0 → 1.7,
-   completing by ~60% scroll, then holding) — so every tile spreads outward and
+   completing by ~60% scroll, then holding) - so every tile spreads outward and
    grows, "coming up from the background" exactly like the video. Scrubbed 1:1
-   with scroll, lightly spring-smoothed. No separate translate — the page scroll
+   with scroll, lightly spring-smoothed. No separate translate - the page scroll
    carries it up. */
 function FloatingField({ progress }: { progress: MotionValue<number> }) {
     const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -153,7 +153,7 @@ function FloatingField({ progress }: { progress: MotionValue<number> }) {
     );
 }
 
-/* Mobile creative field — render the SAME full scatter as desktop so the hero
+/* Mobile creative field - render the SAME full scatter as desktop so the hero
    reads as a dense field of creatives (not a sparse few), but statically: the
    scroll-zoom + mouse parallax are jittery / meaningless on touch, so on phones
    each tile just does a one-shot reveal + an endless gentle vertical float so
@@ -166,7 +166,7 @@ function MobileTile({ t, index }: { t: Tile; index: number }) {
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: `${t.x}%`, top: `${t.y}%`, width: t.w }}
         >
-            {/* one-shot reveal (opacity/scale) — pure CSS, runs once then settles */}
+            {/* one-shot reveal (opacity/scale) - pure CSS, runs once then settles */}
             <div
                 className="will-change-transform"
                 style={{
@@ -175,7 +175,7 @@ function MobileTile({ t, index }: { t: Tile; index: number }) {
                     animation: `studioTileReveal 0.7s cubic-bezier(0.22,1,0.36,1) ${(0.05 + index * 0.025).toFixed(3)}s forwards`,
                 } as React.CSSProperties}
             >
-                {/* endless gentle float — CSS keyframe on the compositor thread, so
+                {/* endless gentle float - CSS keyframe on the compositor thread, so
                     it never runs JS per-frame and never blocks scrolling */}
                 <div
                     className="studio-tile-float will-change-transform"
@@ -232,13 +232,13 @@ function MobileField() {
 
 /* Full-height hero (no pin, so no empty black gap). The field scales out from
    centre on scroll while the headline box / "+" / CTAs stay FIXED on top (they
-   do NOT scale) — matching the reference. The next section follows right after. */
+   do NOT scale) - matching the reference. The next section follows right after. */
 function StudioHero() {
     const ref = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
     return (
-        // Normal-flow hero (no pin) — the field zooms out from centre as the
+        // Normal-flow hero (no pin) - the field zooms out from centre as the
         // hero scrolls away, and the next section follows immediately, so there
         // is no empty black band to scroll through.
         <section ref={ref} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505] text-white">
@@ -250,7 +250,7 @@ function StudioHero() {
             {/* Soft darkening behind the headline box so type stays crisp */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_46%_48%_at_50%_50%,rgba(5,5,5,0.84)_45%,rgba(5,5,5,0.3)_72%,transparent_100%)]" />
 
-            {/* Central headline box — fixed (does not scale with the field) */}
+            {/* Central headline box - fixed (does not scale with the field) */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -359,7 +359,7 @@ function StudioScoreboard() {
                             </button>
                         </div>
                         <p className="mt-4 text-sm leading-relaxed text-white/50">
-                            We pull logo, palette, fonts and tone — then write the prompt for you.{" "}
+                            We pull logo, palette, fonts and tone - then write the prompt for you.{" "}
                             <a href="https://app.hypeon.ai/hub/login" className="font-semibold text-white hover:underline">Get started →</a>
                         </p>
                     </motion.div>
@@ -510,7 +510,7 @@ function StudioIndustries() {
                     ))}
                 </div>
 
-                {/* Featured grid — big centre image, 2 stacked left, 2 stacked right */}
+                {/* Featured grid - big centre image, 2 stacked left, 2 stacked right */}
                 <div className="mt-12 grid grid-cols-3 grid-rows-2 gap-3 sm:gap-4">
                     {INDUSTRY_IMAGES[active].slice(0, 5).map((src, i) => {
                         const pos = [
@@ -531,7 +531,7 @@ function StudioIndustries() {
                             >
                                 {isCenter ? (
                                     // centre slot = the industry video (lazy, pauses on scroll).
-                                    // Pass the poster explicitly — posterFor() only resolves the
+                                    // Pass the poster explicitly - posterFor() only resolves the
                                     // /posters/ subfolder for /carousel/ paths, so industry videos
                                     // need it spelled out or the poster 404s and the tile shows
                                     // black until the mp4 loads. eagerPoster paints it immediately.
@@ -735,15 +735,15 @@ function StudioComparison() {
 const PROCESS_STEPS: { title: string; desc: string }[] = [
     {
         title: "Drop a brief",
-        desc: "Paste a product URL or describe your campaign — we pull your logo, palette, fonts and tone automatically.",
+        desc: "Paste a product URL or describe your campaign - we pull your logo, palette, fonts and tone automatically.",
     },
     {
         title: "Flat monthly fee",
-        desc: "One predictable monthly price. No per-asset costs and no surprise overages — generate as much as you need.",
+        desc: "One predictable monthly price. No per-asset costs and no surprise overages - generate as much as you need.",
     },
     {
         title: "Hypeon drafts",
-        desc: "Our AI + senior creatives produce ready-to-run ads across Meta, TikTok and Google — every ratio, every language.",
+        desc: "Our AI + senior creatives produce ready-to-run ads across Meta, TikTok and Google - every ratio, every language.",
     },
     {
         title: "Performance reviews",
@@ -864,7 +864,7 @@ function StudioProcess() {
 function StudioGallery() {
     const ref = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-    // ONE uniform translate for the whole cluster — no parallax. Flat segments
+    // ONE uniform translate for the whole cluster - no parallax. Flat segments
     // at both ends reproduce the measured scrub pauses.
     const y = useSpring(useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [-40, -70, -520, -560]), {
         stiffness: 90, damping: 26, mass: 0.5,
@@ -872,13 +872,13 @@ function StudioGallery() {
 
     return (
         <section ref={ref} className="relative overflow-hidden bg-[#0a0a0a] text-white">
-            {/* clipped streaming window — single rigid cluster moving straight up */}
+            {/* clipped streaming window - single rigid cluster moving straight up */}
             <div className="relative h-[72vh] overflow-hidden">
                 <motion.div style={{ y }} className="absolute inset-x-0 top-0 will-change-transform">
-                    {/* dense full-width wall of ad cards — fills the frame so no
+                    {/* dense full-width wall of ad cards - fills the frame so no
                         black voids show on the dark theme. Duplicated for height. */}
                     <div className="mx-auto max-w-7xl columns-3 gap-3 px-3 sm:columns-4 sm:gap-4 lg:columns-6 [&>*]:mb-3 sm:[&>*]:mb-4">
-                        {/* real carousel creatives — images + lazy-playing videos
+                        {/* real carousel creatives - images + lazy-playing videos
                             from /public/carousel (duplicated to fill the height) */}
                         {[...MEDIA, ...MEDIA].map((m, i) => (
                             <div

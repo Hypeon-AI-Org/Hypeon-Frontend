@@ -40,7 +40,7 @@ const TechnologySection = () => {
       <Cell className="reveal-left">
         <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
         <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
-          Understand what your market wants — <span className="text-[#696863]">before it peaks.</span>
+          Understand what your market wants - <span className="text-[#696863]">before it peaks.</span>
         </h2>
         <p className="text-[14px] text-[#666] leading-[1.72] mb-7">
           We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.

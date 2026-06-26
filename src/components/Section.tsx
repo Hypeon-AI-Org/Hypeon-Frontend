@@ -1,20 +1,20 @@
 import React from 'react';
 
 /* ============================================================
-   Editorial grid system — marketer.com technique.
+   Editorial grid system - marketer.com technique.
 
    The hairlines are drawn as per-cell borders: the grid paints its
    top + left outer lines, and every Cell paints its right + bottom
    line. Each internal line is therefore drawn exactly once (no
    doubling), and the four outer edges are covered. We use borders
    (not a `gap-px` background reveal) because a 1px grid GAP collapses
-   to 0 at fractional zoom / device-pixel ratios — making hairlines
-   vanish in places — whereas box-edge borders stay stable.
+   to 0 at fractional zoom / device-pixel ratios - making hairlines
+   vanish in places - whereas box-edge borders stay stable.
 
    Every Section shares the same max width, so the vertical lines
    line up continuously down the whole page.
 
-   Monochrome only — uses --grid-line (see globals.css). No accent.
+   Monochrome only - uses --grid-line (see globals.css). No accent.
    ============================================================ */
 
 interface SectionProps {
@@ -67,7 +67,7 @@ export default function Section({
       <div className="mx-auto w-full max-w-[var(--grid-max)] px-2.5 sm:px-5">
         <div
           // -mt-px pulls each grid up 1px so its top border overlaps the
-          // previous section's bottom border — stacked sections share one
+          // previous section's bottom border - stacked sections share one
           // crisp 1px hairline at the seam instead of doubling to 2px.
           // Only the top + left outer lines live here; each Cell draws its
           // own right + bottom line (see Cell), so every line is drawn once.

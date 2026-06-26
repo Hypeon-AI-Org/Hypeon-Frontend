@@ -8,7 +8,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: "Decode Your Competitor's Playbook",
     description:
-      'See their spend, reach, and winning angles in seconds — trained on 200M+ ads.',
+      'See their spend, reach, and winning angles in seconds - trained on 200M+ ads.',
     icon: 'chart-up',
     iconColor: 'text-slate-900',
   },
@@ -16,7 +16,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: 'Spot Breakout Products Early',
     description:
-      "See what's breaking out across the market before it hits mainstream — weeks ahead of competitors.",
+      "See what's breaking out across the market before it hits mainstream - weeks ahead of competitors.",
     icon: 'key',
     iconColor: 'text-slate-900',
   },
@@ -24,7 +24,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: 'Track Every Platform 24/7',
     description:
-      'Meta, Google, TikTok, LinkedIn, Pinterest, and Instagram — every signal, structured and searchable.',
+      'Meta, Google, TikTok, LinkedIn, Pinterest, and Instagram - every signal, structured and searchable.',
     icon: 'leaf',
     iconColor: 'text-slate-900',
   },
@@ -56,7 +56,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: 'Ask Copilot, Your AI Analyst',
     description:
-      'Find pockets of demand nobody is selling into — just ask, and get an answer backed by evidence.',
+      'Find pockets of demand nobody is selling into - just ask, and get an answer backed by evidence.',
     icon: 'building',
     iconColor: 'text-slate-900',
   },
@@ -64,7 +64,7 @@ const decisions = [
     category: 'STUDIO',
     title: 'Generate Scroll-Stopping Creative',
     description:
-      'Static, video, and UGC creatives in seconds — on-brand and built to convert.',
+      'Static, video, and UGC creatives in seconds - on-brand and built to convert.',
     icon: 'cube',
     iconColor: 'text-slate-900',
   },
@@ -72,7 +72,7 @@ const decisions = [
     category: 'STUDIO',
     title: 'Create From Real Performance Data',
     description:
-      'Every creative is trained on what actually drives results — AI-first, not guesswork.',
+      'Every creative is trained on what actually drives results - AI-first, not guesswork.',
     icon: 'budget',
     iconColor: 'text-slate-900',
   },
@@ -80,7 +80,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: 'See Your Real ROAS',
     description:
-      'Not what Google claims. Not what Meta reports. Actual return on every dollar — zero duplication.',
+      'Not what Google claims. Not what Meta reports. Actual return on every dollar - zero duplication.',
     icon: 'chart-bar',
     iconColor: 'text-slate-900',
   },
@@ -96,7 +96,7 @@ const decisions = [
     category: 'INTELLIGENCE',
     title: 'Know Which Campaign to Scale',
     description:
-      'One clear Scale, Hold, or Cut signal per campaign — every single morning.',
+      'One clear Scale, Hold, or Cut signal per campaign - every single morning.',
     icon: 'lightning',
     iconColor: 'text-slate-900',
   },
@@ -230,7 +230,7 @@ export default function AboutVision() {
 
   return (
     <Section cols={3} sectionRef={ref} className="font-sans">
-      {/* HEADER — spans the full grid row, hairline beneath separates it from the cards */}
+      {/* HEADER - spans the full grid row, hairline beneath separates it from the cards */}
       <Cell className="md:col-span-3">
         <div
           className={`max-w-2xl transition-all duration-700 ${
@@ -246,12 +246,12 @@ export default function AboutVision() {
           </h2>
 
           <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-            Two engines, one workflow — every capability answers a question your team asks every week, with evidence, not opinion.
+            Two engines, one workflow - every capability answers a question your team asks every week, with evidence, not opinion.
           </p>
         </div>
       </Cell>
 
-      {/* CARDS — each decision in its own Cell for internal hairlines */}
+      {/* CARDS - each decision in its own Cell for internal hairlines */}
       {decisions.map((item, i) => (
         <Cell
           key={item.title}

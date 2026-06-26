@@ -118,7 +118,7 @@ export default function Products() {
                 </motion.div>
             </Cell>
 
-            {/* Creative carousel — clipped to the grid so it cuts off cleanly at the section edges */}
+            {/* Creative carousel - clipped to the grid so it cuts off cleanly at the section edges */}
             <Cell bleed className="overflow-hidden">
                 <MediaCarousel theme="light" />
             </Cell>

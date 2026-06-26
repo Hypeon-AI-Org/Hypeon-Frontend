@@ -26,7 +26,7 @@ export default function CombinedLayout() {
 
   return (
     <main>
-      {/* 1. PARTNERS SECTION — built from real grid Cells so every divider is
+      {/* 1. PARTNERS SECTION - built from real grid Cells so every divider is
           a gap-px hairline that aligns with the rest of the page grid.
           Mobile: label full-width, logos 2x2. Desktop: one tabular row. */}
       <Section gridClassName="grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
@@ -76,7 +76,7 @@ export default function CombinedLayout() {
           />
         </Cell>
       </Section>
-      {/* 2. FOUNDER SECTION (NOW BELOW) — wrapped in the grid so the hairline
+      {/* 2. FOUNDER SECTION (NOW BELOW) - wrapped in the grid so the hairline
           frame + corner marks run continuously down the page. */}
       <Section>
         <Cell bleed>
@@ -173,7 +173,7 @@ export default function CombinedLayout() {
                       This is the problem I kept running into. Not the lack of tools. The lack of an unfair advantage. No one could show me which competitor ads were truly scaling. No one could turn that intelligence into a ready-to-launch ad in minutes. No one could tell me what was about to trend before it peaked.
                     </p>
                     <p>So we built HypeOn.</p>
-                    <p>It decodes every competitor ad — spend, reach, the winning angles — so you start from what already works. It turns that intelligence into static, video, and UGC creatives in seconds, not weeks. And it spots breakout products and pricing gaps before the market catches on — so your next move is always the right one.
+                    <p>It decodes every competitor ad - spend, reach, the winning angles - so you start from what already works. It turns that intelligence into static, video, and UGC creatives in seconds, not weeks. And it spots breakout products and pricing gaps before the market catches on - so your next move is always the right one.
 
                     </p>
                     <div className="pt-12 border-t border-[#F0F0EB]">

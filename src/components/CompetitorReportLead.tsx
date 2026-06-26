@@ -78,7 +78,7 @@ export default function CompetitorReportLead() {
         <div className="relative overflow-hidden pt-10 pb-8 font-sans text-black sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
       <div className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-16 xl:gap-20">
-          {/* Copy — centered on mobile, left-aligned on desktop */}
+          {/* Copy - centered on mobile, left-aligned on desktop */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -250,7 +250,7 @@ export default function CompetitorReportLead() {
                 >
                   {submitState === 'success' && (
                     <span className="font-medium text-[#696863]">
-                      Check your inbox — we’ve sent your report details.
+                      Check your inbox - we’ve sent your report details.
                     </span>
                   )}
                   {submitState === 'error' && errorMessage && (

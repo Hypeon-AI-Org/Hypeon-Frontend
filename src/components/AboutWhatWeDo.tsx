@@ -35,7 +35,7 @@ export default function AboutWhatWeDo() {
           transition-all duration-700
           ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
-          {/* VIDEO BACKGROUND — lazy-loaded for fast initial render */}
+          {/* VIDEO BACKGROUND - lazy-loaded for fast initial render */}
           <video
             // src as an attribute (not a late-injected <source>) so iOS Safari
             // actually fetches and renders the clip instead of staying blank.
@@ -61,7 +61,7 @@ export default function AboutWhatWeDo() {
             <p className="mt-4 text-gray-200 text-[15px] leading-relaxed max-w-lg mx-auto">
               The average e-commerce brand wastes 30% of their ad budget on channels
               that claim credit but deliver nothing. HypeOn shows you exactly where
-              that money goes — and where to move it.
+              that money goes - and where to move it.
             </p>
           </div>
         </div>

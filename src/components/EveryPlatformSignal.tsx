@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 /* ============================================================
-   Every platform, every signal — "One source of truth".
+   Every platform, every signal - "One source of truth".
    Recreated from the marketer.com/ember diagram:
    • Meta / Google / TikTok pills connected by curved lines with
      flowing green signal-dots into a central HypeOn node.
@@ -116,7 +116,7 @@ export default function EveryPlatformSignal() {
                 </p>
             </Cell>
 
-            {/* diagram cell — hairline separates it from the heading above */}
+            {/* diagram cell - hairline separates it from the heading above */}
             <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
                 <div className="relative mx-auto aspect-[600/320] w-full max-w-3xl">
                     {/* curved connectors + flowing signal dots */}
@@ -149,7 +149,7 @@ export default function EveryPlatformSignal() {
                 </div>
             </Cell>
 
-            {/* two scrolling capability rows — cut cleanly at the section's
+            {/* two scrolling capability rows - cut cleanly at the section's
                 hairline edges (no fade mask) for the home cut-edge look */}
             <Cell bleed className="space-y-3 overflow-hidden py-10">
                 <TagRow items={ROW1} />

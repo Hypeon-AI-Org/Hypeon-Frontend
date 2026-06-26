@@ -164,7 +164,7 @@ export default function PrecisionScaleBento() {
 
   return (
     <Section cols={3} className="font-sans text-[14px] text-[#111] antialiased">
-      {/* heading cell — full width across the bento grid */}
+      {/* heading cell - full width across the bento grid */}
       <Cell className="md:col-span-3">
         <motion.div
           {...reveal}
@@ -181,7 +181,7 @@ export default function PrecisionScaleBento() {
         </motion.div>
       </Cell>
 
-      {/* Semantic Search — top left, 2 cols */}
+      {/* Semantic Search - top left, 2 cols */}
       <Cell bleed className="p-6 sm:p-7 md:col-span-2 md:row-start-2">
           <motion.article
             {...reveal}
@@ -232,7 +232,7 @@ export default function PrecisionScaleBento() {
           </motion.article>
       </Cell>
 
-      {/* Estimated Spend — right, tall (spans both bento rows) */}
+      {/* Estimated Spend - right, tall (spans both bento rows) */}
       <Cell bleed className="p-6 sm:p-7 md:col-start-3 md:row-span-2 md:row-start-2">
           <motion.article
             {...reveal}
@@ -281,7 +281,7 @@ export default function PrecisionScaleBento() {
           </motion.article>
       </Cell>
 
-      {/* Creative Analysis — bottom left */}
+      {/* Creative Analysis - bottom left */}
       <Cell bleed className="p-6 sm:p-7 md:col-start-1 md:row-start-3">
           <motion.article
             {...reveal}
@@ -302,7 +302,7 @@ export default function PrecisionScaleBento() {
           </motion.article>
       </Cell>
 
-      {/* Team Sync — bottom middle */}
+      {/* Team Sync - bottom middle */}
       <Cell bleed className="p-6 sm:p-7 md:col-start-2 md:row-start-3">
           <motion.article
             {...reveal}

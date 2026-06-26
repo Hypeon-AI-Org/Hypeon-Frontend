@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Text selection — intentional brand tint instead of the browser's grey box */
+/* Text selection - intentional brand tint instead of the browser's grey box */
 ::selection {
   background-color: rgba(16, 185, 129, 0.22); /* soft emerald */
   color: inherit;
@@ -47,14 +47,14 @@ body {
 /* ============================================================
    Editorial grid system (marketer.com-style hairline grid).
    One shared line color + width so section lines align down the
-   whole page. Monochrome — derived from the ink color, no accent.
+   whole page. Monochrome - derived from the ink color, no accent.
    ============================================================ */
 :root {
-  /* Light, warm hairline — kept very faint/subtle on the cream bg. */
+  /* Light, warm hairline - kept very faint/subtle on the cream bg. */
   --grid-line: #f1eee7;
   /* Slightly stronger tone for the small "+" intersection marks. */
   --grid-mark: #e4dfd3;
-  --grid-bg: oklch(0.988 0.0041 91.45); /* page cream — fills each cell */
+  --grid-bg: oklch(0.988 0.0041 91.45); /* page cream - fills each cell */
   --grid-max: 1280px;                    /* shared grid width (whole page) */
   --grid-cell-p: 48px;                   /* desktop cell padding */
 }
@@ -317,7 +317,7 @@ a[href] {
   will-change: auto;
 }
 
-/* Parallax effect — driven per-frame by JS (ScrollRevealSetup); a CSS
+/* Parallax effect - driven per-frame by JS (ScrollRevealSetup); a CSS
    transition here would lag/rubber-band every frame, so do NOT add one. */
 .parallax-slow {
   transform: translate3d(0, 0, 0);
@@ -407,7 +407,7 @@ a[href] {
   }
 }
 
-/* Studio mobile hero tiles — CSS-driven (compositor thread) so the scattered
+/* Studio mobile hero tiles - CSS-driven (compositor thread) so the scattered
    creatives reveal + gently float WITHOUT running JS animations on every frame,
    which previously made mobile scrolling janky. */
 @keyframes studioTileReveal {
@@ -441,7 +441,7 @@ a[href] {
   }
 }
 
-/* Hero dashboard slideshow — active dot progress fill */
+/* Hero dashboard slideshow - active dot progress fill */
 @keyframes shotProgress {
   from { width: 0%; }
   to { width: 100%; }

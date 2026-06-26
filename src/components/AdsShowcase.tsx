@@ -6,7 +6,7 @@ import { Sparkles } from "lucide-react";
 import Section, { Cell } from "./Section";
 
 /* ============================================================
-   Floating ad-card showcase — recreated from "ads section.mp4".
+   Floating ad-card showcase - recreated from "ads section.mp4".
    • light bg, narrow TALL centered column, white-matte-framed cards
    • CONTINUOUS scroll parallax: scroll DOWN → cards hover UP,
      scroll UP → cards hover DOWN (reverses with scroll, every time).
@@ -67,14 +67,14 @@ export default function AdsShowcase() {
         <Section>
             <Cell bleed className="relative overflow-hidden pb-16 pt-2 sm:pb-24 sm:pt-4">
             <div ref={ref} className="flex flex-col items-center px-4">
-                {/* cluster — cards hover up/down with scroll direction */}
+                {/* cluster - cards hover up/down with scroll direction */}
                 <div className="relative aspect-[450/875] w-[min(96vw,840px)]">
                     {CARDS.map((c, i) => (
                         <AdCard key={i} c={c} i={i} progress={scrollYProgress} />
                     ))}
                 </div>
 
-                {/* magenta CTA pill — below the cluster */}
+                {/* magenta CTA pill - below the cluster */}
                 <motion.a
                     href="https://app.hypeon.ai/hub/login"
                     initial={{ opacity: 0, scale: 0.9 }}

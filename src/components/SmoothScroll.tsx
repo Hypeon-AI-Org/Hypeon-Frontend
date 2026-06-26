@@ -15,12 +15,12 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Respect reduced-motion users — keep native scrolling for them.
+    // Respect reduced-motion users - keep native scrolling for them.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
 
-    // Desktop only — phones keep their native touch scrolling, which feels
+    // Desktop only - phones keep their native touch scrolling, which feels
     // better than momentum smooth-scroll on touch.
     const isTouch =
       window.matchMedia('(pointer: coarse)').matches ||
@@ -31,10 +31,10 @@ export default function SmoothScroll() {
 
     const lenis = new Lenis({
       duration: 1.05,
-      // easeOutExpo — gives the weighted, premium feel without lag.
+      // easeOutExpo - gives the weighted, premium feel without lag.
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      // No smoothing on touch — native scroll only.
+      // No smoothing on touch - native scroll only.
       syncTouch: false,
     });
 

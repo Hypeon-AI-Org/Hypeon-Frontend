@@ -553,7 +553,7 @@ export default function PrivacyPolicyPage() {
           <p className="mt-2">
             We may disclose information where we believe it is necessary to
             protect the rights, property, or safety of Hypeon AI, our users, or
-            the public — including exchanging information with other companies
+            the public - including exchanging information with other companies
             and organizations for the purposes of fraud protection and credit
             risk reduction.
           </p>

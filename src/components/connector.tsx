@@ -99,7 +99,7 @@ export default function Hero() {
 
             <p className="text-sm sm:text-[15px] text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
               No more inflated ROAS from platforms marking their own homework.
-              HypeOn cleans, unifies and attributes every sale — giving you one clear,
+              HypeOn cleans, unifies and attributes every sale - giving you one clear,
               unbiased truth across every channel.
             </p>
 

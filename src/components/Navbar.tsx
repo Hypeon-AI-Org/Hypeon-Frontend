@@ -16,7 +16,7 @@ function Navbar() {
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
-  // Dark navbar variant — only on the Studio page (dark background).
+  // Dark navbar variant - only on the Studio page (dark background).
   const isDark = pathname === "/studio";
 
   const closeMobile = useCallback(() => {
@@ -587,7 +587,7 @@ const STUDIO_THUMBS = [
   "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=200&auto=format&fit=crop&q=70",
 ];
 
-// loose 3×2 scatter with clear gaps — no two overlap or line up
+// loose 3×2 scatter with clear gaps - no two overlap or line up
 const STUDIO_SPOTS = [
   { left: "1%", top: "6%", w: 64 },
   { left: "37%", top: "3%", w: 62 },
@@ -598,7 +598,7 @@ const STUDIO_SPOTS = [
 ];
 
 // bigger creative thumbnails, well-spaced, each rising gently from below and
-// fading in/out in its own spot — slow & smooth, no scale, no tilt.
+// fading in/out in its own spot - slow & smooth, no scale, no tilt.
 const StudioIllustration = ({ short }: { short?: boolean }) => (
   <div
     className={`relative ${short ? "h-[180px] w-[250px]" : "h-[230px] w-[350px]"}`}

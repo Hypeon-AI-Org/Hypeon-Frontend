@@ -588,7 +588,7 @@ export default function PricingPage() {
                   <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:190ms]">
                   <div className="text-xl font-bold mb-3">Enterprise</div>
                     <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
-                      Tailored to your needs — custom limits, integrations, and dedicated
+                      Tailored to your needs - custom limits, integrations, and dedicated
                       support. Let&apos;s build a plan that fits.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
@@ -654,13 +654,13 @@ export default function PricingPage() {
               <div className="bg-white/70 border border-gray-200 rounded-[20px] shadow-sm overflow-hidden">
                 {[
                   {
-                    q: "Intelligence vs Analytics — which one do I actually need?",
+                    q: "Intelligence vs Analytics - which one do I actually need?",
                     a: (
                       <>
                         <strong>Intelligence</strong> tells you what to sell, who to beat, and
                         where to expand. <strong>Analytics</strong> tells you where your
                         money&apos;s actually going and which campaigns to kill or scale. Most
-                        serious D2C brands run both — Intelligence finds the opportunity,
+                        serious D2C brands run both - Intelligence finds the opportunity,
                         Analytics makes sure you don&apos;t burn cash chasing it.
                       </>
                     ),
@@ -671,7 +671,7 @@ export default function PricingPage() {
                       <>
                         Yes. Brands running both Intelligence + Analytics get a unified dashboard
                         and a bundled price. Reach out and we&apos;ll put together a package based
-                        on your revenue tier and the features you actually need — no filler, no
+                        on your revenue tier and the features you actually need - no filler, no
                         upsell traps.
                       </>
                     ),
@@ -683,17 +683,17 @@ export default function PricingPage() {
                         Because a brand doing $10k/mo and one doing $750k/mo are dealing with
                         totally different data volumes, attribution complexity, and channel mix.
                         Revenue-based pricing means you&apos;re never overpaying for scale you
-                        haven&apos;t hit yet — and you get enterprise-grade accuracy when you do.
+                        haven&apos;t hit yet - and you get enterprise-grade accuracy when you do.
                       </>
                     ),
                   },
                   {
-                    q: 'What does "True ROAS" actually mean — how is it different from what Meta/Google shows me?',
+                    q: 'What does "True ROAS" actually mean - how is it different from what Meta/Google shows me?',
                     a: (
                       <>
                         Meta and Google both claim credit for the same conversion. You end up
                         counting sales twice (sometimes three times). HypeOn deduplicates
-                        everything using first-party, server-side data — so you see one number per
+                        everything using first-party, server-side data - so you see one number per
                         sale, attributed to the channel that actually drove it. Most brands
                         discover they&apos;ve been over-reporting conversions by 25–40%.
                       </>
@@ -706,7 +706,7 @@ export default function PricingPage() {
                         Analytics connects to Shopify, WooCommerce, BigCommerce, and Magento. On
                         the paid side: Meta, Google, TikTok, Pinterest, Snapchat, Amazon Ads,
                         Klaviyo, and more. Intelligence monitors any public-facing brand across ad
-                        libraries, social platforms, and review sites — no integration needed on
+                        libraries, social platforms, and review sites - no integration needed on
                         their end.
                       </>
                     ),
@@ -715,7 +715,7 @@ export default function PricingPage() {
                     q: "Is there a free trial?",
                     a: (
                       <>
-                        HypeOn Intelligence Starter comes with a 14-day free trial — no credit
+                        HypeOn Intelligence Starter comes with a 14-day free trial - no credit
                         card required. For Intelligence Pro and Enterprise and all Analytics
                         plans, you can book a demo and we&apos;ll walk you through everything live
                         before you commit.
@@ -723,7 +723,7 @@ export default function PricingPage() {
                     ),
                   },
                   {
-                    q: "I'm spending under $5k/mo on ads — is HypeOn worth it for me?",
+                    q: "I'm spending under $5k/mo on ads - is HypeOn worth it for me?",
                     a: (
                       <>
                         If you&apos;re at that stage, start with Intelligence Starter at $79/mo.
@@ -738,7 +738,7 @@ export default function PricingPage() {
                     q: "What if I need custom limits, integrations, or dedicated support?",
                     a: (
                       <>
-                        Tailored to your needs — custom limits, integrations, and dedicated
+                        Tailored to your needs - custom limits, integrations, and dedicated
                         support. Let&apos;s build a plan that fits. Reach out to our team and
                         we&apos;ll scope something that matches your exact setup, channels, and
                         team size.
@@ -840,12 +840,12 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
             <CompareRow
               feature="Product development insights"
               tooltip="What designs & improvements your market is asking for"
-              vals={["—", "✓", "✓"]}
+              vals={["-", "✓", "✓"]}
             />
             <CompareRow
               feature="Demand forecasting"
               tooltip="Predict what will sell based on search & social signals"
-              vals={["—", "—", "✓"]}
+              vals={["-", "-", "✓"]}
             />
 
             <SectionRow label="Competitor Intelligence" />
@@ -861,7 +861,7 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
             <CompareRow
               feature="Competitor social media analysis"
               tooltip="Winning angles, top products & engagement spikes"
-              vals={["—", "✓", "✓"]}
+              vals={["-", "✓", "✓"]}
             />
             <CompareRow
               feature="Competitor Trustpilot / review analysis"
@@ -870,11 +870,11 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
             />
             <CompareRow
               feature="Competitor pricing & promotion tracker"
-              vals={["—", "—", "✓"]}
+              vals={["-", "-", "✓"]}
             />
             <CompareRow
               feature="Advanced insights & comparisons"
-              vals={["—", "—", "✓"]}
+              vals={["-", "-", "✓"]}
             />
 
             <SectionRow label="Market Expansion & Inventory" />
@@ -886,19 +886,19 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
             <CompareRow
               feature="Market entry opportunity scanner"
               tooltip="Find underserved geographies and demographics"
-              vals={["—", "✓", "✓"]}
+              vals={["-", "✓", "✓"]}
             />
             <CompareRow
               feature="Inventory demand signals"
               tooltip="Plan inventory around what's actually going to sell"
-              vals={["—", "Signals only", "Full forecasting"]}
+              vals={["-", "Signals only", "Full forecasting"]}
             />
 
             <SectionRow label="Platform & Support" />
             <CompareRow feature="Users" vals={["1", "3", "Unlimited"]} />
             <CompareRow feature="Data refresh frequency" vals={["Weekly", "Daily", "Real-time"]} />
-            <CompareRow feature="White-label PDF reports" vals={["—", "—", "✓"]} />
-            <CompareRow feature="API access" vals={["—", "—", "✓"]} />
+            <CompareRow feature="White-label PDF reports" vals={["-", "-", "✓"]} />
+            <CompareRow feature="API access" vals={["-", "-", "✓"]} />
             <CompareRow feature="Support" vals={["Email", "Priority chat", "Dedicated manager"]} />
             <CompareRow
               feature="Onboarding"
@@ -968,9 +968,9 @@ function CompareAnalyticsTable({
               vals={["✓", "✓", "✓"]}
             />
             <CompareRow feature="Ad channels tracked" vals={["2", "5", "Unlimited"]} />
-            <CompareRow feature="First-party server-side tracking" vals={["—", "✓", "✓"]} />
-            <CompareRow feature="Multi-touch attribution model" vals={["—", "✓", "✓"]} />
-            <CompareRow feature="Custom attribution windows" vals={["—", "—", "✓"]} />
+            <CompareRow feature="First-party server-side tracking" vals={["-", "✓", "✓"]} />
+            <CompareRow feature="Multi-touch attribution model" vals={["-", "✓", "✓"]} />
+            <CompareRow feature="Custom attribution windows" vals={["-", "-", "✓"]} />
 
             <SectionRow label="Budget Optimization" />
             <CompareRow
@@ -980,20 +980,20 @@ function CompareAnalyticsTable({
             />
             <CompareRow
               feature="Campaign-level Scale / Hold / Cut signals"
-              vals={["—", "✓", "✓"]}
+              vals={["-", "✓", "✓"]}
             />
             <CompareRow
               feature="Wasted ad spend detector"
               vals={["Summary", "Per campaign", "Per ad + alerts"]}
             />
-            <CompareRow feature="AI-powered budget optimizer" vals={["—", "—", "✓"]} />
+            <CompareRow feature="AI-powered budget optimizer" vals={["-", "-", "✓"]} />
 
             <SectionRow label="Reporting & Data" />
             <CompareRow feature="Executive dashboard" vals={["✓", "✓", "✓"]} />
             <CompareRow feature="Channel performance breakdown" vals={["✓", "✓", "✓"]} />
-            <CompareRow feature="Custom dashboards" vals={["—", "3", "Unlimited"]} />
-            <CompareRow feature="Scheduled email reports" vals={["—", "✓", "✓"]} />
-            <CompareRow feature="Slack / Teams alerts" vals={["—", "✓", "✓"]} />
+            <CompareRow feature="Custom dashboards" vals={["-", "3", "Unlimited"]} />
+            <CompareRow feature="Scheduled email reports" vals={["-", "✓", "✓"]} />
+            <CompareRow feature="Slack / Teams alerts" vals={["-", "✓", "✓"]} />
             <CompareRow
               feature="Historical data retention"
               vals={["90 days", "12 months", "Unlimited"]}
@@ -1003,15 +1003,15 @@ function CompareAnalyticsTable({
             <CompareRow feature="Shopify / WooCommerce / BigCommerce" vals={["✓", "✓", "✓"]} />
             <CompareRow feature="Meta Ads" vals={["✓", "✓", "✓"]} />
             <CompareRow feature="Google Ads" vals={["✓", "✓", "✓"]} />
-            <CompareRow feature="TikTok Ads" vals={["—", "✓", "✓"]} />
-            <CompareRow feature="Pinterest / Snapchat / Amazon Ads" vals={["—", "—", "✓"]} />
+            <CompareRow feature="TikTok Ads" vals={["-", "✓", "✓"]} />
+            <CompareRow feature="Pinterest / Snapchat / Amazon Ads" vals={["-", "-", "✓"]} />
             <CompareRow feature="Google Analytics 4" vals={["✓", "✓", "✓"]} />
-            <CompareRow feature="Klaviyo / email platforms" vals={["—", "✓", "✓"]} />
+            <CompareRow feature="Klaviyo / email platforms" vals={["-", "✓", "✓"]} />
             <CompareRow
               feature="Data warehouse export (BigQuery, Snowflake)"
-              vals={["—", "—", "✓"]}
+              vals={["-", "-", "✓"]}
             />
-            <CompareRow feature="API access" vals={["—", "—", "✓"]} />
+            <CompareRow feature="API access" vals={["-", "-", "✓"]} />
 
             <SectionRow label="Platform & Support" />
             <CompareRow feature="Users" vals={["2", "5", "Unlimited"]} />
@@ -1020,7 +1020,7 @@ function CompareAnalyticsTable({
               feature="Onboarding & pixel setup"
               vals={["Self-serve docs", "Guided setup call", "Done-for-you setup"]}
             />
-            <CompareRow feature="SLA & uptime guarantee" vals={["—", "—", "✓"]} />
+            <CompareRow feature="SLA & uptime guarantee" vals={["-", "-", "✓"]} />
           </tbody>
         </table>
       </div>
@@ -1058,7 +1058,7 @@ function CompareRow({
       isHighlight ? "bg-blue-50/40" : ""
     }`;
     if (val === "✓") return `${base} text-emerald-500 font-bold`;
-    if (val === "—") return `${base} text-gray-300 text-sm`;
+    if (val === "-") return `${base} text-gray-300 text-sm`;
     return `${base} text-xs font-bold text-gray-900`;
   };
 

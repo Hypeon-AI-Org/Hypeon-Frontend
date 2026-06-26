@@ -14,7 +14,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Before the channel walkthroughs, calibrate your expectations. The public archives were mostly built for regulatory transparency, not competitive intelligence — so they show you what's running, not what it costs or whether it's working."
+      "text": "Before the channel walkthroughs, calibrate your expectations. The public archives were mostly built for regulatory transparency, not competitive intelligence - so they show you what's running, not what it costs or whether it's working."
     },
     {
       "type": "table",
@@ -45,14 +45,14 @@
       "ordered": false,
       "items": [
         "**Ad volume.** An advertiser running 8 active creatives is operating at a different budget tier than one running 800. Raw count is a crude but reliable order-of-magnitude indicator.",
-        "**Run duration.** Ads that have run for 60–90+ days are almost always validated winners — nobody keeps paying to serve a loser. Long-running ads mark where the money concentrates.",
+        "**Run duration.** Ads that have run for 60–90+ days are almost always validated winners - nobody keeps paying to serve a loser. Long-running ads mark where the money concentrates.",
         "**Creative refresh rate.** A brand pumping out new variations weekly is spending enough to burn through creative fast (high frequency forces refresh). Slow refresh suggests a lighter budget or a single hero creative.",
         "**Reach and placement proxies.** Number of placements, geographies targeted, and (where visible) reach bands all scale with budget."
       ]
     },
     {
       "type": "paragraph",
-      "text": "Read those four signals consistently across channels and you can rank competitors by spend tier and estimate the gap between you and them — usually to within a sensible margin."
+      "text": "Read those four signals consistently across channels and you can rank competitors by spend tier and estimate the gap between you and them - usually to within a sensible margin."
     },
     {
       "type": "image",
@@ -66,31 +66,31 @@
     },
     {
       "type": "subheading",
-      "text": "Meta (Facebook & Instagram) — the richest free source"
+      "text": "Meta (Facebook & Instagram) - the richest free source"
     },
     {
       "type": "paragraph",
-      "text": "The Meta Ad Library is public and shows every active ad a brand runs, with run dates and placements. This is your best single window. Don't just look at what they're running — count active creatives, sort by how long each has run, and watch how fast new variations appear. A brand with 40 active creatives, several running 90+ days, refreshed weekly, is spending materially. See the dedicated Meta guide for turning these signals into a spend range within ~10%."
+      "text": "The Meta Ad Library is public and shows every active ad a brand runs, with run dates and placements. This is your best single window. Don't just look at what they're running - count active creatives, sort by how long each has run, and watch how fast new variations appear. A brand with 40 active creatives, several running 90+ days, refreshed weekly, is spending materially. See the dedicated Meta guide for turning these signals into a spend range within ~10%."
     },
     {
       "type": "subheading",
-      "text": "Google Search & YouTube — strategy hides in the keywords"
+      "text": "Google Search & YouTube - strategy hides in the keywords"
     },
     {
       "type": "paragraph",
-      "text": "The Google Ads Transparency Center (adstransparency.google.com) launched in 2023 and shows verified advertisers' active creatives across Search, YouTube, Display, and Gmail, with formats, regions, and run dates. It won't show keywords or spend — so pair it with a keyword/impression-share tool to map their keyword universe first, then estimate spend from there. Spend on Search is downstream of keyword strategy: map the keywords, and the budget estimate follows. Full method in the Google guide."
+      "text": "The Google Ads Transparency Center (adstransparency.google.com) launched in 2023 and shows verified advertisers' active creatives across Search, YouTube, Display, and Gmail, with formats, regions, and run dates. It won't show keywords or spend - so pair it with a keyword/impression-share tool to map their keyword universe first, then estimate spend from there. Spend on Search is downstream of keyword strategy: map the keywords, and the budget estimate follows. Full method in the Google guide."
     },
     {
       "type": "subheading",
-      "text": "TikTok — where \"organic\" is often paid"
+      "text": "TikTok - where \"organic\" is often paid"
     },
     {
       "type": "paragraph",
-      "text": "TikTok Creative Center surfaces top-performing ads by industry and region. The trap on TikTok is that a lot of what looks organic is paid amplification. Learn to tell an algorithmic engagement curve from a paid-boosted one, and you'll spot competitors scaling on TikTok long before it's obvious elsewhere — a channel many D2C founders still under-monitor. Full method in the TikTok guide."
+      "text": "TikTok Creative Center surfaces top-performing ads by industry and region. The trap on TikTok is that a lot of what looks organic is paid amplification. Learn to tell an algorithmic engagement curve from a paid-boosted one, and you'll spot competitors scaling on TikTok long before it's obvious elsewhere - a channel many D2C founders still under-monitor. Full method in the TikTok guide."
     },
     {
       "type": "subheading",
-      "text": "The underused channels — Pinterest and Bing"
+      "text": "The underused channels - Pinterest and Bing"
     },
     {
       "type": "paragraph",
@@ -110,7 +110,7 @@
       "items": [
         "**Inventory each channel.** For your top 3 competitors, record active ad counts, longest-running creatives, and refresh cadence per channel.",
         "**Add the traffic layer.** Use a traffic estimator to see each competitor's paid-vs-organic split and which channels drive their visits. This tells you where the budget is concentrated, not just where ads exist.",
-        "**Assign spend tiers.** Translate signals into tiers (e.g., <$10k/mo, $10–50k, $50–250k, $250k+). You're not chasing false precision — a tier plus a trend is enough to act on.",
+        "**Assign spend tiers.** Translate signals into tiers (e.g., <$10k/mo, $10–50k, $50–250k, $250k+). You're not chasing false precision - a tier plus a trend is enough to act on.",
         "**Track the trend, not the snapshot.** A competitor's ad count jumping 40% in two weeks is a louder signal than any single-day total. Re-measure monthly."
       ]
     }
@@ -118,7 +118,7 @@
   "faq": [
     {
       "q": "Can I see exactly how much a competitor spends on ads?",
-      "a": "No. There is no public tool that reveals a competitor's actual ad budget. You can estimate it from public ad archives and observable signals — ad volume, run duration, creative refresh rate, and reach proxies — which is enough to rank competitors by spend tier and track their direction."
+      "a": "No. There is no public tool that reveals a competitor's actual ad budget. You can estimate it from public ad archives and observable signals - ad volume, run duration, creative refresh rate, and reach proxies - which is enough to rank competitors by spend tier and track their direction."
     },
     {
       "q": "Is it legal to research a competitor's ads?",

@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 import Section, { Cell } from "./Section";
 
 /* ============================================================
-   Generate High-Performing Ad Creatives — light feature band.
+   Generate High-Performing Ad Creatives - light feature band.
    Right panel showcases the generated ad creatives directly.
 ============================================================ */
 
@@ -40,7 +40,7 @@ const reveal = {
 export default function AdCreativeBuilder() {
     return (
         <Section cols={2}>
-            {/* LEFT — copy */}
+            {/* LEFT - copy */}
             <Cell className="flex flex-col justify-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal}>
                     <h2 className="text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
@@ -72,7 +72,7 @@ export default function AdCreativeBuilder() {
                 </motion.div>
             </Cell>
 
-            {/* RIGHT — generated creatives showcase */}
+            {/* RIGHT - generated creatives showcase */}
             <Cell bleed className="flex">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal} className="relative flex w-full flex-col rounded-t-2xl bg-[#F4F5F7] px-5 pb-0 pt-5 sm:px-7 sm:pt-7 lg:px-8 lg:pt-8">
                     <div className="flex flex-1 flex-col rounded-t-xl bg-white p-4 shadow-sm">

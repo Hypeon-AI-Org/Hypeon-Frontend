@@ -9,8 +9,8 @@ import Section, { Cell } from "./Section";
 /* ============================================================
    Two product sections recreated from the marketer.com layout,
    recolored to the HypeOn navy/slate theme:
-   • "Stop tab hopping between five libraries" — Before vs With.
-   • "Skip the dashboard. Just ask Copilot" — AI analyst chat.
+   • "Stop tab hopping between five libraries" - Before vs With.
+   • "Skip the dashboard. Just ask Copilot" - AI analyst chat.
 ============================================================ */
 
 // staggered honeycomb layout (x/y in px within a 152×140 box)
@@ -55,7 +55,7 @@ export function TabHoppingSection() {
                             Stop tab hopping<br className="hidden sm:block" /> between five libraries
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60">
-                            Meta, TikTok, Google, LinkedIn, Instagram — competitive analysis, aggregated
+                            Meta, TikTok, Google, LinkedIn, Instagram - competitive analysis, aggregated
                             reach, and daily creative change tracking, all in one view.
                         </p>
                         <a
@@ -102,7 +102,7 @@ export function TabHoppingSection() {
                                 </div>
                             </div>
 
-                            {/* VS badge — anchored to the Before card's bottom edge so it
+                            {/* VS badge - anchored to the Before card's bottom edge so it
                                 sits exactly on the seam between the two cards (the cards
                                 differ in height, so a container-50% would drift). */}
                             <div className="absolute bottom-0 left-8 z-20 flex h-12 w-12 translate-y-[calc(50%+6px)] items-center justify-center rounded-full bg-[#1B1C3A] text-xs font-bold text-white ring-4 ring-[#1B1C3A]">

@@ -6,7 +6,7 @@ import type { CSSProperties } from "react"
  */
 
 
-/** Outer workspace preview shell — same as Pricing Intelligence (03) in FounderDecisionMap. */
+/** Outer workspace preview shell - same as Pricing Intelligence (03) in FounderDecisionMap. */
 export const WORKSPACE_PREVIEW_SHELL_STYLE: CSSProperties = {
   background: `
    radial-gradient(ellipse 130% 100% at 8% 12%, rgba(150, 205, 175, 0.58) 0%, transparent 52%),

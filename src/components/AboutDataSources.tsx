@@ -23,11 +23,11 @@ export default function AboutDataSources() {
         </h2>
 
         <p className="mt-6 text-slate-600 max-w-3xl mx-auto">
-          HypeOn Intelligence tracks the platforms where money actually moves — decoding 200M+ ads to surface every competitor&apos;s spend, reach and winning angles, 24/7.
+          HypeOn Intelligence tracks the platforms where money actually moves - decoding 200M+ ads to surface every competitor&apos;s spend, reach and winning angles, 24/7.
         </p>
       </Cell>
 
-      {/* MARQUEE — cut cleanly at the section's hairline rails (overflow-hidden, no fade mask) */}
+      {/* MARQUEE - cut cleanly at the section's hairline rails (overflow-hidden, no fade mask) */}
       <Cell bleed className="overflow-hidden py-12 sm:py-16">
         <div className="marquee-content">
           {/* SET 1 */}

@@ -4,7 +4,7 @@
    Heavy media (autoplaying <video>) decoding *during* a scroll is the
    main cause of scroll stutter on normal / older hardware. We pause
    every managed video while the page is scrolling and resume the moment
-   it settles — so scrolling stays smooth and videos play when you stop.
+   it settles - so scrolling stays smooth and videos play when you stop.
 
    Lenis scrolls the real document, so the native window "scroll" event
    fires for both Lenis (desktop) and native touch scroll (mobile).
@@ -27,7 +27,7 @@ function onScroll() {
         emit();
     }
     if (timer) clearTimeout(timer);
-    // settle delay — long enough to cover Lenis momentum glide
+    // settle delay - long enough to cover Lenis momentum glide
     timer = setTimeout(() => {
         scrolling = false;
         emit();

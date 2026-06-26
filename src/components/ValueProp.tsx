@@ -84,7 +84,7 @@ export default function ComparisonBlackWhite() {
             One platform vs <span className="text-[#696863]">six tools.</span>
           </h2>
           <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-500 max-w-3xl mx-auto px-2">
-            Stop paying for tools that don’t talk to each other — while still leaving half your intelligence gaps unfilled.
+            Stop paying for tools that don’t talk to each other - while still leaving half your intelligence gaps unfilled.
           </p>
         </motion.div>
 

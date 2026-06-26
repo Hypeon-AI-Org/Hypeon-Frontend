@@ -79,7 +79,7 @@ export default function SolutionsIntelligence() {
             HypeOn <span className="text-[#696863]">Intelligence</span>
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
-            The prediction engine that powers everything inside HypeOn — designed to identify what will work before it becomes obvious.
+            The prediction engine that powers everything inside HypeOn - designed to identify what will work before it becomes obvious.
           </p>
         </div>
 

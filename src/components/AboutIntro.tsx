@@ -15,7 +15,7 @@ export default function AboutIntro() {
 
   return (
     <Section cols={1}>
-      {/* intro / mission cell — extra top padding so it clears the fixed navbar */}
+      {/* intro / mission cell - extra top padding so it clears the fixed navbar */}
       <Cell className="text-center reveal pt-24 sm:pt-28">
         <p className="text-sm text-slate-400 mb-3">We build</p>
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter leading-tight mb-4">
@@ -28,7 +28,7 @@ export default function AboutIntro() {
         </p>
       </Cell>
 
-      {/* partners cell — hairline separates it from the intro above */}
+      {/* partners cell - hairline separates it from the intro above */}
       <Cell className="text-center">
         <p className="text-sm text-slate-400 mb-4">Official partners</p>
         <div className="flex justify-center items-center gap-8 flex-wrap">

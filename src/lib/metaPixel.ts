@@ -1,4 +1,4 @@
-/** Meta (Facebook) Pixel — ID from Meta Events Manager */
+/** Meta (Facebook) Pixel - ID from Meta Events Manager */
 export const META_PIXEL_ID = "879534711843711";
 
 export const META_PIXEL_SCRIPT_ID = "hypeon-meta-pixel-bootstrap";

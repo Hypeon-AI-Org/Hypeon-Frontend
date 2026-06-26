@@ -36,7 +36,7 @@ export default function FunnelAILandingPage() {
               The future of attribution is <span className="text-[#696863]">conversational</span>
             </h1>
             <p className="text-[15px]  leading-relaxed" style={{ color: colors.textSecondary }}>
-              Ask your data anything — in plain English. The Copilot is wired directly into your live attribution layer and gives you specific, numbered answers. No dashboards to dig through. No analysts to wait for.
+              Ask your data anything - in plain English. The Copilot is wired directly into your live attribution layer and gives you specific, numbered answers. No dashboards to dig through. No analysts to wait for.
             </p>
           </div>
 

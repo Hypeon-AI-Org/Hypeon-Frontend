@@ -15,7 +15,7 @@ const cards = [
   {
     title: 'Our Solution',
     description:
-      'Two engines working together — Hypeon Intelligence decodes competitor spend, reach and winning angles, while HypeOn Studio turns those insights into creative that converts.',
+      'Two engines working together - Hypeon Intelligence decodes competitor spend, reach and winning angles, while HypeOn Studio turns those insights into creative that converts.',
     icon: 'lightning',
   },
   {
@@ -134,7 +134,7 @@ export default function AboutStory() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          Most e-commerce teams don't lose money because they can't execute —
+          Most e-commerce teams don't lose money because they can't execute -
           they lose money because they execute on the wrong thing.
         </p>
 

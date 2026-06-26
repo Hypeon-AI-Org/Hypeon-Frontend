@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 interface SectionHeadingProps {
-  /** Small uppercase label above the title — the editorial / magazine cue. Monochrome. */
+  /** Small uppercase label above the title - the editorial / magazine cue. Monochrome. */
   eyebrow?: string;
   /** Main heading. */
   title: React.ReactNode;
@@ -19,7 +19,7 @@ interface SectionHeadingProps {
  * Shared, consistent section heading used across the homepage.
  * Every section gets the same rhythm: eyebrow → big title → lead.
  *
- * Monochrome only (neutral slate) — no accent/brand color, per design direction.
+ * Monochrome only (neutral slate) - no accent/brand color, per design direction.
  * This is the single place to tune the homepage heading style.
  */
 export default function SectionHeading({

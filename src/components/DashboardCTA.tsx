@@ -20,7 +20,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="relative mx-auto max-w-6xl rounded-t-[1.6rem] border border-b-0 border-slate-200 bg-[oklch(0.988_0.0041_91.45)] px-2.5 pb-0 pt-2.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.25)] sm:px-3 sm:pt-3"
             >
-                {/* dashboard image — next/image serves AVIF/WebP + a sized srcset,
+                {/* dashboard image - next/image serves AVIF/WebP + a sized srcset,
                     cutting the ~1.5MB PNG to a few hundred KB and lazy-loading it. */}
                 <Image
                     src={image}
@@ -34,12 +34,12 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                 {/* soft scrim so the button pops */}
                 <div className="pointer-events-none absolute inset-x-2.5 bottom-0 top-2.5 rounded-t-xl bg-white/20 sm:inset-x-3 sm:top-3" />
 
-                {/* CTA — centered */}
+                {/* CTA - centered */}
                 <div className="absolute inset-0 flex items-center justify-center px-4">
                     <div className="relative">
                         {/* faint outer glow */}
                         <div className="absolute -inset-4 rounded-[2.2rem] bg-slate-500/25 blur-xl" />
-                        {/* translucent frosted highlight box — content shows through */}
+                        {/* translucent frosted highlight box - content shows through */}
                         <div className="absolute -inset-2.5 rounded-[1.5rem] bg-gradient-to-b from-slate-200/55 to-slate-300/25 ring-1 ring-white/50 backdrop-blur-[2px] sm:-inset-4" />
                         <motion.a
                             href="https://app.hypeon.ai/hub/login"

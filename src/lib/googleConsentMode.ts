@@ -1,5 +1,5 @@
 /**
- * Google Consent Mode v2 — maps HypeOn prefs to gtag consent types.
+ * Google Consent Mode v2 - maps HypeOn prefs to gtag consent types.
  * Configure GTM tags to require the matching consent types (Consent Overview / per-tag).
  */
 export type ConsentPrefsLike = {

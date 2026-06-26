@@ -3,7 +3,7 @@ import { memo } from "react";
 function Background() {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-      {/* Very subtle neutral blobs — no pink/indigo.
+      {/* Very subtle neutral blobs - no pink/indigo.
           No mix-blend / no scroll-parallax: those force a full re-composite of
           these huge blurred layers on every scroll frame and cause jank.
           A transform-only blob animation stays cheap on its own GPU layer. */}

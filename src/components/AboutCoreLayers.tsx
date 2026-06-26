@@ -8,13 +8,13 @@ const layers = [
     tag: 'INTELLIGENCE',
     title: 'Hypeon Intelligence',
     description:
-      'The intelligence engine. Decode any competitor\'s playbook in seconds — their spend, reach and winning angles, laid bare.',
+      'The intelligence engine. Decode any competitor\'s playbook in seconds - their spend, reach and winning angles, laid bare.',
     accent: 'green',
     features: [
       'Competitor spend, reach & winning-angle decoding',
       '200M+ ads across Meta, Google, TikTok, LinkedIn & Pinterest',
       'Breakout product detection before they peak',
-      'Copilot — ask your ad data in plain English',
+      'Copilot - ask your ad data in plain English',
       'Real ROAS & wasted-spend analytics across channels',
     ],
   },
@@ -22,7 +22,7 @@ const layers = [
     tag: 'STUDIO',
     title: 'HypeOn Studio',
     description:
-      'The creative engine. AI-first ad creative built to convert — turning intelligence into scroll-stopping assets in seconds, not weeks.',
+      'The creative engine. AI-first ad creative built to convert - turning intelligence into scroll-stopping assets in seconds, not weeks.',
     accent: 'orange',
     features: [
       'Scroll-stopping static, video & UGC in seconds',
@@ -95,12 +95,12 @@ export default function AboutCoreLayers() {
           </h2>
 
           <p className="mt-4 text-sm text-slate-500 leading-relaxed">
-            Intelligence for finding and decoding what&apos;s actually working — every competitor&apos;s spend, reach and winning angles. Studio for turning those insights into creative that converts. Two engines that replace guesswork with evidence, then ship the work.
+            Intelligence for finding and decoding what&apos;s actually working - every competitor&apos;s spend, reach and winning angles. Studio for turning those insights into creative that converts. Two engines that replace guesswork with evidence, then ship the work.
           </p>
         </div>
       </Cell>
 
-      {/* CARDS — each engine is its own grid cell; the section hairlines form the dividers */}
+      {/* CARDS - each engine is its own grid cell; the section hairlines form the dividers */}
       {layers.map((layer, i) => {
         const style = accentStyles[layer.accent as keyof typeof accentStyles];
 

@@ -63,7 +63,7 @@ export default function HighValueKeywords() {
 
           <p className="text-[#757575] text-sm leading-relaxed max-w-sm">
             It doesn't tell you what you want to hear. It regularly scores
-            products at <span className="font-medium text-[#1a1a1a]">15 or 22</span> —
+            products at <span className="font-medium text-[#1a1a1a]">15 or 22</span> -
             products that look exciting on social media but have no margin
             or are already saturated.
           </p>

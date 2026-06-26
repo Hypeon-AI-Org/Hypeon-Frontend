@@ -8,7 +8,7 @@ import Section, { Cell } from './Section';
 export default function StartToday() {
   return (
     <Section cols={2} className="font-sans">
-      {/* LEFT — heading + CTA */}
+      {/* LEFT - heading + CTA */}
       <Cell className="flex flex-col justify-center text-center md:text-left">
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
@@ -28,7 +28,7 @@ export default function StartToday() {
           className="mt-3 text-base md:text-lg text-gray-500 max-w-xl mx-auto md:mx-0 leading-relaxed"
         >
           Spend less. Sell more. Keep what you earn. Get access to HypeOn AI and
-          put both engines — intelligence and creative — to work today.
+          put both engines - intelligence and creative - to work today.
         </motion.p>
 
         <motion.div
@@ -47,7 +47,7 @@ export default function StartToday() {
         </motion.div>
       </Cell>
 
-      {/* RIGHT — image */}
+      {/* RIGHT - image */}
       <Cell bleed className="overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

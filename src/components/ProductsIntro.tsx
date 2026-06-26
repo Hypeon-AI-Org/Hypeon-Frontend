@@ -31,7 +31,7 @@ export default function TrendalyticsSection() {
         </motion.div>
       </Cell>
 
-      {/* Dashboard image cell — hairline separates it from the heading above */}
+      {/* Dashboard image cell - hairline separates it from the heading above */}
       <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -42,7 +42,7 @@ export default function TrendalyticsSection() {
         >
           <div className="bg-white border border-gray-200 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] overflow-hidden">
 
-            {/* The Actual Image Container — full 16:9 image, no crop/fade */}
+            {/* The Actual Image Container - full 16:9 image, no crop/fade */}
             <div className="relative w-full aspect-[16/9] bg-[#fcfcfc]">
               <Image
                 src="/dashboard_2.png"

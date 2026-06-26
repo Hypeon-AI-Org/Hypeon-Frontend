@@ -7,7 +7,7 @@ import { MEDIA, MarqueeVideo, type Media } from './MediaCarousel';
 import { isScrolling, subscribeScroll } from '@/lib/scrollActivity';
 
 /* ============================================================
-   "Built for brands serious about growth" — two horizontally
+   "Built for brands serious about growth" - two horizontally
    scrollable rows of tall cards, each tagged in the bottom-left
    corner. Card media is every creative from the "AI Ad Platform
    Built for Performance" carousel (/carousel videos + images,
@@ -24,7 +24,7 @@ const ROW_TWO = MEDIA.slice(MID);
 function Card({ media }: { media: Media }) {
   return (
     <div className="relative aspect-[9/16] w-[160px] shrink-0 snap-start rounded-2xl bg-white p-1.5 shadow-[0_12px_30px_-10px_rgba(40,20,60,0.18)] sm:w-[200px] lg:w-[230px]">
-      {/* inner frame — media sits inset inside the white matte */}
+      {/* inner frame - media sits inset inside the white matte */}
       <div className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-100">
         {media.type === 'video' ? (
           // Only the cards in the centre ~40% of the screen actually decode/play;
@@ -42,7 +42,7 @@ function Card({ media }: { media: Media }) {
 
 /* Auto-scrolling marquee row. The card set is duplicated so translating the
    strip by -50% (the `marquee` keyframe) loops seamlessly. `reverse` flips the
-   direction — top row drifts left, bottom row drifts right.
+   direction - top row drifts left, bottom row drifts right.
 
    The animation is PAUSED while the page is actively scrolling and while the row
    is off-screen. Pausing during scroll is the key to smoothness: a moving strip
@@ -113,12 +113,12 @@ export default function BuiltForBrands() {
         </motion.h2>
       </Cell>
 
-      {/* Row 1 — team / stage — drifts left */}
+      {/* Row 1 - team / stage - drifts left */}
       <Cell bleed className="overflow-hidden">
         <MarqueeRow items={ROW_ONE} />
       </Cell>
 
-      {/* Row 2 — industry — drifts right */}
+      {/* Row 2 - industry - drifts right */}
       <Cell bleed className="overflow-hidden">
         <MarqueeRow items={ROW_TWO} reverse />
       </Cell>

@@ -25,7 +25,7 @@ const sections = [
   {
     id: "01",
     title: "Find Your Competitors' Best Performing Ads ",
-    description: " Stop guessing what works. See every ad your competitors are scaling — hooks, formats, spend signals — before you waste a krona testing."
+    description: " Stop guessing what works. See every ad your competitors are scaling - hooks, formats, spend signals - before you waste a krona testing."
   },
   {
     id: "02",
@@ -35,12 +35,12 @@ const sections = [
   {
     id: "03",
     title: "See What Their Customers Really Think",
-    description: "Scan competitor reviews across Trustpilot and Google. Find what their customers hate — and make it your biggest selling point."
+    description: "Scan competitor reviews across Trustpilot and Google. Find what their customers hate - and make it your biggest selling point."
   },
   {
     id: "05",
     title: "Static & Video Ads, Built in Seconds",
-    description: " Drop your product link. Get scroll-stopping creatives — built from the angles already winning in your category."
+    description: " Drop your product link. Get scroll-stopping creatives - built from the angles already winning in your category."
   },
   {
     id: "06",
@@ -63,7 +63,7 @@ const PRODUCT_SIGNAL_IMAGES = [
   { src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=240&h=240&fit=crop&q=80", alt: "Watch product" },
 ] as const
 
-/** Card 01 HTML reference — PNGs decoded from your inline base64 (public/product-signals/). */
+/** Card 01 HTML reference - PNGs decoded from your inline base64 (public/product-signals/). */
 const PRODUCT_SIGNAL_HTML_PREVIEW = [
   { src: "/produc/0.png", alt: "Sneaker product" },
   { src: "/product-signals/1.png", alt: "Tote bag" },
@@ -76,7 +76,7 @@ const ANALYTICS_CHAT_SCROLL_STYLE = `
 .analytics-chat-scroll { scrollbar-width: none; -ms-overflow-style: none; }
 `
 
-/** Card 01 — pixel-aligned with Product Signals HTML reference (scoped under .ps-html-root). */
+/** Card 01 - pixel-aligned with Product Signals HTML reference (scoped under .ps-html-root). */
 const PRODUCT_SIGNALS_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 .ps-html-root * { box-sizing: border-box; }
@@ -358,7 +358,7 @@ const PRODUCT_SIGNALS_HTML_CSS = `
   
 `
 
-/** Card 05 — Keyword Intelligence preview (pixel-aligned with supplied HTML reference). */
+/** Card 05 - Keyword Intelligence preview (pixel-aligned with supplied HTML reference). */
 const KEYWORD_INTELLIGENCE_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
 .ki-html-root * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -811,7 +811,7 @@ function useIsDesktop() {
   return isDesktop
 }
 
-/** Card 03 — Pricing Intelligence preview (matches supplied HTML reference; scoped under .pi-html-root). */
+/** Card 03 - Pricing Intelligence preview (matches supplied HTML reference; scoped under .pi-html-root). */
 const PRICING_INTELLIGENCE_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
 .pi-html-root *, .pi-html-root *::before, .pi-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1229,7 +1229,7 @@ const PRICING_INTELLIGENCE_HTML_CSS = `
 }
 `
 
-/** Card 09 — AI Insights dashboard (matches supplied HTML; scoped under .aid-html-root). */
+/** Card 09 - AI Insights dashboard (matches supplied HTML; scoped under .aid-html-root). */
 const AI_INSIGHTS_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
 .aid-html-root *, .aid-html-root *::before, .aid-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1669,7 +1669,7 @@ const MEX_LOGO_GOOGLE = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3d
 const MEX_LOGO_FB = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CjxyZWN0IHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiMxODc3RjIiLz4KPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTMyIDI0aC01djE2aC02VjI0aC00di02aDR2LTNjMC00IDIuMy02IDYtNiAxLjcgMCAzLjUuMyAzLjUuM1YxNWgtMmMtMS45IDAtMi41IDEuMi0yLjUgMi40VjE4aDVsLS44IDZ6Ii8+Cjwvc3ZnPg==`
 const MEX_LOGO_TIKTOK = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CjxyZWN0IHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiMwMDAiLz4KPHBhdGggZmlsbD0iIzY5QzlEMCIgZD0iTTM0IDE2LjVjLTIuMi0xLjQtMy43LTMuNy00LTYuNWgtNXYyNWMwIDIuMi0xLjggNC00IDRzLTQtMS44LTQtNCAxLjgtNCA0LTRjLjQgMCAuOC4xIDEuMi4yVjI2Yy0uNC0uMS0uOC0uMS0xLjItLjEtNSAwLTkgNC05IDlzNCA5IDkgOSA5LTQgOS05VjIzLjRjMiAxLjMgNC4zIDIuMSA2LjggMi4xdi01Yy0xLjIgMC0yLjItLjQtMi44LTF2LTN6Ii8+CjxwYXRoIGZpbGw9IiNFRTFENTIiIGQ9Ik0zNi44IDE5LjV2NWMtMi41IDAtNC44LS44LTYuOC0yLjFWMzVjMCA1LTQgOS05IDlzLTktNC05LTkgNC05IDktOWMuNCAwIC44IDAgMS4yLjF2NS4yYy0uNC0uMS0uOC0uMi0xLjItLjItMi4yIDAtNCAxLjgtNCA0czEuOCA0IDQgNCA0LTEuOCA0LTRWMTBoNWMuMyAyLjggMS44IDUuMSA0IDYuNWwyLjggM3oiLz4KPC9zdmc+`
 
-/** Card 10 — Market Expansion AI (matches supplied HTML; scoped under .mex-html-root). */
+/** Card 10 - Market Expansion AI (matches supplied HTML; scoped under .mex-html-root). */
 const MARKET_EXPANSION_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 .mex-html-root *, .mex-html-root *::before, .mex-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2001,7 +2001,7 @@ const MARKET_EXPANSION_HTML_CSS = `
 
 `
 
-/** Card 02 — Revenue Attribution dashboard (matches supplied HTML; scoped under .rad-html-root). */
+/** Card 02 - Revenue Attribution dashboard (matches supplied HTML; scoped under .rad-html-root). */
 const REVENUE_ATTRIBUTION_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
 .rad-html-root *, .rad-html-root *::before, .rad-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2296,7 +2296,7 @@ const REVENUE_ATTRIBUTION_HTML_CSS = `
 }
 `
 
-/** Card 06 — Inventory AI dashboard (matches supplied HTML; scoped under .inv-html-root). */
+/** Card 06 - Inventory AI dashboard (matches supplied HTML; scoped under .inv-html-root). */
 const INVENTORY_AI_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 .inv-html-root *, .inv-html-root *::before, .inv-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2639,7 +2639,7 @@ const INVENTORY_AI_HTML_CSS = `
 }
 `
 
-/** Card 08 — Competitor Social / Intelligence (matches supplied HTML; scoped under .csi-html-root). */
+/** Card 08 - Competitor Social / Intelligence (matches supplied HTML; scoped under .csi-html-root). */
 const COMPETITOR_SOCIAL_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 .csi-html-root *, .csi-html-root *::before, .csi-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -3030,7 +3030,7 @@ const COMPETITOR_SOCIAL_HTML_CSS = `
 }
 `
 
-/** Card 07 — Ad Intelligence / competitor ads (matches supplied HTML; scoped under .cad-html-root). */
+/** Card 07 - Ad Intelligence / competitor ads (matches supplied HTML; scoped under .cad-html-root). */
 const AD_INTELLIGENCE_HTML_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
 .cad-html-root *, .cad-html-root *::before, .cad-html-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -3436,7 +3436,7 @@ const AD_INTELLIGENCE_HTML_CSS = `
 }
 `
 
-/** Card 01 — Product Signals preview matching the HTML reference (layout, typography, imagery). */
+/** Card 01 - Product Signals preview matching the HTML reference (layout, typography, imagery). */
 function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -3474,7 +3474,7 @@ function ProductSignalsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   )
 }
 
-/** Card 05 — Keyword Intelligence (matches reference HTML: assistant + table + scatter + CPC bars). */
+/** Card 05 - Keyword Intelligence (matches reference HTML: assistant + table + scatter + CPC bars). */
 function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -3520,7 +3520,7 @@ function KeywordIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
   )
 }
 
-/** Card 03 — Pricing Intelligence (matches supplied HTML: chat + benchmark + middle + right columns). */
+/** Card 03 - Pricing Intelligence (matches supplied HTML: chat + benchmark + middle + right columns). */
 function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -3559,7 +3559,7 @@ function PricingIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }
   )
 }
 
-/** Card 09 — AI Insights (Trustpilot-style dashboard; matches supplied HTML reference). */
+/** Card 09 - AI Insights (Trustpilot-style dashboard; matches supplied HTML reference). */
 function AiInsightsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -3597,7 +3597,7 @@ function AiInsightsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                     </div>
                     <div className="aid-ai-text">
                       Scanning verified purchase reviews, social comments, and return data to surface recurring
-                      product feedback patterns — grouped by theme.
+                      product feedback patterns - grouped by theme.
                     </div>
                   </div>
                   <div className="aid-loading-area">
@@ -3738,7 +3738,7 @@ function AiInsightsHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   )
 }
 
-/** Card 10 — Market Expansion AI (matches supplied HTML reference). */
+/** Card 10 - Market Expansion AI (matches supplied HTML reference). */
 function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -3758,7 +3758,7 @@ function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
               
                 <div className="mex-chat-area">
                   <div className="mex-user-bubble">
-                    Which new markets should I expand into — and are they ready?
+                    Which new markets should I expand into - and are they ready?
                   </div>
                   <div className="mex-ai-message">
                     <div className="mex-ai-icon" aria-hidden>
@@ -3859,7 +3859,7 @@ function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                         <img src={MEX_LOGO_FB} alt="Facebook" />
                       </div>
                       <div className="mex-demand-text">
-                        Purchase intent rising — <span className="mex-demand-highlight">low CPM</span>
+                        Purchase intent rising - <span className="mex-demand-highlight">low CPM</span>
                       </div>
                     </div>
                     <div className="mex-demand-row">
@@ -3878,7 +3878,7 @@ function MarketExpansionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                       </div>
                       <div className="mex-comp-info">
                         <div className="mex-comp-name">Germany</div>
-                        <div className="mex-comp-cpc">CPC est. low —</div>
+                        <div className="mex-comp-cpc">CPC est. low -</div>
                       </div>
                       <div className="mex-comp-dots">
                         <div className="mex-dot mex-dot-filled" />
@@ -4011,7 +4011,7 @@ function RadLogoTikTok36({ withStroke }: { withStroke?: boolean }) {
   )
 }
 
-/** Card 02 — Real ROAS / revenue attribution (matches supplied HTML reference). */
+/** Card 02 - Real ROAS / revenue attribution (matches supplied HTML reference). */
 function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   return (
     <div
@@ -4046,7 +4046,7 @@ function RevenueAttributionHtmlPreview({ fillHeight }: { fillHeight?: boolean })
   )
 }
 
-/** Card 06 — Inventory AI (matches supplied HTML reference; scoped under .inv-html-root). */
+/** Card 06 - Inventory AI (matches supplied HTML reference; scoped under .inv-html-root). */
 function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   const tote = PRODUCT_SIGNAL_IMAGES[1]
   const lamp = PRODUCT_SIGNAL_IMAGES[2]
@@ -4094,7 +4094,7 @@ function InventoryAiHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   )
 }
 
-/** Card 08 — Competitor Social Media Analysis (matches supplied HTML reference). */
+/** Card 08 - Competitor Social Media Analysis (matches supplied HTML reference). */
 function CompetitorSocialHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   const [activeTab, setActiveTab] = useState(0)
   const img = PRODUCT_SIGNAL_IMAGES
@@ -4460,7 +4460,7 @@ function CompetitorSocialHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   )
 }
 
-/** Card 07 — Ad Intelligence / competitor ads (matches supplied HTML reference). */
+/** Card 07 - Ad Intelligence / competitor ads (matches supplied HTML reference). */
 function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
   const tote = PRODUCT_SIGNAL_IMAGES[1]
   const lamp = PRODUCT_SIGNAL_IMAGES[2]
@@ -4521,7 +4521,7 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                       </svg>
                     </div>
                     <div className="cad-ai-text">
-                      Tracking active ad creatives across Meta Ad Library and TikTok Creative Center — surfacing what&apos;s
+                      Tracking active ad creatives across Meta Ad Library and TikTok Creative Center - surfacing what&apos;s
                       scaling, how long ads have been running, and what formats are winning.
                     </div>
                   </div>
@@ -4652,7 +4652,7 @@ function AdIntelligenceHtmlPreview({ fillHeight }: { fillHeight?: boolean }) {
                         </div>
                         <div className="cad-signal-item">
                           <div className="cad-signal-dot cad-dot-blue" />
-                          <div className="cad-signal-text">Estimated spend increasing — scaling detected</div>
+                          <div className="cad-signal-text">Estimated spend increasing - scaling detected</div>
                           <div className="cad-signal-right">
                             <div className="cad-tiktok-small">
                               <svg width={8} height={8} viewBox="0 0 10 10" fill="white" aria-hidden>
@@ -4808,7 +4808,7 @@ function AnalyticsWorkspacePreview({
 
       <div className={WORKSPACE_PREVIEW_INNER_CENTER}>
         <div className={`${WORKSPACE_PREVIEW_DASHBOARD_FRAME} max-w-[820px] w-full max-md:mx-auto max-md:my-3 overflow-hidden rounded-xl border border-white/60 bg-[#F2F0E9] h-auto min-h-0 max-md:min-h-[420px] md:ml-auto md:mr-[-40px] md:my-[40px] md:h-[580px] md:flex-row`}>
-          {/* Left: chat — warm beige, compact like reference */}
+          {/* Left: chat - warm beige, compact like reference */}
           <div className="flex h-full min-h-0 w-full flex-col border-b border-[#E8E4DC] md:w-[40%] md:border-b-0 md:border-r md:border-[#E8E4DC]">
             <div className="analytics-chat-scroll flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto bg-[#F9F8F3] p-4 sm:p-5">
               <div className="flex justify-end">
@@ -4995,7 +4995,7 @@ export default function StackingCards() {
 function Card({ item, index }: { item: (typeof sections)[number], index: number }) {
   const isDesktop = useIsDesktop()
   // Cards 01/02/03 are single full-bleed screenshots that hug their image ratio
-  // on mobile — drop the tall min-heights so no empty band shows around them.
+  // on mobile - drop the tall min-heights so no empty band shows around them.
   const isImagePreview = item.id === "01" || item.id === "02" || item.id === "03"
 
   return (
@@ -5036,7 +5036,7 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
           </a>
         </div>
 
-        {/* RIGHT: workspace preview — pricing UI for Pricing Intelligence; product signals UI for others */}
+        {/* RIGHT: workspace preview - pricing UI for Pricing Intelligence; product signals UI for others */}
         <div
           className={`relative flex w-full flex-1 flex-col overflow-x-hidden overflow-y-auto md:min-h-0 md:h-full md:w-[66%] md:overflow-hidden ${
             isImagePreview

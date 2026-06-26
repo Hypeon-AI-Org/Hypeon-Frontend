@@ -11,7 +11,7 @@ const features = [
   {
     id: 'keyword-spy',
     title: 'Keyword Spy',
-    description: 'Track buyer-intent keywords rising across TikTok, Google, Amazon and Instagram — before CPCs inflate.',
+    description: 'Track buyer-intent keywords rising across TikTok, Google, Amazon and Instagram - before CPCs inflate.',
   },
   {
     id: 'creative-intelligence',
@@ -43,7 +43,7 @@ export default function HypeScoreSection() {
           </h2>
           <p className="text-[#757575] text-sm md:text-sm leading-relaxed max-w-md mb-10">
             Standard research tools show you what happened last month. 
-            HypeOn Intelligence shows you what&apos;s happening this week — and what&apos;s about to happen next.
+            HypeOn Intelligence shows you what&apos;s happening this week - and what&apos;s about to happen next.
           </p>
 
           {/* Feature list */}

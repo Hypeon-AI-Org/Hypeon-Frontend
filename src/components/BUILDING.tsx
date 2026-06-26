@@ -23,7 +23,7 @@ export default function WhoWeAreBuildingFor() {
   return (
     <Section cols={2} sectionRef={ref} className="font-sans">
 
-      {/* LEFT — Image (bleed: media fills the cell, hairline frames it) */}
+      {/* LEFT - Image (bleed: media fills the cell, hairline frames it) */}
       <Cell bleed className="flex items-center px-6 py-12 sm:px-10 sm:py-16">
         <div
           className={`
@@ -42,7 +42,7 @@ export default function WhoWeAreBuildingFor() {
         </div>
       </Cell>
 
-      {/* RIGHT — text */}
+      {/* RIGHT - text */}
       <Cell className="flex items-center">
         <div
           className={`
@@ -60,7 +60,7 @@ export default function WhoWeAreBuildingFor() {
           </h2>
 
           <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-lg md:max-w-none">
-            We&apos;re building two engines that work as one — Hypeon Intelligence to decode your
+            We&apos;re building two engines that work as one - Hypeon Intelligence to decode your
             competitor&apos;s playbook, and HypeOn Studio to turn that insight into creative that
             converts. Spend less, sell more, and keep what you earn.
           </p>

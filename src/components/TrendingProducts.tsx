@@ -10,21 +10,21 @@ const features = [
     title: 'Market Gap Finder',
     image: '/images/marketfinder.webp',
     description:
-      'AI reads millions of competitor reviews across Amazon, Trustpilot and Google — then ranks the unmet needs customers keep asking for.',
+      'AI reads millions of competitor reviews across Amazon, Trustpilot and Google - then ranks the unmet needs customers keep asking for.',
   },  
   {
     id: 'Competitor Intelligence',
     title: 'Competitor Intelligence',
     image: '/images/competitoro.webp',
     description:
-      'Track product launches, pricing changes, creator partnerships and SKU additions in real time — across every channel they sell on.',
+      'Track product launches, pricing changes, creator partnerships and SKU additions in real time - across every channel they sell on.',
   },
   {
     id: 'Traffic Intelligence',
     title: 'Traffic Intelligence',
     image: '/images/Traffic.webp',
     description:
-      'See where competitor traffic actually comes from. Paid, organic, social, referral — updated weekly.',
+      'See where competitor traffic actually comes from. Paid, organic, social, referral - updated weekly.',
   },
   {
     id: 'GEO Intelligence',
@@ -56,7 +56,7 @@ export default function HypeScoreSection() {
 
           <p className="text-slate-500 text-[14px] sm:text-[15px] leading-relaxed max-w-md mb-6 md:mb-8">
             Track competitors, find market gaps, discover untapped countries,
-            and understand where traffic is really coming from — all from one place.
+            and understand where traffic is really coming from - all from one place.
           </p>
 
           {/* FEATURE LIST – staggered scroll reveal */}

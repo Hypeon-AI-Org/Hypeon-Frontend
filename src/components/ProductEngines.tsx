@@ -7,7 +7,7 @@ import Section, { Cell } from './Section';
 import { MarqueeVideo } from './MediaCarousel';
 
 /* ============================================================
-   The two HypeOn "engines" — Ad Intelligence + Studio.
+   The two HypeOn "engines" - Ad Intelligence + Studio.
    Reference layout (marketer/ember): a 2-col grid that
    alternates visual ⇄ text down two rows, each engine framed
    by the page's hairline grid. Reuses existing /public assets.
@@ -73,7 +73,7 @@ const STUDIO: Engine = {
   body: (
     <>
       HypeOn Studio turns that intelligence into scroll-stopping static, video and UGC
-      creatives in seconds — not weeks. Sharper briefs, fewer review rounds, on-brand
+      creatives in seconds - not weeks. Sharper briefs, fewer review rounds, on-brand
       every time, and visuals engineered to actually perform.
     </>
   ),
@@ -118,7 +118,7 @@ function EngineText({ e, className = '' }: { e: Engine; className?: string }) {
 export default function ProductEngines() {
   return (
     <Section cols={2}>
-      {/* Row 1 — Intelligence: visual left, text right */}
+      {/* Row 1 - Intelligence: visual left, text right */}
       <Cell bleed className="relative flex min-h-[360px] items-center justify-center overflow-hidden !border-b-0 bg-neutral-100 p-6 sm:p-10 lg:min-h-[460px]">
         <motion.div {...reveal} className="relative w-full max-w-[600px]">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-[0_18px_40px_-20px_rgba(15,23,42,0.10)]">
@@ -128,7 +128,7 @@ export default function ProductEngines() {
       </Cell>
       <EngineText e={INTELLIGENCE} />
 
-      {/* Row 2 — Studio: text left, visual right on desktop.
+      {/* Row 2 - Studio: text left, visual right on desktop.
           Video is FIRST in the DOM so it stacks ABOVE the text on mobile;
           md:order restores text-left / video-right once the grid is 2-col. */}
       <Cell bleed className="relative flex min-h-[360px] items-center justify-center overflow-hidden bg-neutral-100 p-6 sm:p-10 md:order-2 lg:min-h-[460px]">

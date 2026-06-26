@@ -105,7 +105,7 @@ const TOP_ADS: AdItem[] = [
     date: 'Apr 24, 2026',
     duration: '9 days',
     productName: 'Air Max Plus',
-    description: 'Bold lines, all-day cushioning, unmistakably icon — the Air Max Plus is back.',
+    description: 'Bold lines, all-day cushioning, unmistakably icon - the Air Max Plus is back.',
     reach: '12.3K',
     spend: '€388',
     ageRange: '18-34',
@@ -119,7 +119,7 @@ const TOP_ADS: AdItem[] = [
     date: 'Apr 25, 2026',
     duration: '8 days',
     productName: 'SB Force 58',
-    description: 'Built for skate, dressed for the streets — low-pro support meets street style.',
+    description: 'Built for skate, dressed for the streets - low-pro support meets street style.',
     reach: '9.8K',
     spend: '€311',
     ageRange: '18-34',
@@ -297,7 +297,7 @@ function CountUpStat({
   );
 }
 
-// One creative card in the fanned arc — travels continuously ALONG the arc
+// One creative card in the fanned arc - travels continuously ALONG the arc
 // (driven by a shared `flow` value, so positions update off the React render).
 function ArcCard({
   item,
@@ -340,7 +340,7 @@ function ArcCard({
   const edge = 0.045;                                // only the extreme ends fade; gradient masks hide the seam
   // how far INTO the arc a card is: 0 right at the seam, 1 once fully settled
   const settle = (v: number) => Math.max(0, Math.min(1, Math.min(frac(v), 1 - frac(v)) / edge));
-  // ends sit a touch smaller; no big pop — they just fade in/out at the same size
+  // ends sit a touch smaller; no big pop - they just fade in/out at the same size
   const scale = useTransform(flow, (v) => 1 - Math.abs(u(v)) * SCALE_DROP);
   const zIndex = useTransform(flow, (v) => Math.round(40 - Math.abs(u(v)) * 30));
   const opacity = useTransform(flow, (v) => {
@@ -359,7 +359,7 @@ function ArcCard({
     const apply = (vf: number) => {
       const should = active && Math.abs(u(vf)) < PLAY_BAND && settle(vf) > 0.05;
       // guarded setState: React bails when the value is unchanged, so this only
-      // fires twice per card per loop (entering / leaving the band) — no render storm.
+      // fires twice per card per loop (entering / leaving the band) - no render storm.
       setDecode((prev) => (prev === should ? prev : should));
     };
     apply(flow.get());
@@ -382,7 +382,7 @@ function ArcCard({
         transformOrigin: 'bottom center',
       }}
     >
-      {/* Base layer — static poster, always painted, zero decode cost */}
+      {/* Base layer - static poster, always painted, zero decode cost */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={item.poster ?? item.src}
@@ -391,7 +391,7 @@ function ArcCard({
         decoding="async"
         className="block w-full aspect-[9/16] rounded-[6px] object-cover"
       />
-      {/* Video overlay — mounted only while this card sits in the central band */}
+      {/* Video overlay - mounted only while this card sits in the central band */}
       {item.video && decode && (
         <video
           src={item.src}
@@ -613,7 +613,7 @@ export default function Hero() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduce]);
 
-  // Fanned arc of real ad creatives — fewer clips keeps decode + compositing light.
+  // Fanned arc of real ad creatives - fewer clips keeps decode + compositing light.
   // Each card carries a poster (static first frame) so it paints instantly with no
   // decode-on-load, and only the central cards ever play the actual video.
   const posterFor = (src: string) => {
@@ -647,11 +647,11 @@ export default function Hero() {
     '/carousel/8fb3c5a47348d3aa.mp4',
     '/carousel/a3b3be8e2817097f.mp4',
     '/carousel/b22cdc25095d2d23.mp4',
-    // Arc renders static poster frames only — these tiny, constantly-moving cards
+    // Arc renders static poster frames only - these tiny, constantly-moving cards
     // gain nothing from live video, but decoding ~20 MP4s froze load + scroll.
   ].map((src) => ({ src, poster: posterFor(src), video: false }));
 
-  // Continuous flow that carries the cards along the arc — only runs while the hero
+  // Continuous flow that carries the cards along the arc - only runs while the hero
   // is actually on-screen, so scrolling past costs nothing (no per-frame work).
   const flow = useMotionValue(0);
   const arcWrapRef = useRef<HTMLDivElement>(null);
@@ -687,7 +687,7 @@ export default function Hero() {
               animate={reduce ? undefined : 'show'}
             >
 
-              {/* Eyebrow — real, verifiable metric (not a fake "trusted by") */}
+              {/* Eyebrow - real, verifiable metric (not a fake "trusted by") */}
               <motion.div variants={reduce ? undefined : heroChildVariants} className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                 <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white flex-shrink-0">
                   <Activity className="w-3 h-3" />
@@ -711,10 +711,10 @@ export default function Hero() {
                 className="max-w-[620px] mx-auto mt-6 text-base sm:text-lg text-slate-600 leading-relaxed"
               >
                 Spy on any brand&apos;s ads, find what&apos;s working, and create your own
-                launch-ready static, video &amp; UGC ads — all in one place.
+                launch-ready static, video &amp; UGC ads - all in one place.
               </motion.p>
 
-              {/* Search bar — auto-types example queries; the arrow is the CTA into the app */}
+              {/* Search bar - auto-types example queries; the arrow is the CTA into the app */}
               <motion.div variants={reduce ? undefined : heroChildVariants} className="w-full max-w-2xl mx-auto mt-8 sm:mt-10">
                 <form
                   onSubmit={(e) => {
@@ -754,7 +754,7 @@ export default function Hero() {
 
       </div>
 
-      {/* Creative arc — fanned wall of real ad creatives flowing along the curve.
+      {/* Creative arc - fanned wall of real ad creatives flowing along the curve.
           Pulled OUT of the max-w-7xl wrapper so it spans the full Cell width with no
           left/right gap. Cards are sized in % of the container, so spacing and card
           size scale together → the arc never breaks apart on zoom / resize. */}
@@ -768,7 +768,7 @@ export default function Hero() {
               <ArcCard key={i} item={item} i={i} n={cards.length} reduce={reduce} flow={flow} active={arcActive} isMobile={isMobile} />
             ));
           })()}
-          {/* Edge fades — soft gradient masks so cards melt into the background at the left/right edges instead of cutting off hard */}
+          {/* Edge fades - soft gradient masks so cards melt into the background at the left/right edges instead of cutting off hard */}
           <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-40 w-24 sm:w-40 lg:w-56 bg-gradient-to-r from-[var(--grid-bg)] to-transparent" />
           <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-40 w-24 sm:w-40 lg:w-56 bg-gradient-to-l from-[var(--grid-bg)] to-transparent" />
         </div>
@@ -776,7 +776,7 @@ export default function Hero() {
 
       </Cell>
 
-      {/* Trusted-by strip — grid-free, clean band under the hero */}
+      {/* Trusted-by strip - grid-free, clean band under the hero */}
       <Cell className="reveal !border-transparent pt-4 pb-7 sm:pt-4 sm:pb-9 sm:-mt-8 lg:-mt-16">
         <p className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4 sm:mb-6 text-center px-2">
           Trusted by founders scaling on

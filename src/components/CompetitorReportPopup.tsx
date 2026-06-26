@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Globe, Mail, Loader2, ArrowRight, X, Sparkles } from 'lucide-react';
 
@@ -28,11 +29,16 @@ export default function CompetitorReportPopup() {
   const [errorMessage, setErrorMessage] = useState('');
   const reduceMotion = useReducedMotion();
   const closedRef = useRef(false);
+  const pathname = usePathname();
+  // Only ever show on the home page. (Renders from the root layout, so without
+  // this it would pop on every route.)
+  const isHome = pathname === '/';
 
   // Open after the user has decided cookie consent (or already had a saved decision).
-  // Shows every page load — no "seen" memory.
+  // Shows on every home-page load / refresh - no "seen" memory.
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!isHome) return;
 
     let timeoutId: number | undefined;
 
@@ -55,19 +61,30 @@ export default function CompetitorReportPopup() {
       window.removeEventListener('hypeon:cookie-consent', onConsent);
       if (timeoutId) window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [isHome]);
 
-  // Body scroll lock + ESC to close.
+  // If the user navigates off the home page (client-side) while it's open, hide it.
+  useEffect(() => {
+    if (!isHome) setOpen(false);
+  }, [isHome]);
+
+  // Body scroll lock + ESC to close. Compensate for the vanishing scrollbar with
+  // matching padding so the page doesn't jump sideways while the popup animates in
+  // (that horizontal lurch is what reads as "not smooth").
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
+    const prevPadding = document.body.style.paddingRight;
+    const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    if (scrollbarW > 0) document.body.style.paddingRight = `${scrollbarW}px`;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closePopup();
     };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prevOverflow;
+      document.body.style.paddingRight = prevPadding;
       window.removeEventListener('keydown', onKey);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,14 +151,16 @@ export default function CompetitorReportPopup() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
           />
 
           <motion.div
             className="relative w-full max-w-md sm:max-w-lg"
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ willChange: 'transform, opacity', transformOrigin: 'center bottom' }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+            transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
           >
             <div
               className="absolute -inset-[1px] rounded-[1.15rem] bg-gradient-to-br from-emerald-500/25 via-slate-300/20 to-violet-500/20 opacity-80 blur-[2px]"
@@ -175,7 +194,7 @@ export default function CompetitorReportPopup() {
                 in minutes
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-neutral-600 sm:text-[15px]">
-                Paste a competitor website and we&apos;ll email a shareable deck — real ad data,
+                Paste a competitor website and we&apos;ll email a shareable deck - real ad data,
                 creative angles, and timelines.
               </p>
 
@@ -278,7 +297,7 @@ export default function CompetitorReportPopup() {
                 >
                   {submitState === 'success' && (
                     <span className="font-medium text-[#696863]">
-                      Check your inbox — we&apos;ve sent your report details.
+                      Check your inbox - we&apos;ve sent your report details.
                     </span>
                   )}
                   {submitState === 'error' && errorMessage && (

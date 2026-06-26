@@ -17,7 +17,7 @@ const features = [
   {
     icon: TrendingUp, // Better for "margin" and "opportunities"
     title: "DTC Brand Owner",
-    description: "Spending on paid ads and fighting for margin. You need to know what to sell next and where the real opportunities are — before your competitors do."
+    description: "Spending on paid ads and fighting for margin. You need to know what to sell next and where the real opportunities are - before your competitors do."
   },
   {
     icon: ShoppingCart, // More specific to the "Amazon/Retail" vibe
@@ -27,7 +27,7 @@ const features = [
   {
     icon: Globe, // Represents "Everywhere" and "Multi-channel"
     title: "Multi-Channel Brand",
-    description: "Selling everywhere, clarity nowhere. Intelligence that works across your own site, Amazon, TikTok Shop and marketplaces — in one place."
+    description: "Selling everywhere, clarity nowhere. Intelligence that works across your own site, Amazon, TikTok Shop and marketplaces - in one place."
   },
   {
     icon: Rocket, // Standard for "Growth-Stage" and "Scale"
@@ -37,12 +37,12 @@ const features = [
   {
     icon: Zap, // Represents "Sharp/Resourceful" and "Fast" action
     title: "Bootstrapped Founder",
-    description: "Sharp, resourceful, allergic to wasting money. Get the intelligence that used to require a six-person research team — without the six-person budget."
+    description: "Sharp, resourceful, allergic to wasting money. Get the intelligence that used to require a six-person research team - without the six-person budget."
   },
   {
     icon: BarChart3, // Represents "Data/Reporting" for clients
     title: "Marketing Agency",
-    description: "Managing multiple brands and need trend data that's actually current. Give every client a competitive edge — and prove your value with signals they can't find anywhere else."
+    description: "Managing multiple brands and need trend data that's actually current. Give every client a competitive edge - and prove your value with signals they can't find anywhere else."
   }
 ];
 // Animation Variants
@@ -58,7 +58,7 @@ const itemVariants = {
 export default function FeatureGrid() {
   return (
     <Section cols={3}>
-      {/* Header — full width, hairline below separates it from the card grid */}
+      {/* Header - full width, hairline below separates it from the card grid */}
       <Cell className="md:col-span-3 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -71,12 +71,12 @@ export default function FeatureGrid() {
           </h2>
 
           <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">
-            Whether you're on your own site, Amazon, TikTok Shop, or all three — HypeOn Intelligence works the way your business works.
+            Whether you're on your own site, Amazon, TikTok Shop, or all three - HypeOn Intelligence works the way your business works.
           </p>
         </motion.div>
       </Cell>
 
-      {/* Feature cards — each its own Cell so hairlines divide the grid */}
+      {/* Feature cards - each its own Cell so hairlines divide the grid */}
       {features.map((feature, index) => {
         const Icon = feature.icon;
         return (
