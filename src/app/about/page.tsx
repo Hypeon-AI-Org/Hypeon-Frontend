@@ -5,7 +5,6 @@ import AboutDataSources from "../../components/AboutDataSources";
 import AboutVision from "../../components/AboutVision";
 import AboutCTA from "../../components/AboutCTA";
 import AboutDecisionLayer from "../../components/AboutDecisionLayer";
-import AboutWhatWeDo from "../../components/AboutWhatWeDo";
 import AboutCoreLayers from "../../components/AboutCoreLayers";
 import AboutImpact from "../../components/AboutImpact";
 import GrowthTimeline from "../../components/GrowthTimeline";
@@ -23,7 +22,6 @@ export default function AboutPage() {
       <AboutIntro />
       <AboutDecisionLayer />
       <AboutStory />
-      <AboutWhatWeDo />
       <AboutCoreLayers />
       <AboutDataSources />
       <AboutVision />

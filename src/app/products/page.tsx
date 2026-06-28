@@ -10,7 +10,6 @@ import HighValueKeywords from "../../components/HighValueKeywords";
 import WinningAdCreatives from "../../components/WinningAdCreatives";
 import PrecisionScaleBento from "../../components/PrecisionScaleBento";
 import CopilotSection from "../../components/CopilotSection";
-import HypeOnAnalytics from "../../components/HypeOnAnalytics";
 import MarketingDecisioning from "../../components/MarketingDecisioning";
 import TechnologySection from "../../components/techonoly";
 
@@ -31,7 +30,6 @@ export default function ProductsPage() {
         <TechnologySection />
         <PrecisionScaleBento />
         <MarketingDecisioning />
-        <HypeOnAnalytics />
       </main>
 
       <Footer />
