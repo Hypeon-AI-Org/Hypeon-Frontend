@@ -76,7 +76,7 @@ export default function AdsShowcase() {
 
                 {/* magenta CTA pill - below the cluster */}
                 <motion.a
-                    href="https://app.hypeon.ai/hub/login"
+                    href="https://calendly.com/yash-hypeon/30min"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}

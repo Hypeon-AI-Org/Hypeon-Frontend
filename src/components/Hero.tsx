@@ -719,7 +719,7 @@ export default function Hero() {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    window.location.href = 'https://app.hypeon.ai/login';
+                    window.location.href = 'https://calendly.com/yash-hypeon/30min';
                   }}
                   className="group flex items-center gap-3 rounded-full border border-slate-200 bg-white/80 backdrop-blur px-5 py-3.5 sm:px-6 sm:py-4 shadow-sm transition-shadow hover:shadow-md focus-within:shadow-md"
                 >

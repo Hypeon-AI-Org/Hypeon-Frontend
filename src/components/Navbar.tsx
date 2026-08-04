@@ -187,14 +187,7 @@ function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center shrink-0 gap-3 md:gap-4 lg:gap-5 pr-1">
             <a
-              href="https://app.hypeon.ai/login"
-              className={`text-sm md:text-base font-semibold hover:opacity-70 transition-opacity cursor-pointer whitespace-nowrap ${isDark ? "text-white" : "text-black"}`}
-            >
-              Login
-            </a>
-
-            <a
-              href="https://app.hypeon.ai/hub/login"
+              href="https://calendly.com/yash-hypeon/30min"
               className={`inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white transition-colors cursor-pointer whitespace-nowrap ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/80"}`}
             >
               Get the demo
@@ -320,13 +313,7 @@ function Navbar() {
 
             <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
               <a
-                href="https://app.hypeon.ai/login"
-                className={`flex min-h-[48px] flex-1 items-center justify-center rounded-full border px-4 text-[15px] font-semibold shadow-sm transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "border-white/15 bg-white/5 text-white hover:bg-white/10 hover:border-white/25" : "border-slate-300 bg-white text-slate-900 hover:bg-slate-50 hover:border-slate-400"}`}
-              >
-                Log in
-              </a>
-              <a
-                href="https://app.hypeon.ai/hub/login"
+                href="https://calendly.com/yash-hypeon/30min"
                 className={`flex min-h-[48px] flex-1 items-center justify-center rounded-full px-4 text-[15px] font-bold text-white shadow-md transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/90"}`}
               >
                 Get the demo

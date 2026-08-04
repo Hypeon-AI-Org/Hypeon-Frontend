@@ -39,7 +39,7 @@ export default function StartToday() {
           className="mt-7 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3"
         >
           <Link
-            href="https://app.hypeon.ai/hub/login"
+            href="https://calendly.com/yash-hypeon/30min"
             className="px-6 py-3 rounded-lg bg-black text-white font-semibold text-sm hover:bg-black/95 transition-colors shadow-md"
           >
             Get the demo

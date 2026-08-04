@@ -33,7 +33,7 @@ const Hero = () => {
             ))}
           </div>
 
-          <a href="https://app.hypeon.ai/hub/login" className="bg-[#f0abfc] hover:bg-[#e879f9] text-black px-8 py-4 rounded-sm font-bold flex items-center gap-2 transition-all mb-12 w-fit">
+          <a href="https://calendly.com/yash-hypeon/30min" className="bg-[#f0abfc] hover:bg-[#e879f9] text-black px-8 py-4 rounded-sm font-bold flex items-center gap-2 transition-all mb-12 w-fit">
             Get a demo <ArrowRight size={20} />
           </a>
 

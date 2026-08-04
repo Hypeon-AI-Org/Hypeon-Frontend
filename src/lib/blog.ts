@@ -54,7 +54,7 @@ export interface BlogPost {
   faq: FaqItem[];
 }
 
-const DEMO_HREF = "https://app.hypeon.ai/hub/login";
+const DEMO_HREF = "https://calendly.com/yash-hypeon/30min";
 
 type PostMeta = Omit<BlogPost, "blocks" | "faq"> & { content: PostContent };
 

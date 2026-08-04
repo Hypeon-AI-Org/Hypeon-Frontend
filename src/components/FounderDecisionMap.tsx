@@ -5029,7 +5029,7 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
           </p>
 
           <a
-            href="https://app.hypeon.ai/hub/login"
+            href="https://calendly.com/yash-hypeon/30min"
             className="mt-6 inline-flex min-h-[44px] w-fit items-center justify-center rounded-full bg-black px-5 py-2.5 font-medium text-white transition-colors hover:bg-neutral-800 sm:mt-8"
           >
             Get the demo

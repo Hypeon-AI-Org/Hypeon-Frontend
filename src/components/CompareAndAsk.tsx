@@ -59,7 +59,7 @@ export function TabHoppingSection() {
                             reach, and daily creative change tracking, all in one view.
                         </p>
                         <a
-                            href="https://app.hypeon.ai/hub/login"
+                            href="https://calendly.com/yash-hypeon/30min"
                             className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#1B1C3A] transition-colors hover:bg-white/90"
                         >
                             Start 3-day trial <ArrowRight className="h-4 w-4" />
@@ -180,13 +180,13 @@ export function AskCopilotSection() {
                         </p>
                         <div className="mt-7 flex flex-wrap gap-3">
                             <a
-                                href="https://app.hypeon.ai/hub/login"
+                                href="https://calendly.com/yash-hypeon/30min"
                                 className="inline-flex items-center gap-2 rounded-full bg-[#1B1C3A] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1B1C3A]/90"
                             >
                                 Start 3-day trial <ArrowRight className="h-4 w-4" />
                             </a>
                             <a
-                                href="https://app.hypeon.ai/hub/login"
+                                href="https://calendly.com/yash-hypeon/30min"
                                 className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-[#1B1C3A] transition-colors hover:bg-slate-50"
                             >
                                 See Copilot in action

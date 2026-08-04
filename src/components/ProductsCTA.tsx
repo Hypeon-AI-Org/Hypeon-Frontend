@@ -8,7 +8,7 @@ export default function ProductsCTA() {
       </h2>
 
       <Link
-        href="https://app.hypeon.ai/hub/login"
+        href="https://calendly.com/yash-hypeon/30min"
         className="inline-block mt-6 rounded-xl bg-white px-6 py-3 text-black text-sm font-medium reveal"
       >
         Get the demo

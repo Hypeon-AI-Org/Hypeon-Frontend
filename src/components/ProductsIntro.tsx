@@ -25,7 +25,7 @@ export default function TrendalyticsSection() {
           <p className="text-base text-gray-500 max-w-xl mx-auto mb-6">
             Access 200M ads with share of voice, reach, creative and estimated spend data.
           </p>
-          <a href="https://app.hypeon.ai/hub/login" className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-full text-[14px] inline-block">
+          <a href="https://calendly.com/yash-hypeon/30min" className="bg-[#1a1a1a] text-white px-6 py-2.5 rounded-full text-[14px] inline-block">
             Get the demo
           </a>
         </motion.div>

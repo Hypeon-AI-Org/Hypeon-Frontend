@@ -279,7 +279,7 @@ function StudioHero() {
                 {/* CTAs below the box */}
                 <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                     <a
-                        href="https://app.hypeon.ai/hub/login"
+                        href="https://calendly.com/yash-hypeon/30min"
                         className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#E66245] py-2 pl-2 pr-5 text-[14px] font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"
                     >
                         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/25">
@@ -360,7 +360,7 @@ function StudioScoreboard() {
                         </div>
                         <p className="mt-4 text-sm leading-relaxed text-white/50">
                             We pull logo, palette, fonts and tone - then write the prompt for you.{" "}
-                            <a href="https://app.hypeon.ai/hub/login" className="font-semibold text-white hover:underline">Get started →</a>
+                            <a href="https://calendly.com/yash-hypeon/30min" className="font-semibold text-white hover:underline">Get started →</a>
                         </p>
                     </motion.div>
 
@@ -596,7 +596,7 @@ function StudioProduction() {
                         </p>
                         <div className="mt-8 flex flex-wrap items-center gap-3">
                             <a
-                                href="https://app.hypeon.ai/hub/login"
+                                href="https://calendly.com/yash-hypeon/30min"
                                 className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E66245] px-6 text-sm font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"
                             >
                                 Start a brief
@@ -845,7 +845,7 @@ function StudioProcess() {
                         })}
 
                         <a
-                            href="https://app.hypeon.ai/hub/login"
+                            href="https://calendly.com/yash-hypeon/30min"
                             className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#0e1422] py-2 pl-6 pr-2 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-[#141c30]"
                         >
                             Start a brief
