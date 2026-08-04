@@ -645,7 +645,7 @@ export default function Hero() {
     '/carousel/832a4ff8861195cd.mp4',
     '/carousel/8933fd906cc15adb.mp4',
     '/carousel/8fb3c5a47348d3aa.mp4',
-    '/carousel/a3b3be8e2817097f.mp4',
+    '/carousel/452d34244c08eaee.mp4',
     '/carousel/b22cdc25095d2d23.mp4',
     // Arc renders static poster frames only - these tiny, constantly-moving cards
     // gain nothing from live video, but decoding ~20 MP4s froze load + scroll.
