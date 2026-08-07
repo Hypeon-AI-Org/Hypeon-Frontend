@@ -38,7 +38,7 @@ const columns = [
 
 export default function TeamsAchieve() {
   return (
-    <section className="relative bg-[oklch(0.988_0.0041_91.45)] py-10 sm:py-12 lg:py-16 font-sans text-black">
+    <section className="relative bg-[#ffffff] py-10 sm:py-12 lg:py-16 font-sans text-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           {...reveal}
@@ -52,7 +52,7 @@ export default function TeamsAchieve() {
         <motion.div
           {...reveal}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-          className="rounded-2xl bg-[oklch(0.988_0.0041_91.45)] border border-neutral-200 overflow-hidden"
+          className="rounded-2xl bg-[#ffffff] border border-neutral-200 overflow-hidden"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {columns.map(({ icon: Icon, title, description }) => (

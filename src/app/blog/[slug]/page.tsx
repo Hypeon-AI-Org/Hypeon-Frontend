@@ -48,7 +48,7 @@ export default async function BlogPostPage({
   const blocks = post.blocks.filter((b) => b.type !== "image");
 
   return (
-    <div className="flex min-h-screen flex-col bg-[oklch(0.988_0.0041_91.45)]">
+    <div className="flex min-h-screen flex-col bg-[#ffffff]">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-24 sm:pt-28">

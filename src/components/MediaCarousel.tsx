@@ -207,7 +207,7 @@ function LightboxVideo({ src, scrolling }: { src: string; scrolling: boolean }) 
 
 export default function MediaCarousel({ theme = "dark" }: { theme?: "dark" | "light" }) {
     const isLight = theme === "light";
-    const bg = isLight ? "oklch(0.988 0.0041 91.45)" : "#050505";
+    const bg = isLight ? "#ffffff" : "#050505";
     // duplicate the set so translating by -50% loops seamlessly
     const row = [...MEDIA, ...MEDIA];
     const [active, setActive] = useState<number | null>(null);

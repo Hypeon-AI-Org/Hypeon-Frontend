@@ -48,7 +48,7 @@ export default function Products() {
   }, []);
 
   return (
-    <section className="relative min-h-0 lg:min-h-[650px] max-lg:mt-10 lg:mt-0 pt-20 sm:pt-24 md:pt-28 lg:pt-[90px] pb-10 sm:pb-12 md:pb-16 lg:pb-[70px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans flex items-center">
+    <section className="relative min-h-0 lg:min-h-[650px] max-lg:mt-10 lg:mt-0 pt-20 sm:pt-24 md:pt-28 lg:pt-[90px] pb-10 sm:pb-12 md:pb-16 lg:pb-[70px] overflow-hidden bg-[#ffffff] font-sans flex items-center">
 
       {/* Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-0">

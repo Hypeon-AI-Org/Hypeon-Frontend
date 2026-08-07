@@ -26,7 +26,7 @@ const MetricsSection = () => {
   ];
 
   return (
-    <section className=" bg-oklch(0.988_0.0041_91.45) py-14 px-6 font-sans">
+    <section className=" bg-#ffffff py-14 px-6 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">

@@ -2,7 +2,7 @@ import React from 'react';
 
 const CTASection = () => {
     return (
-        <section className="relative overflow-hidden bg-[oklch(0.988_0.0041_91.45)] py-16 px-6 font-sans">
+        <section className="relative overflow-hidden bg-[#ffffff] py-16 px-6 font-sans">
             {/* Subtle background glow to match your theme */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-10 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent blur-3xl" />

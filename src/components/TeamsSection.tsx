@@ -50,7 +50,7 @@ const TeamsSection = () => {
 
 
   return (
-    <section className="py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden font-sans">
+    <section className="py-16 bg-[#ffffff] overflow-hidden font-sans">
       <div className="max-w-[1100px] mx-auto px-6 sm:px-12">
 
         {/* Header */}

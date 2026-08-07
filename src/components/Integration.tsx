@@ -22,7 +22,7 @@ const INTEGRATION_ITEMS = [
 const Integrations = () => {
 
   return (
-    <section id="integrations" className="py-16 bg-[oklch(0.988_0.0041_91.45)] border-t border-gray-100 font-sans">
+    <section id="integrations" className="py-16 bg-[#ffffff] border-t border-gray-100 font-sans">
       <div className="max-w-[1100px] mx-auto px-6 sm:px-12">
 
         {/* Top Label & Line */}

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function SecuritySection() {
     return (
-        <section className="bg-[oklch(0.988_0.0041_91.45)] py-16 px-6 font-sans">
+        <section className="bg-[#ffffff] py-16 px-6 font-sans">
             <div className="max-w-4xl mx-auto text-center">
 
                 {/* Badges Image */}

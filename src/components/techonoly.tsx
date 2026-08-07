@@ -52,7 +52,7 @@ const TechnologySection = () => {
 
       {/* RIGHT PANEL – big decorative rounded card, framed by a bleed cell */}
       <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
-        <div className="w-full border border-black rounded-[16px] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
+        <div className="w-full border border-black rounded-[16px] overflow-hidden bg-[#ffffff] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
 
           {/* TAB GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2">

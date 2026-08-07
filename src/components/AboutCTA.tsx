@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export default function StartToday() {
   return (
-    <section className="font-sans relative py-10 sm:py-12 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden ">
+    <section className="font-sans relative py-10 sm:py-12 bg-[#ffffff] overflow-hidden ">
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 

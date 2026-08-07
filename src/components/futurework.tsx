@@ -21,7 +21,7 @@ export default function FunnelAILandingPage() {
         <title>The future of attribution is conversational</title>
       </Head>
 
-      <div className="min-h-screen bg-[oklch(0.988_0.0041_91.45)] font-sans antialiased text-center">
+      <div className="min-h-screen bg-[#ffffff] font-sans antialiased text-center">
         {/* Main Content Container - centered with padding */}
         <main className="max-w-6xl mx-auto px-4 py-12 md:py-16">
 

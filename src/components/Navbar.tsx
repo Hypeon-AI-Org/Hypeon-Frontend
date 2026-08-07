@@ -92,7 +92,7 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? `h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full border ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[oklch(0.988_0.0041_91.45)] border-slate-200"}`
+              ? `h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full border ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[#ffffff] border-slate-200"}`
               : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] pl-0 pr-1 sm:pr-5 md:pr-6 lg:px-6 bg-transparent border-transparent shadow-none"
             }
   `}
@@ -142,7 +142,7 @@ function Navbar() {
                   z-50
                 "
               >
-                <div className={`rounded-3xl border shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3 ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[oklch(0.988_0.0041_91.45)] border-slate-100"}`}>
+                <div className={`rounded-3xl border shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-3 mt-3 ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[#ffffff] border-slate-100"}`}>
                   <div className="flex gap-3 h-[220px] hover:h-[400px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
 
                     <MegaItem
@@ -212,7 +212,7 @@ function Navbar() {
 
       {/* MOBILE: dim + panel (< md) */}
       <div
-        className={`md:hidden fixed inset-0 z-[42] transition-opacity duration-300 ease-out ${isDark ? "bg-[#150f0d]" : "bg-[oklch(0.988_0.0041_91.45)]"} ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`md:hidden fixed inset-0 z-[42] transition-opacity duration-300 ease-out ${isDark ? "bg-[#150f0d]" : "bg-[#ffffff]"} ${mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
         aria-hidden
         onClick={closeMobile}
       />
@@ -234,7 +234,7 @@ function Navbar() {
           className={`
             flex w-full max-h-[min(85dvh,calc(100dvh-5.5rem))] flex-col overflow-hidden rounded-[1.25rem] border shadow-[0_20px_50px_rgba(15,23,42,0.08)]
             transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-            ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[oklch(0.988_0.0041_91.45)]"}
+            ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[#ffffff]"}
             ${mobileMenuOpen ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-[0.98] opacity-0"}
           `}
         >
@@ -271,7 +271,7 @@ function Navbar() {
                 className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${mobileDropdown === "products" ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
               >
                 <div className="min-h-0 overflow-hidden">
-                  <div className={`space-y-1 border-t px-2 pb-2 pt-2 ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[oklch(0.988_0.0041_91.45)]"}`}>
+                  <div className={`space-y-1 border-t px-2 pb-2 pt-2 ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[#ffffff]"}`}>
                     <MobileProductLink
                       dark={isDark}
                       icon={<Sparkles className="h-[18px] w-[18px]" />}
@@ -370,7 +370,7 @@ function MegaItem({
         overflow-hidden
         ${dark
           ? 'border-white/10 bg-[#1c1512] hover:border-white/20 hover:bg-white/[0.06]'
-          : 'border-slate-100/80 bg-[oklch(0.988_0.0041_91.45)] hover:border-slate-300/60 hover:bg-slate-50/50'}
+          : 'border-slate-100/80 bg-[#ffffff] hover:border-slate-300/60 hover:bg-slate-50/50'}
         ${isActive ? (dark ? 'min-w-[60%] ring-1 ring-white/15 shadow-md' : 'min-w-[60%] ring-1 ring-slate-200 shadow-md') : ''}
         ${isInactive ? 'opacity-40 hover:opacity-100' : ''}
       `}

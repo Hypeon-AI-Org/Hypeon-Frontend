@@ -68,7 +68,7 @@ const features = [
 
 export default function ComparisonBlackWhite() {
   return (
-    <section className="relative py-10 sm:py-12 lg:py-16 bg-[oklch(0.988_0.0041_91.45)] overflow-hidden  ">
+    <section className="relative py-10 sm:py-12 lg:py-16 bg-[#ffffff] overflow-hidden  ">
 
       <div className="max-w-6xl mx-auto px-6  ">
 

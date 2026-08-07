@@ -40,7 +40,7 @@ export default function HypeScoreSection() {
   const activeFeature = features.find((f) => f.id === activeId) ?? features[0];
 
   return (
-    <section className="py-10 sm:py-12 md:py-14 bg-[oklch(0.988_0.0041_91.45)] font-sans text-black">
+    <section className="py-10 sm:py-12 md:py-14 bg-[#ffffff] font-sans text-black">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-[1fr_420px] gap-8 md:gap-10 lg:gap-12 items-start">
 
         {/* LEFT CONTENT – scroll reveal */}

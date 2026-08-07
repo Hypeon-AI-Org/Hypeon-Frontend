@@ -18,7 +18,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="relative mx-auto max-w-6xl rounded-t-[1.6rem] border border-b-0 border-slate-200 bg-[oklch(0.988_0.0041_91.45)] px-2.5 pb-0 pt-2.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.25)] sm:px-3 sm:pt-3"
+                className="relative mx-auto max-w-6xl rounded-t-[1.6rem] border border-b-0 border-slate-200 bg-[#ffffff] px-2.5 pb-0 pt-2.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.25)] sm:px-3 sm:pt-3"
             >
                 {/* dashboard image - next/image serves AVIF/WebP + a sized srcset,
                     cutting the ~1.5MB PNG to a few hundred KB and lazy-loading it. */}

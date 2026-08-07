@@ -118,7 +118,7 @@ export default function EveryPlatformSignal() {
 
             {/* diagram cell - hairline separates it from the heading above */}
             <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
-                <div className="relative mx-auto aspect-[600/320] w-full max-w-3xl">
+                <div className="relative mx-auto aspect-[600/320] w-[86%] max-w-3xl">
                     {/* curved connectors + flowing signal dots */}
                     <svg viewBox="0 0 600 320" className="absolute inset-0 h-full w-full" aria-hidden>
                         {PATHS.map((d, i) => (

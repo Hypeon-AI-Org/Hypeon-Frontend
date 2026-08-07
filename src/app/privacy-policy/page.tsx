@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       <Navbar />
 
       <main className="flex-1 pt-24 pb-14">
-        <section className="max-w-4xl mx-auto px-6 py-16 bg-[oklch(0.988_0.0041_91.45)] text-slate-600 leading-relaxed">
+        <section className="max-w-4xl mx-auto px-6 py-16 bg-[#ffffff] text-slate-600 leading-relaxed">
           <h1 className="text-2xl font-semibold text-slate-900">
             Privacy <span className="text-[#696863]">Policy</span>
           </h1>

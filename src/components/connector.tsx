@@ -77,7 +77,7 @@ const FloatingCard = ({
 
 export default function Hero() {
   return (
-    <section className="relative min-h-0 sm:min-h-[75vh] overflow-hidden bg-[oklch(0.988_0.0041_91.45)] font-sans text-[#111] antialiased">
+    <section className="relative min-h-0 sm:min-h-[75vh] overflow-hidden bg-[#ffffff] font-sans text-[#111] antialiased">
       {/* Subtle grid background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
