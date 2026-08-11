@@ -196,7 +196,7 @@ function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center shrink-0 gap-3 md:gap-4 lg:gap-5 pr-1">
             <a
-              href="https://calendly.com/yash-hypeon/30min"
+              href="https://app.hypeon.ai/studio/login"
               className={`group relative inline-flex items-center justify-center overflow-hidden px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] cursor-pointer whitespace-nowrap ${isDark ? "bg-gradient-to-b from-[#f0805f] to-[#d6543a] hover:from-[#f28a6c] hover:to-[#e0603f]" : "bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] hover:from-[#333333] hover:to-[#141414]"}`}
             >
               <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
@@ -326,7 +326,7 @@ function Navbar() {
 
             <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
               <a
-                href="https://calendly.com/yash-hypeon/30min"
+                href="https://app.hypeon.ai/studio/login"
                 className={`relative flex min-h-[48px] flex-1 items-center justify-center overflow-hidden rounded-full px-4 text-[15px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "bg-gradient-to-b from-[#f0805f] to-[#d6543a] hover:from-[#f28a6c] hover:to-[#e0603f]" : "bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] hover:from-[#333333] hover:to-[#141414]"}`}
               >
                 <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />

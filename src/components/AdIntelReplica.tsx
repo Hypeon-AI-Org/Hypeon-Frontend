@@ -115,7 +115,7 @@ export default function AdIntelReplica() {
               className="mt-6 sm:mt-8 flex flex-col items-start gap-4 sm:gap-5"
             >
               <motion.a
-                href="https://calendly.com/yash-hypeon/30min"
+                href="https://app.hypeon.ai/studio/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex min-h-[44px] w-auto max-w-full items-center gap-2 self-start overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] py-1.5 pl-1.5 pr-5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/15 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0c] sm:gap-3 sm:py-2 sm:pl-2 sm:pr-7 sm:text-base"

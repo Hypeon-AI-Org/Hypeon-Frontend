@@ -9,6 +9,7 @@ import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
 import MediaCarousel, { MEDIA, MarqueeVideo } from "./MediaCarousel";
 import Section, { Cell } from "./Section";
+import { primeIOSVideo } from "@/lib/videoAutoplay";
 
 /* ============================================================
    Hypeon Studio - AI-powered ad creatives, curated by designers
@@ -279,7 +280,7 @@ function StudioHero() {
                 {/* CTAs below the box */}
                 <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                     <a
-                        href="https://calendly.com/yash-hypeon/30min"
+                        href="https://app.hypeon.ai/studio/login"
                         className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#E66245] py-2 pl-2 pr-5 text-[14px] font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"
                     >
                         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/25">
@@ -302,15 +303,15 @@ function StudioHero() {
 /* ---------------- Paste → Generate → Ship (light, site UI) ---------------- */
 
 const SCORE_CARDS = [
-    { label: "Hook Loop", badge: "92", tag: "WIN", tone: "win", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&auto=format&fit=crop&q=75" },
-    { label: "Urban Run", badge: "84", tag: "WIN", tone: "win", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&auto=format&fit=crop&q=75" },
-    { label: "Product Pour", badge: "71", tag: "HYPE SCORE", tone: "score", img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&auto=format&fit=crop&q=75" },
-    { label: "Founder POV", badge: "58", tag: "HYPE SCORE", tone: "muted", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500&auto=format&fit=crop&q=75" },
+    { label: "Hook Loop", badge: "", tag: "", tone: "", video: encodeURI("/ads/From Klickpin.com- 23 Minimal bridal shower decor ideas that can help you create a more curated classy and Pinterest-worthy result for busy people.mp4") },
+    { label: "Urban Run", badge: "", tag: "", tone: "", video: encodeURI("/ads/From Klickpin.com- Cultural street market scenes that feel fresh and shareable on a budget with postcard energy-pin-id-1099511696554881422.mp4") },
+    { label: "Product Pour", badge: "71", tag: "HYPE SCORE", tone: "score", video: encodeURI("/ads/From Klickpin.com- Discover Trending glowy skin routine tips that are trending right now across Pinterest boards for your next inspiration board-p.mp4") },
+    { label: "Founder POV", badge: "58", tag: "HYPE SCORE", tone: "muted", video: encodeURI("/ads/From Klickpin.com- Heartfelt love notes with charm and practical value for modern homes for romantic Pinterest boards-pin-id-1103593083716257463.mp4") },
 ] as const;
 
 const BADGE_TONE: Record<string, string> = {
-    win: "bg-[#E66245] text-white",
-    score: "bg-amber-500 text-white",
+    win: " text-white",
+    score: "bg-white/90  text-slate-700",
     muted: "bg-white/90 text-slate-700",
 };
 
@@ -327,7 +328,7 @@ function StudioScoreboard() {
                     className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
                 >
                     <div>
-                        <p className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-[#E66245]">
+                        <p className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
                             Paste <ArrowRight className="h-3 w-3" /> Generate <ArrowRight className="h-3 w-3" /> Ship
                         </p>
                         <h2 className="max-w-xl text-3xl font-bold leading-[1.02] tracking-tighter sm:text-5xl">
@@ -360,7 +361,7 @@ function StudioScoreboard() {
                         </div>
                         <p className="mt-4 text-sm leading-relaxed text-white/50">
                             We pull logo, palette, fonts and tone - then write the prompt for you.{" "}
-                            <a href="https://calendly.com/yash-hypeon/30min" className="font-semibold text-white hover:underline">Get started →</a>
+                            <a href="https://app.hypeon.ai/studio/login" className="font-semibold text-white hover:underline">Get started →</a>
                         </p>
                     </motion.div>
 
@@ -375,8 +376,18 @@ function StudioScoreboard() {
                                 transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                                 className="group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/10 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.8)]"
                             >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={c.img} alt={c.label} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                <video
+                                    src={c.video}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    disablePictureInPicture
+                                    disableRemotePlayback
+                                    preload="metadata"
+                                    onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
+                                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
                                 {/* score badge */}
                                 <span className={`absolute right-2.5 top-2.5 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold shadow-sm ${BADGE_TONE[c.tone]}`}>
@@ -596,7 +607,7 @@ function StudioProduction() {
                         </p>
                         <div className="mt-8 flex flex-wrap items-center gap-3">
                             <a
-                                href="https://calendly.com/yash-hypeon/30min"
+                                href="https://app.hypeon.ai/studio/login"
                                 className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#E66245] px-6 text-sm font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"
                             >
                                 Start a brief
@@ -845,7 +856,7 @@ function StudioProcess() {
                         })}
 
                         <a
-                            href="https://calendly.com/yash-hypeon/30min"
+                            href="https://app.hypeon.ai/studio/login"
                             className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#0e1422] py-2 pl-6 pr-2 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-[#141c30]"
                         >
                             Start a brief

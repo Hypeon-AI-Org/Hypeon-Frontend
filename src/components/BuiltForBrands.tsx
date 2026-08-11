@@ -189,7 +189,7 @@ export default function BuiltForBrands() {
           </motion.div>
 
           <motion.a
-            href="/studio"
+            href="https://app.hypeon.ai/studio/login"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
