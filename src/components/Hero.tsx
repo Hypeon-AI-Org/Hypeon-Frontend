@@ -22,8 +22,7 @@ import {
   Zap,
   ChevronDown,
   BadgeCheck,
-  BarChart3,
-  VolumeX
+  BarChart3
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import Image from 'next/image';
@@ -712,11 +711,11 @@ export default function Hero() {
           {/* Mobile: compact 4-across row of real ad clips beneath the CTAs -
               the desktop scattered showcase field is lg:hidden, so mobile gets
               this simple in-flow row instead of nothing. */}
-          <div className="relative z-20 mt-6 grid grid-cols-4 gap-2 px-4 pb-2 sm:gap-3 sm:px-6 lg:hidden">
+          <div className="relative z-20 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto pl-20 pr-6 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:pl-20 sm:pr-6 lg:hidden [&::-webkit-scrollbar]:hidden">
             {SHOWCASE_CARDS.slice(0, 4).map((c) => (
               <div
                 key={c.src}
-                className="relative aspect-[9/16] overflow-hidden rounded-xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
+                className="relative aspect-[9/16] w-[calc(50%-0.375rem)] shrink-0 snap-start overflow-hidden rounded-2xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
               >
                 <video
                   src={c.src}
@@ -731,9 +730,6 @@ export default function Hero() {
                   onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
-                <span className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm">
-                  <VolumeX className="h-2.5 w-2.5" />
-                </span>
               </div>
             ))}
           </div>
