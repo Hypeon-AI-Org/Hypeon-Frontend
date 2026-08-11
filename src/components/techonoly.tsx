@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import Section, { Cell } from "./Section";
 const TechnologySection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [p2Done, setP2Done] = useState(false);
@@ -34,25 +33,51 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <Section cols={2} className="text-[#111] antialiased text-[14px] font-sans" gridClassName="md:grid-cols-[340px_1fr]">
+    <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] py-16 sm:py-24 lg:py-28 text-[14px] font-sans antialiased">
+      {/* Faint dot-grid texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+      />
+      {/* Soft ambient glows */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-1/2 hidden h-[560px] w-[560px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 bottom-0 hidden h-[420px] w-[420px] translate-x-1/3 translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.14),rgba(52,211,153,0)_70%)] blur-2xl lg:block"
+      />
+    <div className="relative mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-10 px-4 sm:px-6 md:grid-cols-[340px_1fr] md:gap-14 lg:px-10">
 
-      {/* LEFT COPY – text cell */}
-      <Cell className="reveal-left">
-        <div className="text-[13px] font-semibold text-[#999] mb-3">Technology</div>
-        <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-[#111] mb-[18px]">
-          Understand what your market wants - <span className="text-[#696863]">before it peaks.</span>
+      {/* LEFT COPY */}
+      <div className="reveal-left">
+        <div className="text-[13px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-3">Technology</div>
+        <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-white mb-[18px]">
+          Understand what your market wants - <span className="text-white/50  font-serif">before it peaks.</span>
         </h2>
-        <p className="text-[14px] text-[#666] leading-[1.72] mb-7">
+        <p className="text-[14px] text-white/50 leading-[1.72] mb-7">
           We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
         </p>
-        <button className="inline-block bg-[#111] text-white font-semibold text-[14px] py-[10px] px-[18px] rounded-full hover:opacity-80 transition-opacity">
-          Our Technology
-        </button>
-      </Cell>
+        <a
+          href="https://calendly.com/yash-hypeon/30min"
+          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+        >
+          <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+          <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+            <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Our Technology</span>
+            <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Our Technology</span>
+          </span>
+        </a>
+      </div>
 
-      {/* RIGHT PANEL – big decorative rounded card, framed by a bleed cell */}
-      <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
-        <div className="w-full border border-black rounded-[16px] overflow-hidden bg-[#ffffff] min-w-0 font-inter reveal-right shadow-[0_1px_2px_rgba(16,24,40,0.06)]">
+      {/* RIGHT PANEL – big decorative rounded card */}
+      <div className="px-6 py-12 sm:px-10 sm:py-16">
+        <div className="w-full border border-white/10 rounded-[16px] overflow-hidden bg-[#ffffff] min-w-0 font-inter reveal-right shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
 
           {/* TAB GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -109,8 +134,9 @@ const TechnologySection = () => {
             </div>
           </div>
         </div>
-      </Cell>
-    </Section>
+      </div>
+    </div>
+    </section>
   );
 };
 

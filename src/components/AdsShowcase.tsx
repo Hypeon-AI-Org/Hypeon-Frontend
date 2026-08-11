@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import Section, { Cell } from "./Section";
 
 /* ============================================================
    Floating ad-card showcase - recreated from "ads section.mp4".
@@ -64,8 +63,7 @@ export default function AdsShowcase() {
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
     return (
-        <Section>
-            <Cell bleed className="relative overflow-hidden pb-16 pt-2 sm:pb-24 sm:pt-4">
+        <section className="relative overflow-hidden bg-white pb-16 pt-2 sm:pb-24 sm:pt-4">
             <div ref={ref} className="flex flex-col items-center px-4">
                 {/* cluster - cards hover up/down with scroll direction */}
                 <div className="relative aspect-[450/875] w-[min(96vw,840px)]">
@@ -87,7 +85,6 @@ export default function AdsShowcase() {
                     Try For Free Now <Sparkles className="h-4 w-4" />
                 </motion.a>
             </div>
-            </Cell>
-        </Section>
+        </section>
     );
 }

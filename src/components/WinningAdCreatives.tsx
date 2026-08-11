@@ -1,169 +1,315 @@
-'use client';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { useRef } from 'react';
-import Section, { Cell } from './Section';
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+// Exact cards data matching reference image image_45d872.jpg
+const CARDS_DATA = [
+  {
+    id: 'blume-purple',
+    brand: 'BLUME',
+    title: 'Hydration Serum',
+    caption: '"Looking for hydrated glass skin?"',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-purple-400 to-indigo-600',
+    badge: null
   },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  {
+    id: 'red-pump-tub',
+    brand: 'SOLARIS',
+    title: 'Daily Moisturizer',
+    caption: '"Prime Time Pumping Cream 🧴"',
+    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-red-500 to-amber-600',
+    badge: null
   },
-};
+  {
+    id: 'rosalia-necklace',
+    brand: 'ROSALIA',
+    title: 'Fine Jewelry',
+    caption: 'ROSALIA',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-amber-300 to-amber-700',
+    badge: null
+  },
+  {
+    id: 'glow-dew',
+    brand: 'GLOW',
+    title: 'Dew Drops',
+    caption: '"boost your daily routine ✨"',
+    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-pink-400 to-rose-600',
+    badge: null
+  },
+  {
+    id: 'orange-sachet',
+    brand: 'TERRA',
+    title: 'Glow Sachets',
+    caption: 'Daily Electrolyte Packs',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-orange-400 to-amber-600',
+    badge: null
+  },
+  {
+    id: 'seed-bottle',
+    brand: 'Seed®',
+    title: 'Daily Synbiotic',
+    caption: 'Whole-Body Health Starts in Your Gut',
+    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-emerald-800 to-stone-900',
+    badge: null
+  },
+  {
+    id: 'bluemint-ring',
+    brand: 'BLUEMINT',
+    title: 'Swimwear',
+    caption: 'Over 1M units sold this season! 🌊',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-sky-400 to-blue-600',
+    badge: null
+  },
+  {
+    id: 'alo-studio',
+    brand: 'alo',
+    title: 'Activewear',
+    caption: 'Studio Essentials',
+    image: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-stone-400 to-stone-700',
+    badge: null
+  },
+  {
+    id: 'running-watermelon',
+    brand: 'AMPLIFY',
+    title: 'Energy Drink',
+    caption: '"watermelon"',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+    fallbackBg: 'from-emerald-600 to-slate-800',
+    badge: 'AMPLIFY THIS'
+  }
+];
 
 export default function TikTokScrollSection() {
-  // Only run the infinite marquee animation while the grid is on screen,
-  // so it doesn't burn CPU (and frame budget) when scrolled away.
-  const gridRef = useRef<HTMLDivElement | null>(null);
-  const gridInView = useInView(gridRef, { margin: '200px 0px' });
+  const [offset, setOffset] = useState(0); // continuous offset index
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+
+  const animFrameId = useRef<number | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
+  const dragStartX = useRef(0);
+  const dragStartOffset = useRef(0);
+  const velocityRef = useRef(0);
+
+  const CARD_COUNT = CARDS_DATA.length;
+  const SPEED = 0.25; // Continuous cards per second
+
+  const animate = useCallback((time: number) => {
+    if (lastTimeRef.current !== null) {
+      const delta = (time - lastTimeRef.current) / 1000;
+
+      if (!isDragging) {
+        if (isPlaying) {
+          setOffset((prev) => (prev + SPEED * delta) % CARD_COUNT);
+        } else if (Math.abs(velocityRef.current) > 0.001) {
+          setOffset((prev) => {
+            let next = (prev - velocityRef.current) % CARD_COUNT;
+            if (next < 0) next += CARD_COUNT;
+            return next;
+          });
+          velocityRef.current *= 0.92; // Momentum decay
+        }
+      }
+    }
+    lastTimeRef.current = time;
+    animFrameId.current = requestAnimationFrame(animate);
+  }, [isDragging, isPlaying, CARD_COUNT]);
+
+  useEffect(() => {
+    animFrameId.current = requestAnimationFrame(animate);
+    return () => {
+      if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
+    };
+  }, [animate]);
+
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0]?.clientX ?? 0;
+    dragStartX.current = clientX;
+    dragStartOffset.current = offset;
+    velocityRef.current = 0;
+  };
+
+  const handleMouseMove = useCallback((e: MouseEvent | TouchEvent) => {
+    if (!isDragging) return;
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0]?.clientX ?? 0;
+    const deltaX = clientX - dragStartX.current;
+    
+    const sensitivity = 0.003;
+    const deltaOffset = deltaX * sensitivity;
+    let nextOffset = (dragStartOffset.current - deltaOffset) % CARD_COUNT;
+    if (nextOffset < 0) nextOffset += CARD_COUNT;
+
+    velocityRef.current = deltaOffset * 0.15;
+    setOffset(nextOffset);
+  }, [isDragging, CARD_COUNT]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('touchmove', handleMouseMove);
+      window.addEventListener('touchend', handleMouseUp);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchmove', handleMouseMove);
+      window.removeEventListener('touchend', handleMouseUp);
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchmove', handleMouseMove);
+      window.removeEventListener('touchend', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
+
+  const handleCardClick = (targetIndex: number, distFromCenter: number) => {
+    if (Math.abs(distFromCenter) < 0.25) return;
+    setIsPlaying(false);
+    setOffset(targetIndex % CARD_COUNT);
+  };
+
+  const handleImageError = (id: string) => {
+    setImgErrors((prev) => ({ ...prev, [id]: true }));
+  };
 
   return (
-    <Section cols={2} className="font-sans">
+    <section className="relative w-full rounded-[56px] bg-[#0a0a0c] text-white py-12 sm:py-16 font-sans overflow-hidden select-none flex flex-col justify-center">
+      
+      {/* 3D Hardware Accelerated Stage CSS */}
+      <style>{`
+        .perspective-stage {
+          perspective: 1100px;
+          perspective-origin: 50% 50%;
+        }
+        .cylinder-ring {
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+        .card-3d-item {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform-style: preserve-3d;
+          transition: transform 0.05s ease-out, opacity 0.05s ease-out;
+        }
+      `}</style>
 
-        {/* LEFT TEXT */}
-        <Cell>
-        <motion.div className="z-20 flex h-full flex-col justify-center"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+      {/* Header Copy Section */}
+      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 z-20">
+        <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-white/40">
+          Winning creatives
+        </p>
+
+        <h1 className="text-2xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl]">
+          We understand and<br className="hidden sm:block" /> analyze Ads so{' '}
+          you don&apos;t have to.
+        </h1>
+
+        <p className="mt-4 mx-auto max-w-2xl text-sm sm:text-base text-white/50 leading-relaxed font-normal">
+          Our Ads Insights tool, powered by proprietary AI, offers a unique
+          ability to track and capitalize on Ads trends.
+        </p>
+      </div>
+
+      {/* 3D Cylinder Arc Container */}
+      <div className="relative mt-12 sm:mt-16 w-full flex flex-col items-center justify-center">
+        
+        {/* Soft Vignette Edge Masks */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-30 w-12 sm:w-32 bg-gradient-to-r from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-30 w-12 sm:w-32 bg-gradient-to-l from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent" />
+
+        {/* 3D Perspective Stage */}
+        <div
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleMouseDown}
+          className="perspective-stage relative w-full h-[380px] sm:h-[430px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
         >
+          <div className="cylinder-ring relative w-full h-full flex items-center justify-center">
+            {CARDS_DATA.map((card, index) => {
+              // Calculate continuous float distance relative to current offset
+              let rawDist = index - offset;
+              
+              // Normalize distance for circular wrapping around the ring
+              while (rawDist > CARD_COUNT / 2) rawDist -= CARD_COUNT;
+              while (rawDist < -CARD_COUNT / 2) rawDist += CARD_COUNT;
 
+              const absDist = Math.abs(rawDist);
 
-          <motion.p variants={item} className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
-            Winning creatives
-          </motion.p>
+              // Precise 3D Cylinder Trigonometry matching image_45d872.jpg
+              const R = 410; // Cylinder radius in px
+              const stepAngleDeg = 27; // Angular step per card
+              const rad = (rawDist * stepAngleDeg * Math.PI) / 180;
 
-          <motion.h2
-            variants={item}
-            className="text-2xl sm:text-4xl md:text-4xl font-bold text-[#1a1a1a] leading-[1.15] mb-6 max-w-lg tracking-tighter"
-          >
-            We understand and <br /> analyze Ads so <br />
-            <span className="text-[#696863]">you don&apos;t have to.</span>
-          </motion.h2>
+              // Position on 3D circle
+              const translateX = R * Math.sin(rad);
+              const translateZ = R * (Math.cos(rad) - 1); // recedes back as angle increases
+              const rotateY = -rawDist * stepAngleDeg; // curves inward towards center
 
-          <motion.p
-            variants={item}
-            className="text-[#757575] text-[15px] leading-relaxed max-w-md mb-6"
-          >
-            Our Ads Insights tool, powered by proprietary AI, offers a unique
-            ability to track and capitalize on Ads trends.
-          </motion.p>
+              // Layering and fading
+              const zIndex = Math.round(1000 + translateZ);
+              const opacity = Math.max(0, Math.cos(rad)); // smooth fade at back flanks
 
-          <motion.div variants={item}>
-            <motion.a
-              href="#"
-              className="btn-primary inline-flex items-center gap-2"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "tween", duration: 0.2 }}
-            >
-              Get Started
-            </motion.a>
-          </motion.div>
+              return (
+                <div
+                  key={card.id}
+                  onClick={() => handleCardClick(index, rawDist)}
+                  className="card-3d-item absolute w-[200px] sm:w-[220px] h-[330px] sm:h-[370px] rounded-[28px] overflow-hidden bg-slate-900 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.3)] border border-black/10"
+                  style={{
+                    transform: `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg)`,
+                    zIndex,
+                    opacity
+                  }}
+                >
+                  {/* Card Background Image or Gradient Fallback */}
+                  {!imgErrors[card.id] ? (
+                    <img
+                      src={card.image}
+                      alt={card.brand}
+                      onError={() => handleImageError(card.id)}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-b ${card.fallbackBg} p-4 flex flex-col justify-end`} />
+                  )}
 
-        </motion.div>
-        </Cell>
+                  {/* Dark Vignette Overlay for Crisp White Text Legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
-        {/* AUTO SCROLL GRID */}
-        <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
-        <div ref={gridRef} className="relative flex gap-6 h-[460px] sm:h-[620px] overflow-hidden">
+                  {/* Top Brand Pill Tag */}
+                  <div className="absolute top-3.5 left-3.5 z-20">
+                    <span className="px-2.5 py-1 text-[10px] font-black tracking-widest bg-black/40 backdrop-blur-md text-white rounded-md uppercase border border-white/10">
+                      {card.brand}
+                    </span>
+                  </div>
 
-          {/* COLUMN 1 */}
-          <motion.div
-            animate={gridInView ? { y: ["0%", "-50%"] } : { y: "0%" }}
-            transition={{
-              duration: 22,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            className="flex flex-col gap-6 w-1/2"
-          >
-
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex flex-col gap-6">
-
-                <VideoItem height="h-[300px]" src="/images/image.webp" isVideo />
-                <VideoItem height="h-[300px]" src="/images/wallpaper.webp" isVideo />
-                <VideoItem height="h-[300px]" src="/images/diy.webp" isVideo />
-
-              </div>
-            ))}
-
-          </motion.div>
-
-
-          {/* COLUMN 2 */}
-          <motion.div
-            animate={gridInView ? { y: ["0%", "-50%"] } : { y: "0%" }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            className="flex flex-col gap-4 w-1/2 pt-20"
-          >
-
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex flex-col gap-6">
-
-                <VideoItem height="h-[300px]" src="/images/tech (1).webp" isVideo />
-                <VideoItem height="h-[300px]" src="/images/curtains.webp" isVideo />
-                <VideoItem height="h-[300px]" src="/images/image.webp" isVideo />
-
-              </div>
-            ))}
-
-          </motion.div>
-
-        </div>
-        </Cell>
-
-    </Section>
-  );
-}
-
-
-function VideoItem({ height, src, isVideo = false }: { height: string; src: string; isVideo?: boolean }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`relative w-full ${height} rounded-[2rem] overflow-hidden bg-gray-100 border shadow-sm`}
-    >
-      <Image
-        src={src}
-        alt="TikTok Content"
-        fill
-        className="object-cover"
-        sizes="(max-width: 1024px) 100vw, 50vw"
-      />
-
-      {isVideo && (
-        <div className="absolute inset-0 flex items-center justify-center">
-
-          <div className="w-14 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center">
-
-            <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[10px] border-l-white border-b-[8px] border-b-transparent ml-1" />
-
+                  {/* Bottom Text Content & Badges */}
+                  <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-col gap-1.5">
+                    {card.badge && (
+                      <span className="self-start px-2 py-0.5 text-[10px] font-black tracking-wide bg-[#22C55E] text-black rounded uppercase shadow-md">
+                        {card.badge}
+                      </span>
+                    )}
+                    <p className="text-xs sm:text-[13px] font-semibold text-white leading-snug drop-shadow-md">
+                      {card.caption}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
         </div>
-      )}
-
-    </motion.div>
+      </div>
+    </section>
   );
 }

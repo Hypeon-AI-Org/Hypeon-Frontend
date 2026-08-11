@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Mail, X } from 'lucide-react';
-import Section, { Cell } from './Section';
 
 // Import your assets
 import googleStartups from '../../assets/Google_Startups.png';
@@ -26,71 +25,66 @@ export default function CombinedLayout() {
 
   return (
     <main>
-      {/* 1. PARTNERS SECTION - built from real grid Cells so every divider is
-          a gap-px hairline that aligns with the rest of the page grid.
-          Mobile: label full-width, logos 2x2. Desktop: one tabular row. */}
-      <Section gridClassName="grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
-        <Cell className="col-span-2 md:col-span-1 flex items-center justify-center md:justify-start py-5 md:py-6 min-h-[72px] md:min-h-[88px]">
-          <p className="text-slate-700 font-medium text-sm sm:text-base">
-            Official partners
-          </p>
-        </Cell>
+      {/* 1. PARTNERS SECTION - dark, matching ProductEngines (section 2). Plain
+          monochrome logo row, no card/border, fading out at the edges. */}
+      <section className="rounded-t-[56px] bg-[#0a0a0c] py-12 sm:py-16">
+        <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:flex-nowrap sm:justify-between"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+            }}
+          >
+            <p className="shrink-0 text-white/60 font-semibold text-base sm:text-lg">
+              Official partners
+            </p>
 
-        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
-          <Image
-            src={googleStartups}
-            alt="Google Cloud for Startups"
-            width={110}
-            height={50}
-            className="w-[90px] sm:w-[110px] h-auto object-contain"
-          />
-        </Cell>
+            <Image
+              src={googleStartups}
+              alt="Google Cloud for Startups"
+              width={110}
+              height={50}
+              className="w-[130px] sm:w-[150px] h-auto object-contain opacity-80 grayscale invert transition-opacity duration-300 hover:opacity-100"
+            />
 
-        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
-          <Image
-            src={openAIBG}
-            alt="OpenAI for Startups"
-            width={95}
-            height={50}
-            className="w-[80px] sm:w-[95px] h-auto object-contain"
-          />
-        </Cell>
+            <Image
+              src={openAIBG}
+              alt="OpenAI for Startups"
+              width={95}
+              height={50}
+              className="w-[110px] sm:w-[130px] h-auto object-contain opacity-80 grayscale invert transition-opacity duration-300 hover:opacity-100"
+            />
 
-        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
-          <Image
-            src={awsStartups}
-            alt="AWS for Startups"
-            width={95}
-            height={50}
-            className="w-[80px] sm:w-[95px] h-auto object-contain"
-          />
-        </Cell>
+            <Image
+              src={awsStartups}
+              alt="AWS for Startups"
+              width={95}
+              height={50}
+              className="w-[110px] sm:w-[130px] h-auto object-contain opacity-80 grayscale invert transition-opacity duration-300 hover:opacity-100"
+            />
 
-        <Cell className="flex items-center justify-center py-5 md:py-6 min-h-[72px] sm:min-h-[80px] md:min-h-[88px]">
-          <Image
-            src={nividia}
-            alt="NVIDIA"
-            width={95}
-            height={50}
-            className="w-[80px] sm:w-[95px] h-auto object-contain"
-          />
-        </Cell>
-      </Section>
-      {/* 2. FOUNDER SECTION (NOW BELOW) - wrapped in the grid so the hairline
-          frame + corner marks run continuously down the page. */}
-      <Section>
-        <Cell bleed>
-      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden bg-[var(--grid-bg)] py-16">
+            <Image
+              src={nividia}
+              alt="NVIDIA"
+              width={95}
+              height={50}
+              className="w-[110px] sm:w-[130px] h-auto object-contain opacity-80 grayscale invert transition-opacity duration-300 hover:opacity-100"
+            />
+          </div>
+        </div>
+      </section>
+      {/* 2. FOUNDER SECTION - dark background, white paper letter floating on top. */}
+      <div>
+      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden rounded-b-[56px] bg-[#0a0a0c] py-16">
 
-        {/* Very Light Grid Background */}
+        {/* Faint dot-grid texture - same treatment as the other dark sections */}
         <div
-          className={`absolute inset-0 transition-all duration-1000 ${isExpanded ? 'blur-md opacity-[0.2]' : 'opacity-[0.4]'}`}
+          aria-hidden
+          className={`pointer-events-none absolute inset-0 transition-opacity duration-1000 ${isExpanded ? 'opacity-0' : 'opacity-100'}`}
           style={{
-            backgroundImage: `
-              linear-gradient(to right, #E5E5E1 1px, transparent 1px),
-              linear-gradient(to bottom, #E5E5E1 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
             maskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)',
             WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)',
           }}
@@ -100,7 +94,7 @@ export default function CombinedLayout() {
         <button
           type="button"
           aria-label="Close overlay"
-          className={`fixed inset-0 z-20 w-full h-full bg-[#FBFBF9]/40 backdrop-blur-sm transition-opacity duration-500 cursor-pointer border-0 p-0 appearance-none ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 z-20 w-full h-full bg-black/60 backdrop-blur-sm transition-opacity duration-500 cursor-pointer border-0 p-0 appearance-none ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           onClick={() => setViewState('idle')}
         />
@@ -120,13 +114,13 @@ export default function CombinedLayout() {
             onClick={() => !isExpanded && setViewState('expanded')}
             onKeyDown={(e) => { if (!isExpanded && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setViewState('expanded'); } }}
             className={`
-              relative bg-white border border-[#E8E8E3] transition-all duration-700
+              relative bg-[#F5F1E6] border border-[#E5DEC9] transition-all duration-700
               ${isExpanded
-                ? 'w-full max-w-[700px] max-h-[90vh] overflow-y-auto p-5 sm:p-8 md:p-10 lg:p-14 shadow-[0_40px_100px_rgba(0,0,0,0.06)] rotate-0'
-                : 'p-5 sm:p-7 md:p-9 shadow-[0_10px_40px_rgba(0,0,0,0.02)] cursor-pointer min-h-[44px]'
+                ? 'w-full max-w-[700px] max-h-[90vh] overflow-y-auto p-5 sm:p-8 md:p-10 lg:p-14 shadow-[0_40px_100px_rgba(0,0,0,0.4)] rotate-0'
+                : 'p-5 sm:p-7 md:p-9 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] cursor-pointer min-h-[44px]'
               }
               ${viewState === 'idle' && !isExpanded ? '-rotate-1 translate-y-2' : ''}
-              ${viewState === 'hovered' && !isExpanded ? 'rotate-0 translate-y-0 shadow-lg border-[#D1D1CC]' : ''}
+              ${viewState === 'hovered' && !isExpanded ? 'rotate-0 translate-y-0 shadow-[0_35px_80px_-15px_rgba(0,0,0,0.6)] border-[#D8CFAF]' : ''}
             `}
             style={{
               maskImage: isExpanded ? 'none' : 'linear-gradient(to bottom, black 60%, transparent 98%)',
@@ -138,7 +132,7 @@ export default function CombinedLayout() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setViewState('idle'); }}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 p-2 rounded-full hover:bg-[#F5F5F0] transition-colors group min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 p-2 rounded-full hover:bg-[#EDE6D3] transition-colors group min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
                 aria-label="Close"
               >
                 <X size={20} className="text-[#A1A19A] group-hover:text-black" />
@@ -176,7 +170,7 @@ export default function CombinedLayout() {
                     <p>It decodes every competitor ad - spend, reach, the winning angles - so you start from what already works. It turns that intelligence into static, video, and UGC creatives in seconds, not weeks. And it spots breakout products and pricing gaps before the market catches on - so your next move is always the right one.
 
                     </p>
-                    <div className="pt-12 border-t border-[#F0F0EB]">
+                    <div className="pt-12 border-t border-[#E5DEC9]">
                       <p className="font-semibold text-black text-[20px]">Yash Kumar</p>
                       <p className="text-sm opacity-50">founder</p>
                     </div>
@@ -188,7 +182,7 @@ export default function CombinedLayout() {
             {/* Hover Hint */}
             {!isExpanded && (
               <div className={`
-                absolute bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 
+                absolute bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2
                 transition-all duration-300 pointer-events-none
                 ${viewState === 'hovered' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
               `}>
@@ -199,8 +193,7 @@ export default function CombinedLayout() {
           </div>
         </div>
       </section>
-        </Cell>
-      </Section>
+      </div>
     </main>
   );
 }

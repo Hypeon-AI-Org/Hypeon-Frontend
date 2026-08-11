@@ -9,8 +9,8 @@ import {
 } from "@/lib/workspacePreviewShell"
 import { useRef, useState, useEffect } from "react"
 import NextImage from "next/image"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 import { ArrowUp, Image as ImageIcon, Music2, Paperclip, Search, Sparkles } from "lucide-react"
-import Section, { Cell } from "./Section"
 import LazyVideo from "./LazyVideo"
 
 const WORKSPACE_BACKDROP_STYLE = {
@@ -4964,14 +4964,13 @@ export default function StackingCards() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <Section sectionRef={containerRef}>
-      <Cell bleed className="relative scroll-smooth py-10 sm:py-12 lg:py-14">
+    <section ref={containerRef} className="relative scroll-smooth bg-white py-10 sm:py-12 lg:py-14">
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10 lg:mb-14 text-center">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-[#11271F]">
           Every problem. Solved.
           <br />
-          <span className="text-[#696863]">In one platform.</span>
+          <span className="text-[##11271F]">In one platform.</span>
         </h2>
         <p className="mt-4 sm:mt-6 text-sm sm:text-[15px] text-neutral-500 max-w-3xl mx-auto px-2">
           Here’s how HypeOn maps directly to the decisions you make every week as a founder.
@@ -4987,8 +4986,7 @@ export default function StackingCards() {
 
       {/* Bottom Spacer */}
       <div className="h-[6vh]" />
-      </Cell>
-    </Section>
+    </section>
   )
 }
 
@@ -4998,15 +4996,51 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
   // on mobile - drop the tall min-heights so no empty band shows around them.
   const isImagePreview = item.id === "01" || item.id === "02" || item.id === "03"
 
+  // As the next card scrolls up and over this one, this card recedes hard in
+  // 3D - shrinking, tilting back on two axes, dimming, and softening focus -
+  // like a real stack of photos falling away.
+  const tiltSign = index % 2 === 0 ? -1 : 1
+  // IMPORTANT: this ref sits on a TALL, non-sticky spacer, not the sticky card
+  // itself. A sticky element's own bounding box freezes the instant it pins,
+  // so scrollYProgress measured against it barely moves during the whole
+  // dwell - which is why the effect only ever looked "finished" on the last
+  // card (the one that never gets released). Measuring against a tall
+  // ordinary block gives a smooth 0→1 across the entire time each card is
+  // pinned, on every card.
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end start"] })
+  // Smooth the raw scroll input ONCE, then derive every property from that
+  // single smoothed value. Six independent springs (one per property) can
+  // drift slightly out of phase with each other on fast scrolls, which reads
+  // as jitter; one shared spring keeps scale/rotate/blur/etc perfectly in
+  // sync, and a higher damping ratio here trades bounce for buttery smoothness.
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 20, mass: 0.4 })
+  const scale = useTransform(smoothProgress, [0, 1], [1, 0.76])
+  const rotateX = useTransform(smoothProgress, [0, 1], [0, -20])
+  const rotateY = useTransform(smoothProgress, [0, 1], [0, tiltSign * 8])
+  const opacity = useTransform(smoothProgress, [0, 1], [1, 0.3])
+  const y = useTransform(smoothProgress, [0, 1], [0, 40])
+  const filter = useTransform(smoothProgress, (v) => `blur(${v * 4}px)`)
+
   return (
+    <div
+      ref={wrapRef}
+      className="relative w-full"
+      style={{ minHeight: isDesktop ? '150vh' : undefined, zIndex: index + 1 }}
+    >
     <div
       className="relative md:sticky md:top-20 lg:top-24 w-full flex justify-center px-3 sm:px-4 md:px-6 mb-[6vh] sm:mb-[10vh]"
       style={{
-        zIndex: index + 1,
-        paddingTop: isDesktop ? `${index * 25}px` : 0
+        paddingTop: isDesktop ? `${index * 25}px` : 0,
+        perspective: 1600,
       }}
     >
-      <div
+      <motion.div
+        initial={isDesktop ? { opacity: 0, y: 140, scale: 0.65, rotateX: 28, rotateY: tiltSign * -14 } : false}
+        whileInView={isDesktop ? { opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0 } : undefined}
+        viewport={{ once: true, margin: '-15% 0px -15% 0px' }}
+        transition={{ type: 'spring', stiffness: 190, damping: 13, mass: 0.9 }}
+        style={isDesktop ? { scale, rotateX, rotateY, opacity, y, filter, transformStyle: 'preserve-3d' } : undefined}
         className={`relative flex w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_30px_-22px_rgba(15,23,42,0.18)] sm:rounded-[2.5rem] md:flex-row md:items-stretch lg:max-w-[1200px] md:h-[min(76vh,680px)] md:min-h-[min(76vh,680px)] ${
           isImagePreview ? "min-h-0" : "min-h-[360px] sm:min-h-[460px]"
         }`}
@@ -5030,9 +5064,14 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
 
           <a
             href="https://calendly.com/yash-hypeon/30min"
-            className="mt-6 inline-flex min-h-[44px] w-fit items-center justify-center rounded-full bg-black px-5 py-2.5 font-medium text-white transition-colors hover:bg-neutral-800 sm:mt-8"
+            className="group relative mt-6 inline-flex min-h-[44px] w-fit items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:mt-8"
           >
-            Get the demo
+            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+            <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
+              <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
+            </span>
+            <Sparkles className="relative h-4 w-4 shrink-0" strokeWidth={2.2} />
           </a>
         </div>
 
@@ -5066,7 +5105,8 @@ function Card({ item, index }: { item: (typeof sections)[number], index: number 
             <AnalyticsWorkspacePreview userQuery={item.title} fillHeight />
           )}
         </div>
-      </div>
+      </motion.div>
+    </div>
     </div>
   )
 }

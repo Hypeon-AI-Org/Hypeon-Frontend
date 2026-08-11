@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { BarChart2 } from "lucide-react"
 import Image from "next/image"
-import Section, { Cell } from "./Section"
 
 const PLATFORM_LOGOS = [
   { name: "Google Ads", src: "/logos/google.png" },
@@ -24,8 +23,8 @@ const integrations = [
 
 export default function Features() {
   return (
-    <Section>
-      <Cell>
+    <section className="bg-white py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
 
       <div>
 
@@ -99,7 +98,7 @@ export default function Features() {
         </motion.div>
 
       </div>
-      </Cell>
-    </Section>
+      </div>
+    </section>
   )
 }

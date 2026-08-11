@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
-import Section, { Cell } from "./Section";
 import {
     Captions, Megaphone, Eye, DollarSign, Activity, RefreshCw, ImageIcon,
     Target, Users, Globe, Languages, Bookmark, Type, LayoutGrid,
@@ -38,8 +37,8 @@ const ROW2 = [
 
 function Tag({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
     return (
-        <span className="flex flex-shrink-0 items-center gap-1.5 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-[12px] font-medium text-slate-600 shadow-sm">
-            <Icon className="h-3 w-3 text-slate-400" />
+        <span className="flex flex-shrink-0 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] font-medium text-white/70 backdrop-blur-sm">
+            <Icon className="h-3 w-3 text-white/40" />
             {label}
         </span>
     );
@@ -67,10 +66,10 @@ function PlatformPill({ logo, name, left }: { logo: string; name?: string; left:
         // screen size. (Centering on a fixed top drifted on mobile, where the
         // fixed-px pill is large relative to the scaled SVG.)
         <div style={{ left, top: "31.25%" }} className="absolute z-10 -translate-x-1/2 -translate-y-full">
-            <div className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200 bg-white px-2.5 py-2 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.14)] sm:gap-2.5 sm:px-7 sm:py-4">
+            <div className="flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-2 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.4)] backdrop-blur-md sm:gap-2.5 sm:px-7 sm:py-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={logo} alt={name ?? ""} className="h-4 w-4 object-contain sm:h-7 sm:w-7" />
-                {name && <span className="text-[11px] font-semibold text-slate-800 sm:text-lg">{name}</span>}
+                {name && <span className="text-[11px] font-semibold text-white/85 sm:text-lg">{name}</span>}
             </div>
         </div>
     );
@@ -80,11 +79,11 @@ function PlatformPill({ logo, name, left }: { logo: string; name?: string; left:
 function Connector({ d }: { d: string }) {
     return (
         <>
-            <path d={d} fill="none" stroke="#d6dbd8" strokeWidth="1.4" />
-            <circle r="3.6" fill="#475569">
+            <path d={d} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.4" />
+            <circle r="3.6" fill="#96a8a1">
                 <animateMotion dur="2.6s" repeatCount="indefinite" path={d} />
             </circle>
-            <circle r="3.6" fill="#475569">
+            <circle r="3.6" fill="#8b9592">
                 <animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path={d} />
             </circle>
         </>
@@ -101,23 +100,47 @@ export default function EveryPlatformSignal() {
     ];
 
     return (
-        <Section cols={1}>
-            {/* heading cell */}
-            <Cell className="text-center">
-                <h2 className="text-2xl font-bold tracking-tighter text-[#1B1C3A] sm:text-4xl md:text-5xl">
+        <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] pt-16 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-16">
+            {/* Faint dot-grid texture */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+                    backgroundSize: '22px 22px',
+                }}
+            />
+            {/* Soft ambient glow */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute right-0 top-0 hidden h-[460px] w-[460px] -translate-y-1/3 translate-x-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+            />
+        <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+            {/* heading */}
+            <div className="text-center">
+                <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur-sm">
+                    <span className="relative flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                        Unified Data
+                    </span>
+                </span>
+                <h2 className="text-2xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
                     Every platform, every signal
                 </h2>
-                <p className="mt-1 font-serif text-2xl italic text-slate-500 sm:text-3xl">
+                <p className="mt-1 font-serif text-2xl  text-white/50 sm:text-3xl">
                     One source of truth
                 </p>
-                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-slate-500">
+                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/50">
                     We track Meta, Google, and TikTok 24/7 extracting the signals that matter,
                     structured and searchable.
                 </p>
-            </Cell>
+            </div>
 
-            {/* diagram cell - hairline separates it from the heading above */}
-            <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+            {/* diagram */}
+            <div className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
                 <div className="relative mx-auto aspect-[600/320] w-[86%] max-w-3xl">
                     {/* curved connectors + flowing signal dots */}
                     <svg viewBox="0 0 600 320" className="absolute inset-0 h-full w-full" aria-hidden>
@@ -134,7 +157,7 @@ export default function EveryPlatformSignal() {
 
                     {/* central HypeOn node */}
                     <div style={{ left: "50%", top: "78%" }} className="absolute z-10 -translate-x-1/2 -translate-y-1/2">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_12px_30px_-6px_rgba(0,0,0,0.18)] ring-4 ring-white sm:h-[72px] sm:w-[72px]">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.06] shadow-[0_12px_30px_-6px_rgba(0,0,0,0.4)] ring-4 ring-white/10 backdrop-blur-md sm:h-[72px] sm:w-[72px]">
                             <Image src={HypeOn_Logo} alt="HypeOn" width={44} height={44} className="h-9 w-9 object-contain sm:h-10 sm:w-10" />
                         </div>
                     </div>
@@ -142,19 +165,19 @@ export default function EveryPlatformSignal() {
 
                 {/* tracking pill */}
                 <div className="mt-4 flex justify-center">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-[12px] font-semibold text-slate-600 shadow-sm">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-slate-400" />
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[12px] font-semibold text-white/70 backdrop-blur-sm">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                         Tracking 200M+ ads, 24/7
                     </span>
                 </div>
-            </Cell>
+            </div>
+        </div>
 
-            {/* two scrolling capability rows - cut cleanly at the section's
-                hairline edges (no fade mask) for the home cut-edge look */}
-            <Cell bleed className="space-y-3 overflow-hidden py-10">
+            {/* two scrolling capability rows - full width bleed */}
+            <div className="relative mt-10 space-y-3 overflow-hidden">
                 <TagRow items={ROW1} />
                 <TagRow items={ROW2} reverse />
-            </Cell>
-        </Section>
+            </div>
+        </section>
     );
 }

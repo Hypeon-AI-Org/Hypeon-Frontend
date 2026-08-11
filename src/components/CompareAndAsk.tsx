@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import HypeOn_Logo from "../../assets/HypeOn_Logo.png";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
-import Section, { Cell } from "./Section";
 
 /* ============================================================
    Two product sections recreated from the marketer.com layout,
@@ -30,14 +29,13 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <Section cols={1}>
-            <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
+        <section className="bg-white px-6 py-12 sm:px-10 sm:py-16">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={reveal}
-                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[#1B1C3A] px-6 py-10 sm:px-10 sm:py-14 lg:px-14"
+                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[#0a0a0c] px-6 py-10 sm:px-10 sm:py-14 lg:px-14"
             >
                 {/* decorative concentric rings */}
                 <div className="pointer-events-none absolute -right-24 top-1/2 hidden h-[460px] w-[460px] -translate-y-1/2 rounded-full border border-white/[0.06] lg:block">
@@ -52,7 +50,7 @@ export function TabHoppingSection() {
                             Save 10+ hours a week
                         </span>
                         <h2 className="mt-5 text-2xl font-bold leading-[1.1] tracking-tighter text-white sm:text-4xl">
-                            Stop tab hopping<br className="hidden sm:block" /> between five libraries
+                            Stop tab hopping<br className="hidden sm:block text-white" /> between five libraries
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60">
                             Meta, TikTok, Google, LinkedIn, Instagram - competitive analysis, aggregated
@@ -60,9 +58,14 @@ export function TabHoppingSection() {
                         </p>
                         <a
                             href="https://calendly.com/yash-hypeon/30min"
-                            className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#1B1C3A] transition-colors hover:bg-white/90"
+                            className="group relative mt-7 inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                         >
-                            Start 3-day trial <ArrowRight className="h-4 w-4" />
+                            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+                            <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+                                <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started</span>
+                                <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started</span>
+                            </span>
+                            <ArrowRight className="relative h-4 w-4" />
                         </a>
                     </div>
 
@@ -105,13 +108,13 @@ export function TabHoppingSection() {
                             {/* VS badge - anchored to the Before card's bottom edge so it
                                 sits exactly on the seam between the two cards (the cards
                                 differ in height, so a container-50% would drift). */}
-                            <div className="absolute bottom-0 left-8 z-20 flex h-12 w-12 translate-y-[calc(50%+6px)] items-center justify-center rounded-full bg-[#1B1C3A] text-xs font-bold text-white ring-4 ring-[#1B1C3A]">
+                            <div className="absolute bottom-0 left-8 z-20 flex h-12 w-12 translate-y-[calc(50%+6px)] items-center justify-center rounded-full bg-[#0a0a0c] text-xs font-bold text-white ring-4 ring-[#0a0a0c]">
                                 VS
                             </div>
                         </div>
 
                         {/* With HypeOn */}
-                        <div className="relative z-0 mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#2c2f5e] to-[#1B1C3A] p-5 ring-1 ring-white/10">
+                        <div className="relative z-0 mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#232326] to-[#0a0a0c] p-5 ring-1 ring-white/10">
                             {/* dashed concentric rings radiating from the node */}
                             <div className="pointer-events-none absolute right-[42px] top-1/2 -translate-y-1/2">
                                 {[110, 190, 280, 380].map((s) => (
@@ -142,8 +145,7 @@ export function TabHoppingSection() {
                     </div>
                 </div>
             </motion.div>
-            </Cell>
-        </Section>
+        </section>
     );
 }
 
@@ -155,16 +157,30 @@ export function AskCopilotSection() {
     ];
 
     return (
-        <Section cols={1}>
-            <Cell bleed className="px-6 py-12 sm:px-10 sm:py-16">
+        <section className="bg-white px-6 py-12 sm:px-10 sm:py-16">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={reveal}
-                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-[#f3f4f6] px-6 py-10 sm:px-10 sm:py-14 lg:px-14"
+                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-10 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.18)] sm:px-10 sm:py-14 lg:px-14"
             >
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+                {/* faint dot-grid texture */}
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-[0.6] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_30%,black_30%,transparent_100%)]"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(27,28,58,0.08) 1px, transparent 1px)',
+                        backgroundSize: '22px 22px',
+                    }}
+                />
+                {/* soft ambient glow */}
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(79,142,247,0.14),rgba(79,142,247,0)_70%)] blur-2xl"
+                />
+
+                <div className="relative grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
                     {/* copy */}
                     <div>
                         <span className="inline-block rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
@@ -181,9 +197,14 @@ export function AskCopilotSection() {
                         <div className="mt-7 flex flex-wrap gap-3">
                             <a
                                 href="https://calendly.com/yash-hypeon/30min"
-                                className="inline-flex items-center gap-2 rounded-full bg-[#1B1C3A] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1B1C3A]/90"
+                                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                             >
-                                Start 3-day trial <ArrowRight className="h-4 w-4" />
+                                <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+                                <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+                                    <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started</span>
+                                    <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started</span>
+                                </span>
+                                <ArrowRight className="relative h-4 w-4" />
                             </a>
                             <a
                                 href="https://calendly.com/yash-hypeon/30min"
@@ -223,7 +244,6 @@ export function AskCopilotSection() {
                     </div>
                 </div>
             </motion.div>
-            </Cell>
-        </Section>
+        </section>
     );
 }

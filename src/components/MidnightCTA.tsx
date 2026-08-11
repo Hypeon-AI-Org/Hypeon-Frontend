@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import React from 'react';
 import { motion } from 'framer-motion';
 
 /* ============================================================
-   Closing CTA - dark rounded banner matching the homepage's
-   MidnightCTA pattern: ambient glows, dot-grid texture, bold
-   headline with a muted accent line, subtext, white pill CTA.
+   "Stop guessing what's working." - a dark CTA banner right after
+   pricing: bold headline, muted italic accent line, subtext, and a
+   white pill button. Matches the dark-section language used
+   elsewhere on the page (ProductEngines, AdIntelReplica, etc).
 ============================================================ */
 
-export default function CTASection() {
+export default function MidnightCTA() {
   return (
-    <section className="bg-white pb-16 sm:pb-24 lg:pb-28">
+    <section className="rounded-b-[32px] bg-neutral-100 pb-16 sm:pb-24 lg:pb-28">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -20,13 +20,14 @@ export default function CTASection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-3xl bg-[#0a0a0c] px-6 py-16 text-center sm:px-10 sm:py-20"
         >
+          {/* Ambient glows - same treatment used across the other dark sections */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -bottom-24 -left-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.1),rgba(255,255,255,0)_70%)] blur-3xl"
+            className="pointer-events-none absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.1),rgba(255,255,255,0)_70%)] blur-3xl"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute right-0 top-1/2 h-[520px] w-[520px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-3xl"
+            className="pointer-events-none absolute -bottom-24 -right-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-3xl"
           />
           <div
             aria-hidden
@@ -39,15 +40,15 @@ export default function CTASection() {
             }}
           />
 
-          <h2 className="relative text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Stop researching with
+          <h2 className="relative text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Stop guessing
             <br />
-            <span className=" font-serif font-normal text-white/50">yesterday&apos;s data.</span>
+            <span className="font-serif font-normal text-white/50">what&apos;s working.</span>
           </h2>
 
           <p className="relative mx-auto mt-5 max-w-xl text-sm text-white/50 sm:text-base">
-            The day you connect HypeOn Intelligence, you start seeing the signals your
-            competitors haven&apos;t found yet. That&apos;s the only edge that matters.
+            HypeOn scrolls for you. The winners get surfaced, the strategies get captured,
+            the briefs get built. You launch from evidence, not a hunch.
           </p>
 
           <motion.a
@@ -60,24 +61,10 @@ export default function CTASection() {
           >
             <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
             <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
-              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
-              <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
+              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Try HypeOn Free</span>
+              <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Try HypeOn Free</span>
             </span>
           </motion.a>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative mt-6 flex flex-wrap justify-center gap-2 text-xs font-medium text-white/40 sm:text-sm"
-          >
-            <span>Free to start</span>
-            <span className="text-white/20">·</span>
-            <span>10 minute setup</span>
-            <span className="text-white/20">·</span>
-            <span>No credit card required</span>
-          </motion.div>
         </motion.div>
       </div>
     </section>

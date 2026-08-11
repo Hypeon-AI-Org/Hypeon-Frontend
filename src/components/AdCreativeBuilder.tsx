@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Section, { Cell } from "./Section";
 
 /* ============================================================
    Generate High-Performing Ad Creatives - light feature band.
@@ -28,9 +27,10 @@ const reveal = {
 
 export default function AdCreativeBuilder() {
     return (
-        <Section cols={2}>
+        <section className="bg-white py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-4 sm:px-6 md:grid-cols-2 md:gap-14 lg:px-10">
             {/* LEFT - copy */}
-            <Cell className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center">
                 <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal}>
                     <h2 className="text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
                         Generate High-Performing<br className="hidden sm:block" /> <span className="text-[#696863]">Ad Creatives</span>
@@ -56,11 +56,11 @@ export default function AdCreativeBuilder() {
                         </a>
                     </div>
                 </motion.div>
-            </Cell>
+            </div>
 
             {/* RIGHT - generated creatives showcase */}
-            <Cell bleed className="flex">
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal} className="relative flex w-full flex-col rounded-t-2xl bg-[#F4F5F7] px-5 pb-0 pt-5 sm:px-7 sm:pt-7 lg:px-8 lg:pt-8">
+            <div className="flex">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={reveal} className="relative flex w-full flex-col rounded-2xl bg-[#F4F5F7] px-5 pb-0 pt-5 sm:px-7 sm:pt-7 lg:px-8 lg:pt-8">
                     <div className="flex flex-1 flex-col rounded-t-xl bg-white p-4 shadow-sm">
                         <p className="mb-4 text-[12px] font-semibold text-[#1B1C3A]">All Generated Assets</p>
                         <div className="grid flex-1 grid-cols-2 gap-2.5">
@@ -73,7 +73,8 @@ export default function AdCreativeBuilder() {
                         </div>
                     </div>
                 </motion.div>
-            </Cell>
-        </Section>
+            </div>
+        </div>
+        </section>
     );
 }

@@ -2,7 +2,6 @@
 
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import Section, { Cell } from "./Section"
 
 /* -------- Animated Number -------- */
 
@@ -38,10 +37,11 @@ export default function HighValueKeywords() {
   ]
 
   return (
-    <Section cols={2} className="font-sans">
+    <section className="bg-white py-16 sm:py-24 lg:py-28 font-sans">
+      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-4 sm:px-6 md:grid-cols-2 md:gap-14 lg:px-10">
 
         {/* LEFT CONTENT – scroll reveal */}
-        <Cell className="reveal-left flex flex-col justify-center">
+        <div className="reveal-left flex flex-col justify-center">
 
           <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-medium mb-4">
             HYPE SCORE
@@ -68,11 +68,11 @@ export default function HighValueKeywords() {
             or are already saturated.
           </p>
 
-        </Cell>
+        </div>
 
 
         {/* RIGHT SCORE CARD – scroll reveal (same as TrendingProducts) */}
-        <Cell className="reveal-right flex items-center justify-center md:justify-end">
+        <div className="reveal-right flex items-center justify-center md:justify-end">
           <motion.div
             className="relative w-full max-w-[300px] rounded-2xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm"
           >
@@ -123,8 +123,8 @@ export default function HighValueKeywords() {
             </div>
 
           </motion.div>
-        </Cell>
-
-    </Section>
+        </div>
+      </div>
+    </section>
   )
 }

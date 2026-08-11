@@ -7,7 +7,6 @@ import {
   useInView
 } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import Section, { Cell } from "./Section"
 
 /* ---------------- Animated Number ---------------- */
 
@@ -66,30 +65,29 @@ export default function ImpactSection() {
   ]
 
   return (
-    <Section cols={3}>
+    <section className="bg-white py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
 
       {/* Heading (full width) */}
-      <Cell className="md:col-span-3">
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight"
-        >
-          Spend less. Sell more.
-          <br />
-          <span className="text-[#696863]">
-            Keep what you earn.
-          </span>
-        </motion.h2>
-      </Cell>
+      <motion.h2
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+        className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-black leading-tight"
+      >
+        Spend less. Sell more.
+        <br />
+        <span className="text-[#696863]">
+          Keep what you earn.
+        </span>
+      </motion.h2>
 
       {/* Stats */}
-      {stats.map((stat, i) => (
-        <Cell key={i}>
+      <div className="mt-10 grid grid-cols-1 gap-8 sm:mt-14 sm:grid-cols-3 sm:gap-10">
+        {stats.map((stat, i) => (
           <motion.div
+            key={i}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1, duration: 0.6 }}
@@ -105,9 +103,10 @@ export default function ImpactSection() {
               {stat.title}
             </p>
           </motion.div>
-        </Cell>
-      ))}
+        ))}
+      </div>
 
-    </Section>
+      </div>
+    </section>
   )
 }

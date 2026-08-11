@@ -1,9 +1,8 @@
 'use client';
 
-import { Fragment, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import Section, { Cell } from './Section';
+import { Fragment, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, Lock, TrendingUp } from 'lucide-react';
 
 const reveal = {
   initial: { opacity: 0, y: 24 },
@@ -15,6 +14,12 @@ const imageTransition = {
   duration: 0.35,
   ease: [0.16, 1, 0.3, 1] as const,
 };
+
+const stats = [
+  { value: '200M+', label: 'Ads analyzed' },
+  { value: '1,000+', label: 'Brands tracked' },
+  { value: 'Daily', label: 'Data refresh' },
+] as const;
 
 const tabs = [
   { id: 'insights', label: 'Insights' },
@@ -28,26 +33,77 @@ type TabId = (typeof tabs)[number]['id'];
 export default function AdIntelReplica() {
   const [active, setActive] = useState<TabId>('insights');
 
+  // Subtle mouse-reactive 3D tilt on the mockup card - motion values updated
+  // directly (no React state) so the tilt costs nothing on re-render.
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springRotateX = useSpring(rotateX, { stiffness: 300, damping: 30 });
+  const springRotateY = useSpring(rotateY, { stiffness: 300, damping: 30 });
+
+  const handleTiltMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    rotateY.set(px * 8);
+    rotateX.set(-py * 8);
+  };
+  const handleTiltLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+
   return (
-    <Section>
-      <Cell>
+    <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] py-16 sm:py-24 lg:py-28">
+      {/* Faint dot-grid texture - subtle depth instead of flat black */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+      />
+      {/* Soft ambient glows - adds depth without a hard edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-1/2 hidden h-[620px] w-[620px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 hidden h-[460px] w-[460px] -translate-x-1/3 -translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+      />
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
       <div className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-xl">
+            <motion.div
+              {...reveal}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur-sm sm:mb-5"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                Ad Intelligence
+              </span>
+            </motion.div>
+
             <motion.h2
               {...reveal}
-              transition={{ duration: 0.55, ease: 'easeOut' }}
-              className="text-black text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-tight"
+              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.04 }}
+              className="text-white text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-tight"
             >
               Instantly decode
               <br />
-              <span className="text-[#696863]">competitor ad strategy</span>
+              <span className="text-white/40">competitor ad strategy</span>
             </motion.h2>
 
             <motion.p
               {...reveal}
               transition={{ duration: 0.55, ease: 'easeOut', delay: 0.08 }}
-              className="mt-4 sm:mt-6 text-neutral-500 text-base sm:text-lg leading-relaxed max-w-xl"
+              className="mt-4 sm:mt-6 text-white/50 text-base sm:text-lg leading-relaxed max-w-xl"
             >
               Your advertising strategy agent that&apos;s trained on 200 million ads. The exact
               data-backed blueprint on how to build a successful marketing strategy.
@@ -56,26 +112,40 @@ export default function AdIntelReplica() {
             <motion.div
               {...reveal}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.16 }}
-              className="mt-6 sm:mt-8 flex flex-col items-start"
+              className="mt-6 sm:mt-8 flex flex-col items-start gap-4 sm:gap-5"
             >
               <motion.a
                 href="https://calendly.com/yash-hypeon/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] w-auto max-w-full items-center gap-2 self-start rounded-full bg-[#171923] py-2 pl-2 pr-4 text-sm font-semibold text-white shadow-[0_4px_14px_-4px_rgba(15,23,42,0.35)] transition-colors duration-200 hover:bg-[#1f2937] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171923]/40 focus-visible:ring-offset-2 sm:min-h-[46px] sm:gap-3.5 sm:py-2.5 sm:pl-2.5 sm:pr-7 sm:text-base"
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
+                className="group relative inline-flex min-h-[44px] w-auto max-w-full items-center gap-2 self-start overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] py-1.5 pl-1.5 pr-5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/15 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0c] sm:gap-3 sm:py-2 sm:pl-2 sm:pr-7 sm:text-base"
                 transition={{ type: 'spring', stiffness: 400, damping: 28 }}
               >
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
                 <span
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#171923] sm:h-8 sm:w-8"
+                  className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform duration-200 group-hover:translate-x-0.5 sm:h-8 sm:w-8"
                   aria-hidden
                 >
-                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" strokeWidth={2} />
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" strokeWidth={2.4} />
                 </span>
-                <span className="pr-0.5 leading-none">Get Started for demo</span>
+                <span className="relative inline-block h-[1.2em] overflow-hidden pr-0.5 align-top">
+                  <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started for demo</span>
+                  <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get Started for demo</span>
+                </span>
               </motion.a>
-             
+            </motion.div>
+
+            <motion.div
+              {...reveal}
+              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.22 }}
+              className="mt-8 flex items-center gap-6 border-t border-white/10 pt-6 sm:mt-10 sm:gap-10 sm:pt-8"
+            >
+              {stats.map((stat, i) => (
+                <div key={stat.label} className={`flex flex-col ${i > 0 ? 'border-l border-white/10 pl-6 sm:pl-10' : ''}`}>
+                  <span className="text-xl font-bold tracking-tight text-white sm:text-2xl">{stat.value}</span>
+                  <span className="mt-0.5 text-xs text-white/50 sm:text-sm">{stat.label}</span>
+                </div>
+              ))}
             </motion.div>
           </div>
 
@@ -85,12 +155,29 @@ export default function AdIntelReplica() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="w-full flex justify-center lg:justify-end"
+            onMouseMove={handleTiltMove}
+            onMouseLeave={handleTiltLeave}
+            style={{ perspective: 1200 }}
           >
-            <div className="relative w-full max-w-[620px]">
+            <motion.div
+              className="relative w-full max-w-[620px]"
+              style={{ rotateX: springRotateX, rotateY: springRotateY, transformStyle: 'preserve-3d' }}
+            >
               <div className="absolute inset-x-8 -top-3 h-full rounded-2xl border border-neutral-200/80 bg-white/70" />
               <div className="absolute inset-x-4 -top-1.5 h-full rounded-2xl border border-neutral-200/90 bg-white/80" />
 
               <div className="relative rounded-2xl bg-white border border-neutral-200 shadow-[0_30px_60px_-12px_rgba(0,0,0,0.12)] overflow-hidden">
+                <div className="flex h-8 items-center gap-1.5 border-b border-neutral-200 bg-neutral-50/80 px-3 sm:h-9 sm:px-4">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                </div>
+                <div className="flex items-center gap-1.5 border-b border-neutral-200 bg-white px-3 py-1.5 sm:px-4 sm:py-2">
+                  <span className="flex items-center gap-1 rounded-md bg-neutral-100 px-2.5 py-1 text-[10px] text-neutral-500 sm:text-[11px]">
+                    <Lock className="h-2.5 w-2.5" strokeWidth={2.5} />
+                    app.hypeon.ai/insights
+                  </span>
+                </div>
                 <div className="h-12 sm:h-14 border-b border-neutral-200 px-3 sm:px-6 flex items-end gap-1 sm:gap-6 text-xs sm:text-sm overflow-x-auto overflow-y-hidden overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {tabs.map((tab) => {
                     const isActive = tab.id === active;
@@ -139,12 +226,44 @@ export default function AdIntelReplica() {
                   </AnimatePresence>
                 </div>
               </div>
-            </div>
+
+              {/* Floating stat badge - overlaps the mockup's bottom-left corner */}
+              <motion.div
+                initial={{ opacity: 0, y: 16, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                className="absolute -bottom-5 -left-4 flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)] sm:-bottom-6 sm:-left-6"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                  <TrendingUp className="h-4 w-4" strokeWidth={2.2} />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-sm font-bold text-black sm:text-base">+23% reach</p>
+                  <p className="text-[11px] text-neutral-500 sm:text-xs">vs. last 30 days</p>
+                </div>
+              </motion.div>
+
+              {/* Floating "live" badge - overlaps the mockup's top-right corner */}
+              <motion.div
+                initial={{ opacity: 0, y: -12, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                className="absolute -top-4 right-6 flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-700 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.2)] sm:-top-5 sm:right-10"
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                </span>
+                Live
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
-      </Cell>
-    </Section>
+      </div>
+    </section>
   );
 }
 

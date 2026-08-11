@@ -596,6 +596,46 @@ a[href] {
   margin-top: 50px;
 }
 
+@keyframes dotDrift {
+  0% {
+    background-position: 0px 0px;
+    opacity: 0.4;
+    transform: perspective(600px) rotateX(0deg) scale(1);
+  }
+
+  50% {
+    background-position: 26px 26px;
+    opacity: 1;
+    transform: perspective(600px) rotateX(6deg) scale(1.08);
+  }
+
+  100% {
+    background-position: 0px 0px;
+    opacity: 0.4;
+    transform: perspective(600px) rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes dotDriftSlow {
+  0% {
+    background-position: 0px 0px;
+    opacity: 0.25;
+    transform: perspective(800px) rotateX(0deg) scale(1.15);
+  }
+
+  50% {
+    background-position: -30px 30px;
+    opacity: 0.6;
+    transform: perspective(800px) rotateX(-8deg) scale(1.25);
+  }
+
+  100% {
+    background-position: 0px 0px;
+    opacity: 0.25;
+    transform: perspective(800px) rotateX(0deg) scale(1.15);
+  }
+}
+
 @keyframes softPulse {
 
   0%,

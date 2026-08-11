@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { Globe, Loader2, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
-import Section, { Cell } from "./Section";
 
 const SUCCESS_MESSAGE_HIDE_MS = 5000;
 
@@ -73,8 +72,8 @@ export default function CompetitorReportLead() {
   }
 
   return (
-    <Section>
-      <Cell>
+    <section className="bg-white">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <div className="relative overflow-hidden pt-10 pb-8 font-sans text-black sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
       <div className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-16 xl:gap-20">
@@ -287,7 +286,7 @@ export default function CompetitorReportLead() {
         </motion.p>
       </div>
         </div>
-      </Cell>
-    </Section>
+      </div>
+    </section>
   );
 }

@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import ProductsIntro from "../../components/ProductsIntro";
 import EveryPlatformSignal from "../../components/EveryPlatformSignal";
 import { TabHoppingSection, AskCopilotSection } from "../../components/CompareAndAsk";
-import HighValueKeywords from "../../components/HighValueKeywords";
 import WinningAdCreatives from "../../components/WinningAdCreatives";
 import PrecisionScaleBento from "../../components/PrecisionScaleBento";
 import CopilotSection from "../../components/CopilotSection";
@@ -24,7 +23,6 @@ export default function ProductsPage() {
         <EveryPlatformSignal />
         <TabHoppingSection />
         <AskCopilotSection />
-        <HighValueKeywords />
         <WinningAdCreatives />
         <CopilotSection />
         <TechnologySection />

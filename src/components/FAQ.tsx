@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
-import Section, { Cell } from "./Section";
+import { ChevronDown } from 'lucide-react';
 
 const faqData = [
     {
@@ -39,54 +38,52 @@ export default function FAQ() {
     };
 
     return (
-        <Section gridClassName="md:grid-cols-[1fr_2fr]">
+        <section className="bg-white pt-16 pb-4 sm:pt-20 sm:pb-5 lg:pt-24 lg:pb-6">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-[160px_1fr] md:gap-16 lg:px-10">
 
-            {/* Left cell: heading + context (vertical hairline separates it from the accordion) */}
-            <Cell className="flex flex-col font-sans text-black">
-                <div className="mb-4 flex items-center gap-2.5"><span className="h-px w-6 bg-neutral-300" /><span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Questions</span></div>
-                <h2 className="text-2xl md:text-4xl lg:text-5xl leading-tight font-bold text-slate-900 tracking-tighter">
-                    Frequently<br className="hidden lg:block" /> asked
-                </h2>
-                <p className="mt-8 text-[14px] text-slate-500 leading-relaxed max-w-[280px]">
-                    Read some of the most asked questions around Hypeon. If you cannot find your answer, reach out to us using the chat in the bottom-right corner!
-                </p>
-            </Cell>
+            {/* Left column: title + contact button */}
+            <div className="flex flex-col items-start md:pl-8 lg:pl-12">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4 sm:text-3xl">FAQ</h2>
+                <a
+                    href="https://calendly.com/yash-hypeon/30min"
+                    className="inline-flex items-center rounded-full bg-[#0a0a0c] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-black/80"
+                >
+                    Contact us
+                </a>
+            </div>
 
-            {/* Right cell: accordion - each question is a hairline-separated row (inside grid) */}
-            <Cell bleed className="font-sans text-black">
+            {/* Right column: compact accordion list */}
+            <div className="border-t border-slate-200 font-sans text-black">
                 {faqData.map((faq, index) => (
                     <div
                         key={index}
-                        className="border-b border-[var(--grid-line)] last:border-b-0 px-6 sm:px-8 lg:px-10"
+                        className="border-b border-slate-200"
                     >
                         <button
                             type="button"
                             onClick={() => toggleFAQ(index)}
-                            className="w-full flex items-center justify-between py-5 text-left hover:text-slate-600 transition-colors group relative min-h-[48px] cursor-pointer"
+                            className="w-full flex items-center justify-between py-4 text-left hover:text-slate-600 transition-colors group cursor-pointer"
                         >
-                            <span className="text-[15px] sm:text-[16px] font-medium text-slate-900 group-hover:text-slate-600 transition-colors pr-8">
+                            <span className="text-[13px] sm:text-sm font-medium text-slate-800 group-hover:text-slate-600 transition-colors pr-8">
                                 {faq.question}
                             </span>
-                            <span className="ml-4 sm:ml-6 flex-shrink-0 text-slate-400">
-                                {openIndex === index ? (
-                                    <Minus className="w-5 h-5" />
-                                ) : (
-                                    <Plus className="w-5 h-5" />
-                                )}
-                            </span>
+                            <ChevronDown
+                                className={`ml-4 h-4 w-4 flex-shrink-0 text-slate-400 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
+                            />
                         </button>
 
                         <div
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] sm:max-h-96 pb-5 opacity-100' : 'max-h-0 opacity-0'
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] pb-4 opacity-100' : 'max-h-0 opacity-0'
                                 }`}
                         >
-                            <p className="text-sm sm:text-[14px] text-slate-500 leading-relaxed pr-4 sm:pr-8">
+                            <p className="text-[13px] text-slate-500 leading-relaxed pr-8">
                                 {faq.answer}
                             </p>
                         </div>
                     </div>
                 ))}
-            </Cell>
-        </Section>
+            </div>
+        </div>
+        </section>
     );
 }

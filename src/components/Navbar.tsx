@@ -50,6 +50,14 @@ function Navbar() {
     router.push("/products#copilot");
   };
 
+  const goToPricing = useCallback((e: React.MouseEvent) => {
+    closeMobile();
+    if (pathname === "/") {
+      e.preventDefault();
+      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [pathname, closeMobile]);
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -174,10 +182,11 @@ function Navbar() {
             </div>
 
             <Link
-              href="/about"
+              href="/#pricing"
+              onClick={goToPricing}
               className={`text-sm sm:text-base font-medium hover:opacity-70 transition-opacity cursor-pointer ${isDark ? "text-white" : "text-black"}`}
             >
-              Company
+              Pricing
             </Link>
 
 
@@ -188,9 +197,13 @@ function Navbar() {
           <div className="hidden md:flex items-center shrink-0 gap-3 md:gap-4 lg:gap-5 pr-1">
             <a
               href="https://calendly.com/yash-hypeon/30min"
-              className={`inline-flex items-center justify-center px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white transition-colors cursor-pointer whitespace-nowrap ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/80"}`}
+              className={`group relative inline-flex items-center justify-center overflow-hidden px-3 py-1.5 md:px-4 rounded-full text-sm md:text-base font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] cursor-pointer whitespace-nowrap ${isDark ? "bg-gradient-to-b from-[#f0805f] to-[#d6543a] hover:from-[#f28a6c] hover:to-[#e0603f]" : "bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] hover:from-[#333333] hover:to-[#141414]"}`}
             >
-              Get the demo
+              <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+              <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
+                <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
+                <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Get the demo</span>
+              </span>
             </a>
           </div>
 
@@ -301,11 +314,11 @@ function Navbar() {
 
             <nav className="mt-3 space-y-0.5" aria-label="Primary">
               <Link
-                href="/about"
-                onClick={closeMobile}
+                href="/#pricing"
+                onClick={goToPricing}
                 className={`flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-100 active:bg-slate-200/80 focus-visible:ring-black/15"}`}
               >
-                Company
+                Pricing
               </Link>
             </nav>
 
@@ -314,9 +327,10 @@ function Navbar() {
             <div className="flex flex-col gap-2.5 sm:flex-row sm:gap-3">
               <a
                 href="https://calendly.com/yash-hypeon/30min"
-                className={`flex min-h-[48px] flex-1 items-center justify-center rounded-full px-4 text-[15px] font-bold text-white shadow-md transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "bg-[#E66245] hover:bg-[#d6543a]" : "bg-black hover:bg-black/90"}`}
+                className={`relative flex min-h-[48px] flex-1 items-center justify-center overflow-hidden rounded-full px-4 text-[15px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-colors active:scale-[0.99] cursor-pointer ${isDark ? "bg-gradient-to-b from-[#f0805f] to-[#d6543a] hover:from-[#f28a6c] hover:to-[#e0603f]" : "bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] hover:from-[#333333] hover:to-[#141414]"}`}
               >
-                Get the demo
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
+                <span className="relative">Get the demo</span>
               </a>
             </div>
           </div>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Section, { Cell } from './Section';
 import {
   TrendingUp,
   ShoppingCart,
@@ -57,50 +56,63 @@ const itemVariants = {
 
 export default function FeatureGrid() {
   return (
-    <Section cols={3}>
-      {/* Header - full width, hairline below separates it from the card grid */}
-      <Cell className="md:col-span-3 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-tight">
-            Intelligence for how you actually <span className='text-[#696863]'>sell.</span>
-          </h2>
+    <section className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-28">
+      {/* faint dot-grid backdrop, matching the reference layout */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.6] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_30%,black_40%,transparent_100%)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+      />
 
-          <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">
-            Whether you're on your own site, Amazon, TikTok Shop, or all three - HypeOn Intelligence works the way your business works.
-          </p>
-        </motion.div>
-      </Cell>
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-tight">
+              Intelligence for how you actually <span className=''>sell.</span>
+            </h2>
 
-      {/* Feature cards - each its own Cell so hairlines divide the grid */}
-      {features.map((feature, index) => {
-        const Icon = feature.icon;
-        return (
-          <Cell key={index} className="text-left">
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            >
-              <div className="inline-flex items-center justify-center w-10 h-8 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
-                <Icon size={iconSize} strokeWidth={1.75} />
-              </div>
-              <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
-                {feature.title}
-              </h3>
-              <p className="text-slate-500 text-[14px] leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          </Cell>
-        );
-      })}
-    </Section>
+            <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">
+              Whether you're on your own site, Amazon, TikTok Shop, or all three - HypeOn Intelligence works the way your business works.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 md:grid-cols-3">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                whileHover={{ y: -4, boxShadow: '0 20px 40px -16px rgba(15,23,42,0.14)' }}
+                transition={{ duration: 0.2 }}
+                className="rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] sm:p-7"
+              >
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
+                  <Icon size={iconSize} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-500 text-[14px] leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

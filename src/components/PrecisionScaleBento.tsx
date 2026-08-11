@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { BarChart2, Briefcase, Search, Sparkles } from 'lucide-react';
-import Section, { Cell } from './Section';
 
 const reveal = {
   initial: { opacity: 0, y: 20 },
@@ -163,26 +162,27 @@ export default function PrecisionScaleBento() {
   const [searchReplay, setSearchReplay] = useState(0);
 
   return (
-    <Section cols={3} className="font-sans text-[14px] text-[#111] antialiased">
-      {/* heading cell - full width across the bento grid */}
-      <Cell className="md:col-span-3">
+    <section className="bg-white py-16 sm:py-24 lg:py-28 font-sans text-[14px] text-[#111] antialiased">
+    <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-10">
+      {/* heading - full width across the bento grid */}
+      <div className="md:col-span-3">
         <motion.div
           {...reveal}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="max-w-[640px]"
         >
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.15] mb-[18px]">
-            Built for precision. <span className="text-[#696863]">Designed for scale.</span>
+            Built for precision. <span className="">Designed for scale.</span>
           </h2>
           <p className="text-[14px] text-[#666] leading-[1.72] max-w-[520px]">
             We track your competitors&apos; Meta ads 24/7 and pull data on reach, estimated spend,
             demographics, ad copy, creatives, targeting, and overall strategy.
           </p>
         </motion.div>
-      </Cell>
+      </div>
 
       {/* Semantic Search - top left, 2 cols */}
-      <Cell bleed className="p-6 sm:p-7 md:col-span-2 md:row-start-2">
+      <div className="p-6 sm:p-7 md:col-span-2 md:row-start-2">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : lightCardHover}
@@ -230,15 +230,15 @@ export default function PrecisionScaleBento() {
               </div>
             </div>
           </motion.article>
-      </Cell>
+      </div>
 
       {/* Estimated Spend - right, tall (spans both bento rows) */}
-      <Cell bleed className="p-6 sm:p-7 md:col-start-3 md:row-span-2 md:row-start-2">
+      <div className="p-6 sm:p-7 md:col-start-3 md:row-span-2 md:row-start-2">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : darkCardHover}
             style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)' }}
-            className="flex h-full min-h-[360px] flex-col rounded-[16px] border border-slate-700/40 bg-[#0F172A] p-6 sm:p-7 text-white lg:min-h-[526px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
+            className="flex h-full min-h-[360px] flex-col rounded-[16px] border border-slate-700/40 bg-[#131316] p-6 sm:p-7 text-white lg:min-h-[526px] shadow-[0_1px_2px_rgba(16,24,40,0.06)]"
           >
             <div className="flex gap-4">
               <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border border-white/20 bg-white/5 text-white">
@@ -279,10 +279,10 @@ export default function PrecisionScaleBento() {
               </div>
             </div>
           </motion.article>
-      </Cell>
+      </div>
 
       {/* Creative Analysis - bottom left */}
-      <Cell bleed className="p-6 sm:p-7 md:col-start-1 md:row-start-3">
+      <div className="p-6 sm:p-7 md:col-start-1 md:row-start-3">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : lightCardHover}
@@ -300,10 +300,10 @@ export default function PrecisionScaleBento() {
               </p>
             </div>
           </motion.article>
-      </Cell>
+      </div>
 
       {/* Team Sync - bottom middle */}
-      <Cell bleed className="p-6 sm:p-7 md:col-start-2 md:row-start-3">
+      <div className="p-6 sm:p-7 md:col-start-2 md:row-start-3">
           <motion.article
             {...reveal}
             whileHover={reducedMotion ? undefined : lightCardHover}
@@ -320,7 +320,8 @@ export default function PrecisionScaleBento() {
               </p>
             </div>
           </motion.article>
-      </Cell>
-    </Section>
+      </div>
+    </div>
+    </section>
   );
 }
