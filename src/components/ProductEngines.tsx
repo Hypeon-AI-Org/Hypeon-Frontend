@@ -109,7 +109,7 @@ function EngineRow({ e, reverse = false }: { e: Engine; reverse?: boolean }) {
 
 export default function ProductEngines() {
   return (
-    <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] py-16 sm:py-20 lg:py-28">
+    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-28">
       {/* Faint dot-grid texture - subtle depth instead of flat black */}
       <div
         aria-hidden

@@ -205,7 +205,7 @@ export default function PricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>('monthly');
 
   return (
-    <section id="pricing" className="scroll-mt-24 rounded-t-[56px] bg-neutral-100 pb-8 pt-16 sm:pb-10 sm:pt-24 lg:pb-12 lg:pt-28">
+    <section id="pricing" className="scroll-mt-24 rounded-t-[28px] bg-neutral-100 pb-8 pt-16 sm:rounded-t-[56px] sm:pb-10 sm:pt-24 lg:pb-12 lg:pt-28">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

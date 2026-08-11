@@ -100,7 +100,7 @@ export default function EveryPlatformSignal() {
     ];
 
     return (
-        <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] pt-16 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-16">
+        <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] pt-16 pb-10 sm:rounded-[56px] sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-16">
             {/* Faint dot-grid texture */}
             <div
                 aria-hidden

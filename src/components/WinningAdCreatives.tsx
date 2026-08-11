@@ -185,7 +185,7 @@ export default function TikTokScrollSection() {
   };
 
   return (
-    <section className="relative w-full rounded-[56px] bg-[#0a0a0c] text-white py-12 sm:py-16 font-sans overflow-hidden select-none flex flex-col justify-center">
+    <section className="relative w-full rounded-[28px] bg-[#0a0a0c] text-white py-12 sm:rounded-[56px] sm:py-16 font-sans overflow-hidden select-none flex flex-col justify-center">
       
       {/* 3D Hardware Accelerated Stage CSS */}
       <style>{`

@@ -33,7 +33,7 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <section className="relative overflow-hidden rounded-[56px] bg-[#0a0a0c] py-16 sm:py-24 lg:py-28 text-[14px] font-sans antialiased">
+    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-24 lg:py-28 text-[14px] font-sans antialiased">
       {/* Faint dot-grid texture */}
       <div
         aria-hidden

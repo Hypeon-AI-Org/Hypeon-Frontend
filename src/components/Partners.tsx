@@ -27,7 +27,7 @@ export default function CombinedLayout() {
     <main>
       {/* 1. PARTNERS SECTION - dark, matching ProductEngines (section 2). Plain
           monochrome logo row, no card/border, fading out at the edges. */}
-      <section className="rounded-t-[56px] bg-[#0a0a0c] py-12 sm:py-16">
+      <section className="rounded-t-[28px] bg-[#0a0a0c] py-12 sm:rounded-t-[56px] sm:py-16">
         <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
           <div
             className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:flex-nowrap sm:justify-between"
@@ -76,7 +76,7 @@ export default function CombinedLayout() {
       </section>
       {/* 2. FOUNDER SECTION - dark background, white paper letter floating on top. */}
       <div>
-      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden rounded-b-[56px] bg-[#0a0a0c] py-16">
+      <section className="relative min-h-[200px] flex items-center justify-center overflow-hidden rounded-b-[28px] bg-[#0a0a0c] py-16 sm:rounded-b-[56px]">
 
         {/* Faint dot-grid texture - same treatment as the other dark sections */}
         <div

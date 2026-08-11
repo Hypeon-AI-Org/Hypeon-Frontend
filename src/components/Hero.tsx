@@ -22,7 +22,8 @@ import {
   Zap,
   ChevronDown,
   BadgeCheck,
-  BarChart3
+  BarChart3,
+  VolumeX
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import Image from 'next/image';
@@ -706,6 +707,35 @@ export default function Hero() {
                 </a>
               </motion.div>
             </motion.div>
+          </div>
+
+          {/* Mobile: compact 4-across row of real ad clips beneath the CTAs -
+              the desktop scattered showcase field is lg:hidden, so mobile gets
+              this simple in-flow row instead of nothing. */}
+          <div className="relative z-20 mt-6 grid grid-cols-4 gap-2 px-4 pb-2 sm:gap-3 sm:px-6 lg:hidden">
+            {SHOWCASE_CARDS.slice(0, 4).map((c) => (
+              <div
+                key={c.src}
+                className="relative aspect-[9/16] overflow-hidden rounded-xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
+              >
+                <video
+                  src={c.src}
+                  poster={c.poster}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  disablePictureInPicture
+                  disableRemotePlayback
+                  preload="metadata"
+                  onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <span className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm">
+                  <VolumeX className="h-2.5 w-2.5" />
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Intro sequence - a single card flickers through the library, then
