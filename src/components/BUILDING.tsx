@@ -43,7 +43,7 @@ export default function WhoWeAreBuildingFor() {
           >
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Our Mission</p>
             <h2 className="mt-3 text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-white">
-              Make growth predictable<span className="text-white/40">not guessed.</span>
+              Make growth predictable <span className="text-white/40">not guessed.</span>
             </h2>
             <p className="mt-4 max-w-lg text-sm sm:text-base leading-relaxed text-white/50 lg:max-w-none">
               We&apos;re building two engines that work as one - Hypeon Intelligence to decode

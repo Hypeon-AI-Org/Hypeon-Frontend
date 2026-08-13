@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 export default function MidnightCTA() {
   return (
-    <section className="rounded-b-[32px] bg-neutral-100 pb-16 sm:pb-24 lg:pb-28">
+    <section className="rounded-b-[28px] bg-neutral-100 pb-16 sm:rounded-b-[56px] sm:pb-24 lg:pb-28">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
