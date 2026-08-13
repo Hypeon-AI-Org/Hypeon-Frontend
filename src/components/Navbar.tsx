@@ -122,7 +122,7 @@ function Navbar() {
                 />
               </div>
               <span className={`font-semibold text-base sm:text-lg md:text-lg lg:text-base tracking-tight leading-none flex items-center min-h-[34px] sm:min-h-8 md:min-h-9 lg:min-h-10 ${isDark ? "text-white" : "text-black"}`}>
-                HypeOn AI
+                HypeOn 
               </span>
             </Link>
           </div>

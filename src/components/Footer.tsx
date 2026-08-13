@@ -47,7 +47,7 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
                 className="h-9 w-9 object-contain"
               />
               <span className="text-lg font-bold text-white">
-                HypeOn <span className="text-slate-400">AI</span>
+                HypeOn <span className="text-slate-400"></span>
               </span>
             </div>
 

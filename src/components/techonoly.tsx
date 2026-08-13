@@ -378,8 +378,8 @@ const Panel3 = () => {
         ))}
         <div className="ml-auto text-[11px] text-[#bbb] cursor-pointer hover:text-[#555]">Clear all</div>
       </div>
-      <div className="grid grid-cols-2">
-        <div className="p-[12px_14px] border-r border-[#f0f0f0]">
+      <div className="grid grid-cols-1 sm:grid-cols-2">
+        <div className="p-[12px_14px] border-b border-[#f0f0f0] sm:border-b-0 sm:border-r">
           <div className="text-[12px] font-bold mb-[10px] flex items-center gap-[6px]">Top Markets <span className="text-[11px] text-[#bbb] font-normal">3,047,605 products</span></div>
           {[
             { flag: "🇺🇸", name: "United States", w: "92%", n: "1.07M", chg: "+24%" },

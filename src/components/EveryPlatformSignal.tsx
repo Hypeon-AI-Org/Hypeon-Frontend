@@ -173,8 +173,12 @@ export default function EveryPlatformSignal() {
             </div>
         </div>
 
-            {/* two scrolling capability rows - full width bleed */}
-            <div className="relative mt-10 space-y-3 overflow-hidden">
+            {/* two scrolling capability rows - full width bleed. Edge-faded on
+                mobile only, where the tighter rounded corner made the marquee's
+                tag pills look abruptly clipped; desktop's wider radius hides it. */}
+            <div
+                className="relative mt-10 space-y-3 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] sm:[mask-image:none] sm:[-webkit-mask-image:none]"
+            >
                 <TagRow items={ROW1} />
                 <TagRow items={ROW2} reverse />
             </div>

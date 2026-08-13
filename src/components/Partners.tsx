@@ -143,14 +143,14 @@ export default function CombinedLayout() {
             <div className="text-left font-mono ">
               <h2 className={`
                 tracking-tight text-[#1A1A1A] font-medium leading-tight transition-all duration-500
-                ${isExpanded ? 'text-[28px] md:text-[36px] mb-16' : 'text-[20px] mb-10'}
+                ${isExpanded ? 'text-[20px] sm:text-[24px] md:text-[36px] mb-6 sm:mb-10 md:mb-16' : 'text-[20px] mb-10'}
               `}>
                 The growth stack is broken.
               </h2>
 
               <div className={`
                 text-[#5E5E5C] transition-all duration-500
-                ${isExpanded ? 'text-[15px] md:text-[16px] leading-[1.8] space-y-10' : 'text-sm leading-[1.7] space-y-6'}
+                ${isExpanded ? 'text-[14px] sm:text-[15px] md:text-[16px] leading-[1.7] md:leading-[1.8] space-y-5 sm:space-y-7 md:space-y-10' : 'text-sm leading-[1.7] space-y-6'}
               `}>
                 <p>
                   Every e-commerce founder I know has the same morning routine. Open five tabs to see what their competitors are doing. Screenshot a few ads. Guess which ones are actually working. Then sit down to brief a creative they won't see for two weeks. None of it is based on truth.
@@ -170,7 +170,7 @@ export default function CombinedLayout() {
                     <p>It decodes every competitor ad - spend, reach, the winning angles - so you start from what already works. It turns that intelligence into static, video, and UGC creatives in seconds, not weeks. And it spots breakout products and pricing gaps before the market catches on - so your next move is always the right one.
 
                     </p>
-                    <div className="pt-12 border-t border-[#E5DEC9]">
+                    <div className="pt-6 sm:pt-8 md:pt-12 border-t border-[#E5DEC9]">
                       <p className="font-semibold text-black text-[20px]">Yash Kumar</p>
                       <p className="text-sm opacity-50">founder</p>
                     </div>
