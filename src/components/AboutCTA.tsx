@@ -1,73 +1,67 @@
-'use client'
+'use client';
 
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion';
 
 export default function StartToday() {
   return (
-    <section className="font-sans relative py-10 sm:py-12 bg-[#ffffff] overflow-hidden ">
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-
-        {/* Headline */}
+    <section className="bg-white pb-16 sm:pb-24 lg:pb-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-3xl bg-[#0a0a0c] px-6 py-16 text-center sm:px-10 sm:py-20"
         >
-          <p className="text-sm tracking-[0.25em] text-neutral-400 mb-6">
-            START TODAY
-          </p>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.1),rgba(255,255,255,0)_70%)] blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-24 -right-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.5]"
+            style={{
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+              backgroundSize: '24px 24px',
+              maskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)',
+            }}
+          />
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-black leading-tight">
+          <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Start Today</p>
+
+          <h2 className="relative mt-4 text-2xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-white">
             Stop guessing.
             <br />
-            <span className="text-[#696863]">
-              Start knowing.
-            </span>
+            <span className="italic font-serif font-normal text-white/50">Start knowing.</span>
           </h2>
 
-          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-neutral-600 max-w-3xl mx-auto leading-relaxed px-2">
-            Your competitors are making decisions based on
-            <span className="text-black font-medium"> 3-month-old data </span>
-            and platform lies. HypeOn gives you the edge that turns founders
-            into market winners.
+          <p className="relative mx-auto mt-5 max-w-xl text-sm sm:text-base text-white/50">
+            Your competitors are making decisions based on{' '}
+            <span className="font-medium text-white">3-month-old data</span> and platform lies.
+            HypeOn gives you the edge that turns founders into market winners.
           </p>
-        </motion.div>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          viewport={{ once: true }}
-          className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6"
-        >
-          {/* Primary CTA */}
           <motion.a
             href="https://calendly.com/yash-hypeon/30min"
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-7 py-3 min-h-[44px] flex items-center justify-center bg-black text-white rounded-full text-[15px] font-medium shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:bg-neutral-800 transition-all cursor-pointer"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative mt-8 inline-flex items-center justify-center overflow-hidden rounded-full bg-white px-8 py-3.5 text-sm font-bold text-black shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] transition-colors duration-200 hover:bg-white/90 sm:text-base"
           >
             Get the demo
           </motion.a>
 
-
+          <p className="relative mt-6 text-xs font-medium text-white/40 sm:text-sm">
+            No credit card required · Setup in under 10 minutes · Cancel anytime
+          </p>
         </motion.div>
-
-        {/* Trust Line */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 1 }}
-          viewport={{ once: true }}
-          className="mt-6 text-sm text-neutral-500"
-        >
-          No credit card required · Setup in under 10 minutes · Cancel anytime
-        </motion.p>
-
       </div>
     </section>
-  )
+  );
 }

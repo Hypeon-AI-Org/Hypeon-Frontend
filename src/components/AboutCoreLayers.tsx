@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Section, { Cell } from './Section';
 
 const layers = [
   {
     tag: 'INTELLIGENCE',
     title: 'Hypeon Intelligence',
     description:
-      'The intelligence engine. Decode any competitor\'s playbook in seconds - their spend, reach and winning angles, laid bare.',
-    accent: 'green',
+      "The intelligence engine. Decode any competitor's playbook in seconds - their spend, reach and winning angles, laid bare.",
     features: [
       'Competitor spend, reach & winning-angle decoding',
       '200M+ ads across Meta, Google, TikTok, LinkedIn & Pinterest',
@@ -23,7 +21,6 @@ const layers = [
     title: 'HypeOn Studio',
     description:
       'The creative engine. AI-first ad creative built to convert - turning intelligence into scroll-stopping assets in seconds, not weeks.',
-    accent: 'orange',
     features: [
       'Scroll-stopping static, video & UGC in seconds',
       'Trained on real performance data',
@@ -33,17 +30,6 @@ const layers = [
     ],
   },
 ];
-
-const accentStyles = {
-  green: {
-    border: 'border-t-[#22c55e]',
-    tag: 'bg-emerald-100 text-emerald-700',
-  },
-  orange: {
-    border: 'border-t-amber-400',
-    tag: 'bg-amber-100 text-amber-700',
-  },
-};
 
 function CheckIcon() {
   return (
@@ -79,55 +65,40 @@ export default function AboutCoreLayers() {
   }, []);
 
   return (
-    <Section cols={2} sectionRef={ref}>
-      {/* HEADER */}
-      <Cell className="md:col-span-2 text-center">
+    <section ref={ref} className="bg-white py-16 sm:py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <div
-          className={`max-w-2xl mx-auto transition-all duration-700
-          ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
         >
-          <p className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-3">
-            The Platform
-          </p>
-
-          <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-tight">
-            Two engines. <span className="text-[#696863]">One growth system.</span>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400 mb-3">The Platform</p>
+          <h2 className="text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-slate-900">
+            Two engines. <span className="text-slate-900">One growth system.</span>
           </h2>
-
-          <p className="mt-4 text-sm text-slate-500 leading-relaxed">
-            Intelligence for finding and decoding what&apos;s actually working - every competitor&apos;s spend, reach and winning angles. Studio for turning those insights into creative that converts. Two engines that replace guesswork with evidence, then ship the work.
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-500">
+            Intelligence for finding and decoding what&apos;s actually working - every
+            competitor&apos;s spend, reach and winning angles. Studio for turning those insights
+            into creative that converts. Two engines that replace guesswork with evidence, then
+            ship the work.
           </p>
         </div>
-      </Cell>
 
-      {/* CARDS - each engine is its own grid cell; the section hairlines form the dividers */}
-      {layers.map((layer, i) => {
-        const style = accentStyles[layer.accent as keyof typeof accentStyles];
-
-        return (
-          <Cell key={layer.title}>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-16">
+          {layers.map((layer, i) => (
             <div
-              className={`
-                group relative border-t-4 pt-5
-                transition-all duration-500
-                ${style.border}
-                ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
-              `}
+              key={layer.title}
+              className={`rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-500 sm:p-8 ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
               style={{ transitionDelay: `${i * 120}ms` }}
             >
-              <span
-                className={`inline-block px-3 py-1 rounded-md text-xs font-semibold tracking-wide uppercase ${style.tag}`}
-              >
+              <span className="inline-block rounded-md bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
                 {layer.tag}
               </span>
 
-              <h3 className="mt-4 text-xl font-semibold text-slate-900">
-                {layer.title}
-              </h3>
-
-              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                {layer.description}
-              </p>
+              <h3 className="mt-4 text-xl font-semibold text-slate-900">{layer.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-500">{layer.description}</p>
 
               <ul className="mt-5 space-y-3 text-sm text-slate-600">
                 {layer.features.map((feature) => (
@@ -140,9 +111,9 @@ export default function AboutCoreLayers() {
                 ))}
               </ul>
             </div>
-          </Cell>
-        );
-      })}
-    </Section>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

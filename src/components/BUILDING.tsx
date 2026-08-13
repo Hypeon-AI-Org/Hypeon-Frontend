@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Section, { Cell } from './Section';
 
 export default function WhoWeAreBuildingFor() {
   const ref = useRef<HTMLElement | null>(null);
@@ -21,52 +20,47 @@ export default function WhoWeAreBuildingFor() {
   }, []);
 
   return (
-    <Section cols={2} sectionRef={ref} className="font-sans">
+    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-1/2 hidden h-[460px] w-[460px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+      />
 
-      {/* LEFT - Image (bleed: media fills the cell, hairline frames it) */}
-      <Cell bleed className="flex items-center px-6 py-12 sm:px-10 sm:py-16">
-        <div
-          className={`
-            relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-slate-800
-            transition-all duration-700
-            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'}
-          `}
-        >
-          <Image
-            src="/about/mission.webp"
-            alt="Mission"
-            fill
-            className="object-cover"
-            sizes="(max-width: 200px) 100vw, 50vw"
-          />
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div
+            className={`text-center transition-all duration-700 lg:order-2 lg:text-left ${
+              visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
+            }`}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Our Mission</p>
+            <h2 className="mt-3 text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-white">
+              Make growth predictable<span className="text-white/40">not guessed.</span>
+            </h2>
+            <p className="mt-4 max-w-lg text-sm sm:text-base leading-relaxed text-white/50 lg:max-w-none">
+              We&apos;re building two engines that work as one - Hypeon Intelligence to decode
+              your competitor&apos;s playbook, and HypeOn Studio to turn that insight into
+              creative that converts. Spend less, sell more, and keep what you earn.
+            </p>
+          </div>
+
+          <div
+            className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] transition-all duration-700 delay-150 lg:order-1 ${
+              visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+            }`}
+          >
+            <Image src="/about/mission.webp" alt="Mission" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+          </div>
         </div>
-      </Cell>
-
-      {/* RIGHT - text */}
-      <Cell className="flex items-center">
-        <div
-          className={`
-            text-center md:text-left
-            transition-all duration-700 delay-150
-            ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'}
-          `}
-        >
-          <p className="text-xs tracking-[0.25em] uppercase font-semibold text-gray-500">
-            Our Mission
-          </p>
-
-          <h2 className="mt-3 text-2xl sm:text-4xl md:text-4xl text-black leading-tight tracking-tight">
-            Make growth predictable, <span className="text-[#696863]">not guessed.</span>
-          </h2>
-
-          <p className="mt-4 text-sm text-gray-500 leading-relaxed max-w-lg md:max-w-none">
-            We&apos;re building two engines that work as one - Hypeon Intelligence to decode your
-            competitor&apos;s playbook, and HypeOn Studio to turn that insight into creative that
-            converts. Spend less, sell more, and keep what you earn.
-          </p>
-        </div>
-      </Cell>
-
-    </Section>
+      </div>
+    </section>
   );
 }

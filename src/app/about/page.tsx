@@ -29,6 +29,7 @@ export default function AboutPage() {
       <GrowthTimeline />
       <AboutImpact />
       <StartToday />
+      
       <Footer />
     </main>
   );

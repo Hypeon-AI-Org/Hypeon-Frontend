@@ -30,7 +30,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                 />
 
                 {/* soft scrim so the button pops */}
-                <div className="pointer-events-none absolute inset-x-2.5 bottom-0 top-2.5 rounded-t-xl bg-white/20 sm:inset-x-3 sm:top-3" />
+                <div className="pointer-events-none absolute inset-x-2.5 bottom-0 top-2.5 rounded-t-xl bg-white/12 sm:inset-x-3 sm:top-3" />
 
                 {/* CTA - centered */}
                 <div className="absolute inset-0 flex items-center justify-center px-4">

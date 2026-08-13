@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Section, { Cell } from './Section';
-
 
 const cards = [
   {
@@ -36,7 +34,7 @@ function StoryIcon({ name }: { name: string }) {
   switch (name) {
     case 'target':
       return (
-        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="10" />
           <circle cx="12" cy="12" r="6" />
           <circle cx="12" cy="12" r="2" />
@@ -44,19 +42,19 @@ function StoryIcon({ name }: { name: string }) {
       );
     case 'lightning':
       return (
-        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
         </svg>
       );
     case 'message':
       return (
-        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
       );
     case 'network':
       return (
-        <svg className="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="3" />
           <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
         </svg>
@@ -88,83 +86,81 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <Section cols={2} sectionRef={ref} className="font-sans">
+    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-28">
+      {/* Faint dot-grid texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+      />
+      {/* Soft ambient glows */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-0 hidden h-[460px] w-[460px] -translate-x-1/3 -translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
+      />
 
-      {/* LEFT IMAGE */}
-      <Cell bleed className="flex items-center justify-center px-6 py-12 sm:px-10 sm:py-16">
-        <div
-          className={`w-full transition-all duration-700 ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div className="relative max-w-md mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/4]">
-            <Image
-              src="/about/story.webp"
-              alt="Business analytics and market research"
-              fill
-              className="object-cover"
-            />
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(340px,460px)_1fr] lg:items-stretch lg:gap-14">
+          {/* image */}
+          <div
+            className={`relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] transition-all duration-700 lg:aspect-auto ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
+          >
+            <Image src="/about/story.webp" alt="Business analytics and market research" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          </div>
 
-            {/* overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          {/* content */}
+          <div>
+            <p
+              className={`text-xs font-semibold uppercase tracking-[0.2em] text-white/40 mb-2 transition-all ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Why we exist
+            </p>
+
+            <h2
+              className={`text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-white transition-all ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Every wasted dollar starts with a <span className="text-white/40">bad decision.</span>
+            </h2>
+
+            <p
+              className={`mt-3 text-[15px] leading-relaxed text-white/50 transition-all ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Most e-commerce teams don&apos;t lose money because they can&apos;t execute -
+              they lose money because they execute on the wrong thing.
+            </p>
+
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {cards.map((card, i) => (
+                <div
+                  key={card.title}
+                  className={`rounded-2xl border border-white/10 bg-[#131316] p-5 transition-all ${
+                    visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  }`}
+                  style={{ transitionDelay: `${200 + i * 80}ms` }}
+                >
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-md bg-white/10 text-white">
+                    <StoryIcon name={card.icon} />
+                  </div>
+                  <h3 className="text-base font-semibold text-white">{card.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-white/50">{card.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </Cell>
-
-      {/* RIGHT CONTENT */}
-      <Cell>
-        <p
-          className={`text-xs tracking-[0.2em] uppercase font-medium text-slate-600 mb-2 transition-all ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          Why we exist
-        </p>
-
-        <h2
-          className={`text-2xl md:text-4xl font-bold text-slate-900 leading-tight transition-all ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          Every wasted dollar starts with a <span className="text-[#696863]">bad decision.</span>
-        </h2>
-
-        <p
-          className={`mt-3 text-slate-600 text-[15px] leading-relaxed transition-all ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          Most e-commerce teams don't lose money because they can't execute -
-          they lose money because they execute on the wrong thing.
-        </p>
-
-        {/* CARDS */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-          {cards.map((card, i) => (
-            <div
-              key={card.title}
-              className={`bg-white rounded-lg border border-slate-200 shadow-sm p-4 transition-all hover:shadow-md ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-              style={{ transitionDelay: `${200 + i * 80}ms` }}
-            >
-              <div className="mb-2">
-                <StoryIcon name={card.icon} />
-              </div>
-
-              <h3 className="font-semibold text-slate-900 text-base">
-                {card.title}
-              </h3>
-
-              <p className="mt-1 text-slate-600 text-sm leading-relaxed">
-                {card.description}
-              </p>
-            </div>
-          ))}
-
-        </div>
-      </Cell>
-    </Section>
+      </div>
+    </section>
   );
 }

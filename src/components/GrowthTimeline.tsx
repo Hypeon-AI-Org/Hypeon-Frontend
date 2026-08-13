@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Section, { Cell } from './Section';
 
 const milestones = [
   {
@@ -54,95 +53,64 @@ export default function GrowthTimeline() {
   }, [visible]);
 
   return (
-    <Section cols={1} sectionRef={ref} className="font-sans">
-      {/* HEADER */}
-      <Cell
-        className={`text-center transition-all duration-700 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-        }`}
-      >
-        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
-          The Road Ahead
-        </p>
+    <section ref={ref} className="bg-white pt-16 pb-6 sm:pt-20 sm:pb-8 lg:pt-28 lg:pb-10">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div
+          className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">The Road Ahead</p>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            From idea to industry <span className="text-slate-900">standard.</span>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-500">
+            We&apos;re building for durability, not shortcuts.
+          </p>
+        </div>
 
-        <h2 className="text-2xl sm:text-4xl md:text-4xl text-slate-900 tracking-tight">
-          From idea to industry <span className="text-[#696863]">standard.</span>
-        </h2>
-
-        <p className="mt-3 text-sm text-slate-600">
-          We&apos;re building for durability, not shortcuts.
-        </p>
-      </Cell>
-
-      {/* TIMELINE */}
-      <Cell bleed className="overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
-        <div className="relative">
-          {/* background line */}
-          <div className="absolute top-4 left-0 right-0 h-[1px] bg-slate-200 rounded-full" />
-
-          {/* animated line */}
+        <div className="relative mt-14 lg:mt-20">
+          <div className="absolute left-0 right-0 top-[7px] hidden h-px bg-slate-200 lg:block" />
           <div
             ref={lineRef}
-            className="absolute top-4 left-0 h-[1px] bg-gradient-to-r from-brand-600 to-brand-500 rounded-full transition-all duration-1000"
+            className="absolute left-0 top-[7px] hidden h-px bg-slate-900 transition-all duration-1000 lg:block"
             style={{ width: `${lineWidth}%` }}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5 relative">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-6">
             {milestones.map((m, i) => (
               <div
                 key={m.title}
-                className={`
-                  relative flex flex-col items-center text-center
-                  transition-all duration-700
-                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                `}
+                className={`relative flex flex-col items-start text-left transition-all duration-700 ${
+                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
                 style={{ transitionDelay: `${300 + i * 120}ms` }}
               >
-                {/* dot */}
-                <div className="relative z-10 flex justify-center pt-2 mb-4">
-                  <div
-                    className={`
-                      h-3 w-3 rounded-full bg-brand-600 ring-2 ring-white shadow
-                      transition-all duration-500
-                      ${visible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
-                    `}
-                    style={{ transitionDelay: `${500 + i * 100}ms` }}
-                  />
-                </div>
-
-                {/* card */}
                 <div
-                  className="w-full flex-1 bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-left
-                  hover:shadow-md hover:-translate-y-1 transition-all"
-                >
-                  <p className="text-xs font-bold tracking-wider text-gray-500 uppercase">
-                    {m.year}
-                  </p>
+                  className={`relative z-10 mb-4 hidden h-[15px] w-[15px] items-center justify-center rounded-full bg-slate-900 ring-4 ring-white transition-all duration-500 lg:flex ${
+                    visible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                  }`}
+                  style={{ transitionDelay: `${500 + i * 100}ms` }}
+                />
 
-                  <h3 className="mt-1 text-base font-semibold text-slate-900">
-                    {m.title}
-                  </h3>
-
-                  <p className="mt-1 text-sm text-slate-500 leading-relaxed">
-                    {m.desc}
-                  </p>
+                <div className="w-full flex-1 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-400">{m.year}</p>
+                  <h3 className="mt-1 text-base font-semibold text-slate-900">{m.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{m.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* footer */}
         <p
-          className={`
-            mt-6 text-center text-xs text-slate-500 max-w-xl mx-auto
-            transition-all duration-700 delay-700
-            ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-          `}
+          className={`mx-auto mt-10 max-w-xl text-center text-xs text-slate-400 transition-all duration-700 delay-700 ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
         >
           This roadmap is intentional, measurable, and focused on building long-term value.
         </p>
-      </Cell>
-    </Section>
+      </div>
+    </section>
   );
 }
