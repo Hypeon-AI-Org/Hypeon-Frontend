@@ -474,16 +474,17 @@ export default function TikTokScrollSection() {
                   onClick={() => handleCardClick(index, shortest(index - offsetRef.current))}
                   onMouseEnter={() => setHovered(card.id)}
                   onMouseLeave={() => setHovered(null)}
-                  className="card-3d-item cursor-pointer active:cursor-pointer absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-slate-900 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-black/10"
+                  className="card-3d-item cursor-pointer active:cursor-pointer absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-white/10 backdrop-blur-md shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-white/20"
                   style={{
                     transform: `translate3d(${R * Math.sin(rad)}px, 0px, ${R * (Math.cos(rad) - 1)}px) rotateY(${-shortest(index) * STEP_ANGLE_DEG}deg)`,
                     zIndex: Math.round(1000 + R * (Math.cos(rad) - 1)),
                     opacity: Math.max(0, Math.cos(rad))
                   }}
                 >
-                  {/* Gradient sits underneath so the tile is never blank while
-                      the clip buffers - and it is all that shows if it fails */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${card.fallbackBg}`} />
+                  {/* Neutral glass backing. Every card used to carry its own
+                      coloured gradient, which tinted each one differently once
+                      the flanks faded out - one shared tone keeps them uniform */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/15 to-white/5 backdrop-blur-sm" />
 
                   {/* Card Background UGC Clip */}
                   {!imgErrors[card.id] && (
