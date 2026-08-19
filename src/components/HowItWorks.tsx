@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 // Real UGC ad clips out of /public/ugc video - the folder name has a space,
@@ -304,7 +305,7 @@ export default function TikTokScrollSection() {
   }, []);
 
   return (
-    <section className="relative w-full bg-white text-black pt-14 pb-2 sm:pt-20 sm:pb-2 font-sans overflow-hidden select-none flex flex-col justify-center">
+    <section className="relative w-full bg-white text-black pt-14 pb-2 sm:pt-20 sm:pb-2 font-sans overflow-hidden select-none">
 
       {/* 3D Hardware Accelerated Stage CSS */}
       <style>{`
@@ -324,20 +325,34 @@ export default function TikTokScrollSection() {
         }
       `}</style>
 
-      {/* Header Copy Section */}
-      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 z-20">
-        <span className="inline-flex items-center rounded-full border border-neutral-200 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500">
-          UGC engine
-        </span>
+      {/* Header Copy Section - same left-aligned header row as the "Made with
+          HypeOn" section below: copy on the left, CTA pinned to the right */}
+      <div className="relative z-20 mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <span className="inline-flex items-center rounded-full border border-neutral-200 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500">
+              UGC engine
+            </span>
 
-        <h2 className="mt-5 text-3xl font-bold tracking-tight text-black text-balance sm:text-4xl lg:text-5xl">
-          UGC video templates
-        </h2>
+            <h2 className="mt-4 text-2xl font-bold leading-tight tracking-tighter text-black sm:text-3xl lg:text-4xl">
+              UGC video templates
+            </h2>
 
-        <p className="mt-4 mx-auto max-w-xl text-sm leading-relaxed text-neutral-500 sm:text-base">
-          Turn products into UGC videos using proven video styles that capture
-          attention and drive sales.
-        </p>
+            <p className="mt-2 max-w-xl text-sm text-neutral-500 sm:text-base">
+              Turn products into UGC videos using proven video styles that
+              capture attention and drive sales.
+            </p>
+          </div>
+
+          <a
+            href="https://app.hypeon.ai/studio/login"
+            className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-colors hover:bg-slate-50 sm:mb-6"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-slate-500" strokeWidth={2.2} />
+            Explore templates
+            <ArrowRight className="h-3.5 w-3.5 text-slate-400 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </div>
       </div>
 
       {/* 3D Cylinder Arc Container */}
