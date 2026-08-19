@@ -13,6 +13,7 @@ import BuiltForBrands from '@/components/BuiltForBrands';
 import OnePlaceEveryPlatform from '@/components/OnePlaceEveryPlatform';
 import PricingSection from '@/components/PricingSection';
 import MidnightCTA from '@/components/MidnightCTA';
+import HowItWorks from '@/components/HowItWorks';
 
 // Lazy load below-the-fold components
 const Partners = dynamic(() => import('@/components/Partners'));
@@ -30,7 +31,9 @@ export default function Home() {
 <AdIntelReplica />
       <FounderDecisionMap />
       <Partners />
+         <HowItWorks />
       <OnePlaceEveryPlatform />
+   
       <PricingSection />
       <MidnightCTA />
 
