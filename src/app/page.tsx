@@ -27,11 +27,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ProductEngines />
+            <HowItWorks />
       <BuiltForBrands />
 <AdIntelReplica />
       <FounderDecisionMap />
       <Partners />
-         <HowItWorks />
+   
       <OnePlaceEveryPlatform />
    
       <PricingSection />
