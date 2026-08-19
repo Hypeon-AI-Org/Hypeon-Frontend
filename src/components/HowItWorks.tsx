@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 // Real UGC ad clips out of /public/ugc video - the folder name has a space,
@@ -104,6 +104,10 @@ export default function TikTokScrollSection() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+
+  // At most one card is ever audible - id of that card, or null for all muted
+  const [soundId, setSoundId] = useState<string | null>(null);
+  const soundIdRef = useRef<string | null>(null);
 
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -291,12 +295,52 @@ export default function TikTokScrollSection() {
     // Hold on the tapped card for a beat, then hand it back to autoplay
     setIsPlaying(false);
     if (resumeTimer.current) clearTimeout(resumeTimer.current);
-    resumeTimer.current = setTimeout(() => setIsPlaying(true), 3000);
+    resumeTimer.current = setTimeout(() => {
+      // Never start rotating again underneath a card that is playing audio
+      if (!soundIdRef.current) setIsPlaying(true);
+    }, 3000);
   };
 
   const handleImageError = (id: string) => {
     setImgErrors((prev) => ({ ...prev, [id]: true }));
   };
+
+  // Turning sound on for a card brings it to the front and holds the ring
+  // there, so you are not listening to a clip that is rotating away.
+  const handleSoundToggle = (
+    e: React.MouseEvent,
+    id: string,
+    index: number
+  ) => {
+    e.stopPropagation();
+    const next = soundId === id ? null : id;
+
+    soundIdRef.current = next;
+    setSoundId(next);
+
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+
+    if (next) {
+      velocityRef.current = 0;
+      glideTarget.current = index % CARD_COUNT;
+      setIsPlaying(false);
+    } else {
+      setIsPlaying(true);
+    }
+  };
+
+  // One audible card at a time. Unmuting only works here because this always
+  // runs off a click, which is the gesture browsers require for audio.
+  useEffect(() => {
+    CARDS_DATA.forEach((card) => {
+      const el = videoRefs.current[card.id];
+      if (!el) return;
+
+      const audible = card.id === soundId;
+      el.muted = !audible;
+      if (audible) el.play().catch(() => {});
+    });
+  }, [soundId]);
 
   // Every clip runs the whole time, front of the ring or back of it. Kicked
   // once on mount because a muted autoplay can still be refused on first paint.
@@ -410,7 +454,10 @@ export default function TikTokScrollSection() {
                       preload="auto"
                       disablePictureInPicture
                       disableRemotePlayback
-                      onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
+                      onLoadedData={(e) => {
+                        // primeIOSVideo force-mutes, so skip the audible card
+                        if (soundId !== card.id) primeIOSVideo(e.currentTarget);
+                      }}
                       onError={() => handleImageError(card.id)}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -426,6 +473,36 @@ export default function TikTokScrollSection() {
                       {card.brand}
                     </span>
                   </div>
+
+                  {/* Sound toggle - the clips autoplay muted, this is what lets
+                      you actually hear one */}
+                  <button
+                    type="button"
+                    onClick={(e) => handleSoundToggle(e, card.id, index)}
+                    aria-label={
+                      soundId === card.id
+                        ? `Mute ${card.brand} template`
+                        : `Play ${card.brand} template with sound`
+                    }
+                    className="absolute bottom-3.5 left-3.5 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/65"
+                  >
+                    {soundId === card.id ? (
+                      <VolumeX className="h-3.5 w-3.5" strokeWidth={2.2} />
+                    ) : (
+                      <Volume2 className="h-3.5 w-3.5" strokeWidth={2.2} />
+                    )}
+                  </button>
+
+                  {/* Per-card Generate action. stopPropagation so following the
+                      link never doubles as a tap on the card behind it */}
+                  <a
+                    href="https://app.hypeon.ai/studio/login"
+                    onClick={(e) => e.stopPropagation()}
+                    className="group/gen absolute bottom-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/55 px-3 py-1.5 text-[11px] font-bold text-black backdrop-blur-md transition-colors hover:bg-white/80"
+                  >
+                    <Sparkles className="h-3 w-3 text-neutral-500" strokeWidth={2.2} />
+                    Generate
+                  </a>
                 </div>
               );
             })}
