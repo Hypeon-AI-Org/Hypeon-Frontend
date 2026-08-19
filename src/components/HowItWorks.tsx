@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Pause, Play, Sparkles } from 'lucide-react';
 import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 // Real UGC ad clips out of /public/ugc video - the folder name has a space,
@@ -105,9 +105,21 @@ export default function TikTokScrollSection() {
   const [isDragging, setIsDragging] = useState(false);
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
 
-  // At most one card is ever audible - id of that card, or null for all muted
-  const [soundId, setSoundId] = useState<string | null>(null);
-  const soundIdRef = useRef<string | null>(null);
+  // The one card the visitor chose to actually watch, with sound. Null means
+  // the ring is just idling with every clip muted.
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const activeIdRef = useRef<string | null>(null);
+
+  // Card the pointer is resting on - the ring holds still so Play and Generate
+  // are not moving targets, and that card is lifted clear of its neighbours
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const hoveredIdRef = useRef<string | null>(null);
+  const isHovered = hoveredId !== null;
+
+  const setHovered = useCallback((id: string | null) => {
+    hoveredIdRef.current = id;
+    setHoveredId(id);
+  }, []);
 
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -178,9 +190,21 @@ export default function TikTokScrollSection() {
       const translateZ = R * (Math.cos(rad) - 1); // recedes back as angle grows
       const rotateY = -rawDist * STEP_ANGLE_DEG; // curves inward towards center
 
+      const opacity = Math.max(0, Math.cos(rad));
+
       el.style.transform = `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg)`;
-      el.style.zIndex = String(Math.round(1000 + translateZ));
-      el.style.opacity = String(Math.max(0, Math.cos(rad)));
+      // A neighbour nearer the front would otherwise cover this card's centre
+      // - and with it the play button - even where the card looks unobscured.
+      el.style.zIndex =
+        hoveredIdRef.current === card.id
+          ? '3000'
+          : String(Math.round(1000 + translateZ));
+      el.style.opacity = String(opacity);
+
+      // Cards swung round the back are invisible but would still swallow the
+      // pointer, so the hand and the click could land on a card you cannot
+      // see. Only what is actually visible stays hit-testable.
+      el.style.pointerEvents = opacity < 0.02 ? 'none' : 'auto';
     });
   }, [R, STEP_ANGLE_DEG, shortest]);
 
@@ -209,7 +233,7 @@ export default function TikTokScrollSection() {
             // A flick always gets to play out, autoplaying or not
             offsetRef.current = wrap(offsetRef.current - velocityRef.current);
             velocityRef.current *= 0.94; // Momentum decay
-          } else if (isPlaying) {
+          } else if (isPlaying && !isHovered) {
             velocityRef.current = 0;
             offsetRef.current = wrap(offsetRef.current + SPEED * delta);
           }
@@ -220,7 +244,7 @@ export default function TikTokScrollSection() {
       lastTimeRef.current = time;
       animFrameId.current = requestAnimationFrame(animate);
     },
-    [isDragging, isPlaying, wrap, paint, shortest]
+    [isDragging, isPlaying, isHovered, wrap, paint, shortest]
   );
 
   useEffect(() => {
@@ -296,8 +320,8 @@ export default function TikTokScrollSection() {
     setIsPlaying(false);
     if (resumeTimer.current) clearTimeout(resumeTimer.current);
     resumeTimer.current = setTimeout(() => {
-      // Never start rotating again underneath a card that is playing audio
-      if (!soundIdRef.current) setIsPlaying(true);
+      // Never rotate out from under a card the visitor is actually watching
+      if (!activeIdRef.current) setIsPlaying(true);
     }, 3000);
   };
 
@@ -305,18 +329,18 @@ export default function TikTokScrollSection() {
     setImgErrors((prev) => ({ ...prev, [id]: true }));
   };
 
-  // Turning sound on for a card brings it to the front and holds the ring
-  // there, so you are not listening to a clip that is rotating away.
-  const handleSoundToggle = (
+  // Play brings that card to the front, gives it the audio and holds the ring
+  // still. Pressing it again releases everything and the ring carries on.
+  const handlePlayToggle = (
     e: React.MouseEvent,
     id: string,
     index: number
   ) => {
-    e.stopPropagation();
-    const next = soundId === id ? null : id;
+    e.stopPropagation(); // never let this double as a tap on the card
+    const next = activeIdRef.current === id ? null : id;
 
-    soundIdRef.current = next;
-    setSoundId(next);
+    activeIdRef.current = next;
+    setActiveId(next);
 
     if (resumeTimer.current) clearTimeout(resumeTimer.current);
 
@@ -329,23 +353,40 @@ export default function TikTokScrollSection() {
     }
   };
 
-  // One audible card at a time. Unmuting only works here because this always
-  // runs off a click, which is the gesture browsers require for audio.
+  // One audible card at a time. Unmuting only works because this runs off a
+  // click, which is the gesture browsers require before allowing audio.
   useEffect(() => {
     CARDS_DATA.forEach((card) => {
       const el = videoRefs.current[card.id];
       if (!el) return;
 
-      const audible = card.id === soundId;
+      const audible = card.id === activeId;
       el.muted = !audible;
-      if (audible) el.play().catch(() => {});
+      if (audible) {
+        el.currentTime = 0; // start the chosen clip from the top
+        el.play().catch(() => {});
+      } else if (!el.paused) {
+        el.pause(); // idle cards sit on a still frame, they do not autoplay
+      }
     });
-  }, [soundId]);
+  }, [activeId]);
 
-  // Every clip runs the whole time, front of the ring or back of it. Kicked
-  // once on mount because a muted autoplay can still be refused on first paint.
+  // Nothing plays on its own any more, but the clips still have to decode one
+  // frame each or the ring would be nine empty boxes. Playing then immediately
+  // pausing is the reliable way to force that first frame out.
   useEffect(() => {
-    CARDS_DATA.forEach((card) => primeIOSVideo(videoRefs.current[card.id]));
+    CARDS_DATA.forEach((card) => {
+      const el = videoRefs.current[card.id];
+      if (!el) return;
+      primeIOSVideo(el);
+
+      // Only pause if this is still the throwaway frame-priming playback. A
+      // late-firing listener must never stop a clip the visitor pressed play on.
+      const settle = () => {
+        if (activeIdRef.current !== card.id) el.pause();
+      };
+      el.addEventListener('timeupdate', settle, { once: true });
+    });
   }, []);
 
   return (
@@ -410,7 +451,9 @@ export default function TikTokScrollSection() {
         <div
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
-          className="perspective-stage relative w-full h-[380px] sm:h-[430px] lg:h-[560px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
+          className={`perspective-stage relative w-full h-[380px] sm:h-[430px] lg:h-[560px] flex items-center justify-center overflow-hidden ${
+            isHovered ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'
+          }`}
         >
           <div className="cylinder-ring relative w-full h-full flex items-center justify-center">
             {CARDS_DATA.map((card, index) => {
@@ -429,7 +472,9 @@ export default function TikTokScrollSection() {
                     cardRefs.current[card.id] = el;
                   }}
                   onClick={() => handleCardClick(index, shortest(index - offsetRef.current))}
-                  className="card-3d-item absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-slate-900 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-black/10"
+                  onMouseEnter={() => setHovered(card.id)}
+                  onMouseLeave={() => setHovered(null)}
+                  className="card-3d-item cursor-pointer active:cursor-pointer absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-slate-900 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-black/10"
                   style={{
                     transform: `translate3d(${R * Math.sin(rad)}px, 0px, ${R * (Math.cos(rad) - 1)}px) rotateY(${-shortest(index) * STEP_ANGLE_DEG}deg)`,
                     zIndex: Math.round(1000 + R * (Math.cos(rad) - 1)),
@@ -447,7 +492,6 @@ export default function TikTokScrollSection() {
                         videoRefs.current[card.id] = el;
                       }}
                       src={cardVideo}
-                      autoPlay
                       muted
                       loop
                       playsInline
@@ -456,7 +500,7 @@ export default function TikTokScrollSection() {
                       disableRemotePlayback
                       onLoadedData={(e) => {
                         // primeIOSVideo force-mutes, so skip the audible card
-                        if (soundId !== card.id) primeIOSVideo(e.currentTarget);
+                        if (activeId !== card.id) primeIOSVideo(e.currentTarget);
                       }}
                       onError={() => handleImageError(card.id)}
                       className="absolute inset-0 w-full h-full object-cover"
@@ -474,22 +518,23 @@ export default function TikTokScrollSection() {
                     </span>
                   </div>
 
-                  {/* Sound toggle - the clips autoplay muted, this is what lets
-                      you actually hear one */}
+                  {/* Play with sound - holds the ring still while it runs */}
                   <button
                     type="button"
-                    onClick={(e) => handleSoundToggle(e, card.id, index)}
+                    onClick={(e) => handlePlayToggle(e, card.id, index)}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
                     aria-label={
-                      soundId === card.id
-                        ? `Mute ${card.brand} template`
+                      activeId === card.id
+                        ? `Stop ${card.brand} template`
                         : `Play ${card.brand} template with sound`
                     }
-                    className="absolute bottom-3.5 left-3.5 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition-colors hover:bg-black/65"
+                    className="absolute left-1/2 top-1/2 z-20 cursor-pointer active:cursor-pointer inline-flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-md transition-colors hover:bg-black/60"
                   >
-                    {soundId === card.id ? (
-                      <VolumeX className="h-3.5 w-3.5" strokeWidth={2.2} />
+                    {activeId === card.id ? (
+                      <Pause className="h-5 w-5" strokeWidth={2} />
                     ) : (
-                      <Volume2 className="h-3.5 w-3.5" strokeWidth={2.2} />
+                      <Play className="h-5 w-5 translate-x-[1px]" strokeWidth={2} />
                     )}
                   </button>
 
@@ -498,7 +543,9 @@ export default function TikTokScrollSection() {
                   <a
                     href="https://app.hypeon.ai/studio/login"
                     onClick={(e) => e.stopPropagation()}
-                    className="group/gen absolute bottom-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/55 px-3 py-1.5 text-[11px] font-bold text-black backdrop-blur-md transition-colors hover:bg-white/80"
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    className="group/gen absolute bottom-3.5 right-3.5 z-20 cursor-pointer active:cursor-pointer inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/55 px-3 py-1.5 text-[11px] font-bold text-black backdrop-blur-md transition-colors hover:bg-white/80"
                   >
                     <Sparkles className="h-3 w-3 text-neutral-500" strokeWidth={2.2} />
                     Generate
