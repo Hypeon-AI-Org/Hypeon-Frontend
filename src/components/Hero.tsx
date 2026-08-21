@@ -713,11 +713,11 @@ export default function Hero() {
           {/* Mobile: compact 4-across row of real ad clips beneath the CTAs -
               the desktop scattered showcase field is lg:hidden, so mobile gets
               this simple in-flow row instead of nothing. */}
-          <div className="relative z-20 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto pl-28 pr-6 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:pl-28 sm:pr-6 lg:hidden [&::-webkit-scrollbar]:hidden">
+          <div className="relative z-20 mt-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:px-6 lg:hidden [&::-webkit-scrollbar]:hidden">
             {isLgUp === false && SHOWCASE_CARDS.slice(0, 4).map((c) => (
               <div
                 key={c.src}
-                className="relative aspect-[9/16] w-[calc(50%-0.375rem)] shrink-0 snap-start overflow-hidden rounded-2xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
+                className="relative aspect-[9/16] w-[calc(50vw-0.75rem)] shrink-0 snap-start overflow-hidden rounded-2xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)] sm:w-[calc(33.333vw-1rem)]"
               >
                 <video
                   src={c.src}
