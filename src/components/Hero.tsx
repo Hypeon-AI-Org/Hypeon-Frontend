@@ -523,7 +523,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={heroSectionRef} className="relative bg-white pt-20 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-24">
+    <section ref={heroSectionRef} className="relative bg-white pt-14 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-24">
         <div className="relative mx-auto w-full max-w-[1180px] min-h-[420px] lg:min-h-[900px] overflow-hidden lg:overflow-visible">
 
           {/* Full-bleed dusty-glass wash - spans the entire viewport width (not just
