@@ -6,14 +6,18 @@ import { primeIOSVideo } from '@/lib/videoAutoplay';
 
 // Real UGC ad clips out of /public/ugc video - the folder name has a space,
 // so every path goes through encodeURI before it hits the <video> src.
-const UGC_VIDEOS = [
-  '1_Product_in_hand.mp4',
-  '2_Product_showcase.mp4',
-  '3_Podcast.mp4',
-  '4_Unboxing.mp4',
-  '5_Before_and_after.mp4',
-  '6_How-to.mp4',
-].map((file) => encodeURI(`/ugc video/${file}`));
+const UGC_FILES = [
+  '1_Product_in_hand',
+  '2_Product_showcase',
+  '3_Podcast',
+  '4_Unboxing',
+  '5_Before_and_after',
+  '6_How-to',
+];
+const UGC_VIDEOS = UGC_FILES.map((file) => encodeURI(`/ugc video/${file}.mp4`));
+// Poster frame for every clip, so a tile paints immediately instead of sitting
+// on empty glass until ~6MB of MP4 has arrived.
+const UGC_POSTERS = UGC_FILES.map((file) => encodeURI(`/ugc video/posters/${file}.jpg`));
 
 // Exact cards data matching reference image image_45d872.jpg
 const CARDS_DATA = [
@@ -123,6 +127,25 @@ export default function TikTokScrollSection() {
 
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Nine tiles x ~2MB is a lot to pull down while the hero is still loading, so
+  // the <video> tags stay src-less (posters only) until the ring nears the
+  // viewport. Once armed it never disarms - re-fetching on scroll-away is worse.
+  const ringRef = useRef<HTMLDivElement>(null);
+  const [clipsArmed, setClipsArmed] = useState(false);
+  useEffect(() => {
+    const el = ringRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') { setClipsArmed(true); return; }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) { setClipsArmed(true); io.disconnect(); }
+      },
+      { rootMargin: '600px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // The ring position lives in a ref, not state - see paint() below
   const offsetRef = useRef(0);
@@ -387,7 +410,9 @@ export default function TikTokScrollSection() {
       };
       el.addEventListener('timeupdate', settle, { once: true });
     });
-  }, []);
+    // Re-runs when the clips are armed - before that the tags have no src and
+    // there is nothing to prime (the poster is holding the frame).
+  }, [clipsArmed]);
 
   return (
     <section className="relative w-full bg-white text-black pt-14 pb-2 sm:pt-20 sm:pb-2 font-sans overflow-hidden select-none">
@@ -449,6 +474,7 @@ export default function TikTokScrollSection() {
 
         {/* 3D Perspective Stage */}
         <div
+          ref={ringRef}
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
           className={`perspective-stage relative w-full h-[380px] sm:h-[430px] lg:h-[560px] flex items-center justify-center overflow-hidden ${
@@ -459,7 +485,9 @@ export default function TikTokScrollSection() {
             {CARDS_DATA.map((card, index) => {
               // Nine tiles, six clips - the repeats land on the far side of the
               // ring, so the same video is never on screen twice at once
-              const cardVideo = UGC_VIDEOS[index % UGC_VIDEOS.length];
+              const clipIndex = index % UGC_VIDEOS.length;
+              const cardVideo = UGC_VIDEOS[clipIndex];
+              const cardPoster = UGC_POSTERS[clipIndex];
 
               // Position/opacity are owned by paint(), not by React. Only the
               // very first frame is laid out here, before paint() takes over.
@@ -492,7 +520,8 @@ export default function TikTokScrollSection() {
                       ref={(el) => {
                         videoRefs.current[card.id] = el;
                       }}
-                      src={cardVideo}
+                      src={clipsArmed ? cardVideo : undefined}
+                      poster={cardPoster}
                       muted
                       loop
                       playsInline

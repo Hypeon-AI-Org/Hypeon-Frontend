@@ -344,7 +344,9 @@ export default function Hero() {
   const [setupPhase, setSetupPhase] = useState(0);
   const [searchValue, setSearchValue] = useState('');
   const [hasContext, setHasContext] = useState(false);
-  const [isLgUp, setIsLgUp] = useState(false);
+  // null until the media query resolves, so the very first paint never
+  // mounts the wrong breakpoint's <video> elements and wastes bandwidth on them.
+  const [isLgUp, setIsLgUp] = useState<boolean | null>(null);
   const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
   const [chatCycle, setChatCycle] = useState(0);
 
@@ -595,7 +597,7 @@ export default function Hero() {
           {/* Showcase cards - pop in clustered/overlapping at center like a dealt
               deck, then fan outward into their final scattered spots. */}
           <div className="pointer-events-none absolute inset-0 hidden lg:block">
-            {SHOWCASE_CARDS.map((c, i) => {
+            {isLgUp && SHOWCASE_CARDS.map((c, i) => {
               const start = CLUSTER_START[i];
               const revealed = introPhase >= 2 || reduce;
               return (
@@ -628,7 +630,7 @@ export default function Hero() {
                       playsInline
                       disablePictureInPicture
                       disableRemotePlayback
-                      preload="metadata"
+                      preload="auto"
                       onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -654,7 +656,7 @@ export default function Hero() {
               {/* Badge */}
               <motion.div
                 variants={reduce ? undefined : heroChildVariants}
-                className="inline-flex items-center gap-2 rounded-full bg-slate-100 border border-slate-200 px-4 py-1.5 mb-6 sm:mb-8 text-[13px] sm:text-sm text-slate-600"
+                className="inline-flex items-center gap-1 rounded-full bg-slate-100 border border-slate-200 px-4 py-1.5 mb-6 sm:mb-8 text-[13px] sm:text-sm text-slate-600"
               >
                 <span className="italic font-serif text-slate-900">HypeOn</span>
                 <span>is live</span>
@@ -663,7 +665,7 @@ export default function Hero() {
               {/* Headline */}
               <motion.h1
                 variants={reduce ? undefined : heroChildVariants}
-                className="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] text-neutral-900"
+                className="text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight leading-[1.1] text-neutral-900"
               >
                 Find &amp; create winning ads{' '}
                 <span className=" font-serif font-normal">with AI</span>
@@ -681,11 +683,11 @@ export default function Hero() {
               {/* CTAs */}
               <motion.div
                 variants={reduce ? undefined : heroChildVariants}
-                className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3"
+                className="mt-8 sm:mt-10 flex flex-nowrap sm:flex-wrap items-center justify-center gap-2.5 sm:gap-3"
               >
                 <a
                   href="https://app.hypeon.ai/studio/login"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:text-base"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-4 py-3 text-[13px] whitespace-nowrap sm:px-6 sm:py-3.5 font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:text-base"
                 >
                   <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
                   <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
@@ -696,7 +698,7 @@ export default function Hero() {
                 </a>
                 <a
                   href="/studio"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 px-6 py-3.5 text-sm sm:text-base font-semibold transition-colors"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3 text-[13px] whitespace-nowrap sm:px-6 sm:py-3.5 sm:text-base font-semibold transition-colors"
                 >
                   <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
                     <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">See it in action</span>
@@ -712,7 +714,7 @@ export default function Hero() {
               the desktop scattered showcase field is lg:hidden, so mobile gets
               this simple in-flow row instead of nothing. */}
           <div className="relative z-20 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto pl-28 pr-6 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:pl-28 sm:pr-6 lg:hidden [&::-webkit-scrollbar]:hidden">
-            {SHOWCASE_CARDS.slice(0, 4).map((c) => (
+            {isLgUp === false && SHOWCASE_CARDS.slice(0, 4).map((c) => (
               <div
                 key={c.src}
                 className="relative aspect-[9/16] w-[calc(50%-0.375rem)] shrink-0 snap-start overflow-hidden rounded-2xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)]"
@@ -726,7 +728,7 @@ export default function Hero() {
                   playsInline
                   disablePictureInPicture
                   disableRemotePlayback
-                  preload="metadata"
+                  preload="auto"
                   onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
