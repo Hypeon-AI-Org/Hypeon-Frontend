@@ -161,7 +161,13 @@ a[href] {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Explicit list, not `all`: `all` makes the browser watch every animatable
+     property on a backdrop-filtered card, which is needless work per frame. */
+  transition:
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
@@ -358,6 +364,28 @@ a[href] {
 .gradient-orb {
   background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%);
   filter: blur(60px);
+}
+
+/* ============================================================
+   Scroll-time budget: while the page is actually moving, stop paying
+   for decorative motion.
+
+   Lenis puts `.lenis-scrolling` on <html> for the duration of a scroll
+   (including the momentum glide). The big blurred background blobs and
+   the floating cards animate transforms continuously; each one forces
+   the compositor to re-rasterize a large blurred layer every frame.
+   Freezing them mid-scroll costs nothing visually - nobody tracks a
+   60-second blob drift while flicking down the page - and gives those
+   frames back to the scroll itself.
+
+   Marquees are deliberately NOT paused: they read as content, and
+   stalling one mid-travel looks like a bug.
+   ============================================================ */
+html.lenis-scrolling .animate-blob,
+html.lenis-scrolling .animate-float,
+html.lenis-scrolling .float-card,
+html.lenis-scrolling .float-preview {
+  animation-play-state: paused;
 }
 
 /* Respect users who prefer reduced motion / low-end devices:

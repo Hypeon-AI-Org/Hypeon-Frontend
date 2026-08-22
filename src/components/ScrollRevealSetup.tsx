@@ -63,31 +63,54 @@ export default function ScrollRevealSetup() {
         );
       };
 
+      // Apply parallax. Pure math on cached offsets - no layout reads.
+      const applyParallax = () => {
+        const scrollY = window.scrollY;
+        for (let i = 0; i < parallaxElements.length; i++) {
+          // Position relative to viewport = base - scroll.
+          const relativeTop = baseTops[i] - scrollY;
+          const yPos = -(relativeTop * 0.3);
+          parallaxElements[i].style.transform = `translate3d(0, ${yPos}px, 0)`;
+        }
+      };
+
+      // Prefer Lenis's own frame: it writes the scroll position and then emits,
+      // so we transform in the SAME frame the content moves. Falling back to
+      // the native scroll event + rAF costs a frame, which reads as the
+      // parallax layer sliding a beat behind everything around it.
+      type LenisScrollBus = {
+        on: (event: 'scroll', cb: () => void) => void;
+        off: (event: 'scroll', cb: () => void) => void;
+      };
+      const lenis = (window as Window & { __lenis?: LenisScrollBus }).__lenis;
+
       let ticking = false;
       const handleScroll = () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            for (let i = 0; i < parallaxElements.length; i++) {
-              // Position relative to viewport = base - scroll. Pure math, no layout read.
-              const relativeTop = baseTops[i] - scrollY;
-              const yPos = -(relativeTop * 0.3);
-              parallaxElements[i].style.transform = `translate3d(0, ${yPos}px, 0)`;
-            }
+            applyParallax();
             ticking = false;
           });
           ticking = true;
         }
       };
 
+      let detachScroll: () => void = () => {};
       if (parallaxElements.length > 0) {
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        if (lenis) {
+          lenis.on('scroll', applyParallax);
+          detachScroll = () => lenis.off('scroll', applyParallax);
+        } else {
+          window.addEventListener('scroll', handleScroll, { passive: true });
+          detachScroll = () =>
+            window.removeEventListener('scroll', handleScroll);
+        }
         window.addEventListener('resize', recomputeTops, { passive: true });
       }
 
       cleanup = () => {
         observer.disconnect();
-        window.removeEventListener('scroll', handleScroll);
+        detachScroll();
         window.removeEventListener('resize', recomputeTops);
       };
     });
