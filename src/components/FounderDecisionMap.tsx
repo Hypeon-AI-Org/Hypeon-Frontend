@@ -14,7 +14,7 @@ import { ArrowUp, Image as ImageIcon, Music2, Paperclip, Search, Sparkles } from
 import LazyVideo from "./LazyVideo"
 
 const WORKSPACE_BACKDROP_STYLE = {
-  backgroundImage: "url('/images/back.png')",
+  backgroundImage: "url('/images/back.webp')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",

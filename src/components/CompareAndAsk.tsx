@@ -14,10 +14,10 @@ import { ArrowRight, Check, Sparkles } from "lucide-react";
 
 // staggered honeycomb layout (x/y in px within a 152×140 box)
 const LOGO_TILES = [
-    { logo: "/logos/meta.png", x: 54, y: 0 },
+    { logo: "/logos/meta.webp", x: 54, y: 0 },
     { logo: "/logos/tiktok.webp", x: 104, y: 22 },
     { logo: "/logos/google-ads.png", x: 4, y: 44 },
-    { logo: "/logos/instagram.png", x: 54, y: 50 },
+    { logo: "/logos/instagram.webp", x: 54, y: 50 },
     { logo: "/logos/linkedin.avif", x: 104, y: 74 },
 ];
 const EMPTY_TILES = [{ x: 4, y: 0 }, { x: 54, y: 98 }];

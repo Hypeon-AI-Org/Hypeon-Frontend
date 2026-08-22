@@ -5,16 +5,16 @@ import Image from 'next/image';
 
 /** All integration logos from /logos (renamed from logo_real) */
 const INTEGRATION_ITEMS = [
-  { name: 'Instagram', src: '/logos/instagram.png' },
+  { name: 'Instagram', src: '/logos/instagram.webp' },
   { name: 'Snapchat', src: '/logos/snapchat.jpg' },
   { name: 'LinkedIn', src: '/logos/linkedin.avif' },
-  { name: 'Google', src: '/logos/google.png' },
+  { name: 'Google', src: '/logos/google.webp' },
   { name: 'Google Cloud', src: '/logos/google-cloud.png' },
   { name: 'Google Ads', src: '/logos/google-ads.png' },
   { name: 'Google Sheets', src: '/logos/google-sheets.webp' },
   { name: 'Azure', src: '/logos/azure.png' },
-  { name: 'Meta', src: '/logos/meta.png' },
-  { name: 'Shopify', src: '/logos/shopify.png' },
+  { name: 'Meta', src: '/logos/meta.webp' },
+  { name: 'Shopify', src: '/logos/shopify.webp' },
   { name: 'Amazon', src: '/logos/amazon.png' },
   { name: 'TikTok', src: '/logos/tiktok.webp' },
 ];

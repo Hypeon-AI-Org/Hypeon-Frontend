@@ -3,13 +3,13 @@
 import Image from 'next/image';
 
 const PLATFORM_LOGOS = [
-  { name: 'Meta Ads', src: '/logos/meta.png' },
-  { name: 'Google Ads', src: '/logos/google.png' },
-  { name: 'Shopify', src: '/logos/shopify.png' },
+  { name: 'Meta Ads', src: '/logos/meta.webp' },
+  { name: 'Google Ads', src: '/logos/google.webp' },
+  { name: 'Shopify', src: '/logos/shopify.webp' },
   { name: 'Amazon', src: '/logos/amazon.png' },
   { name: 'TikTok Shop', src: '/logos/tiktok.webp' },
-  { name: 'Instagram', src: '/logos/instagram.png' },
-  { name: 'Pinterest', src: '/logos/pinterest.png' },
+  { name: 'Instagram', src: '/logos/instagram.webp' },
+  { name: 'Pinterest', src: '/logos/pinterest.webp' },
 ] as const;
 
 function Platform({ label, src }: { label: string; src: string }) {

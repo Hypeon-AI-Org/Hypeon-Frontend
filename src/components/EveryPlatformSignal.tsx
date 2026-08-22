@@ -150,10 +150,10 @@ export default function EveryPlatformSignal() {
                     </svg>
 
                     {/* platform pills */}
-                    <PlatformPill logo="/logos/meta.png" name="Meta" left="16%" />
+                    <PlatformPill logo="/logos/meta.webp" name="Meta" left="16%" />
                     <PlatformPill logo="/logos/google-ads.png" name="Google" left="37.5%" />
                     <PlatformPill logo="/logos/tiktok.webp" name="TikTok" left="62.5%" />
-                    <PlatformPill logo="/logos/pinterest.png" name="Pinterest" left="84%" />
+                    <PlatformPill logo="/logos/pinterest.webp" name="Pinterest" left="84%" />
 
                     {/* central HypeOn node */}
                     <div style={{ left: "50%", top: "78%" }} className="absolute z-10 -translate-x-1/2 -translate-y-1/2">

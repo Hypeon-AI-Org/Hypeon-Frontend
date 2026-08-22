@@ -53,6 +53,27 @@ const nextConfig = {
         ],
       },
       {
+        // Hash-named media (carousel/cards/wallism) can never change meaning
+        // under a given filename, so it is safe to cache these forever.
+        source: '/:dir(carousel|cards|wallism)/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      {
+        // Human-named media (logos, ads, images, ugc). These CAN be replaced in
+        // place under the same filename, so deliberately NOT `immutable`:
+        // a month of caching with revalidation, so swapping an asset actually
+        // reaches returning visitors instead of being pinned for a year.
+        source: '/:dir(logos|ads|images|about|team|sig)/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=2592000, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         source: '/:path*',
         headers: [
           {

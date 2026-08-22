@@ -5,13 +5,13 @@ import { BarChart2 } from "lucide-react"
 import Image from "next/image"
 
 const PLATFORM_LOGOS = [
-  { name: "Google Ads", src: "/logos/google.png" },
-  { name: "Shopify", src: "/logos/shopify.png" },
+  { name: "Google Ads", src: "/logos/google.webp" },
+  { name: "Shopify", src: "/logos/shopify.webp" },
   { name: "Amazon", src: "/logos/amazon.png" },
   { name: "TikTok", src: "/logos/tiktok.webp" },
-  { name: "Instagram", src: "/logos/instagram.png" },
-  { name: "Pinterest", src: "/logos/pinterest.png" },
-  { name: "Meta Ads", src: "/logos/meta.png" },
+  { name: "Instagram", src: "/logos/instagram.webp" },
+  { name: "Pinterest", src: "/logos/pinterest.webp" },
+  { name: "Meta Ads", src: "/logos/meta.webp" },
 ] as const
 
 const integrations = [
