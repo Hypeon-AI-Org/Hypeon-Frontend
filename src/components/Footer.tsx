@@ -9,16 +9,13 @@ const linkClass =
   "inline-flex min-h-8 items-center text-[14.5px] font-semibold leading-snug text-white transition-colors hover:text-slate-300";
 
 export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?: string }) {
+  /* Order here is the MOBILE flow order, chosen so the two CSS columns come
+     out even: Services (5 links) fills one, Product+Company+Legal (2+2+1) the
+     other. `order` restores the desktop row, so nothing changes at >=640px. */
   const navColumns = [
     {
-      title: "Product",
-      links: [
-        { label: "HypeOn Intelligence", href: "/products" },
-        { label: "HypeOn Studio", href: "/studio" },
-      ],
-    },
-    {
       title: "Services",
+      order: "sm:order-2",
       links: [
         { label: "GEO", href: "/services#geo" },
         { label: "SEO", href: "/services#seo" },
@@ -28,7 +25,16 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
       ],
     },
     {
+      title: "Product",
+      order: "sm:order-1",
+      links: [
+        { label: "HypeOn Intelligence", href: "/products" },
+        { label: "HypeOn Studio", href: "/studio" },
+      ],
+    },
+    {
       title: "Company",
+      order: "sm:order-3",
       links: [
         { label: "About Us", href: "/about" },
         { label: "Contact Us", href: "https://calendly.com/yash-hypeon/30min?month=2026-03" },
@@ -36,6 +42,7 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
     },
     {
       title: "Legal",
+      order: "sm:order-4",
       links: [
         { label: "Privacy Policy", href: "/privacy-policy" },
       ],
@@ -44,10 +51,10 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
 
   return (
     <footer className={`relative m-0 w-full overflow-hidden rounded-t-[32px] ${bgClassName} font-sans`}>
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 sm:pb-12 sm:pt-16 lg:px-8 lg:pb-14 lg:pt-20">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-4 lg:grid-cols-5 lg:gap-x-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-8 pt-12 sm:px-6 sm:pb-12 sm:pt-16 lg:px-8 lg:pb-14 lg:pt-20">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-5 lg:gap-x-8">
           {/* Brand - logo + name only, matching the reference's minimal left column */}
-          <div className="col-span-2 sm:col-span-4 lg:col-span-1">
+          <div className="sm:col-span-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
               <Image
                 src={logo}
@@ -83,12 +90,15 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
             </div>
           </div>
 
-          {navColumns.map((col) => (
-            <div key={col.title} className="flex flex-col">
-              <h4 className="mb-3 text-xs font-medium text-slate-500">
-                {col.title}
-              </h4>
-              <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
+          {/* Mobile flows these as CSS columns so a short list never leaves a
+              dead gap beside a long one. sm:contents hands them back to the grid. */}
+          <div className="columns-2 gap-x-5 sm:contents">
+            {navColumns.map((col) => (
+              <div key={col.title} className={`mb-8 flex break-inside-avoid flex-col sm:mb-0 ${col.order}`}>
+                <h4 className="mb-3 text-xs font-medium text-slate-500">
+                  {col.title}
+                </h4>
+                <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     {link.href.startsWith("http") ||
@@ -110,12 +120,13 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
                     )}
                   </li>
                 ))}
-              </ul>
-            </div>
-          ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-5 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-14 lg:pt-8">
+        <div className="mt-10 flex flex-col items-center gap-4 border-t border-white/10 pt-6 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:pt-8 lg:mt-14 lg:pt-8">
           <p className="text-center text-xs text-slate-500 sm:text-left sm:text-sm">
             Copyright © {new Date().getFullYear()} HypeOn AI Inc. All rights reserved.
           </p>

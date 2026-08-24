@@ -47,7 +47,7 @@ export default function ServicesProcess() {
             How we work
           </span>
           <h2 className="text-2xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
-            Eight weeks from invisible to cited, ranked and automated.
+            Eight weeks from invisible to cited ranked and automated.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-gray-500">
             No six-month discovery phase. A baseline in week one, shipped work
