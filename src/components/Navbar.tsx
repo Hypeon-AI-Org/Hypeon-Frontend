@@ -3,7 +3,6 @@
 
 import { useState, memo, useEffect, useRef, useCallback } from 'react';
 import { Menu, X, BarChart3, ChevronDown, Sparkles, Wand2 } from 'lucide-react';
-import { GeoIcon, SeoIcon, WebsiteIcon, AutomationIcon } from '@/components/services/ServiceIcons';
 import Image from 'next/image';
 import logo from '../../assets/HypeOn_Logo.png';
 import { useRouter, usePathname } from "next/navigation";
@@ -11,37 +10,9 @@ import { primeIOSVideo } from '@/lib/videoAutoplay';
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-/* The four service offerings, shared by the desktop dropdown and the mobile accordion. */
-const SERVICE_LINKS = [
-  {
-    icon: <GeoIcon className="w-[22px] h-[22px]" strokeWidth={1.5} />,
-    title: "GEO",
-    desc: "Get named inside ChatGPT, Perplexity and AI Overviews.",
-    href: "/services#geo",
-  },
-  {
-    icon: <SeoIcon className="w-[22px] h-[22px]" strokeWidth={1.75} />,
-    title: "SEO",
-    desc: "Technical, content and links that compound on page one.",
-    href: "/services#seo",
-  },
-  {
-    icon: <WebsiteIcon className="w-[22px] h-[22px]" strokeWidth={1.75} />,
-    title: "Website Design & Build",
-    desc: "Fast, conversion-led sites built to be found and to sell.",
-    href: "/services#websites",
-  },
-  {
-    icon: <AutomationIcon className="w-[22px] h-[22px]" strokeWidth={1.75} />,
-    title: "AI Automated Marketing",
-    desc: "Creative, campaigns and reporting running on autopilot.",
-    href: "/services#automation",
-  },
-] as const;
-
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileDropdown, setMobileDropdown] = useState<'products' | 'services' | null>(null);
+  const [mobileDropdown, setMobileDropdown] = useState<'products' | null>(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
@@ -210,49 +181,6 @@ function Navbar() {
               </div>
             </div>
 
-            {/* SERVICES DROPDOWN */}
-            <div className="group flex items-center h-full">
-              <Link href="/services" className={`flex items-center gap-1.5 text-sm sm:text-base font-medium hover:opacity-70 transition-opacity cursor-pointer ${isDark ? "text-white" : "text-black"}`}>
-                Services
-                <ChevronDown className={`w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-200 ${isDark ? "text-white" : "text-black"}`} />
-              </Link>
-
-              <div
-                className="
-                  absolute left-0 top-full
-                  w-full
-                  opacity-0 invisible
-                  group-hover:opacity-100 group-hover:visible
-                  translate-y-2 group-hover:translate-y-0
-                  transition-all duration-200
-                  z-50
-                "
-              >
-                <div className={`rounded-3xl border shadow-[0_12px_40px_rgb(0,0,0,0.08)] p-2.5 mt-3 ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[#ffffff] border-slate-100"}`}>
-                  <div className="grid grid-cols-2 gap-x-2 gap-y-1">
-                    {SERVICE_LINKS.map((s) => (
-                      <ServiceMegaItem key={s.href} dark={isDark} {...s} />
-                    ))}
-                  </div>
-
-                  <div className={`mx-3.5 mt-2 h-px ${isDark ? "bg-white/10" : "bg-slate-100"}`} />
-
-                  <Link
-                    href="/services#book"
-                    className={`group/cta mt-1 flex items-center justify-between rounded-xl px-3.5 py-3 transition-colors ${isDark ? "hover:bg-white/[0.06]" : "hover:bg-slate-50"}`}
-                  >
-                    <span className={`text-[13.5px] font-medium ${isDark ? "text-white" : "text-slate-900"}`}>
-                      Book a 30-minute strategy call
-                    </span>
-                    <span className={`flex items-center gap-2 text-[12.5px] ${isDark ? "text-white/45" : "text-slate-400"}`}>
-                      See where AI ranks you today
-                      <span aria-hidden className={`h-px w-4 transition-all duration-300 group-hover/cta:w-7 ${isDark ? "bg-white/30" : "bg-slate-300"}`} />
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
             <Link
               href="/#pricing"
               onClick={goToPricing}
@@ -384,62 +312,7 @@ function Navbar() {
               </div>
             </div>
 
-            {/* Services accordion */}
-            <div className={`mt-2 rounded-xl border ${isDark ? "border-white/10 bg-[#1c1512]" : "border-slate-200 bg-white"}`}>
-              <button
-                type="button"
-                id="mobile-services-trigger"
-                className={`flex w-full min-h-[48px] items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-50 active:bg-slate-100 focus-visible:ring-black/15"}`}
-                aria-expanded={mobileDropdown === "services"}
-                aria-controls="mobile-services-panel"
-                onClick={() =>
-                  setMobileDropdown((d) => (d === "services" ? null : "services"))
-                }
-              >
-                <span>Services</span>
-                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/10 text-white/70" : "bg-slate-100 text-slate-600"}`}>
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-200 ease-out ${mobileDropdown === "services" ? "rotate-180" : ""}`}
-                    aria-hidden
-                  />
-                </span>
-              </button>
-
-              <div
-                id="mobile-services-panel"
-                role="region"
-                aria-labelledby="mobile-services-trigger"
-                className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${mobileDropdown === "services" ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-              >
-                <div className="min-h-0 overflow-hidden">
-                  <div className={`space-y-1 border-t px-2 pb-2 pt-2 ${isDark ? "border-white/10 bg-[#150f0d]" : "border-slate-200 bg-[#ffffff]"}`}>
-                    {SERVICE_LINKS.map((s) => (
-                      <MobileProductLink
-                        key={s.href}
-                        dark={isDark}
-                        icon={s.icon}
-                        title={s.title}
-                        desc={s.desc}
-                        iconWrapClass={isDark ? "bg-white/[0.06] text-white/70" : "bg-white text-slate-900"}
-                        onClick={() => {
-                          closeMobile();
-                          router.push(s.href);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <nav className="mt-3 space-y-0.5" aria-label="Primary">
-              <Link
-                href="/services"
-                onClick={closeMobile}
-                className={`flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-100 active:bg-slate-200/80 focus-visible:ring-black/15"}`}
-              >
-                All services
-              </Link>
               <Link
                 href="/#pricing"
                 onClick={goToPricing}
@@ -538,51 +411,6 @@ function MegaItem({
         <p className={`font-semibold text-sm tracking-tight ${dark ? 'text-white' : 'text-slate-900'}`}>{title}</p>
         <p className={`text-sm leading-snug mt-1.5 transition-all duration-500 ${dark ? 'text-white/55' : 'text-slate-500'} ${isActive ? 'opacity-0 h-0' : 'opacity-100 h-auto'}`}>{desc}</p>
       </div>
-    </Link>
-  );
-}
-
-/* ================= SERVICE MEGA ITEM ================= */
-
-function ServiceMegaItem({
-  icon,
-  title,
-  desc,
-  href,
-  dark,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  href: string;
-  dark?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={`
-        group/service flex items-start gap-3 rounded-2xl border p-3.5
-        transition-all duration-300
-        ${dark
-          ? "border-white/10 bg-[#1c1512] hover:border-white/20 hover:bg-white/[0.06]"
-          : "border-[#f0f0f0] bg-white hover:border-gray-300 hover:shadow-[0_10px_24px_-16px_rgba(15,23,42,0.4)]"}
-      `}
-    >
-      <span
-        className={`inline-flex h-9 w-9 shrink-0 items-center justify-center transition-colors duration-300 ${dark
-          ? "text-white/90 group-hover/service:text-white"
-          : "text-[#111] group-hover/service:text-black"}`}
-      >
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className={`block text-sm font-semibold tracking-tight ${dark ? "text-white" : "text-[#111]"}`}>
-          {title}
-        </span>
-        <span className={`mt-1 block text-[12.5px] leading-snug ${dark ? "text-white/50" : "text-[#777]"}`}>
-          {desc}
-        </span>
-      </span>
     </Link>
   );
 }

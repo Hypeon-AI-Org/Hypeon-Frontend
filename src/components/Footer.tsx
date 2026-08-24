@@ -24,6 +24,7 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
         { label: "SEO", href: "/services#seo" },
         { label: "Website Design & Build", href: "/services#websites" },
         { label: "AI Automated Marketing", href: "/services#automation" },
+        { label: "All services", href: "/services" },
       ],
     },
     {
