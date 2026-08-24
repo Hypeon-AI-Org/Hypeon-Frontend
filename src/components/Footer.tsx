@@ -18,6 +18,15 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
       ],
     },
     {
+      title: "Services",
+      links: [
+        { label: "GEO", href: "/services#geo" },
+        { label: "SEO", href: "/services#seo" },
+        { label: "Website Design & Build", href: "/services#websites" },
+        { label: "AI Automated Marketing", href: "/services#automation" },
+      ],
+    },
+    {
       title: "Company",
       links: [
         { label: "About Us", href: "/about" },
@@ -35,9 +44,9 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
   return (
     <footer className={`relative m-0 w-full overflow-hidden rounded-t-[32px] ${bgClassName} font-sans`}>
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8 lg:pb-20 lg:pt-24">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-4 lg:grid-cols-6 lg:gap-x-10">
           {/* Brand - logo + name only, matching the reference's minimal left column */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-2">
+          <div className="col-span-2 sm:col-span-4 lg:col-span-2">
             <div className="flex items-center gap-2.5">
               <Image
                 src={logo}

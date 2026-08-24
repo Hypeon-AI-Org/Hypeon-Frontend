@@ -854,3 +854,104 @@ html.lenis-scrolling .float-preview {
   opacity: 1;
   transform: translateX(-2px);
 }
+/* ============================================================
+   Services page - answer-engine mock.
+   Runs entirely on CSS so the typing never re-renders React and
+   stays on the compositor (opacity/transform only, plus one
+   width animation). One shared 9s cycle; every element's timing
+   is expressed as a percentage of that cycle so they stay in
+   sync without any JS timers.
+
+   NOTE: svcType's steps() count must equal the prompt's character
+   count, and --svc-ch must be (count + 1)ch. Both are set on the
+   element in ServicesHero.tsx - keep them in step if the copy
+   changes.
+   ============================================================ */
+@keyframes svcType {
+  0% {
+    width: 0;
+    animation-timing-function: steps(24, end);
+  }
+  22.2% {
+    width: var(--svc-ch, 25ch);
+  }
+  93.3% {
+    width: var(--svc-ch, 25ch);
+    animation-timing-function: steps(1, end);
+  }
+  96.7% {
+    width: 0;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes svcCaret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* The three answer lines and the metadata row. Same shape, staggered
+   in-points, shared out-point just before the prompt resets. */
+@keyframes svcLine1 {
+  0%, 25.6% { opacity: 0; transform: translateY(4px); }
+  31.1%, 93.3% { opacity: 1; transform: translateY(0); }
+  96.7%, 100% { opacity: 0; transform: translateY(4px); }
+}
+
+@keyframes svcLine2 {
+  0%, 31.1% { opacity: 0; transform: translateY(4px); }
+  36.7%, 93.3% { opacity: 1; transform: translateY(0); }
+  96.7%, 100% { opacity: 0; transform: translateY(4px); }
+}
+
+@keyframes svcLine3 {
+  0%, 36.7% { opacity: 0; transform: translateY(4px); }
+  42.2%, 93.3% { opacity: 1; transform: translateY(0); }
+  96.7%, 100% { opacity: 0; transform: translateY(4px); }
+}
+
+@keyframes svcMeta {
+  0%, 43.3% { opacity: 0; }
+  47.8%, 93.3% { opacity: 1; }
+  96.7%, 100% { opacity: 0; }
+}
+
+.svc-type {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  vertical-align: bottom;
+  animation: svcType 9s infinite;
+}
+
+.svc-caret {
+  animation: svcCaret 1s steps(1, end) infinite;
+}
+
+.svc-line-1 { animation: svcLine1 9s infinite; }
+.svc-line-2 { animation: svcLine2 9s infinite; }
+.svc-line-3 { animation: svcLine3 9s infinite; }
+.svc-meta { animation: svcMeta 9s infinite; }
+
+/* Reduced motion: no cycling, just show the finished answer. */
+@media (prefers-reduced-motion: reduce) {
+  .svc-type,
+  .svc-caret,
+  .svc-line-1,
+  .svc-line-2,
+  .svc-line-3,
+  .svc-meta {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .svc-type {
+    width: auto;
+  }
+  .svc-caret {
+    display: none;
+  }
+}
