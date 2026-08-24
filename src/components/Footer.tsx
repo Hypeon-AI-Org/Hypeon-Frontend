@@ -6,7 +6,7 @@ import Link from "next/link";
 import logo from "../../assets/HypeOn_Logo.png";
 
 const linkClass =
-  "inline-flex min-h-9 items-center text-[15px] font-semibold text-white transition-colors hover:text-slate-300";
+  "inline-flex min-h-8 items-center text-[14.5px] font-semibold leading-snug text-white transition-colors hover:text-slate-300";
 
 export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?: string }) {
   const navColumns = [
@@ -43,10 +43,10 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
 
   return (
     <footer className={`relative m-0 w-full overflow-hidden rounded-t-[32px] ${bgClassName} font-sans`}>
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-14 pt-16 sm:px-6 sm:pb-16 sm:pt-20 lg:px-8 lg:pb-20 lg:pt-24">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-14 sm:grid-cols-4 lg:grid-cols-6 lg:gap-x-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6 sm:pb-12 sm:pt-16 lg:px-8 lg:pb-14 lg:pt-20">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-4 lg:grid-cols-5 lg:gap-x-8">
           {/* Brand - logo + name only, matching the reference's minimal left column */}
-          <div className="col-span-2 sm:col-span-4 lg:col-span-2">
+          <div className="col-span-2 sm:col-span-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
               <Image
                 src={logo}
@@ -84,10 +84,10 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
 
           {navColumns.map((col) => (
             <div key={col.title} className="flex flex-col">
-              <h4 className="mb-4 text-xs font-medium text-slate-500">
+              <h4 className="mb-3 text-xs font-medium text-slate-500">
                 {col.title}
               </h4>
-              <ul className="m-0 flex list-none flex-col gap-1 p-0">
+              <ul className="m-0 flex list-none flex-col gap-0.5 p-0">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     {link.href.startsWith("http") ||
@@ -114,7 +114,7 @@ export default function Footer({ bgClassName = "bg-[#0a0a0c]" }: { bgClassName?:
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center gap-5 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between lg:mt-20 lg:pt-12">
+        <div className="mt-12 flex flex-col items-center gap-5 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-14 lg:pt-8">
           <p className="text-center text-xs text-slate-500 sm:text-left sm:text-sm">
             Copyright © {new Date().getFullYear()} HypeOn AI Inc. All rights reserved.
           </p>
