@@ -12,8 +12,116 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StartToday from "../../components/TeamGlobalMap";
 import { Activity } from "lucide-react";
+import PromoCountdown from "@/components/PromoCountdown";
 
 type TabKey = "intelligence" | "analytics";
+
+/* ──────────────────────────────────────────────
+   STUDIO CATALOG
+   Mirrors apps/studio-api/app/services/billing/plans.py in the product repo:
+   that file is what checkout charges, so a price changed there must change
+   here the same day. Prices are USD per month; `yearly` is the per-month
+   equivalent when billed yearly (75600 / 12 = 63, and so on).
+   ────────────────────────────────────────────── */
+const STUDIO_PLANS_URL = "https://app.hypeon.ai/studio/plans";
+
+/** The Growth launch offer: first month at `offerPrice`, offered until `endsAt`
+ * (UTC). The app enforces the same deadline server-side; the site only
+ * announces it, and hides it on its own once the clock passes. */
+const GROWTH_OFFER = {
+  offerPrice: 7.9,
+  endsAt: "2026-09-06T11:00:00Z",
+};
+
+type StudioPlan = {
+  key: "STARTER" | "GROWTH" | "PRO" | "SCALE";
+  name: string;
+  blurb: string;
+  monthly: number; // 0 == free
+  yearly: number | null; // per-month equivalent billed yearly
+  credits: number;
+  cta: string;
+  badge?: string;
+  includesLabel: string;
+  features: string[];
+};
+
+const STUDIO_PLANS: StudioPlan[] = [
+  {
+    key: "STARTER",
+    name: "Starter",
+    blurb: "Analyse your site, set up your brand and generate your first ads. Free, no card.",
+    monthly: 0,
+    yearly: null,
+    credits: 100,
+    cta: "Start free",
+    includesLabel: "What's included",
+    features: [
+      "1 brand, 1 seat",
+      "100 credits / month",
+      "Website analysis + brand setup",
+      "Unlimited competitor ad search + Hype Score",
+      "Static ad generation",
+    ],
+  },
+  {
+    key: "GROWTH",
+    name: "Growth",
+    blurb: "For brands shipping ads every week that want the competitor picture behind them.",
+    monthly: 79,
+    yearly: 63,
+    credits: 2000,
+    cta: "Choose Growth",
+    includesLabel: "Everything in Starter, plus",
+    features: [
+      "3 brands, 3 seats",
+      "2,000 credits / month",
+      "Video + UGC generation",
+      "Competitor ad library",
+      "15 competitor deep-dive reports / month",
+      "Auto-launch to ad channels (Meta, Google, Pinterest, TikTok)",
+    ],
+  },
+  {
+    key: "PRO",
+    name: "Pro",
+    blurb: "For scaling brands and small teams running several brands and channels.",
+    monthly: 199,
+    yearly: 159,
+    credits: 6000,
+    cta: "Choose Pro",
+    badge: "Most brands pick this",
+    includesLabel: "Everything in Growth, plus",
+    features: [
+      "10 brands, 10 seats",
+      "6,000 credits / month",
+      "40 competitor deep-dive reports / month",
+      "Auto-scaling budget",
+      "Integrations (Shopify, Slack)",
+    ],
+  },
+  {
+    key: "SCALE",
+    name: "Scale",
+    blurb: "For agencies and multi-brand operators who want every limit lifted.",
+    monthly: 499,
+    yearly: 399,
+    credits: 20000,
+    cta: "Choose Scale",
+    includesLabel: "Everything in Pro, plus",
+    features: [
+      "Unlimited brands and seats",
+      "20,000 credits / month",
+      "Unlimited competitor deep-dive reports",
+      "Priority support + onboarding",
+      "Custom credit top-ups",
+    ],
+  },
+];
+
+function usd(n: number): string {
+  return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
+}
 type RevenueKey = "5k" | "10k" | "20k" | "40k" | "83k" | "250k" | "750k" | "1m";
 
 const analyticsPricing: Record<
@@ -148,6 +256,13 @@ export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<TabKey>("intelligence");
   const [revenue, setRevenue] = useState<RevenueKey>("10k");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  // The Growth offer. `true` on the server and on the first client render so
+  // hydration agrees; the effect withdraws it when the deadline has passed,
+  // and the countdown withdraws it the second it reaches zero.
+  const [offerLive, setOfferLive] = useState(true);
+  useEffect(() => {
+    if (Date.now() >= Date.parse(GROWTH_OFFER.endsAt)) setOfferLive(false);
+  }, []);
 
   const activeTabRef = useRef<TabKey>(activeTab);
   activeTabRef.current = activeTab;
@@ -258,7 +373,7 @@ export default function PricingPage() {
                   }`}
                   onClick={() => setActiveTab("intelligence")}
                 >
-                  HypeOn Intelligence
+                  HypeOn Studio
                 </button>
                 <button
                   ref={btnAnalyticsRef}
@@ -278,7 +393,7 @@ export default function PricingPage() {
             <div className="text-center pt-2 px-6 mb-10">
               <p className="text-sm text-gray-400">
                 {activeTab === "intelligence"
-                  ? "Market intelligence, competitor analysis & product discovery"
+                  ? "Competitor intelligence, ad creation and launch in one workspace"
                   : "Cross-channel attribution, true ROAS & budget optimization"}
               </p>
               {activeTab === "intelligence" && (
@@ -294,149 +409,104 @@ export default function PricingPage() {
           {/* ═══════════ INTELLIGENCE TAB ═══════════ */}
           {activeTab === "intelligence" && (
             <div>
-              {/* Intelligence Cards */}
+              {/* Studio plan cards: one card per STUDIO_PLANS entry. Growth
+                  carries the launch offer while `offerLive`. */}
               <Reveal delayMs={120}>
                 <section className="max-w-[1200px] mx-auto px-6 pb-16">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-20 max-md:max-w-[480px] max-md:mx-auto">
-                  {/* Starter */}
-                  <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:50ms]">
-                  <div className="text-xl font-bold mb-3">Starter</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
-                      Perfect for solo founders and small brands getting started with market
-                      intelligence.
-                    </div>
-                    <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-semibold text-gray-400 line-through mr-1">$99</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$79</span>
-                      <span className="text-sm text-gray-400 ml-1">/ month</span>
-                    </div>
-                    <div className="text-[13px] text-gray-400 mb-2">
-                      Billed monthly · No commitment
-                    </div>
-                    <div className="inline-flex items-center self-start px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 text-[12px] font-semibold mb-5">
-                      20% off · Launch Price
-                    </div>
-                    <a
-                      href="https://app.hypeon.ai/hub/checkout?plan=starter"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none"
-                    >
-                      Start 3-day free trial
-                    </a>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
-                      What&apos;s included
-                    </div>
-                    {[
-                      "Track up to 3 competitors",
-                      "Trending product alerts (weekly digest)",
-                      "Google keyword trends (top 50)",
-                      "Meta Ads platform access",
-                      "Competitor ad library (1 platform)",
-                      "Copilot access for Ads Analysis",
-                      "Explore Ads",
-                      "Basic Trustpilot review analysis",
-                      "1 market / geography",
-                      "Email support",
-                    ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
-                        <CheckIcon />
-                        {f}
-                      </div>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8 max-md:max-w-[480px] max-md:mx-auto">
+                  {STUDIO_PLANS.map((plan, i) => {
+                    const isFree = plan.monthly === 0;
+                    const highlighted = plan.key === "PRO";
+                    const offer = plan.key === "GROWTH" && offerLive ? GROWTH_OFFER : null;
+                    const cardClass = highlighted
+                      ? "bg-white border-gray-900 border rounded-2xl p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp"
+                      : `bg-white border rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp ${
+                          offer ? "border-amber-400 shadow-md" : "border-gray-200 hover:border-gray-300"
+                        }`;
+                    const ctaClass = highlighted || offer
+                      ? "block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
+                      : "block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none";
+                    return (
+                      <div
+                        key={plan.key}
+                        className={cardClass}
+                        style={{ animationDelay: `${50 + i * 70}ms` }}
+                        aria-label={`${plan.name} plan`}
+                      >
+                        {plan.badge && (
+                          <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-semibold px-5 py-1.5 rounded-b-[10px] tracking-wide whitespace-nowrap">
+                            {plan.badge}
+                          </div>
+                        )}
+                        <div className="text-xl font-bold mb-3">{plan.name}</div>
+                        <div className="text-sm text-gray-600 mb-6 min-h-[60px]">{plan.blurb}</div>
 
-                  {/* Pro (recommended) */}
-                  <div className="bg-white border-gray-900 border rounded-2xl p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:120ms]">
-                  <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-semibold px-5 py-1.5 rounded-b-[10px] tracking-wide">
-                      Most Popular
-                    </div>
-                  <div className="text-xl font-bold mb-3">Pro</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
-                      For scaling brands ready to outmaneuver the competition with deep
-                      intelligence.
-                    </div>
-                    <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-2xl font-semibold text-gray-400 line-through mr-1">$199</span>
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">$149</span>
-                      <span className="text-sm text-gray-400 ml-1">/ month</span>
-                    </div>
-                    <div className="text-[13px] text-gray-400 mb-2">
-                      Billed monthly · Save even more annually
-                    </div>
-                    <div className="inline-flex items-center self-start px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 text-[12px] font-semibold mb-5">
-                      25% off · Launch Price
-                    </div>
-                    <a
-                      href="https://app.hypeon.ai/hub/checkout?plan=pro"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
-                    >
-                      Start 3-day free trial
-                    </a>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
-                      Everything in Starter, plus
-                    </div>
-                    {[
-                      "Track up to 15 competitors",
-                      "Trending product alerts (daily)",
-                      "Unlimited keyword trends",
-                      "Competitor ad library (Meta + TikTok + Pinterest)",
-                      "Full Trustpilot + review sentiment analysis",
-                      "Competitor social media intelligence",
-                      "Product development insights",
-                      "Up to 5 markets / geographies",
-                      "Market entry opportunity scanner",
-                      "Demand-based inventory signals",
-                      "Priority email + chat support",
-                    ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
-                        <CheckIcon />
-                        {f}
-                      </div>
-                    ))}
-                  </div>
+                        {offer ? (
+                          <>
+                            <div className="mb-1 flex items-baseline gap-1">
+                              <span className="text-5xl font-bold tracking-[-2px] leading-none">
+                                {usd(offer.offerPrice)}
+                              </span>
+                              <s className="text-2xl font-semibold text-gray-400 ml-1">{usd(plan.monthly)}</s>
+                              <span className="text-sm text-gray-400 ml-1">first month</span>
+                            </div>
+                            <div className="text-[13px] text-gray-400 mb-2">
+                              then {usd(plan.monthly)} / month · cancel anytime
+                            </div>
+                            <PromoCountdown
+                              endsAt={offer.endsAt}
+                              onExpire={() => setOfferLive(false)}
+                              className="self-start mb-5"
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <div className="mb-1 flex items-baseline gap-1">
+                              <span className="text-5xl font-bold tracking-[-2px] leading-none">
+                                {isFree ? "Free" : usd(plan.monthly)}
+                              </span>
+                              {!isFree && <span className="text-sm text-gray-400 ml-1">/ month</span>}
+                            </div>
+                            <div className="text-[13px] text-gray-400 mb-2">
+                              {isFree
+                                ? "No credit card required"
+                                : plan.yearly
+                                  ? `or ${usd(plan.yearly)} / month billed yearly`
+                                  : "Billed monthly · No commitment"}
+                            </div>
+                            <div className="mb-5" />
+                          </>
+                        )}
 
-                  {/* Enterprise */}
-                  <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:190ms]">
-                  <div className="text-xl font-bold mb-3">Enterprise</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
-                      For established brands and agencies who want every edge the market can
-                      give them.
-                    </div>
-                    <div className="mb-1 flex items-baseline gap-1">
-                      <span className="text-5xl font-bold tracking-[-2px] leading-none">Custom</span>
-                    </div>
-                    <div className="text-[13px] text-gray-400 mb-2">
-                      Tailored to your stack  talk to us for a quote
-                    </div>
-                    <div className="mb-5" />
-                    <a
-                      href="https://calendly.com/yash-hypeon/30min"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
-                    >
-                      Talk to Sales
-                    </a>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
-                      Everything in Pro, plus
-                    </div>
-                    {[
-                      "Unlimited competitors",
-                      "Real-time trend alerts (Slack / email)",
-                      "Multi-platform ad creative analysis with AI",
-                      "Advanced insights & comparisons",
-                      "Competitor pricing & promotion tracker",
-                      "Unlimited markets / geographies",
-                      "Demand forecasting & inventory planning",
-                      "White-label reports (PDF export)",
-                      "API access",
-                      "Dedicated account manager",
-                      "Custom competitor & market reports",
-                    ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
-                        <CheckIcon />
-                        {f}
+                        <a href={STUDIO_PLANS_URL} className={ctaClass}>
+                          {offer ? `Get Growth for ${usd(offer.offerPrice)}` : plan.cta}
+                        </a>
+
+                        <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
+                          {plan.includesLabel}
+                        </div>
+                        {plan.features.map((f) => (
+                          <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
+                            <CheckIcon />
+                            {f}
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
+                <p className="text-center text-[13px] text-gray-400 mb-12">
+                  A credit is one unit of generation. Static ad ~50 credits · Video or UGC ad
+                  ~150-200 · Competitor deep-dive ~100. Unused credits roll over one month; top up
+                  anytime at $19 per 500. Need custom limits or a dedicated manager?{" "}
+                  <a
+                    href="https://calendly.com/yash-hypeon/30min"
+                    className="font-semibold text-gray-700 underline underline-offset-2 hover:text-gray-900"
+                  >
+                    Talk to sales
+                  </a>
+                  .
+                </p>
                 </section>
               </Reveal>
 
@@ -715,10 +785,11 @@ export default function PricingPage() {
                     q: "Is there a free trial?",
                     a: (
                       <>
-                        HypeOn Intelligence Starter comes with a 14-day free trial - no credit
-                        card required. For Intelligence Pro and Enterprise and all Analytics
-                        plans, you can book a demo and we&apos;ll walk you through everything live
-                        before you commit.
+                        HypeOn Studio Starter is free, no credit card required: analyse your
+                        site, set up your brand and generate your first ads before paying
+                        anything. Paid Studio plans start at $79/mo and cancel anytime. For
+                        Analytics plans, book a demo and we&apos;ll walk you through everything
+                        live before you commit.
                       </>
                     ),
                   },
@@ -726,11 +797,11 @@ export default function PricingPage() {
                     q: "I'm spending under $5k/mo on ads - is HypeOn worth it for me?",
                     a: (
                       <>
-                        If you&apos;re at that stage, start with Intelligence Starter at $79/mo.
-                        It&apos;ll show you which products to push, what keywords to target, and
-                        what your competitors are running. Once your ad spend grows and attribution
-                        starts getting messy, that&apos;s when Analytics pays for itself many times
-                        over.
+                        If you&apos;re at that stage, start on Studio Starter for free, or Growth
+                        at $79/mo. It&apos;ll show you what your competitors are running and
+                        generate ads you can launch straight away. Once your ad spend grows and
+                        attribution starts getting messy, that&apos;s when Analytics pays for
+                        itself many times over.
                       </>
                     ),
                   },
@@ -800,110 +871,68 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
   return (
     <section className="max-w-[1200px] mx-auto px-6 pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Intelligence Plans</h2>
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Studio Plans</h2>
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
-        <table className="w-full min-w-[860px] border-collapse">
+        <table className="w-full min-w-[960px] border-collapse">
           <thead>
             <tr>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[40%]" />
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
-                Starter
-                <br />
-                <span className="font-normal text-gray-400 text-xs">$79/mo</span>
-              </th>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
-                Pro
-                <br />
-                <span className="font-normal text-gray-400 text-xs">$149/mo</span>
-              </th>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
-                Enterprise
-                <br />
-                <span className="font-normal text-gray-400 text-xs">Custom</span>
-              </th>
+              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[34%]" />
+              {STUDIO_PLANS.map((plan) => (
+                <th
+                  key={plan.key}
+                  className={`p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 text-gray-900 border-l border-gray-200/80 ${
+                    plan.key === "PRO" ? "bg-blue-50/60" : "bg-gray-100"
+                  }`}
+                >
+                  {plan.name}
+                  <br />
+                  <span className="font-normal text-gray-400 text-xs">
+                    {plan.monthly === 0 ? "Free" : `${usd(plan.monthly)}/mo`}
+                  </span>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <SectionRow label="Product & Trend Discovery" />
+            <SectionRow label="Workspace" cols={5} />
+            <CompareRow feature="Brands" vals={["1", "3", "10", "Unlimited"]} highlight={2} />
+            <CompareRow feature="Seats" vals={["1", "3", "10", "Unlimited"]} highlight={2} />
             <CompareRow
-              feature="Spot what product to sell next"
-              tooltip="Detect trending products before mainstream adoption"
-              vals={["Weekly digest", "Daily alerts", "Real-time"]}
+              feature="Credits per month"
+              tooltip="Static ad ~50 · Video / UGC ~150-200 · Deep-dive ~100"
+              vals={["100", "2,000", "6,000", "20,000"]}
+              highlight={2}
             />
+            <CompareRow feature="Credit rollover" vals={["1 month", "1 month", "1 month", "1 month"]} highlight={2} />
+            <CompareRow feature="Credit top-ups" vals={["$19 / 500", "$19 / 500", "$19 / 500", "Custom"]} highlight={2} />
+
+            <SectionRow label="Create" cols={5} />
+            <CompareRow feature="Website analysis + brand setup" vals={["✓", "✓", "✓", "✓"]} highlight={2} />
+            <CompareRow feature="Static ad generation" vals={["✓", "✓", "✓", "✓"]} highlight={2} />
+            <CompareRow feature="Video + UGC generation" vals={["-", "✓", "✓", "✓"]} highlight={2} />
             <CompareRow
-              feature="Trending keyword tracker"
-              tooltip="Live search demand signals from Google"
-              vals={["Top 50", "Unlimited", "Unlimited"]}
+              feature="Auto-launch to ad channels"
+              tooltip="Meta, Google, Pinterest, TikTok"
+              vals={["-", "✓", "✓", "✓"]}
+              highlight={2}
             />
+            <CompareRow feature="Auto-scaling budget" vals={["-", "-", "✓", "✓"]} highlight={2} />
+
+            <SectionRow label="Research" cols={5} />
+            <CompareRow feature="Competitor ad search + Hype Score" vals={["✓", "✓", "✓", "✓"]} highlight={2} />
+            <CompareRow feature="Competitor ad library" vals={["-", "✓", "✓", "✓"]} highlight={2} />
             <CompareRow
-              feature="Product development insights"
-              tooltip="What designs & improvements your market is asking for"
-              vals={["-", "✓", "✓"]}
-            />
-            <CompareRow
-              feature="Demand forecasting"
-              tooltip="Predict what will sell based on search & social signals"
-              vals={["-", "-", "✓"]}
+              feature="Competitor deep-dive reports / month"
+              tooltip="Extra reports: 10 credits each on paid plans"
+              vals={["-", "15", "40", "Unlimited"]}
+              highlight={2}
             />
 
-            <SectionRow label="Competitor Intelligence" />
-            <CompareRow feature="Competitors tracked" vals={["3", "15", "Unlimited"]} />
-            <CompareRow
-              feature="Competitor ad library"
-              tooltip="See which ads competitors run and which are working"
-              vals={["1 platform", "Meta + TikTok + Pinterest", "All platforms + AI analysis"]}
-            />
-            <CompareRow feature="Meta Ads platform access" vals={["✓", "✓", "✓"]} />
-            <CompareRow feature="Copilot for Ads Analysis" vals={["✓", "✓", "✓"]} />
-            <CompareRow feature="Explore Ads" vals={["✓", "✓", "✓"]} />
-            <CompareRow
-              feature="Competitor social media analysis"
-              tooltip="Winning angles, top products & engagement spikes"
-              vals={["-", "✓", "✓"]}
-            />
-            <CompareRow
-              feature="Competitor Trustpilot / review analysis"
-              tooltip="Find competitor weaknesses from their own customers"
-              vals={["Basic", "Full sentiment", "Full + AI themes"]}
-            />
-            <CompareRow
-              feature="Competitor pricing & promotion tracker"
-              vals={["-", "-", "✓"]}
-            />
-            <CompareRow
-              feature="Advanced insights & comparisons"
-              vals={["-", "-", "✓"]}
-            />
-
-            <SectionRow label="Market Expansion & Inventory" />
-            <CompareRow
-              feature="Markets / geographies"
-              tooltip="Monitor demand across countries and regions"
-              vals={["1", "5", "Unlimited"]}
-            />
-            <CompareRow
-              feature="Market entry opportunity scanner"
-              tooltip="Find underserved geographies and demographics"
-              vals={["-", "✓", "✓"]}
-            />
-            <CompareRow
-              feature="Inventory demand signals"
-              tooltip="Plan inventory around what's actually going to sell"
-              vals={["-", "Signals only", "Full forecasting"]}
-            />
-
-            <SectionRow label="Platform & Support" />
-            <CompareRow feature="Users" vals={["1", "3", "Unlimited"]} />
-            <CompareRow feature="Data refresh frequency" vals={["Weekly", "Daily", "Real-time"]} />
-            <CompareRow feature="White-label PDF reports" vals={["-", "-", "✓"]} />
-            <CompareRow feature="API access" vals={["-", "-", "✓"]} />
-            <CompareRow feature="Support" vals={["Email", "Priority chat", "Dedicated manager"]} />
-            <CompareRow
-              feature="Onboarding"
-              vals={["Self-serve", "Guided setup", "Custom onboarding"]}
-            />
+            <SectionRow label="Integrations & support" cols={5} />
+            <CompareRow feature="Integrations (Shopify, Slack)" vals={["-", "-", "✓", "✓"]} highlight={2} />
+            <CompareRow feature="Support" vals={["Email", "Email", "Priority", "Priority + onboarding"]} highlight={2} />
           </tbody>
         </table>
       </div>
@@ -911,9 +940,6 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
   );
 }
 
-/* ──────────────────────────────────────────────
-   COMPARE ANALYTICS TABLE (extracted component)
-   ────────────────────────────────────────────── */
 function CompareAnalyticsTable({
   analyticsTier,
 }: {
@@ -1031,11 +1057,11 @@ function CompareAnalyticsTable({
 /* ──────────────────────────────────────────────
    SHARED TABLE COMPONENTS
    ────────────────────────────────────────────── */
-function SectionRow({ label }: { label: string }) {
+function SectionRow({ label, cols = 4 }: { label: string; cols?: number }) {
   return (
     <tr>
       <td
-        colSpan={4}
+        colSpan={cols}
         className="bg-gray-100 text-xs font-bold uppercase tracking-widest text-gray-500 py-3 px-6 border-b border-gray-200"
       >
         {label}
@@ -1048,10 +1074,13 @@ function CompareRow({
   feature,
   tooltip,
   vals,
+  highlight = 1,
 }: {
   feature: string;
   tooltip?: string;
-  vals: [string, string, string];
+  vals: string[];
+  /** Index of the column drawn as the recommended plan. */
+  highlight?: number;
 }) {
   const cellStyle = (val: string, isHighlight: boolean) => {
     const base = `py-3 px-4 text-xs sm:text-base text-center border-b border-gray-200 border-l border-gray-200/80 ${
@@ -1070,9 +1099,11 @@ function CompareRow({
           <span className="block text-xs text-gray-400 font-normal mt-0.5">{tooltip}</span>
         )}
       </td>
-      <td className={cellStyle(vals[0], false)}>{vals[0]}</td>
-      <td className={cellStyle(vals[1], true)}>{vals[1]}</td>
-      <td className={cellStyle(vals[2], false)}>{vals[2]}</td>
+      {vals.map((val, i) => (
+        <td key={i} className={cellStyle(val, i === highlight)}>
+          {val}
+        </td>
+      ))}
     </tr>
   );
 }
