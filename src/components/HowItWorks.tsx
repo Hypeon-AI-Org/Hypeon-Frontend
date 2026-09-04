@@ -147,6 +147,23 @@ export default function TikTokScrollSection() {
     return () => io.disconnect();
   }, []);
 
+  // The ring rewrites nine 3D-transformed tiles every frame. Off screen that is
+  // pure waste, and it is waste that lands on the same main thread / compositor
+  // the scroll is using - so the cost shows up as scroll stutter everywhere
+  // else on the page, not here. Only spin while the ring is actually visible.
+  const [ringVisible, setRingVisible] = useState(false);
+  useEffect(() => {
+    const el = ringRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') { setRingVisible(true); return; }
+    const io = new IntersectionObserver(
+      ([entry]) => setRingVisible(entry.isIntersecting),
+      { rootMargin: '100px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // The ring position lives in a ref, not state - see paint() below
   const offsetRef = useRef(0);
   const glideTarget = useRef<number | null>(null);
@@ -218,16 +235,22 @@ export default function TikTokScrollSection() {
       el.style.transform = `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg)`;
       // A neighbour nearer the front would otherwise cover this card's centre
       // - and with it the play button - even where the card looks unobscured.
-      el.style.zIndex =
+      // z-index and pointer-events change only every few hundred frames, but
+      // assigning them re-runs style resolution on nine layers every frame -
+      // so only write them when the value actually moves.
+      const zIndex =
         hoveredIdRef.current === card.id
           ? '3000'
           : String(Math.round(1000 + translateZ));
-      el.style.opacity = String(opacity);
+      if (el.style.zIndex !== zIndex) el.style.zIndex = zIndex;
+
+      el.style.opacity = opacity.toFixed(3);
 
       // Cards swung round the back are invisible but would still swallow the
       // pointer, so the hand and the click could land on a card you cannot
       // see. Only what is actually visible stays hit-testable.
-      el.style.pointerEvents = opacity < 0.02 ? 'none' : 'auto';
+      const hittable = opacity < 0.02 ? 'none' : 'auto';
+      if (el.style.pointerEvents !== hittable) el.style.pointerEvents = hittable;
     });
   }, [R, STEP_ANGLE_DEG, shortest]);
 
@@ -271,11 +294,15 @@ export default function TikTokScrollSection() {
   );
 
   useEffect(() => {
+    // Off screen the ring holds its last painted position - restarting the
+    // loop on re-entry picks up from exactly there, so nothing jumps.
+    if (!ringVisible) return;
+    lastTimeRef.current = null; // fresh clock, or the gap counts as one delta
     animFrameId.current = requestAnimationFrame(animate);
     return () => {
       if (animFrameId.current) cancelAnimationFrame(animFrameId.current);
     };
-  }, [animate]);
+  }, [animate, ringVisible]);
 
   useEffect(
     () => () => {
@@ -502,7 +529,7 @@ export default function TikTokScrollSection() {
                   onClick={() => handleCardClick(index, shortest(index - offsetRef.current))}
                   onMouseEnter={() => setHovered(card.id)}
                   onMouseLeave={() => setHovered(null)}
-                  className="card-3d-item cursor-pointer active:cursor-pointer absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-white/10 backdrop-blur-md shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-white/20"
+                  className="card-3d-item cursor-pointer active:cursor-pointer absolute w-[200px] sm:w-[220px] lg:w-[280px] h-[330px] sm:h-[370px] lg:h-[470px] rounded-[28px] overflow-hidden bg-white/10 shadow-[0_10px_24px_-18px_rgba(0,0,0,0.45)] border border-white/20"
                   style={{
                     transform: `translate3d(${R * Math.sin(rad)}px, 0px, ${R * (Math.cos(rad) - 1)}px) rotateY(${-shortest(index) * STEP_ANGLE_DEG}deg)`,
                     zIndex: Math.round(1000 + R * (Math.cos(rad) - 1)),
@@ -512,7 +539,7 @@ export default function TikTokScrollSection() {
                   {/* Neutral glass backing. Every card used to carry its own
                       coloured gradient, which tinted each one differently once
                       the flanks faded out - one shared tone keeps them uniform */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/15 to-white/5 backdrop-blur-sm" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/15 to-white/5" />
 
                   {/* Card Background UGC Clip */}
                   {!imgErrors[card.id] && (

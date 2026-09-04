@@ -20,9 +20,27 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // `.lenis-scrolling` (which globals.css uses to freeze decorative motion
+    // mid-scroll) only exists where Lenis runs - i.e. desktop, motion allowed.
+    // Phones, which need the frames most, never got that break. Mirror the
+    // signal off the native scroll event so the same budget applies there.
+    const root = document.documentElement;
+    let settle: ReturnType<typeof setTimeout> | null = null;
+    const onNativeScroll = () => {
+      root.classList.add('is-scrolling');
+      if (settle) clearTimeout(settle);
+      settle = setTimeout(() => root.classList.remove('is-scrolling'), 160);
+    };
+    window.addEventListener('scroll', onNativeScroll, { passive: true });
+    const stopScrollFlag = () => {
+      window.removeEventListener('scroll', onNativeScroll);
+      if (settle) clearTimeout(settle);
+      root.classList.remove('is-scrolling');
+    };
+
     // Respect reduced-motion users - keep native scrolling for them.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
+      return stopScrollFlag;
     }
 
     // Desktop only - phones keep their native touch scrolling, which feels
@@ -31,7 +49,7 @@ export default function SmoothScroll() {
       window.matchMedia('(pointer: coarse)').matches ||
       'ontouchstart' in window;
     if (isTouch) {
-      return;
+      return stopScrollFlag;
     }
 
     const lenis = new Lenis({
@@ -77,6 +95,7 @@ export default function SmoothScroll() {
     ro.observe(document.body);
 
     return () => {
+      stopScrollFlag();
       document.removeEventListener('visibilitychange', onVisibility);
       ro.disconnect();
       cancelAnimationFrame(rafId);

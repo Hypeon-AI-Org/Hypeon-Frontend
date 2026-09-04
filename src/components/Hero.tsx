@@ -350,6 +350,35 @@ export default function Hero() {
   const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
   const [chatCycle, setChatCycle] = useState(0);
 
+  // The chat demo types a character every 35ms and re-renders this whole
+  // section (plus its motion nodes) each time - forever, whether or not the
+  // hero is still on screen. Once you have scrolled past it that work is
+  // invisible but still competes with the scroll for the main thread, which
+  // is felt as stutter further down the page. Run it only while it is visible.
+  const [heroInView, setHeroInView] = useState(true);
+  useEffect(() => {
+    const el = heroSectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { rootMargin: '150px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Coming back to a half-finished cycle would show a stray chip or a
+  // half-typed question, so re-entering the viewport restarts it cleanly.
+  useEffect(() => {
+    if (!heroInView) return;
+    setInputValue('');
+    setSearchValue('');
+    setHasContext(false);
+    setSetupPhase(0);
+    setActiveArtifact('topAds');
+    setChatStep(0);
+  }, [heroInView]);
+
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
     const update = () => setIsLgUp(mq.matches);
@@ -378,17 +407,18 @@ export default function Hero() {
   // the "slot machine" flash right before the cards deal out.
   const [shuffleIndex, setShuffleIndex] = useState(0);
   useEffect(() => {
-    if (introPhase !== 1 || reduce || !siteIntroDone) return;
+    if (introPhase !== 1 || reduce || !siteIntroDone || !heroInView) return;
     const id = setInterval(() => {
       setShuffleIndex((i) => (i + 1) % SHOWCASE_CARDS.length);
     }, 130);
     return () => clearInterval(id);
-  }, [introPhase, reduce, siteIntroDone]);
+  }, [introPhase, reduce, siteIntroDone, heroInView]);
 
   const textToType = 'What are the top performing ads and audience demographics?';
 
   useEffect(() => {
     if (!siteIntroDone && !reduce) return;
+    if (!heroInView) return;
     let isActive = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const after = (ms: number, fn: () => void) => {
@@ -444,9 +474,10 @@ export default function Hero() {
       isActive = false;
       timers.forEach(clearTimeout);
     };
-  }, [textToType, chatCycle, siteIntroDone, reduce]);
+  }, [textToType, chatCycle, siteIntroDone, reduce, heroInView]);
 
   useEffect(() => {
+    if (!heroInView) return;
     let isActive = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const after = (ms: number, fn: () => void) => {
@@ -477,7 +508,7 @@ export default function Hero() {
       isActive = false;
       timers.forEach(clearTimeout);
     };
-  }, [chatStep]);
+  }, [chatStep, heroInView]);
 
   useEffect(() => {
     const heroSection = heroSectionRef.current;

@@ -384,7 +384,11 @@ a[href] {
 html.lenis-scrolling .animate-blob,
 html.lenis-scrolling .animate-float,
 html.lenis-scrolling .float-card,
-html.lenis-scrolling .float-preview {
+html.lenis-scrolling .float-preview,
+html.is-scrolling .animate-blob,
+html.is-scrolling .animate-float,
+html.is-scrolling .float-card,
+html.is-scrolling .float-preview {
   animation-play-state: paused;
 }
 
