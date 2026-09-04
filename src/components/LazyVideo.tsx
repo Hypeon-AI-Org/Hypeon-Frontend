@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { primeIOSVideo } from '@/lib/videoAutoplay';
+import { isScrolling, subscribeScroll } from '@/lib/scrollActivity';
 
 type LazyVideoProps = {
   src: string;
@@ -34,24 +35,36 @@ export default function LazyVideo({
     const el = ref.current;
     if (!el) return;
 
+    // Decoding video *while* the page is moving is the main cause of scroll
+    // stutter on ordinary hardware, so a clip only ever runs when it is both
+    // in view and the page has settled. MarqueeVideo already worked this way;
+    // LazyVideo kept playing straight through a scroll.
+    const apply = () => {
+      if (!inView.current || isScrolling()) {
+        el.pause();
+        return;
+      }
+      setMounted(true);
+      // If already mounted (scrolled back in), src is present → play now.
+      // On the very FIRST intersection src isn't set yet; the effect below
+      // primes playback once React commits the src.
+      if (el.src) primeIOSVideo(el);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         inView.current = entry.isIntersecting;
-        if (entry.isIntersecting) {
-          setMounted(true);
-          // If already mounted (scrolled back in), src is present → play now.
-          // On the very FIRST intersection src isn't set yet; the effect below
-          // primes playback once React commits the src.
-          if (el.src) primeIOSVideo(el);
-        } else {
-          el.pause();
-        }
+        apply();
       },
       { rootMargin, threshold: 0.01 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    const unsubscribe = subscribeScroll(apply);
+    return () => {
+      observer.disconnect();
+      unsubscribe();
+    };
   }, [rootMargin]);
 
   // Once the src has been committed (first time the clip enters view), kick off

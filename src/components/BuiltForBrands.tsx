@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import logo from '../../assets/HypeOn_Logo.png';
-import { primeIOSVideo } from '@/lib/videoAutoplay';
+import { MarqueeVideo } from './MediaCarousel';
 
 /* ============================================================
    "Made with HypeOn" - a masonry-style gallery of real output,
@@ -47,6 +47,7 @@ const ADS_FILENAMES = [
 const adsVideo = (filename: string): Tile => ({
   kind: 'video',
   src: encodeURI(`/ads/${filename}`),
+  poster: encodeURI(`/ads/posters/${filename.replace(/\.mp4$/, '.jpg')}`),
   aspect: ASPECT,
   ratio: RATIO,
 });
@@ -140,19 +141,15 @@ function GridTile({ tile }: { tile: Tile }) {
         // eslint-disable-next-line @next/next/no-img-element
         <img src={tile.src} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
       ) : tile.kind === 'video' ? (
-        <video
-          src={tile.src}
-          poster={tile.poster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          disableRemotePlayback
-          preload="metadata"
-          onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        // This grid is sixteen tiles and every one of them is a clip. As plain
+        // autoplaying <video> tags that meant sixteen 720x1280 streams decoding
+        // at once, from page load, for as long as the tab stayed open - whether
+        // or not the grid was on screen. That is ~28MB pulled up front and a
+        // permanent load on the compositor, which is felt as scroll stutter
+        // through this whole part of the page. MarqueeVideo shows a poster
+        // image by default and mounts a real <video> only for tiles actually in
+        // view, pausing them while the page is moving.
+        <MarqueeVideo src={tile.src} poster={tile.poster} />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#141416] to-[#0a0a0c] px-4 text-center">
           <span className="inline-flex items-center gap-1.5 text-white/50">

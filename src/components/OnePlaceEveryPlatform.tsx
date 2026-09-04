@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { primeIOSVideo } from '@/lib/videoAutoplay';
+import LazyVideo from '@/components/LazyVideo';
 
 /* ============================================================
    "One place. Every platform." - a light section right after the
@@ -12,14 +11,6 @@ import { primeIOSVideo } from '@/lib/videoAutoplay';
 ============================================================ */
 
 export default function OnePlaceEveryPlatform() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Autoplay can silently fail on first mount in some browsers (especially
-  // right after a route/section becomes visible) - nudge it once mounted.
-  useEffect(() => {
-    videoRef.current?.play().catch(() => {});
-  }, []);
-
   return (
     <section className="bg-white py-16 sm:py-24 lg:py-28">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
@@ -46,17 +37,14 @@ export default function OnePlaceEveryPlatform() {
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mt-12 overflow-hidden rounded-3xl bg-black shadow-[0_30px_70px_-25px_rgba(0,0,0,0.35)] sm:mt-16"
         >
-          <video
-            ref={videoRef}
+          {/* This clip sits in the middle of the page. Played as a plain
+              <video> it downloaded on mount and then decoded continuously for
+              as long as the tab was open - including while you scrolled past
+              everything below it. LazyVideo fetches it on approach and pauses
+              it the moment it leaves the viewport. */}
+          <LazyVideo
             src="/One-Place-Every-Platform.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            disablePictureInPicture
-            disableRemotePlayback
-            preload="auto"
-            onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
+            poster="/One-Place-Every-Platform.jpg"
             className="block w-full h-auto"
           />
         </motion.div>

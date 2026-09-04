@@ -421,25 +421,11 @@ export default function TikTokScrollSection() {
     });
   }, [activeId]);
 
-  // Nothing plays on its own any more, but the clips still have to decode one
-  // frame each or the ring would be nine empty boxes. Playing then immediately
-  // pausing is the reliable way to force that first frame out.
-  useEffect(() => {
-    CARDS_DATA.forEach((card) => {
-      const el = videoRefs.current[card.id];
-      if (!el) return;
-      primeIOSVideo(el);
-
-      // Only pause if this is still the throwaway frame-priming playback. A
-      // late-firing listener must never stop a clip the visitor pressed play on.
-      const settle = () => {
-        if (activeIdRef.current !== card.id) el.pause();
-      };
-      el.addEventListener('timeupdate', settle, { once: true });
-    });
-    // Re-runs when the clips are armed - before that the tags have no src and
-    // there is nothing to prime (the poster is holding the frame).
-  }, [clipsArmed]);
+  // These tiles used to play-then-pause on arming, purely to force one decoded
+  // frame out of each clip. That predates the poster frames: every tile now
+  // carries a UGC_POSTERS still, which paints the same picture for ~30KB
+  // instead of pulling ~7MB of MP4 and spinning up nine decoders behind a ring
+  // nobody has clicked. The clip now loads on the first press of play.
 
   return (
     <section className="relative w-full bg-white text-black pt-14 pb-2 sm:pt-20 sm:pb-2 font-sans overflow-hidden select-none">
@@ -552,7 +538,7 @@ export default function TikTokScrollSection() {
                       muted
                       loop
                       playsInline
-                      preload="auto"
+                      preload="none"
                       disablePictureInPicture
                       disableRemotePlayback
                       onLoadedData={(e) => {
