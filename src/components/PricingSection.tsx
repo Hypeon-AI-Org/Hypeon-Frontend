@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import PromoCountdown from '@/components/PromoCountdown';
 
 /* ============================================================
    "Simple pricing. Scale as you grow." - 4 plan cards on a light
@@ -11,6 +12,19 @@ import { CheckCircle2 } from 'lucide-react';
    from the tier below). A Monthly/Annual pill toggle above the
    cards swaps price + billing note.
 ============================================================ */
+
+/* The Growth launch offer, kept in step with /pricing (src/app/pricing/page.tsx):
+   first month at `offerPrice`, offered until `endsAt` (UTC). The app enforces the
+   same deadline server-side; this section only announces it and withdraws it on
+   its own once the clock passes. It is a first-month price, so it is shown on the
+   monthly cycle only. */
+const STUDIO_PLANS_URL = 'https://app.hypeon.ai/studio/plans';
+
+const GROWTH_OFFER = {
+  planName: 'Growth',
+  offerPrice: '$7.90',
+  endsAt: '2026-09-06T11:00:00Z',
+};
 
 type BillingCycle = 'monthly' | 'annual';
 
@@ -137,7 +151,19 @@ function BillingToggle({
   );
 }
 
-function PlanCard({ plan, index, cycle }: { plan: Plan; index: number; cycle: BillingCycle }) {
+function PlanCard({
+  plan,
+  index,
+  cycle,
+  offerLive,
+  onOfferExpire,
+}: {
+  plan: Plan;
+  index: number;
+  cycle: BillingCycle;
+  offerLive: boolean;
+  onOfferExpire: () => void;
+}) {
   const price = cycle === 'annual' ? plan.annualPrice : plan.monthlyPrice;
   const period = plan.isFree
     ? undefined
@@ -145,13 +171,19 @@ function PlanCard({ plan, index, cycle }: { plan: Plan; index: number; cycle: Bi
       ? 'per month, billed yearly'
       : 'per month';
 
+  // The offer buys the first month, so it does not apply to annual billing.
+  const offer =
+    offerLive && cycle === 'monthly' && plan.name === GROWTH_OFFER.planName ? GROWTH_OFFER : null;
+  const ctaLabel = offer ? `Get Growth for ${offer.offerPrice}` : plan.cta;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative flex flex-col rounded-2xl border bg-white p-6 ${plan.badge ? 'border-black' : 'border-neutral-200'}`}
+      className={`relative flex flex-col rounded-2xl border bg-white p-6 ${offer || plan.badge ? 'border-black' : 'border-neutral-200'
+        }`}
     >
       {plan.badge && (
         <span className="absolute -top-3 left-6 rounded-full bg-black px-3 py-1 text-[11px] font-semibold text-white">
@@ -159,28 +191,46 @@ function PlanCard({ plan, index, cycle }: { plan: Plan; index: number; cycle: Bi
         </span>
       )}
 
-      <div className="min-h-[132px]">
+      <div className={offerLive && cycle === 'monthly' ? 'min-h-[188px]' : 'min-h-[132px]'}>
         <p className="text-sm font-medium text-neutral-500">{plan.name}</p>
 
-        <div className="mt-2 flex items-baseline gap-1.5">
-          <span className="text-4xl font-bold tracking-tight text-black">{price}</span>
-          {period && <span className="text-base font-medium text-neutral-400">{period}</span>}
-        </div>
+        {offer ? (
+          <>
+            <div className="mt-2 flex items-baseline gap-1.5">
+              <span className="text-4xl font-bold tracking-tight text-black">{offer.offerPrice}</span>
+              <s className="text-xl font-semibold text-neutral-400">{plan.monthlyPrice}</s>
+              <span className="text-sm font-medium text-neutral-400">first month</span>
+            </div>
 
-        <p className="mt-1 text-xs text-neutral-400">
-          {plan.note ?? ' '}
-        </p>
-        <p className="mt-1 text-sm text-neutral-500">{plan.credits}</p>
+            <p className="mt-1 text-xs text-neutral-400">
+              then {plan.monthlyPrice} / month · cancel anytime
+            </p>
+            <p className="mt-1 text-sm text-neutral-500">{plan.credits}</p>
+            <PromoCountdown endsAt={offer.endsAt} onExpire={onOfferExpire} className="mt-3" />
+          </>
+        ) : (
+          <>
+            <div className="mt-2 flex items-baseline gap-1.5">
+              <span className="text-4xl font-bold tracking-tight text-black">{price}</span>
+              {period && <span className="text-base font-medium text-neutral-400">{period}</span>}
+            </div>
+
+            <p className="mt-1 text-xs text-neutral-400">
+              {plan.note ?? ' '}
+            </p>
+            <p className="mt-1 text-sm text-neutral-500">{plan.credits}</p>
+          </>
+        )}
       </div>
 
       <a
-        href="https://app.hypeon.ai/studio/login"
+        href={STUDIO_PLANS_URL}
         className="group relative mt-6 inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
       >
         <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
         <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
-          <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">{plan.cta}</span>
-          <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">{plan.cta}</span>
+          <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">{ctaLabel}</span>
+          <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">{ctaLabel}</span>
         </span>
       </a>
 
@@ -203,6 +253,13 @@ function PlanCard({ plan, index, cycle }: { plan: Plan; index: number; cycle: Bi
 
 export default function PricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>('monthly');
+  // `true` on the server and on the first client render so hydration agrees; the
+  // effect withdraws the offer when the deadline has already passed, and the
+  // countdown withdraws it the second it reaches zero.
+  const [offerLive, setOfferLive] = useState(true);
+  useEffect(() => {
+    if (Date.now() >= Date.parse(GROWTH_OFFER.endsAt)) setOfferLive(false);
+  }, []);
 
   return (
     <section id="pricing" className="scroll-mt-24 rounded-t-[28px] bg-neutral-100 pb-8 pt-16 sm:rounded-t-[56px] sm:pb-10 sm:pt-24 lg:pb-12 lg:pt-28">
@@ -228,7 +285,14 @@ export default function PricingSection() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
           {PLANS.map((plan, i) => (
-            <PlanCard key={plan.name} plan={plan} index={i} cycle={cycle} />
+            <PlanCard
+              key={plan.name}
+              plan={plan}
+              index={i}
+              cycle={cycle}
+              offerLive={offerLive}
+              onOfferExpire={() => setOfferLive(false)}
+            />
           ))}
         </div>
 
