@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { onIntroDone } from "@/lib/introSignal";
 
 const CONSENT_KEY = "hypeon_cookie_consent_v1";
 const CONSENT_MAX_AGE_DAYS = 180;
+/** Matches the fade-out of <SiteIntro/>'s curtain, which is what markIntroDone() starts. */
+const INTRO_FADE_MS = 800;
 
 type Consent = {
   essential: true;
@@ -151,18 +154,29 @@ export default function CookieBanner() {
 
   useEffect(() => {
     const existing = readConsent();
-    if (!existing) {
-      setBannerOpen(true);
-      setPrefs(defaultPrefs);
+    if (existing) {
+      setBannerOpen(false);
+      setPrefs({
+        essential: true,
+        marketing: existing.marketing,
+        personalised: existing.personalised,
+        analytics: existing.analytics,
+      });
       return;
     }
-    setBannerOpen(false);
-    setPrefs({
-      essential: true,
-      marketing: existing.marketing,
-      personalised: existing.personalised,
-      analytics: existing.analytics,
+
+    // Hold the bar back until the black entrance curtain (<SiteIntro/>) is out
+    // of the way, plus the length of its fade — otherwise it slides in behind
+    // the overlay and is already there when the page is revealed.
+    setPrefs(defaultPrefs);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribe = onIntroDone(() => {
+      timer = setTimeout(() => setBannerOpen(true), INTRO_FADE_MS);
     });
+    return () => {
+      unsubscribe();
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -210,69 +224,61 @@ export default function CookieBanner() {
     setBannerOpen(false);
   };
 
-  const description = useMemo(
-    () =>
-      "Not the tasty ones! These cookies help secure our site and enhance your visit. We'll only use them with your consent.",
-    []
-  );
-
   if (!bannerOpen && !prefsOpen) return null;
 
   return (
     <>
-      <div
-        className={`fixed inset-0 z-[9998] bg-black/40 transition-opacity duration-200 ${
-          bannerOpen || prefsOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        aria-hidden
-        onClick={() => {
-          // click-away closes prefs; banner stays until a choice is made
-          if (prefsOpen) setPrefsOpen(false);
-        }}
-      />
+      {prefsOpen && (
+        <div
+          className="fixed inset-0 z-[9998] bg-black/40 transition-opacity duration-200"
+          aria-hidden
+          onClick={() => setPrefsOpen(false)}
+        />
+      )}
 
-      {/* Banner (bottom-right like reference) */}
+      {/* Banner (full-width bottom bar) */}
       {bannerOpen && !prefsOpen && (
-        <div className="fixed bottom-6 right-6 z-[9999] w-[min(100vw-3rem,26rem)]">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
-            <div className="p-4 sm:p-5">
-              <p className="text-sm font-semibold text-slate-900">
-                Cookies personalise your experience
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {description} Learn more about our{" "}
+        <div className="fixed inset-x-0 bottom-0 z-[9999] animate-[cookiebar-in_0.45s_cubic-bezier(0.22,1,0.36,1)_both] border-t border-slate-200 bg-white motion-reduce:animate-none">
+          <div className="mx-auto flex max-w-[1800px] flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+            <div className="text-[13px] leading-[1.55] text-slate-900">
+              <p>
+                We use cookies to personalise content and ads, to provide social media features and
+                to analyse our traffic. We also share information about your use of our site with
+                our social media, advertising and analytics partners who may combine it with other
+                information that you&apos;ve provided to them or that they&apos;ve collected from
+                your use of their services. Please visit our{" "}
                 <Link
                   href="/privacy-policy"
-                  className="font-medium text-slate-900 underline underline-offset-2 hover:opacity-80"
+                  className="underline underline-offset-2 hover:opacity-70"
                 >
                   Privacy Policy
-                </Link>
-                .
+                </Link>{" "}
+                for more information about your rights.
               </p>
+              <button
+                type="button"
+                onClick={() => setPrefsOpen(true)}
+                className="mt-1 underline underline-offset-2 hover:opacity-70"
+              >
+                View our 6 partners
+              </button>
+            </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={allowAll}
-                  className="min-h-[44px] rounded-full bg-slate-900 px-4 text-sm font-semibold text-white transition-colors hover:bg-slate-800 active:bg-slate-900"
-                >
-                  Allow All
-                </button>
-                <button
-                  type="button"
-                  onClick={rejectAll}
-                  className="min-h-[44px] rounded-full border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100"
-                >
-                  Reject All
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPrefsOpen(true)}
-                  className="col-span-2 min-h-[44px] rounded-full bg-slate-100 px-4 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-200 active:bg-slate-200"
-                >
-                  Customise preferences
-                </button>
-              </div>
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                onClick={() => setPrefsOpen(true)}
+                className="min-h-[44px] whitespace-nowrap rounded-full border border-slate-300 bg-white px-7 text-[13px] font-medium text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100"
+              >
+                Manage my preferences
+              </button>
+              <button
+                type="button"
+                onClick={allowAll}
+                className="min-h-[44px] whitespace-nowrap rounded-full bg-black px-7 text-[13px] font-medium text-white transition-colors hover:bg-slate-800 active:bg-black"
+              >
+                Agree and Close
+              </button>
             </div>
           </div>
         </div>

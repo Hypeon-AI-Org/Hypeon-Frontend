@@ -959,3 +959,15 @@ html.is-scrolling .float-preview {
     display: none;
   }
 }
+
+/* Cookie bar entrance: slides up once <SiteIntro/>'s curtain has cleared. */
+@keyframes cookiebar-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

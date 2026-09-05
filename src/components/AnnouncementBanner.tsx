@@ -155,22 +155,20 @@ export default function AnnouncementBanner() {
           role="timer"
           aria-live="off"
           aria-label={`Launch offer ends in ${hh} hours ${mm} minutes ${ss} seconds`}
-          className="inline-flex shrink-0 items-center gap-1"
+          className="inline-flex shrink-0 items-center gap-0.5 sm:gap-1"
         >
           <span aria-hidden className="relative hidden h-1.5 w-1.5 sm:mr-1.5 sm:flex">
             <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-50 motion-safe:animate-ping" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
           </span>
-          <span
-            aria-hidden
-            className="rounded-md border border-white/10 bg-white/[0.06] px-1.5 py-0.5 text-[11px] font-semibold tabular-nums tracking-tight text-white sm:hidden"
-          >
-            {`${hh}:${mm}:${ss}`}
-          </span>
           {[hh, mm, ss].map((value, i) => (
-            <span key={i} aria-hidden className="hidden items-center sm:flex">
-              {i > 0 && <span className="px-0.5 text-[11px] text-white/25">:</span>}
-              <span className="min-w-[27px] rounded-md border border-white/10 bg-white/[0.06] px-1.5 py-0.5 text-center text-[12px] font-semibold tabular-nums tracking-tight text-white">
+            <span key={i} aria-hidden className="flex items-center">
+              {i > 0 && (
+                <span className="px-[3px] text-[9px] font-semibold text-white/25 sm:px-0.5 sm:text-[11px]">
+                  :
+                </span>
+              )}
+              <span className="min-w-[20px] rounded-[4px] border border-white/10 bg-white/[0.06] px-1 py-px text-center text-[9.5px] font-semibold leading-[1.35] tabular-nums tracking-tight text-white sm:min-w-[27px] sm:rounded-md sm:px-1.5 sm:py-0.5 sm:text-[12px] sm:leading-normal">
                 {value}
               </span>
             </span>
