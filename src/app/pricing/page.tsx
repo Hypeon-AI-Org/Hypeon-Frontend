@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import StartToday from "../../components/TeamGlobalMap";
 import { Activity } from "lucide-react";
 import PromoCountdown from "@/components/PromoCountdown";
+import { GROWTH_OFFER, STUDIO_PLANS_URL, usd } from "@/lib/growthOffer";
 
 type TabKey = "intelligence" | "analytics";
 
@@ -23,15 +24,6 @@ type TabKey = "intelligence" | "analytics";
    here the same day. Prices are USD per month; `yearly` is the per-month
    equivalent when billed yearly (75600 / 12 = 63, and so on).
    ────────────────────────────────────────────── */
-const STUDIO_PLANS_URL = "https://app.hypeon.ai/studio/plans";
-
-/** The Growth launch offer: first month at `offerPrice`, offered until `endsAt`
- * (UTC). The app enforces the same deadline server-side; the site only
- * announces it, and hides it on its own once the clock passes. */
-const GROWTH_OFFER = {
-  offerPrice: 7.9,
-  endsAt: "2026-09-06T11:00:00Z",
-};
 
 type StudioPlan = {
   key: "STARTER" | "GROWTH" | "PRO" | "SCALE";
@@ -119,9 +111,6 @@ const STUDIO_PLANS: StudioPlan[] = [
   },
 ];
 
-function usd(n: number): string {
-  return Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`;
-}
 type RevenueKey = "5k" | "10k" | "20k" | "40k" | "83k" | "250k" | "750k" | "1m";
 
 const analyticsPricing: Record<

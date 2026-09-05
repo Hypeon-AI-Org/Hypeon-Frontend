@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import PromoCountdown from '@/components/PromoCountdown';
+import { GROWTH_OFFER, STUDIO_PLANS_URL, usd } from '@/lib/growthOffer';
 
 /* ============================================================
    "Simple pricing. Scale as you grow." - 4 plan cards on a light
@@ -13,18 +14,10 @@ import PromoCountdown from '@/components/PromoCountdown';
    cards swaps price + billing note.
 ============================================================ */
 
-/* The Growth launch offer, kept in step with /pricing (src/app/pricing/page.tsx):
-   first month at `offerPrice`, offered until `endsAt` (UTC). The app enforces the
-   same deadline server-side; this section only announces it and withdraws it on
-   its own once the clock passes. It is a first-month price, so it is shown on the
-   monthly cycle only. */
-const STUDIO_PLANS_URL = 'https://app.hypeon.ai/studio/plans';
-
-const GROWTH_OFFER = {
-  planName: 'Growth',
-  offerPrice: '$7.90',
-  endsAt: '2026-09-06T11:00:00Z',
-};
+/* The Growth launch offer comes from src/lib/growthOffer.ts, shared with
+   /pricing and the announcement banner. It is a first-month price, so this
+   section shows it on the monthly cycle only, and withdraws it on its own once
+   the clock passes `endsAt`. */
 
 type BillingCycle = 'monthly' | 'annual';
 
@@ -174,7 +167,7 @@ function PlanCard({
   // The offer buys the first month, so it does not apply to annual billing.
   const offer =
     offerLive && cycle === 'monthly' && plan.name === GROWTH_OFFER.planName ? GROWTH_OFFER : null;
-  const ctaLabel = offer ? `Get Growth for ${offer.offerPrice}` : plan.cta;
+  const ctaLabel = offer ? `Get Growth for ${usd(offer.offerPrice)}` : plan.cta;
 
   return (
     <motion.div
@@ -197,7 +190,7 @@ function PlanCard({
         {offer ? (
           <>
             <div className="mt-2 flex items-baseline gap-1.5">
-              <span className="text-4xl font-bold tracking-tight text-black">{offer.offerPrice}</span>
+              <span className="text-4xl font-bold tracking-tight text-black">{usd(offer.offerPrice)}</span>
               <s className="text-xl font-semibold text-neutral-400">{plan.monthlyPrice}</s>
               <span className="text-sm font-medium text-neutral-400">first month</span>
             </div>

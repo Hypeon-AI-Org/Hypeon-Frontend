@@ -87,12 +87,14 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-            ? "top-3 sm:top-4 md:top-6 max-w-[95vw] lg:max-w-[980px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-4 lg:px-3"
-            : "top-0 max-w-[95vw] xl:max-w-[1150px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-5 md:pl-3 md:pr-6 lg:px-8"
+            ? "top-[calc(var(--promo-h,0px)+0.75rem)] sm:top-[calc(var(--promo-h,0px)+1rem)] md:top-[calc(var(--promo-h,0px)+1.5rem)] max-w-[95vw] lg:max-w-[980px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-4 lg:px-3"
+            : "top-[var(--promo-h,0px)] max-w-[95vw] xl:max-w-[1150px] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0.25rem,env(safe-area-inset-right))] sm:pl-2 sm:pr-5 md:pl-3 md:pr-6 lg:px-8"
           }
   `}
       >
 
+        {/* The scrolled pill is solid from md up; on phones it is frosted glass
+            (`max-md:`) so the page reads through it. Desktop is untouched. */}
         <div
           className={`
     relative flex items-center justify-between
@@ -100,7 +102,9 @@ function Navbar() {
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
-              ? `h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full border ${isDark ? "bg-[#150f0d] border-white/10" : "bg-[#ffffff] border-slate-200"}`
+              ? `h-[66px] sm:h-[58px] md:h-[58px] lg:h-[52px] pl-0 pr-1 sm:pr-4 lg:px-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-full border ${isDark
+                ? "bg-[#150f0d] border-white/10 max-md:bg-[#150f0d]/60 max-md:backdrop-blur-xl max-md:backdrop-saturate-150"
+                : "bg-[#ffffff] border-slate-200 max-md:bg-white/60 max-md:border-white/50 max-md:backdrop-blur-xl max-md:backdrop-saturate-150 max-md:shadow-[0_8px_30px_rgba(0,0,0,0.10)]"}`
               : "h-[80px] sm:h-[68px] md:h-[70px] lg:h-[64px] pl-0 pr-1 sm:pr-5 md:pr-6 lg:px-6 bg-transparent border-transparent shadow-none"
             }
   `}

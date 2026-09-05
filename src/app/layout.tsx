@@ -6,6 +6,7 @@ import "./globals.css";
 import ScrollRevealSetup from "@/components/ScrollRevealSetup";
 import SmoothScroll from "@/components/SmoothScroll";
 import SiteIntro from "@/components/SiteIntro";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 import { ScaleProvider } from "@/context/ScaleContext";
 import CookieBanner from "@/components/CookieBanner";
 import GtmOnConsent from "@/components/GtmOnConsent";
@@ -136,6 +137,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         )}
         <ScaleProvider>
           <SiteIntro />
+          <AnnouncementBanner />
           <SmoothScroll />
           <ScrollRevealSetup />
           {children}
