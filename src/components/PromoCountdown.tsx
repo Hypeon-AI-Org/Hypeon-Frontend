@@ -35,7 +35,7 @@ export function formatCountdown(ms: number): string {
 export default function PromoCountdown({
   endsAt,
   onExpire,
-  label = "Launch offer ends in",
+  label = "Limited offer ends in",
   className = "",
 }: {
   endsAt: string;

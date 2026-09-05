@@ -107,7 +107,7 @@ export default function AnnouncementBanner() {
     <motion.div
       ref={barRef}
       role="region"
-      aria-label="Launch offer"
+      aria-label="Limited offer"
       initial={reduceMotion ? false : { y: "-100%" }}
       animate={{ y: hidden ? "-100%" : 0 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -132,11 +132,11 @@ export default function AnnouncementBanner() {
 
       <div className="relative mx-auto flex w-full max-w-[1180px] flex-nowrap items-center justify-center gap-x-2.5 whitespace-nowrap px-2.5 py-2 sm:gap-x-5 sm:px-6 sm:py-3">
         <span
-          aria-label="Launch offer"
+          aria-label="Limited offer"
           className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.06] px-1.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white sm:px-2.5"
         >
           <Zap className="h-3 w-3 fill-white/90 text-white/90" aria-hidden />
-          <span className="hidden sm:inline">Launch offer</span>
+          <span className="hidden sm:inline">Limited offer</span>
         </span>
 
         <p className="min-w-0 shrink truncate text-[11.5px] font-medium text-white/60 sm:text-[14px]">
@@ -152,7 +152,7 @@ export default function AnnouncementBanner() {
         <span
           role="timer"
           aria-live="off"
-          aria-label={`Launch offer ends in ${hh} hours ${mm} minutes ${ss} seconds`}
+          aria-label={`Limited offer ends in ${hh} hours ${mm} minutes ${ss} seconds`}
           className="inline-flex shrink-0 items-center gap-0.5 sm:gap-1"
         >
           <span aria-hidden className="relative hidden h-1.5 w-1.5 sm:mr-1.5 sm:flex">
