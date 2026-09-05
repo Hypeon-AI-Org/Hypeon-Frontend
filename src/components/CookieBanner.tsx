@@ -239,14 +239,22 @@ export default function CookieBanner() {
       {/* Banner (full-width bottom bar) */}
       {bannerOpen && !prefsOpen && (
         <div className="fixed inset-x-0 bottom-0 z-[9999] animate-[cookiebar-in_0.45s_cubic-bezier(0.22,1,0.36,1)_both] border-t border-slate-200 bg-white motion-reduce:animate-none">
-          <div className="mx-auto flex max-w-[1800px] flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-            <div className="text-[13px] leading-[1.55] text-slate-900">
+          <div className="mx-auto flex max-w-[1800px] flex-col gap-2.5 px-4 py-3 sm:gap-4 sm:px-8 sm:py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+            <div className="text-[11.5px] leading-[1.45] text-slate-900 sm:text-[13px] sm:leading-[1.55]">
+              {/* The middle clause is desktop-only: on a phone the full notice
+                  eats most of the viewport, so it keeps the purpose and the
+                  Privacy Policy link and drops the partner detail, which the
+                  "View our 6 partners" control below covers anyway. */}
               <p>
                 We use cookies to personalise content and ads, to provide social media features and
-                to analyse our traffic. We also share information about your use of our site with
-                our social media, advertising and analytics partners who may combine it with other
-                information that you&apos;ve provided to them or that they&apos;ve collected from
-                your use of their services. Please visit our{" "}
+                to analyse our traffic.{" "}
+                <span className="hidden sm:inline">
+                  We also share information about your use of our site with our social media,
+                  advertising and analytics partners who may combine it with other information that
+                  you&apos;ve provided to them or that they&apos;ve collected from your use of their
+                  services.{" "}
+                </span>
+                Please visit our{" "}
                 <Link
                   href="/privacy-policy"
                   className="underline underline-offset-2 hover:opacity-70"
@@ -264,18 +272,18 @@ export default function CookieBanner() {
               </button>
             </div>
 
-            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setPrefsOpen(true)}
-                className="min-h-[44px] whitespace-nowrap rounded-full border border-slate-300 bg-white px-7 text-[13px] font-medium text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100"
+                className="min-h-[38px] flex-1 whitespace-nowrap rounded-full border border-slate-300 bg-white px-4 text-[11.5px] font-medium text-slate-900 transition-colors hover:bg-slate-50 active:bg-slate-100 sm:min-h-[44px] sm:flex-none sm:px-7 sm:text-[13px]"
               >
                 Manage my preferences
               </button>
               <button
                 type="button"
                 onClick={allowAll}
-                className="min-h-[44px] whitespace-nowrap rounded-full bg-black px-7 text-[13px] font-medium text-white transition-colors hover:bg-slate-800 active:bg-black"
+                className="min-h-[38px] flex-1 whitespace-nowrap rounded-full bg-black px-4 text-[11.5px] font-medium text-white transition-colors hover:bg-slate-800 active:bg-black sm:min-h-[44px] sm:flex-none sm:px-7 sm:text-[13px]"
               >
                 Agree and Close
               </button>
