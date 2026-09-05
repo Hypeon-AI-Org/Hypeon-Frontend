@@ -102,7 +102,6 @@ export default function AnnouncementBanner() {
       : [Math.floor(total / 3600), Math.floor((total % 3600) / 60), total % 60];
   const [hh, mm, ss] = units.map((n) => (n === null ? "--" : String(n).padStart(2, "0")));
   const offerPrice = usd(GROWTH_OFFER.offerPrice);
-  const listPrice = usd(GROWTH_OFFER.listPrice);
 
   return (
     <motion.div
@@ -141,12 +140,11 @@ export default function AnnouncementBanner() {
         </span>
 
         <p className="min-w-0 shrink truncate text-[11.5px] font-medium text-white/60 sm:text-[14px]">
-          <span className="font-semibold text-white">{GROWTH_OFFER.planName}</span>
-          <span className="hidden sm:inline"> is</span>{" "}
+          <span className="font-semibold text-white">{GROWTH_OFFER.planName} plan</span>
+          <span className="hidden sm:inline"> is now</span>{" "}
           <span className="font-bold text-white">{offerPrice}</span>
           <span className="text-white/90 sm:hidden"> first month</span>
           <span className="hidden text-white/90 sm:inline"> for your first month</span>
-          <span className="hidden md:inline"> — then {listPrice}/mo, cancel anytime</span>
         </p>
 
         {/* The clock as three tiles: a glanceable shape, and the digits stop
