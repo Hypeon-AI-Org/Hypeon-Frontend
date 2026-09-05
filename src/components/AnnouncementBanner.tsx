@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { GROWTH_OFFER, STUDIO_PLANS_URL, usd } from "@/lib/growthOffer";
 import { msLeft } from "@/components/PromoCountdown";
@@ -181,7 +181,7 @@ export default function AnnouncementBanner() {
             pane, brightening on hover rather than switching to a solid fill. */}
         <a
           href={STUDIO_PLANS_URL}
-          className="group relative inline-flex shrink-0 items-center gap-1.5 overflow-hidden rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11.5px] font-semibold text-white backdrop-blur-md sm:px-4 sm:py-1.5 transition-colors duration-200 ease-out hover:border-white/35 hover:bg-white/[0.18] sm:text-[13px]"
+          className="relative inline-flex shrink-0 items-center overflow-hidden rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11.5px] font-semibold text-white backdrop-blur-md sm:px-4 sm:py-1.5 transition-colors duration-200 ease-out hover:border-white/35 hover:bg-white/[0.18] sm:text-[13px]"
         >
           <span
             aria-hidden
@@ -190,10 +190,6 @@ export default function AnnouncementBanner() {
           <span className="relative">
             Claim<span className="hidden sm:inline"> offer</span>
           </span>
-          <ArrowRight
-            className="relative h-3 w-3 transition-transform sm:h-3.5 sm:w-3.5 duration-200 ease-out group-hover:translate-x-0.5"
-            aria-hidden
-          />
         </a>
       </div>
     </motion.div>
