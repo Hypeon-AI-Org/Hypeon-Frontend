@@ -280,7 +280,7 @@ function StudioHero() {
                 {/* CTAs below the box */}
                 <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                     <a
-                        href="https://app.hypeon.ai/studio/login"
+                        href="https://calendly.com/yash-hypeon/30min"
                         className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#E66245] py-2 pl-2 pr-5 text-[14px] font-bold text-white shadow-lg shadow-[#E66245]/25 transition-colors hover:bg-[#d6543a]"
                     >
                         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/25">
@@ -613,7 +613,7 @@ function StudioProduction() {
                                 Start a brief
                             </a>
                             <a
-                                href="#"
+                                href="https://calendly.com/yash-hypeon/30min"
                                 className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/5"
                             >
                                 Book a demo

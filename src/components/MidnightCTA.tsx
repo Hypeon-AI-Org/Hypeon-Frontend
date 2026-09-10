@@ -52,7 +52,7 @@ export default function MidnightCTA() {
           </p>
 
           <motion.a
-            href="https://app.hypeon.ai/studio/login"
+            href="https://calendly.com/yash-hypeon/30min"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

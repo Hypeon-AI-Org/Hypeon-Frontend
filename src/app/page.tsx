@@ -35,8 +35,8 @@ export default function Home() {
    
       <OnePlaceEveryPlatform />
    
-      <PricingSection />
-      <MidnightCTA />
+
+     
 
       <FAQ />
       <DashboardCTA />
