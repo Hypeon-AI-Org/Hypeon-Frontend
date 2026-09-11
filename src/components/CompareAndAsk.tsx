@@ -57,7 +57,7 @@ export function TabHoppingSection() {
                             reach, and daily creative change tracking, all in one view.
                         </p>
                         <a
-                            href="https://calendly.com/yash-hypeon/30min"
+                            href="https://app.hypeon.ai/studio/login"
                             className="group relative mt-7 inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                         >
                             <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
@@ -196,7 +196,7 @@ export function AskCopilotSection() {
                         </p>
                         <div className="mt-7 flex flex-wrap gap-3">
                             <a
-                                href="https://calendly.com/yash-hypeon/30min"
+                                href="https://app.hypeon.ai/studio/login"
                                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                             >
                                 <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
@@ -207,7 +207,7 @@ export function AskCopilotSection() {
                                 <ArrowRight className="relative h-4 w-4" />
                             </a>
                             <a
-                                href="https://calendly.com/yash-hypeon/30min"
+                                href="https://app.hypeon.ai/studio/login"
                                 className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-[#1B1C3A] transition-colors hover:bg-slate-50"
                             >
                                 See Copilot in action

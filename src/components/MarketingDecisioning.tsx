@@ -51,7 +51,7 @@ export default function CTASection() {
           </p>
 
           <motion.a
-            href="https://calendly.com/yash-hypeon/30min"
+            href="https://app.hypeon.ai/studio/login"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

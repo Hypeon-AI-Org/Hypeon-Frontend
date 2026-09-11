@@ -40,7 +40,7 @@ export default function DashboardCTA({ image = "/dashboard.png" }: { image?: str
                         {/* translucent frosted highlight box - content shows through */}
                         <div className="absolute -inset-2.5 rounded-[1.5rem] bg-gradient-to-b from-slate-200/55 to-slate-300/25 ring-1 ring-white/50 backdrop-blur-[2px] sm:-inset-4" />
                         <motion.a
-                            href="https://calendly.com/yash-hypeon/30min"
+                            href="https://app.hypeon.ai/studio/login"
                             initial={{ scale: 0.92, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             viewport={{ once: true }}
