@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "hypeon-marketing-site",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,15 +46,14 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "next.config.js",
+  "description": "Hypeon AI public marketing site (Next.js App Router, deployed to Vercel from the hypeon-2 branch).",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hypeon-AI-Org/Hypeon-Frontend.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "type": "module",
   "bugs": {
     "url": "https://github.com/Hypeon-AI-Org/Hypeon-Frontend/issues"

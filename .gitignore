@@ -80,8 +80,10 @@ Thumbs.db
 *.temp
 .cache/
 
-# Optional: Keep assets folder but ignore large files if needed
-# Uncomment if you want to ignore large assets
-# /assets/*.mp4
-# /assets/*.mov
-# /assets/*.avi
+# Windows duplicate-file artifacts (several of these reached the default branch)
+* - Copy.*
+* (1).*
+
+# scratch files
+temp_*
+*.bak
