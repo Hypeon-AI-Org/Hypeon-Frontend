@@ -48,19 +48,27 @@ Both the `dev` and `build` scripts set the heap size through `NODE_OPTIONS`, usi
 
 ## Deployment
 
-Vercel builds and deploys this repository. The default branch is `hypeon-2`, and every push to
-`hypeon-2` publishes to production. There is no separate release step and no staging branch.
-A `main` branch also exists, but it is a stale ancestor of `hypeon-2` and is not the default,
-so do not branch from it or target it.
+Vercel builds this repository. The default branch is `hypeon-2`. A `main` branch also exists,
+but it is a stale ancestor of `hypeon-2` and is not the default, so do not branch from it or
+target it.
 
-Because of that, changes go through a pull request rather than a direct push:
+Releasing is two steps, and merging is only the first:
+
+1. Every push, including a push to `hypeon-2`, produces a Preview deployment. Preview URLs are
+   behind Vercel sign-in, so a request from outside returns the Vercel login page with HTTP
+   200, not the site. Do not treat a 200 from a preview URL as proof that a page works.
+2. Production at hypeon.ai changes only when a maintainer promotes the `hypeon-2` deployment to
+   Production in Vercel. Until then the live site keeps serving the previous build.
+
+Changes go through a pull request rather than a direct push:
 
 1. Branch off `hypeon-2`.
 2. Open a pull request against `hypeon-2`.
-3. Check the Vercel preview URL that the pull request produces. Open the pages your change
-   touches and confirm the browser network panel shows no new failed image or media requests
-   compared with production.
-4. Merge once the preview looks right. Merging is what deploys.
+3. Check the Vercel preview while signed in. Open the pages your change touches and confirm the
+   browser network panel shows no new failed image or media requests compared with production.
+4. Merge once the preview looks right, then promote that deployment in Vercel.
+5. After promoting, load the live site and confirm the change is there. Rolling back is
+   promoting the previous Production deployment again, which takes effect at once.
 
 Never push straight to `hypeon-2` and never force push it.
 
