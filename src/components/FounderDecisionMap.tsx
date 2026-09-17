@@ -757,9 +757,9 @@ const KEYWORD_INTELLIGENCE_HTML_CSS = `
     flex: none !important;
     overflow: hidden !important;
   }
-  .ps-right-panel { aspect-ratio: 1076 / 723; }   /* 01.png */
+  .ps-right-panel { aspect-ratio: 1076 / 723; }   /* hypeon-dem.mp4 */
   .pi-middle-panel { aspect-ratio: 1109 / 807; }  /* 02.png */
-  .rad-right-panel { aspect-ratio: 932 / 623; }   /* 03.png */
+  .rad-right-panel { aspect-ratio: 932 / 623; }   /* hypeon-demo78.mp4 */
 }
 
 .ps-panels,
