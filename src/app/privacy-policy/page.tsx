@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
 
           <p className="mt-2 text-sm text-slate-500">
             <strong className="font-medium text-slate-700">
-              Last Updated: April 2, 2026
+              Last Updated: September 18, 2026
             </strong>
             <br />
             <strong className="font-medium text-slate-700">
@@ -871,6 +871,31 @@ export default function PrivacyPolicyPage() {
             this Privacy Policy no longer applies. We strongly recommend
             reviewing the privacy policies of any third-party services before
             providing them with your Personal Data.
+          </p>
+          <p className="mt-3">
+            <strong>Connected advertising accounts.</strong> If you connect a
+            Meta (Facebook) advertising account to Hypeon Studio, we receive an
+            access token, and the names and IDs of the ad accounts and Pages you
+            choose to share. We use them only to publish the ads you ask us to
+            publish, and to show you the delivery status and performance of
+            those ads. We encrypt the access token before storing it. We do not
+            sell this data, use it for advertising of our own, or share it with
+            anyone except the service providers described in this policy.
+          </p>
+          <p className="mt-3">
+            You can disconnect at any time in your brand&apos;s Integrations
+            page in Hypeon Studio, which deletes the access token and the ad
+            account and Page links from our systems immediately. You can also
+            remove Hypeon&apos;s access in your Facebook settings under Business
+            Integrations. To have all related data deleted, contact us at{" "}
+            <ContactEmail />. The Hypeon Studio privacy policy at{" "}
+            <a
+              href="https://app.hypeon.ai/studio/privacy"
+              className="underline"
+            >
+              app.hypeon.ai/studio/privacy
+            </a>{" "}
+            describes this in full.
           </p>
 
           <h2 className="mt-12 text-xl font-medium text-slate-900">
