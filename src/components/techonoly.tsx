@@ -230,7 +230,7 @@ const Panel1 = () => {
       <div className="p-[10px_14px_6px] bg-white">
         <div className="h-[95px] relative">
           <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none py-[2px] z-10">
-            {["10k", "7.5k", "5k", "2.5k", "0k"].map(v => <span key={v} className="text-[9px] text-[#d8d8d8]">{v}</span>)}
+            {["10k", "7.5k", "5k", "2.5k", "0k"].map(v => <span key={v} className="text-[10px] text-[#d8d8d8]">{v}</span>)}
           </div>
           <canvas ref={canvasRef} className="w-full h-full block" />
         </div>
@@ -474,11 +474,11 @@ const Panel4 = () => {
               />
             </div>
             <div className="p-[7px_9px]">
-              <div className="text-[9px] font-bold uppercase tracking-widest text-[#bbb] mb-[2px]">{c.plat}</div>
+              <div className="text-[10px] font-bold uppercase tracking-widest text-[#bbb] mb-[2px]">{c.plat}</div>
               <div className="text-[11px] font-semibold mb-[5px] leading-tight">{c.name}</div>
               <div className="flex gap-1 flex-wrap">
-                <div className="text-[9px] font-semibold p-[2px_6px] rounded-[4px] bg-[#f0f0f0] text-[#111]">ROAS {c.roas}</div>
-                <div className="text-[9px] font-semibold p-[2px_6px] rounded-[4px] bg-[#f0f0f0] text-[#555]">{c.views} views</div>
+                <div className="text-[10px] font-semibold p-[2px_6px] rounded-[4px] bg-[#f0f0f0] text-[#111]">ROAS {c.roas}</div>
+                <div className="text-[10px] font-semibold p-[2px_6px] rounded-[4px] bg-[#f0f0f0] text-[#555]">{c.views} views</div>
               </div>
             </div>
           </div>

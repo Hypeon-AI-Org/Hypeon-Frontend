@@ -4880,7 +4880,7 @@ function AnalyticsWorkspacePreview({
                       >
                         {badge ? (
                           <span
-                            className={`absolute right-1 top-1 z-[1] rounded-md px-1.5 py-0.5 text-[8px] font-semibold shadow-sm sm:text-[9px] ${blurred ? "bg-slate-100/90 text-slate-500" : "bg-[#E8EEF7]/95 text-[#3B5B8C]"}`}
+                            className={`absolute right-1 top-1 z-[1] rounded-md px-1.5 py-0.5 text-[8px] font-semibold shadow-sm sm:text-[10px] ${blurred ? "bg-slate-100/90 text-slate-500" : "bg-[#E8EEF7]/95 text-[#3B5B8C]"}`}
                           >
                             {badge}
                           </span>

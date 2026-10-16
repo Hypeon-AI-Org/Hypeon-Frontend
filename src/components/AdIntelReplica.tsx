@@ -295,7 +295,7 @@ function InsightsPanel() {
       <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-3">
         {metrics.map((metric) => (
           <div key={metric.label} className="rounded-xl border border-slate-100 bg-white p-2 sm:p-2.5 shadow-sm">
-            <p className="text-[9px] sm:text-[10px] text-slate-500 leading-tight">{metric.label}</p>
+            <p className="text-[10px] sm:text-[10px] text-slate-500 leading-tight">{metric.label}</p>
             <div className="mt-1 flex flex-wrap items-end gap-1 sm:gap-2">
               <span className="text-base sm:text-[20px] leading-none font-semibold text-slate-900">{metric.value}</span>
               {'suffix' in metric ? (

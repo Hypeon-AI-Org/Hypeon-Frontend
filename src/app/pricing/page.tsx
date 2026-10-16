@@ -864,14 +864,14 @@ function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
-        <table className="w-full min-w-[960px] border-collapse">
+        <table className="w-full min-w-[600px] md:min-w-[960px] border-collapse">
           <thead>
             <tr>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[34%]" />
+              <th className="sticky left-0 z-10 p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[34%] max-md:w-[150px] max-md:min-w-[150px] max-md:pl-4" />
               {STUDIO_PLANS.map((plan) => (
                 <th
                   key={plan.key}
-                  className={`p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 text-gray-900 border-l border-gray-200/80 ${
+                  className={`p-[18px_16px] max-md:px-2 max-md:py-3 text-sm sm:text-base font-bold text-center border-b border-gray-200 text-gray-900 border-l border-gray-200/80 ${
                     plan.key === "PRO" ? "bg-blue-50/60" : "bg-gray-100"
                   }`}
                 >
@@ -941,25 +941,25 @@ function CompareAnalyticsTable({
         <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
-        <table className="w-full min-w-[860px] border-collapse">
+        <table className="w-full min-w-[480px] md:min-w-[860px] border-collapse">
           <thead>
             <tr>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[40%]" />
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
+              <th className="sticky left-0 z-10 p-[18px_16px] text-sm sm:text-base font-bold text-left pl-6 border-b border-gray-200 bg-gray-100 text-gray-900 w-[40%] max-md:w-[150px] max-md:min-w-[150px] max-md:pl-4" />
+              <th className="p-[18px_16px] max-md:px-2 max-md:py-3 text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Starter
                 <br />
                 <span className="font-normal text-gray-400 text-xs">
                   ${analyticsTier.starter}/mo
                 </span>
               </th>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
+              <th className="p-[18px_16px] max-md:px-2 max-md:py-3 text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-blue-50/60 text-gray-900 border-l border-gray-200/80">
                 Growth
                 <br />
                 <span className="font-normal text-gray-400 text-xs">
                   ${analyticsTier.growth}/mo
                 </span>
               </th>
-              <th className="p-[18px_16px] text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
+              <th className="p-[18px_16px] max-md:px-2 max-md:py-3 text-sm sm:text-base font-bold text-center border-b border-gray-200 bg-gray-100 text-gray-900 border-l border-gray-200/80">
                 Enterprise
                 <br />
                 <span className="font-normal text-gray-400 text-xs">
@@ -1051,9 +1051,10 @@ function SectionRow({ label, cols = 4 }: { label: string; cols?: number }) {
     <tr>
       <td
         colSpan={cols}
-        className="bg-gray-100 text-xs font-bold uppercase tracking-widest text-gray-500 py-3 px-6 border-b border-gray-200"
+        className="bg-gray-100 text-xs font-bold uppercase tracking-widest text-gray-500 py-3 px-6 max-md:px-4 border-b border-gray-200"
       >
-        {label}
+        {/* sticky so the label stays in view while the table scrolls sideways on phones */}
+        <span className="sticky left-4 md:left-6">{label}</span>
       </td>
     </tr>
   );
@@ -1072,7 +1073,7 @@ function CompareRow({
   highlight?: number;
 }) {
   const cellStyle = (val: string, isHighlight: boolean) => {
-    const base = `py-3 px-4 text-xs sm:text-base text-center border-b border-gray-200 border-l border-gray-200/80 ${
+    const base = `py-3 px-4 max-md:px-2 text-xs sm:text-base text-center border-b border-gray-200 border-l border-gray-200/80 ${
       isHighlight ? "bg-blue-50/40" : ""
     }`;
     if (val === "✓") return `${base} text-emerald-500 font-bold`;
@@ -1082,7 +1083,8 @@ function CompareRow({
 
   return (
     <tr className="group hover:bg-gray-900/[0.02]">
-      <td className="py-3 px-4 pl-6 text-left text-gray-900 font-medium text-sm sm:text-base border-b border-gray-200">
+      {/* feature column is pinned on phones so each row stays readable while scrolling */}
+      <td className="sticky left-0 z-10 bg-white py-3 px-4 pl-6 max-md:pl-4 max-md:pr-3 text-left text-gray-900 font-medium text-[13px] sm:text-base border-b border-gray-200 max-md:shadow-[1px_0_0_#e5e7eb]">
         {feature}
         {tooltip && (
           <span className="block text-xs text-gray-400 font-normal mt-0.5">{tooltip}</span>

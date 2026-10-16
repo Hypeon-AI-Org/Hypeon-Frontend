@@ -66,7 +66,36 @@ export default function ServicesGeoVsSeo() {
             </span>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* phones: one stacked row per comparison instead of a sideways-scrolling table */}
+          <div className="sm:hidden">
+            <div className="grid grid-cols-2 border-b border-white/10 bg-white/[0.03] text-[11px] font-semibold">
+              <span className="px-4 py-2.5 text-white/50">SEO</span>
+              <span className="inline-flex items-center gap-1.5 bg-white/[0.035] px-4 py-2.5 text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
+                GEO
+              </span>
+            </div>
+            {ROWS.map(([label, seo, geo], i) => (
+              <div
+                key={label}
+                className={i === ROWS.length - 1 ? "" : "border-b border-white/[0.07]"}
+              >
+                <p className="px-4 pt-3 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/35">
+                  {label}
+                </p>
+                <div className="grid grid-cols-2">
+                  <p className="px-4 pb-3.5 pt-1.5 text-[13px] leading-relaxed text-white/55">
+                    {seo}
+                  </p>
+                  <p className="bg-white/[0.035] px-4 pb-3.5 pt-1.5 text-[13px] font-medium leading-relaxed text-white">
+                    {geo}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[600px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.03]">

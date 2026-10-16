@@ -91,7 +91,7 @@ function WebsitePanel() {
         <span className="text-[17px] font-bold leading-none text-white tabular-nums">
           98
         </span>
-        <span className="mt-1 text-[9px] uppercase tracking-wider text-white/35">
+        <span className="mt-1 text-[10px] uppercase tracking-wider text-white/35">
           Perf
         </span>
       </div>
@@ -109,7 +109,7 @@ function AutomationPanel() {
           key={s}
           className="flex items-center gap-2.5 rounded-[9px] border border-white/[0.07] bg-gradient-to-b from-white/[0.07] to-white/[0.02] px-[10px] py-[7px] shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]"
         >
-          <span className="flex h-[16px] w-[16px] shrink-0 items-center justify-center rounded-full bg-white text-[9px] font-bold text-[#0a0a0c] tabular-nums">
+          <span className="flex h-[16px] w-[16px] shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-bold text-[#0a0a0c] tabular-nums">
             {i + 1}
           </span>
           <span className="flex-1 truncate text-[10.5px] text-white/60">{s}</span>

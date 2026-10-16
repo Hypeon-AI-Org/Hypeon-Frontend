@@ -184,7 +184,7 @@ function PlanCard({
         </span>
       )}
 
-      <div className={offerLive && cycle === 'monthly' ? 'min-h-[188px]' : 'min-h-[132px]'}>
+      <div className={offerLive && cycle === 'monthly' ? 'sm:min-h-[188px]' : 'sm:min-h-[132px]'}>
         <p className="text-sm font-medium text-neutral-500">{plan.name}</p>
 
         {offer ? (
