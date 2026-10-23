@@ -111,7 +111,7 @@ export default function LiveCheck() {
             </div>
             <CountrySelect dark value={country} onChange={setCountry} className="[&_select]:h-[46px] [&_select]:text-[15px]" />
           </div>
-          <div ref={captchaRef} className="mt-3 flex justify-center empty:hidden" />
+          <div ref={captchaRef} className="mt-3 empty:hidden" />
           {(error || (failed && !ready)) && (
             <p role="alert" className="mt-3 rounded-xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[14px] text-[#ffb3bc]">
               {error ?? 'The security check could not load. Please refresh the page.'}

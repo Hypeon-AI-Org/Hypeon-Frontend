@@ -73,6 +73,8 @@ export function useTurnstile(theme: 'light' | 'dark' = 'light') {
           // Always visible, so visitors see "Verifying… / Success!" instead of a silent wait.
           appearance: 'always',
           theme,
+          // Stretches to the form's width instead of a fixed 300px box.
+          size: 'flexible',
           'refresh-expired': 'auto',
           callback: (t: string) => {
             token.current = t;

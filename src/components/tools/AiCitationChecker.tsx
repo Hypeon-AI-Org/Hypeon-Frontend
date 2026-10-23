@@ -122,7 +122,8 @@ export default function AiCitationChecker() {
             <form onSubmit={onSubmit}>
               <p className="text-[18px] font-medium text-[#121212]">Scan your brand</p>
               <p className="mt-1 text-[14px] text-[#8a8a8a]">Takes about a minute. We check your top 3 buyer questions.</p>
-              <div className="relative mt-5">
+              <div className="mt-5 grid gap-3 md:grid-cols-[minmax(0,1fr)_240px_auto]">
+              <div className="relative">
                 <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
                 <input
                   aria-label="Your domain"
@@ -134,12 +135,13 @@ export default function AiCitationChecker() {
                   className={`${inputClass} pl-10`}
                 />
               </div>
-              <CountrySelect value={country} onChange={setCountry} className="mt-3" />
-              <button type="submit" disabled={busy || !ready} className={`${submitClass} mt-4 w-full`}>
+              <CountrySelect value={country} onChange={setCountry} />
+              <button type="submit" disabled={busy || !ready} className={`${submitClass} w-full md:w-auto`}>
                 {busy ? 'Scanning…' : ready ? 'Scan my AI visibility' : 'Verifying…'}
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
-              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              </div>
+              <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
                   {error ?? 'The security check could not load. Please refresh the page.'}

@@ -38,8 +38,8 @@ function ToolEyebrow({ slug }: { slug: ToolSlug }) {
 }
 
 /**
- * Two-column tool hero: the pitch on the left, the tool itself in a white card
- * on the right (stacked on phones, tool card second).
+ * Centred tool hero: the pitch on top, the tool itself in a full-width white
+ * card underneath, lined up with the result card below it.
  */
 export function ToolHero({
   slug,
@@ -57,30 +57,36 @@ export function ToolHero({
   children: ReactNode;
 }) {
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-12">
-      <div>
-        <ToolEyebrow slug={slug} />
-        {/* The accent phrase always starts its own line; balance keeps the first line from orphaning a word. */}
-        <h1 className="mt-5 text-[38px] font-medium leading-[1.05] tracking-[-0.03em] text-black [text-wrap:balance] md:text-[52px] lg:text-[50px]">
-          {title}
-          <br />
-          <Accent>{accent}</Accent>
-        </h1>
-        <p className="mt-5 max-w-[500px] text-[17px] leading-[27px] text-[#545454] md:text-[19px] md:leading-[29px]">{sub}</p>
-        <ul className="mt-7 flex flex-wrap gap-2">
-          {points.map((p) => (
-            <li
-              key={p}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[14px] text-[#333333] ring-1 ring-[#e4e4e4]"
-            >
-              <Check className="h-3.5 w-3.5 text-[#00b86b]" strokeWidth={3} />
-              {p}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="rounded-[20px] border border-[#e4e4e4] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_60px_-20px_rgba(16,24,40,0.22)] md:p-6">
-        {children}
+    <div className="text-center">
+      <ToolEyebrow slug={slug} />
+      {/* The accent phrase always starts its own line; balance keeps the first line from orphaning a word. */}
+      <h1 className="mx-auto mt-5 max-w-[760px] text-[36px] font-medium leading-[1.05] tracking-[-0.03em] text-black [text-wrap:balance] sm:text-[44px] md:text-[56px]">
+        {title}
+        <br />
+        <Accent>{accent}</Accent>
+      </h1>
+      <p className="mx-auto mt-5 max-w-[600px] text-[17px] leading-[27px] text-[#545454] md:text-[19px] md:leading-[29px]">{sub}</p>
+      <ul className="mt-6 flex flex-wrap justify-center gap-2">
+        {points.map((p) => (
+          <li
+            key={p}
+            className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[14px] text-[#333333] ring-1 ring-[#e4e4e4]"
+          >
+            <Check className="h-3.5 w-3.5 text-[#00b86b]" strokeWidth={3} />
+            {p}
+          </li>
+        ))}
+      </ul>
+
+      <div className="relative mt-10 text-left md:mt-12">
+        {/* Depth behind the tool card: a soft white glow and a fading dot grid. */}
+        <div aria-hidden className="pointer-events-none absolute -inset-x-10 -inset-y-12 hidden sm:block">
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.95),rgba(255,255,255,0))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#c9c9c9_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(closest-side,black,transparent)] opacity-60" />
+        </div>
+        <div className="relative rounded-[20px] border border-[#e4e4e4] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_60px_-20px_rgba(16,24,40,0.22)] md:p-6">
+          {children}
+        </div>
       </div>
     </div>
   );

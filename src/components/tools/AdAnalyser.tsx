@@ -278,7 +278,7 @@ export default function AdAnalyser() {
             sub="Upload an image or UGC video and an AI creative strategist scores it, explains what works and what doesn’t, and hands you the fixes."
             points={['Image & UGC video', 'Score out of 100', 'Your ad is never stored']}
           >
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="grid gap-4 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-stretch md:gap-6">
               <div
                 role="button"
                 tabIndex={0}
@@ -290,7 +290,7 @@ export default function AdAnalyser() {
                 }}
                 onDragLeave={() => setDragging(false)}
                 onDrop={onDrop}
-                className={`relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-5 py-7 text-center transition-colors ${
+                className={`relative flex min-h-[200px] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-5 py-7 text-center transition-colors ${
                   dragging ? 'border-[#00b86b] bg-[#e3f9ee]' : 'border-[#dcdcdc] bg-[#fafafa] hover:border-[#9a9a9a]'
                 }`}
               >
@@ -346,7 +346,10 @@ export default function AdAnalyser() {
                 )}
               </div>
 
-              <div className="relative mt-3">
+              <div className="flex flex-col justify-center">
+              <p className="text-[18px] font-medium text-[#121212]">Score your ad</p>
+              <p className="mt-1 text-[14px] text-[#8a8a8a]">Pick where it will run. Results in under a minute.</p>
+              <div className="relative mt-4">
                 <select
                   aria-label="Where the ad will run"
                   value={placement}
@@ -386,12 +389,13 @@ export default function AdAnalyser() {
                 {busy ? 'Scoring your ad…' : ready ? 'Score my ad' : 'Verifying…'}
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
-              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
                   {error ?? 'The security check could not load. Please refresh the page.'}
                 </p>
               )}
+              </div>
             </form>
           </ToolHero>
         </motion.div>
@@ -420,74 +424,80 @@ export default function AdAnalyser() {
               ) : undefined
             }
           >
-            <div className="grid gap-8 p-5 md:grid-cols-[260px_minmax(0,1fr)] md:p-6">
-              {/* the ad, its frames and the score */}
-              <div>
-                {result ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={result.image}
-                    alt="Your ad"
-                    className="mx-auto w-full max-w-[240px] rounded-xl object-contain ring-1 ring-[#e4e4e4] md:max-w-none"
-                  />
-                ) : (
-                  <div className="mx-auto flex aspect-[4/5] w-full max-w-[240px] flex-col items-center justify-center rounded-xl bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center md:max-w-none">
-                    <span className="h-24 w-10 rounded-[14px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_10px_30px_rgba(255,120,40,0.35)]" />
-                    <p className="mt-4 text-[15px] font-medium text-white">Glow Serum</p>
-                    <p className="text-[11px] text-white/40">30% off today</p>
-                  </div>
-                )}
-                {result?.frames && (
-                  <div className="mx-auto mt-3 max-w-[240px] md:max-w-none">
-                    <p className={labelClass}>Frames reviewed</p>
-                    <div className="mt-2 grid grid-cols-5 gap-1.5">
-                      {result.frames.map((f) => (
-                        <figure key={f.t} className="min-w-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={f.src} alt="" className="aspect-[9/16] w-full rounded-md object-cover ring-1 ring-[#e4e4e4]" />
-                          <figcaption className="mt-0.5 text-center text-[10px] tabular-nums text-[#9a9a9a]">{f.t.toFixed(1)}s</figcaption>
-                        </figure>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="min-w-0">
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                  <ScoreRing score={shown.score} />
-                  <div>
-                    <p className="text-[13px] font-medium" style={{ color: tone.ring }}>
-                      {tone.label}
-                    </p>
-                    <p className="mt-1 text-[17px] leading-[26px] text-[#121212]">{shown.summary}</p>
-                  </div>
+            {/* Header band: the ad beside its score and verdict, so neither column runs long. */}
+            <div className="grid gap-6 border-b border-[#ececec] p-5 sm:grid-cols-[150px_minmax(0,1fr)] sm:items-center md:p-6">
+              {result ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={result.image}
+                  alt="Your ad"
+                  className="mx-auto max-h-[220px] w-full max-w-[150px] rounded-xl object-contain ring-1 ring-[#e4e4e4]"
+                />
+              ) : (
+                <div className="mx-auto flex aspect-[4/5] w-full max-w-[150px] flex-col items-center justify-center rounded-xl bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center">
+                  <span className="h-14 w-6 rounded-[10px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_8px_24px_rgba(255,120,40,0.35)]" />
+                  <p className="mt-3 text-[12px] font-medium text-white">Glow Serum</p>
+                  <p className="text-[10px] text-white/40">30% off today</p>
                 </div>
+              )}
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-7">
+                <ScoreRing score={shown.score} />
+                <div className="min-w-0">
+                  <span
+                    className="inline-flex rounded-full px-2.5 py-1 text-[12px] font-medium"
+                    style={{ color: tone.ring, backgroundColor: `${tone.ring}1a` }}
+                  >
+                    {tone.label}
+                  </span>
+                  <p className="mt-2 text-[18px] leading-[28px] text-[#121212]">{shown.summary}</p>
+                </div>
+              </div>
+            </div>
 
-                <ul className="mt-6 divide-y divide-[#f1f1f1] rounded-2xl border border-[#ececec]">
-                  {shown.checks.map((c) => (
-                    // Phones: badge + name on one line, reason below. sm+: three fixed columns.
-                    <li
-                      key={c.id}
-                      className="flex flex-col gap-1.5 px-4 py-3.5 sm:grid sm:grid-cols-[96px_160px_minmax(0,1fr)] sm:items-start sm:gap-x-4"
-                    >
-                      <div className="flex items-center gap-2 sm:contents">
-                        <span
-                          className={`inline-flex w-fit items-center whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-medium ${GRADE[c.grade].badge}`}
-                        >
-                          {GRADE[c.grade].label}
-                        </span>
-                        <span className="text-[15px] font-medium leading-[24px] text-[#121212]">{c.name}</span>
-                      </div>
-                      <p className="text-[15px] leading-[24px] text-[#545454]">{c.reason}</p>
-                    </li>
+            {result?.frames && (
+              <div className="border-b border-[#ececec] px-5 py-4 md:px-6">
+                <p className={labelClass}>Frames reviewed</p>
+                <div className="mt-2 grid grid-cols-5 gap-2 sm:grid-cols-10">
+                  {result.frames.map((f) => (
+                    <figure key={f.t} className="min-w-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={f.src} alt="" className="aspect-[9/16] w-full rounded-md object-cover ring-1 ring-[#e4e4e4]" />
+                      <figcaption className="mt-1 text-center text-[11px] tabular-nums text-[#9a9a9a]">{f.t.toFixed(1)}s</figcaption>
+                    </figure>
                   ))}
-                </ul>
+                </div>
+              </div>
+            )}
 
+            {/* The six checks, full width */}
+            <div className="p-5 md:p-6">
+              <p className={labelClass}>The six checks</p>
+              <ul className="mt-3 divide-y divide-[#f1f1f1] rounded-2xl border border-[#ececec]">
+                {shown.checks.map((c) => (
+                  // Phones: badge + name on one line, reason below. sm+: three fixed columns.
+                  <li
+                    key={c.id}
+                    className="flex flex-col gap-1.5 px-4 py-3.5 sm:grid sm:grid-cols-[104px_190px_minmax(0,1fr)] sm:items-start sm:gap-x-4"
+                  >
+                    <div className="flex items-center gap-2 sm:contents">
+                      <span
+                        className={`inline-flex w-fit items-center whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-medium ${GRADE[c.grade].badge}`}
+                      >
+                        {GRADE[c.grade].label}
+                      </span>
+                      <span className="text-[15px] font-medium leading-[24px] text-[#121212]">{c.name}</span>
+                    </div>
+                    <p className="text-[15px] leading-[24px] text-[#545454]">{c.reason}</p>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Fixes and rewrites side by side */}
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
                 {shown.fixes.length > 0 && (
-                  <div className="mt-6">
+                  <div className="rounded-2xl border border-[#ececec] p-5">
                     <p className={labelClass}>Fix these first</p>
-                    <ol className="mt-3 space-y-2.5">
+                    <ol className="mt-3 space-y-3">
                       {shown.fixes.map((f, i) => (
                         <li key={f} className="flex gap-3 text-[15px] leading-[24px] text-[#333333]">
                           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#121212] text-[12px] font-medium text-white">
@@ -499,26 +509,23 @@ export default function AdAnalyser() {
                     </ol>
                   </div>
                 )}
-
                 {(shown.headlines.length > 0 || shown.cta) && (
-                  <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
-                    <div className="rounded-2xl bg-[#f5f5f5] p-4">
-                      <p className={labelClass}>Headlines to test</p>
-                      <ul className="mt-2 space-y-1.5">
-                        {shown.headlines.map((h) => (
-                          <li key={h} className="text-[15px] font-medium text-[#121212]">
-                            “{h}”
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div className="rounded-2xl bg-[#f5f5f5] p-5">
+                    <p className={labelClass}>Headlines to test</p>
+                    <ul className="mt-3 space-y-2">
+                      {shown.headlines.map((h) => (
+                        <li key={h} className="rounded-xl bg-white px-3.5 py-2.5 text-[15px] font-medium text-[#121212] ring-1 ring-[#ececec]">
+                          “{h}”
+                        </li>
+                      ))}
+                    </ul>
                     {shown.cta && (
-                      <div className="rounded-2xl bg-[#f5f5f5] p-4">
-                        <p className={labelClass}>Button</p>
-                        <span className="mt-2 inline-flex rounded-xl bg-[#121212] px-3.5 py-2 text-[14px] font-medium text-white">
+                      <>
+                        <p className={`${labelClass} mt-5`}>Button</p>
+                        <span className="mt-2 inline-flex rounded-xl bg-[#121212] px-4 py-2.5 text-[14px] font-medium text-white">
                           {shown.cta}
                         </span>
-                      </div>
+                      </>
                     )}
                   </div>
                 )}

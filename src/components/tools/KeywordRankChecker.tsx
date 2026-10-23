@@ -147,7 +147,8 @@ export default function KeywordRankChecker() {
             <form onSubmit={onSubmit}>
               <p className="text-[18px] font-medium text-[#121212]">Find a ranking</p>
               <p className="mt-1 text-[14px] text-[#8a8a8a]">Results in a few seconds.</p>
-              <div className="relative mt-5">
+              <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_200px_auto]">
+              <div className="relative">
                 <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
                 <input
                   aria-label="Domain"
@@ -159,7 +160,7 @@ export default function KeywordRankChecker() {
                   className={`${inputClass} pl-10`}
                 />
               </div>
-              <div className="relative mt-3">
+              <div className="relative">
                 <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
                 <input
                   aria-label="Keyword"
@@ -170,12 +171,13 @@ export default function KeywordRankChecker() {
                   className={`${inputClass} pl-10`}
                 />
               </div>
-              <CountrySelect value={country} onChange={setCountry} className="mt-3" />
-              <button type="submit" disabled={busy || !ready} className={`${submitClass} mt-4 w-full`}>
+              <CountrySelect value={country} onChange={setCountry} />
+              <button type="submit" disabled={busy || !ready} className={`${submitClass} w-full lg:w-auto`}>
                 {busy ? 'Searching Google…' : ready ? 'Find my ranking' : 'Verifying…'}
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
-              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              </div>
+              <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
                   {error ?? 'The security check could not load. Please refresh the page.'}
@@ -214,8 +216,8 @@ export default function KeywordRankChecker() {
             }
           >
             <div className="grid gap-8 p-5 md:grid-cols-[300px_minmax(0,1fr)] md:p-6">
-              {/* position summary */}
-              <div>
+              {/* position summary: stays in view beside the long results list */}
+              <div className="md:sticky md:top-28 md:self-start">
                 <p className={labelClass}>Your position</p>
                 <div className="mt-3 flex items-end gap-3">
                   <span

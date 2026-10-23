@@ -20,8 +20,13 @@ export const metadata: Metadata = {
 
 /* Preview mocks inside each card: fictional brands, illustrative numbers. */
 
+/** A floating mini app window, so each preview reads as a product shot. */
 function Frame({ children }: { children: ReactNode }) {
-  return <div className="rounded-xl bg-[#f5f5f5] p-4">{children}</div>;
+  return (
+    <div className="w-full max-w-[360px] rounded-xl bg-white p-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.06),0_18px_40px_-14px_rgba(16,24,40,0.28)] ring-1 ring-[#e9e9e9]">
+      {children}
+    </div>
+  );
 }
 
 function VisibilityPreview() {
@@ -36,7 +41,7 @@ function VisibilityPreview() {
       <p className="text-[13px] text-[#8a8a8a]">“best vitamin c serum for dull skin”</p>
       <ul className="mt-2 space-y-1.5">
         {rows.map(([e, v]) => (
-          <li key={e} className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-[14px] text-[#121212]">
+          <li key={e} className="flex items-center justify-between rounded-lg bg-[#f6f6f6] px-3 py-1.5 text-[13px] text-[#121212]">
             {e}
             <VerdictText verdict={v} />
           </li>
@@ -51,15 +56,15 @@ function RankPreview() {
   return (
     <Frame>
       <div className="flex items-end gap-2">
-        <span className="text-[40px] font-medium leading-none tracking-[-0.04em] text-[#121212]">#3</span>
+        <span className="text-[34px] font-medium leading-none tracking-[-0.04em] text-[#121212]">#3</span>
         <span className="pb-1 text-[13px] text-[#8a8a8a]">“running shoes for flat feet”</span>
       </div>
       <ol className="mt-3 space-y-1.5">
         {rows.map((d, i) => (
           <li
             key={d}
-            className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[14px] ${
-              d === 'stridefit.co' ? 'bg-[#e3f9ee] font-medium text-[#007a45]' : 'bg-white text-[#121212]'
+            className={`flex items-center gap-3 rounded-lg px-3 py-1.5 text-[13px] ${
+              d === 'stridefit.co' ? 'bg-[#e3f9ee] font-medium text-[#007a45]' : 'bg-[#f6f6f6] text-[#121212]'
             }`}
           >
             <span className="w-4 tabular-nums text-[#9a9a9a]">{i + 1}</span>
@@ -108,7 +113,7 @@ function GapPreview() {
       <p className="text-[13px] text-[#8a8a8a]">brewhouse.co vs beanroute.com</p>
       <ul className="mt-2 space-y-1.5">
         {gaps.map((g) => (
-          <li key={g} className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2 text-[14px] text-[#121212]">
+          <li key={g} className="flex items-center justify-between gap-3 rounded-lg bg-[#f6f6f6] px-3 py-1.5 text-[13px] text-[#121212]">
             <span className="min-w-0 truncate">“{g}”</span>
             <span className="shrink-0 rounded-full bg-[#fdeaea] px-2 py-0.5 text-[12px] font-medium text-[#b4232a]">gap</span>
           </li>
@@ -157,40 +162,58 @@ export default function ToolsPage() {
             {TOOL_CATALOG.map((t) => {
               const Icon = TOOL_ICON[t.slug];
               const Preview = PREVIEW[t.slug];
-              return (
-                <div
-                  key={t.slug}
-                  className={`flex flex-col rounded-[20px] border border-[#e4e4e4] bg-white p-6 transition-shadow md:p-7 ${
-                    t.live ? 'hover:shadow-[0_24px_60px_-24px_rgba(16,24,40,0.25)]' : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#121212] text-white">
-                      <Icon className="h-5 w-5" strokeWidth={1.7} />
-                    </span>
+              const body = (
+                <>
+                  {/* Equal-height stage for every preview, on a faint dot grid */}
+                  <div className="relative flex h-[280px] items-center justify-center overflow-hidden rounded-t-[20px] border-b border-[#ececec] bg-[#f7f7f7] px-6 pt-6">
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-[radial-gradient(#d4d4d4_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
+                    />
+                    <div className={`relative w-full transition-transform duration-300 ${t.live ? 'group-hover:-translate-y-1' : ''} flex justify-center`}>
+                      <Preview />
+                    </div>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-[12px] font-medium ${
-                        t.live ? 'bg-[#e3f9ee] text-[#007a45]' : 'bg-[#f1f1f1] text-[#8a8a8a]'
+                      className={`absolute right-4 top-4 rounded-full px-2.5 py-1 text-[12px] font-medium ${
+                        t.live ? 'bg-[#e3f9ee] text-[#007a45]' : 'bg-white text-[#8a8a8a] ring-1 ring-[#e4e4e4]'
                       }`}
                     >
                       {t.live ? 'Live' : 'Coming soon'}
                     </span>
                   </div>
-                  <p className="mt-5 text-[14px] text-[#8a8a8a]">{t.tagline}</p>
-                  <h2 className="mt-1 text-[26px] font-medium tracking-[-0.01em] text-[#121212]">{t.title}</h2>
-                  <p className="mt-2 text-[16px] leading-[26px] text-[#545454]">{t.body}</p>
-                  <div className="mt-6 flex-1">
-                    <Preview />
+                  <div className="flex flex-1 flex-col p-6 md:p-7">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#121212] text-white">
+                        <Icon className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                      </span>
+                      <div>
+                        <p className="text-[13px] text-[#8a8a8a]">{t.tagline}</p>
+                        <h2 className="text-[22px] font-medium leading-tight tracking-[-0.01em] text-[#121212]">{t.title}</h2>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-[16px] leading-[26px] text-[#545454]">{t.body}</p>
+                    <div className="mt-auto pt-6">
+                      {t.live ? (
+                        <span className={pillButton}>
+                          Open {t.title} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                      ) : (
+                        <span className="inline-flex h-[48px] items-center rounded-2xl bg-[#f1f1f1] px-5 text-[15px] text-[#8a8a8a]">
+                          Coming soon
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  {t.live ? (
-                    <Link href={`/tools/${t.slug}`} className={`${pillButton} mt-6 self-start`}>
-                      Open {t.title} <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  ) : (
-                    <span className="mt-6 inline-flex h-[48px] items-center self-start rounded-2xl bg-[#f1f1f1] px-5 text-[15px] text-[#8a8a8a]">
-                      Coming soon
-                    </span>
-                  )}
+                </>
+              );
+              const card = 'group flex flex-col rounded-[20px] border border-[#e4e4e4] bg-white transition-shadow';
+              return t.live ? (
+                <Link key={t.slug} href={`/tools/${t.slug}`} className={`${card} hover:shadow-[0_24px_60px_-24px_rgba(16,24,40,0.28)]`}>
+                  {body}
+                </Link>
+              ) : (
+                <div key={t.slug} className={card}>
+                  {body}
                 </div>
               );
             })}
