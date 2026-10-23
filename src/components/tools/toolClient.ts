@@ -54,7 +54,7 @@ const TOKEN_WAIT_MS = 10_000;
  * letting a click wait silently. `getToken` resolves with a fresh token (null
  * when no token is needed) or throws a ToolError the form can show.
  */
-export function useTurnstile() {
+export function useTurnstile(theme: 'light' | 'dark' = 'light') {
   const ref = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
   const token = useRef<string | null>(null);
@@ -72,7 +72,7 @@ export function useTurnstile() {
           sitekey: SITE_KEY,
           // Always visible, so visitors see "Verifying… / Success!" instead of a silent wait.
           appearance: 'always',
-          theme: 'light',
+          theme,
           'refresh-expired': 'auto',
           callback: (t: string) => {
             token.current = t;
@@ -99,6 +99,8 @@ export function useTurnstile() {
       if (widgetId.current && window.turnstile) window.turnstile.remove(widgetId.current);
       widgetId.current = null;
     };
+    // The widget is created once; the theme is fixed per form.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getToken = useCallback(async (): Promise<string | null> => {

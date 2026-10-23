@@ -22,22 +22,30 @@ export const submitClass =
 /** Small uppercase label used above lists inside cards. */
 export const labelClass = 'text-[12px] font-medium uppercase tracking-[0.14em] text-[#8a8a8a]';
 
+/** Input for forms on the dark bands (the live check). */
+export const darkInputClass =
+  'h-[52px] w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 text-[16px] text-white placeholder:text-white/35 outline-none transition-colors focus:border-white/40';
+
 export function CountrySelect({
   value,
   onChange,
   className = '',
+  dark = false,
 }: {
   value: string;
   onChange: (code: string) => void;
   className?: string;
+  dark?: boolean;
 }) {
+  const field = dark ? `${darkInputClass} [&>option]:bg-[#1a1a1a] [&>option]:text-white` : inputClass;
+  const empty = dark ? 'text-white/35' : 'text-[#9a9a9a]';
   return (
     <div className={`relative ${className}`}>
       <select
         aria-label="Country"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${inputClass} appearance-none pr-10 ${value ? '' : 'text-[#9a9a9a]'}`}
+        className={`${field} appearance-none pr-10 ${value ? '' : empty}`}
       >
         <option value="" disabled>
           Select country
@@ -48,7 +56,9 @@ export function CountrySelect({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]" />
+      <ChevronDown
+        className={`pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 ${dark ? 'text-white/45' : 'text-[#8a8a8a]'}`}
+      />
     </div>
   );
 }

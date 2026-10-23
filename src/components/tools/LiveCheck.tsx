@@ -8,7 +8,7 @@ import { Accent, Container, GradientFrame } from '@/components/home/ui';
 import { isSameSite, normalizeDomain } from '@/lib/tools/domain';
 import { ENGINES, type EngineResult } from '@/lib/tools/engines';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
-import { CountrySelect, inputClass, useToolTarget, VerdictBadge } from './ui';
+import { CountrySelect, darkInputClass, useToolTarget, VerdictBadge } from './ui';
 import { cleanAnswer, EngineMark, Highlight, TypingDots } from './visuals';
 
 type CheckResponse = { domain: string; prompt: string; results: EngineResult[] };
@@ -23,7 +23,7 @@ const SUGGESTIONS = ['best tool to track competitor ads', 'which skincare brand 
  */
 export default function LiveCheck() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
-  const { ref: captchaRef, getToken, ready, failed } = useTurnstile();
+  const { ref: captchaRef, getToken, ready, failed } = useTurnstile('dark');
 
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,9 +70,9 @@ export default function LiveCheck() {
 
         <form
           onSubmit={onSubmit}
-          className="mx-auto mt-10 max-w-[820px] rounded-[20px] bg-white p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]"
+          className="mx-auto mt-10 max-w-[820px] rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,#1c1c1c,#141414)] p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]"
         >
-          <div className="flex items-end gap-2 rounded-2xl bg-[#f5f5f5] p-2">
+          <div className="flex items-end gap-2 rounded-2xl bg-white/[0.05] p-2 ring-1 ring-inset ring-white/10 focus-within:ring-white/30">
             <textarea
               aria-label="Your question"
               placeholder="Ask what your customers would ask ChatGPT…"
@@ -86,38 +86,38 @@ export default function LiveCheck() {
               }}
               maxLength={300}
               rows={2}
-              className="min-h-[56px] flex-1 resize-none bg-transparent px-3 py-2 text-[17px] text-[#121212] placeholder:text-[#9a9a9a] outline-none"
+              className="min-h-[56px] flex-1 resize-none bg-transparent px-3 py-2 text-[17px] text-white placeholder:text-white/35 outline-none"
             />
             <button
               type="submit"
               disabled={loading || !ready}
               aria-label={ready ? 'Ask the assistants' : 'Verifying'}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#121212] text-white transition-transform hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#121212] transition-transform hover:scale-105 disabled:opacity-30 disabled:hover:scale-100"
             >
               <ArrowUp className="h-5 w-5" strokeWidth={2.4} />
             </button>
           </div>
           <div className="mt-2 grid gap-2 sm:grid-cols-2">
             <div className="relative">
-              <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
+              <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
               <input
                 aria-label="Your domain"
                 placeholder="yourbrand.com"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
                 inputMode="url"
-                className={`${inputClass} h-[46px] pl-10 text-[15px]`}
+                className={`${darkInputClass} h-[46px] pl-10 text-[15px]`}
               />
             </div>
-            <CountrySelect value={country} onChange={setCountry} className="[&_select]:h-[46px] [&_select]:text-[15px]" />
+            <CountrySelect dark value={country} onChange={setCountry} className="[&_select]:h-[46px] [&_select]:text-[15px]" />
           </div>
           <div ref={captchaRef} className="mt-3 flex justify-center empty:hidden" />
           {(error || (failed && !ready)) && (
-            <p role="alert" className="mt-3 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
+            <p role="alert" className="mt-3 rounded-xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[14px] text-[#ffb3bc]">
               {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
-          {loading && <p className="mt-3 text-center text-[14px] text-[#8a8a8a]">Asking four assistants…</p>}
+          {loading && <p className="mt-3 text-center text-[14px] text-white/45">Asking four assistants…</p>}
         </form>
         <div className="mx-auto mt-4 flex max-w-[820px] flex-wrap justify-center gap-2">
           {SUGGESTIONS.map((s) => (
