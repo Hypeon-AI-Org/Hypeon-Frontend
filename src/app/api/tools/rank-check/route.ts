@@ -13,7 +13,10 @@ export const maxDuration = 30;
 
 /** Rank checks per visitor per day (cache hits are free and not counted). */
 const DAILY_LIMIT = 20;
-/** Pages of ten searched before giving up: the top 30, at most three Serper credits a check. */
+/** Results listed on the page: the top 20, so every check fetches at least two pages (two Serper credits). */
+const SHOWN = 20;
+const MIN_PAGES = SHOWN / 10;
+/** Pages of ten searched for the domain before giving up: the top 30, at most three credits a check. */
 const MAX_PAGES = 3;
 
 /** The results for one keyword in one country, as deep as anyone has needed so far. */
@@ -38,16 +41,17 @@ export async function POST(req: Request) {
   const keywordHash = createHash('sha256').update(keyword.toLowerCase()).digest('hex').slice(0, 32);
   const cacheKey = `rank:v1:${countryCode}:${keywordHash}`;
   const find = (s: Serp) => s.results.find((r) => isSameSite(r.domain, domain)) ?? null;
+  const needsMore = (s: Serp) => s.pages < MAX_PAGES && (s.pages < MIN_PAGES || !find(s));
 
   let serp = (await cacheGet<Serp>(cacheKey)) ?? { results: [], pages: 0 };
   const startPages = serp.pages;
 
-  if (!find(serp) && serp.pages < MAX_PAGES) {
+  if (needsMore(serp)) {
     if (!(await takeDailyQuota('rank-check', ip, DAILY_LIMIT))) {
       return toolError(`You have used today's ${DAILY_LIMIT} free checks. Come back tomorrow, or book a demo for a full audit.`, 429);
     }
     try {
-      while (!find(serp) && serp.pages < MAX_PAGES) {
+      while (needsMore(serp)) {
         const next = await googlePage(keyword, countryCode, serp.pages + 1);
         // A short page means Google has nothing deeper, so treat the keyword as fully searched.
         serp = { results: [...serp.results, ...next], pages: next.length < 10 ? MAX_PAGES : serp.pages + 1 };
@@ -66,8 +70,9 @@ export async function POST(req: Request) {
     country,
     position: hit?.position ?? null,
     url: hit?.url ?? null,
+    title: hit?.title ?? null,
     depth: serp.results.at(-1)?.position ?? 0,
-    top: serp.results.slice(0, 10),
+    top: serp.results.slice(0, SHOWN),
     session,
   });
 }

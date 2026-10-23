@@ -10,7 +10,7 @@ import { ToolTargetProvider } from '@/components/tools/ui';
 export const metadata: Metadata = {
   title: 'Free Keyword Rank Checker: Where Do You Rank on Google? | HypeOn',
   description:
-    'Free keyword rank checker. See where any website ranks on Google for a keyword in your country, and who holds the top 10 today. Live results, no sign-up.',
+    'Free keyword rank checker. See where any website ranks on Google for a keyword in your country, and who holds the top 20 today. Live results, no sign-up.',
   alternates: { canonical: '/tools/keyword-rank-checker' },
   openGraph: {
     title: 'Free Keyword Rank Checker | HypeOn',

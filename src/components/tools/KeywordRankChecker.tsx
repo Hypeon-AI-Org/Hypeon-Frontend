@@ -17,6 +17,7 @@ type RankResponse = {
   country: string;
   position: number | null;
   url: string | null;
+  title: string | null;
   depth: number;
   top: OrganicResult[];
 };
@@ -30,6 +31,7 @@ const EXAMPLE: RankResponse = {
   country: 'United States',
   position: 4,
   url: 'https://stridefit.co/guides/running-shoes-flat-feet',
+  title: null,
   depth: 10,
   top: [
     { position: 1, title: 'The best running shoes for flat feet, tested', domain: 'runnersworld.com', url: '' },
@@ -209,6 +211,25 @@ export default function KeywordRankChecker() {
                   </li>
                 );
               })}
+              {/* Ranked below the list (21-30): show the visitor's own row after a gap. */}
+              {shown.position && shown.position > shown.top.length && (
+                <>
+                  <li aria-hidden className="py-1 text-center text-[15px] tracking-[0.3em] text-white/25">
+                    ⋯
+                  </li>
+                  <li className="flex items-center gap-4 border-t border-[#2a2a2a] py-3.5">
+                    <span className="w-6 shrink-0 text-[15px] tabular-nums text-white/35">{shown.position}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[16px] text-white">{shown.title || shown.domain}</span>
+                      <span className="mt-0.5 block truncate text-[13px] text-white/45 sm:hidden">{shown.domain}</span>
+                    </span>
+                    <span className="shrink-0 rounded-md border border-[#00da7f]/30 bg-[#00da7f]/10 px-2 py-0.5 text-[12px] font-medium text-[#00da7f]">
+                      You
+                    </span>
+                    <span className="hidden shrink-0 text-[14px] text-white/45 sm:block">{shown.domain}</span>
+                  </li>
+                </>
+              )}
             </ol>
           </div>
 
