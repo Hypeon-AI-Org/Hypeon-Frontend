@@ -317,12 +317,19 @@ export default function AdAnalyser() {
             <div className="min-w-0">
               <ul className="divide-y divide-[#2a2a2a] rounded-xl border border-[#2a2a2a]">
                 {shown.checks.map((c) => (
-                  <li key={c.id} className="flex flex-col gap-1.5 px-4 py-3.5 sm:flex-row sm:items-start sm:gap-4">
-                    <div className="flex shrink-0 items-center gap-2 sm:w-[190px]">
-                      <span className={`inline-flex h-6 items-center rounded-md border px-2 text-[12px] font-medium ${GRADE[c.grade].badge}`}>
+                  // Phones: badge + name on one line, reason below. sm+: three fixed columns,
+                  // so every badge, name and reason starts at the same x whatever its length.
+                  <li
+                    key={c.id}
+                    className="flex flex-col gap-1.5 px-4 py-3.5 sm:grid sm:grid-cols-[92px_150px_minmax(0,1fr)] sm:items-start sm:gap-x-4"
+                  >
+                    <div className="flex items-center gap-2 sm:contents">
+                      <span
+                        className={`inline-flex h-6 w-fit items-center whitespace-nowrap rounded-md border px-2 text-[12px] font-medium sm:mt-px ${GRADE[c.grade].badge}`}
+                      >
                         {GRADE[c.grade].label}
                       </span>
-                      <span className="text-[15px] font-medium text-white">{c.name}</span>
+                      <span className="text-[15px] font-medium leading-[23px] text-white">{c.name}</span>
                     </div>
                     <p className="text-[15px] leading-[23px] text-white/60">{c.reason}</p>
                   </li>
