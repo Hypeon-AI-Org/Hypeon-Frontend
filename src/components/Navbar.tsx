@@ -17,7 +17,7 @@ function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   // Dark navbar variant - only on the Studio page (dark background).
-  const isDark = pathname === "/studio";
+  const isDark = pathname === "/studio" || pathname.startsWith("/tools");
 
   const closeMobile = useCallback(() => {
     setMobileMenuOpen(false);
@@ -207,6 +207,9 @@ function Navbar() {
               </div>
             </div>
 
+            <Link href="/tools" className={`text-sm sm:text-base font-medium hover:opacity-70 transition-opacity ${isDark ? "text-white" : "text-black"}`}>
+              Free tools
+            </Link>
 
 
           </div>
@@ -329,6 +332,14 @@ function Navbar() {
                 </div>
               </div>
             </div>
+
+            <Link
+              href="/tools"
+              onClick={closeMobile}
+              className={`mt-2 flex min-h-[48px] items-center rounded-xl border px-3 text-[15px] font-semibold transition-colors ${isDark ? "border-white/10 bg-[#1c1512] text-white hover:bg-white/[0.06]" : "border-slate-200 bg-white text-slate-900 hover:bg-slate-50"}`}
+            >
+              Free tools
+            </Link>
 
             <div className={`my-4 h-px w-full ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
 

@@ -26,6 +26,7 @@ const COLUMNS = [
       { label: "SEO", href: "/services#seo" },
       { label: "Website Design & Build", href: "/services#websites" },
       { label: "AI Automated Marketing", href: "/services#automation" },
+      { label: "Free tools", href: "/tools" },
       { label: "All services", href: "/services" },
     ],
   },
