@@ -20,7 +20,7 @@ export const TOOL_CATALOG = [
   },
   {
     slug: 'ad-analyser',
-    title: 'Ad Creative Scorer',
+    title: 'AI Ad Analyser',
     tagline: 'Will this ad work?',
     body: 'Upload an image or UGC video ad and an AI strategist scores it, explains what works and what doesn’t, and tells you what to fix.',
     live: true,

@@ -8,12 +8,12 @@ import { HowItWorks, MoreTools, SectionHead, ToolCta, ToolFaq, ToolSection } fro
 import { CHECKS, VIDEO_CHECKS } from '@/lib/tools/adRubric';
 
 export const metadata: Metadata = {
-  title: 'Ad Creative Scorer: Free AI Ad Analyser for Image & UGC Video Ads | HypeOn',
+  title: 'AI Ad Analyser: Free Ad Scorer for Image & UGC Video Ads | HypeOn',
   description:
     'Free ad creative scorer. Upload a Meta, TikTok, Google or LinkedIn image or UGC video ad and get a score out of 100, a check of hook, message, CTA and design, and the fixes to make. No sign-up.',
   alternates: { canonical: '/tools/ad-analyser' },
   openGraph: {
-    title: 'Ad Creative Scorer | HypeOn',
+    title: 'AI Ad Analyser | HypeOn',
     description: 'Upload an image or video ad and get a score and the exact fixes to make. Free, no sign-up.',
     url: '/tools/ad-analyser',
   },
@@ -39,7 +39,7 @@ const STEPS = [
 
 const FAQS = [
   {
-    q: 'How does the Ad Creative Scorer work?',
+    q: 'How does the AI Ad Analyser work?',
     a: 'A vision AI model looks at your ad the way a performance-marketing strategist would. It grades six checks as strong, needs work or weak against fixed definitions, and we turn those grades into a score out of 100 using fixed weights.',
   },
   {

@@ -14,7 +14,7 @@ import type { Verdict } from '@/lib/tools/engines';
 export const metadata: Metadata = {
   title: 'Free Growth Tools: AI Visibility, Google Rankings & Ad Scoring | HypeOn',
   description:
-    'Free HypeOn tools with live data: AI Visibility Scanner, Google Rank Finder and Ad Creative Scorer. See how AI assistants, Google and your ads perform. No sign-up.',
+    'Free HypeOn tools with live data: AI Visibility Scanner, Google Rank Finder and AI Ad Analyser. See how AI assistants, Google and your ads perform. No sign-up.',
   alternates: { canonical: '/tools' },
 };
 
