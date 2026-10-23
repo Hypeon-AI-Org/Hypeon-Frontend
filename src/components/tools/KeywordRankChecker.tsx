@@ -193,8 +193,12 @@ export default function KeywordRankChecker() {
                     className="flex items-center gap-4 border-b border-[#2a2a2a] py-3.5 last:border-b-0"
                   >
                     <span className="w-6 shrink-0 text-[15px] tabular-nums text-white/35">{r.position}</span>
-                    <span className={`min-w-0 flex-1 truncate text-[16px] ${you ? 'text-white' : 'text-white/85'}`}>
-                      {r.title || r.domain}
+                    <span className="min-w-0 flex-1">
+                      <span className={`block truncate text-[16px] ${you ? 'text-white' : 'text-white/85'}`}>
+                        {r.title || r.domain}
+                      </span>
+                      {/* phones have no room for the domain column, so it sits under the title */}
+                      <span className="mt-0.5 block truncate text-[13px] text-white/45 sm:hidden">{r.domain}</span>
                     </span>
                     {you && (
                       <span className="shrink-0 rounded-md border border-[#00da7f]/30 bg-[#00da7f]/10 px-2 py-0.5 text-[12px] font-medium text-[#00da7f]">

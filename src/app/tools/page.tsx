@@ -27,15 +27,15 @@ function Frame({ children }: { children: ReactNode }) {
 }
 
 function Chip({ children }: { children: ReactNode }) {
-  return <span className="rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/60">{children}</span>;
+  return <span className="shrink-0 whitespace-nowrap rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/60">{children}</span>;
 }
 
 function CompetitorPreview() {
   const gaps = ['organic coffee subscription', 'best decaf beans uk', 'coffee gift box delivery'];
   return (
     <Frame>
-      <div className="flex items-center justify-between text-[13px]">
-        <span className="text-white/80">
+      <div className="flex items-center justify-between gap-3 text-[13px]">
+        <span className="min-w-0 truncate text-white/80">
           brewhouse.co <span className="text-white/35">vs</span> beanroute.com
         </span>
         <Chip>United Kingdom</Chip>
@@ -56,9 +56,9 @@ function CompetitorPreview() {
       </div>
       <ul className="mt-3 divide-y divide-[#2a2a2a] text-[13px]">
         {gaps.map((g) => (
-          <li key={g} className="flex justify-between py-2">
-            <span className="text-white/80">“{g}”</span>
-            <span className="text-[#ff8f9c]">they rank · you don’t</span>
+          <li key={g} className="flex justify-between gap-3 py-2">
+            <span className="min-w-0 truncate text-white/80">“{g}”</span>
+            <span className="shrink-0 whitespace-nowrap text-[#ff8f9c]">they rank · you don’t</span>
           </li>
         ))}
       </ul>
@@ -75,8 +75,8 @@ function RankPreview() {
   ];
   return (
     <Frame>
-      <div className="flex items-center justify-between text-[13px]">
-        <span className="text-white/80">“best running shoes for flat feet”</span>
+      <div className="flex items-center justify-between gap-3 text-[13px]">
+        <span className="min-w-0 truncate text-white/80">“best running shoes for flat feet”</span>
         <Chip>United States</Chip>
       </div>
       <p className="mt-3 text-[36px] font-medium leading-none text-white">
@@ -106,7 +106,7 @@ function CitationPreview() {
   ];
   return (
     <Frame>
-      <div className="flex items-center justify-between text-[13px]">
+      <div className="flex items-center justify-between gap-3 text-[13px]">
         <span className="text-white/80">lumenskin.com</span>
         <Chip>Skincare · London</Chip>
       </div>

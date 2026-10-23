@@ -244,8 +244,9 @@ function Verdicts({ verdicts }: { verdicts: (Verdict | 'pending' | 'idle')[] }) 
   return (
     <span className="grid grid-cols-2 gap-x-4 gap-y-1.5 md:contents">
       {ENGINES.map((e, i) => (
-        <span key={e.id} className="flex items-center gap-2">
-          <span className="text-[13px] text-white/35 md:hidden">{e.name}</span>
+        // Phones: engine name above its verdict, two engines per row; md+: one table column each.
+        <span key={e.id} className="flex flex-col items-start gap-0.5 md:block">
+          <span className="text-[12px] text-white/35 md:hidden">{e.name}</span>
           <VerdictText verdict={verdicts[i]} />
         </span>
       ))}

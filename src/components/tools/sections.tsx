@@ -108,11 +108,13 @@ export function MoreTools({ current }: { current: ToolSlug }) {
               <p className="mt-2 text-[20px] font-medium text-white">{t.title}</p>
             </div>
             {t.live ? (
-              <Link href={`/tools/${t.slug}`} className={`${pillButton} h-[42px] px-5 text-[15px]`}>
+              <Link href={`/tools/${t.slug}`} className={`${pillButton} h-[42px] shrink-0 px-5 text-[15px]`}>
                 Open
               </Link>
             ) : (
-              <span className="rounded-2xl border border-[#2a2a2a] px-4 py-2.5 text-[14px] text-white/45">Coming soon</span>
+              <span className="shrink-0 whitespace-nowrap rounded-2xl border border-[#2a2a2a] px-4 py-2.5 text-[14px] text-white/45">
+                Coming soon
+              </span>
             )}
           </div>
         ))}

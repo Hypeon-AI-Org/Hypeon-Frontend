@@ -68,7 +68,7 @@ const VERDICT_TEXT: Record<Verdict, string> = {
 export function VerdictText({ verdict }: { verdict: Verdict | 'pending' | 'idle' }) {
   if (verdict === 'idle') return <span className="text-[15px] text-white/25">—</span>;
   if (verdict === 'pending') return <Loader2 className="h-4 w-4 animate-spin text-white/30" aria-label="Checking" />;
-  return <span className={`text-[15px] ${VERDICT_TEXT[verdict]}`}>{VERDICT_LABEL[verdict]}</span>;
+  return <span className={`whitespace-nowrap text-[15px] ${VERDICT_TEXT[verdict]}`}>{VERDICT_LABEL[verdict]}</span>;
 }
 
 const VERDICT_BADGE: Record<Verdict, string> = {
