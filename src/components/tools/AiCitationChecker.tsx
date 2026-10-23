@@ -120,7 +120,7 @@ export default function AiCitationChecker() {
           transition={{ duration: 0.7, ease }}
           className="text-center"
         >
-          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tool 03</p>
+          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tool 01</p>
           <h1 className="mt-4 text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white md:text-[64px]">
             Free AI citation <Accent>checker.</Accent>
           </h1>
