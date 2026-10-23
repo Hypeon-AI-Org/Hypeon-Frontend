@@ -12,9 +12,18 @@ import { inputClass, submitClass } from './ui';
 const ease = [0.22, 1, 0.36, 1] as const;
 /** Longest side sent to the model: plenty for judging an ad, and keeps uploads small. */
 const MAX_SIDE = 1600;
-const ACCEPT = ['image/jpeg', 'image/png', 'image/webp'];
+/** Video frames are smaller: ten of them have to fit in one upload. */
+const FRAME_SIDE = 640;
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
+/** Only the frames leave the browser, so the file itself can be large. */
+const MAX_VIDEO_BYTES = 500 * 1024 * 1024;
+/** Seconds sampled at the start, where the hook lives; the middle and end are added per clip. */
+const HOOK_TIMES = [0.1, 0.5, 1, 1.5, 2, 3];
 
-type Picked = { dataUrl: string; width: number; height: number; name: string };
+type Picked =
+  | { kind: 'image'; dataUrl: string; width: number; height: number; name: string }
+  | { kind: 'video'; dataUrl: string; frames: string[]; times: number[]; duration: number; width: number; height: number; name: string };
 
 /** What visitors see before they upload. Illustrative review of a fictional ad. */
 const EXAMPLE: AdAnalysis = {
@@ -55,13 +64,76 @@ function shrink(file: File): Promise<Picked> {
       ctx.fillRect(0, 0, width, height);
       ctx.drawImage(img, 0, 0, width, height);
       URL.revokeObjectURL(url);
-      resolve({ dataUrl: canvas.toDataURL('image/jpeg', 0.85), width, height, name: file.name });
+      resolve({ kind: 'image', dataUrl: canvas.toDataURL('image/jpeg', 0.85), width, height, name: file.name });
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
       reject(new Error('decode'));
     };
     img.src = url;
+  });
+}
+
+/** Timestamps to sample: most of the first three seconds, then a quarter, half, three quarters and the end. */
+function frameTimes(duration: number): number[] {
+  const end = Math.max(0.1, duration - 0.3);
+  const picks = [...HOOK_TIMES.filter((t) => t < duration), ...[0.25, 0.5, 0.75].map((f) => f * duration), end];
+  return [...new Set(picks.map((t) => Math.round(t * 10) / 10))].sort((a, b) => a - b).filter((t, i, all) => i === 0 || t - all[i - 1] >= 0.4);
+}
+
+/**
+ * Plays nothing and uploads nothing: seeks a hidden <video> to each timestamp
+ * and draws that frame to a canvas. Only these small JPEG frames are sent.
+ */
+function extractFrames(file: File): Promise<Picked> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const video = document.createElement('video');
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+    const fail = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('decode'));
+    };
+    video.onerror = fail;
+    video.onloadeddata = async () => {
+      try {
+        const duration = video.duration;
+        if (!Number.isFinite(duration) || duration <= 0 || !video.videoWidth) return fail();
+        const scale = Math.min(1, FRAME_SIDE / Math.max(video.videoWidth, video.videoHeight));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(video.videoWidth * scale);
+        canvas.height = Math.round(video.videoHeight * scale);
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return fail();
+        const times = frameTimes(duration);
+        const frames: string[] = [];
+        for (const t of times) {
+          await new Promise<void>((done) => {
+            video.onseeked = () => done();
+            video.currentTime = Math.min(t, duration - 0.05);
+          });
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          frames.push(canvas.toDataURL('image/jpeg', 0.72));
+        }
+        URL.revokeObjectURL(url);
+        const thumb = frames[Math.min(2, frames.length - 1)];
+        resolve({
+          kind: 'video',
+          dataUrl: thumb,
+          frames,
+          times,
+          duration,
+          width: video.videoWidth,
+          height: video.videoHeight,
+          name: file.name,
+        });
+      } catch {
+        fail();
+      }
+    };
+    video.src = url;
   });
 }
 
@@ -88,18 +160,36 @@ export default function AdAnalyser() {
   const [showCopy, setShowCopy] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [reading, setReading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ analysis: AdAnalysis; image: string; placement: PlacementId } | null>(null);
+  const [result, setResult] = useState<{
+    analysis: AdAnalysis;
+    image: string;
+    frames?: { src: string; t: number }[];
+    placement: PlacementId;
+  } | null>(null);
 
   async function pick(file: File | undefined) {
     if (!file) return;
-    if (!ACCEPT.includes(file.type)) return setError('Upload a JPG, PNG or WebP image of your ad.');
-    if (file.size > 20 * 1024 * 1024) return setError('That image is too large. Please use one under 20 MB.');
+    const isVideo = VIDEO_TYPES.includes(file.type);
+    if (!isVideo && !IMAGE_TYPES.includes(file.type)) return setError('Upload a JPG, PNG or WebP image, or an MP4, MOV or WebM video.');
+    if (!isVideo && file.size > 20 * 1024 * 1024) return setError('That image is too large. Please use one under 20 MB.');
+    if (isVideo && file.size > MAX_VIDEO_BYTES) return setError('That video is too large. Please use one under 500 MB.');
     setError(null);
+    setReading(true);
     try {
-      setPicked(await shrink(file));
+      const next = isVideo ? await extractFrames(file) : await shrink(file);
+      setPicked(next);
+      // Video ads mostly run full-screen; move off image-first placements by default.
+      if (isVideo && (placement === 'meta-feed' || placement === 'google-display')) setPlacement('meta-story');
     } catch {
-      setError('We could not read that image. Try saving it as a JPG.');
+      setError(
+        isVideo
+          ? 'We could not read that video in this browser. Try exporting it as an MP4 (H.264).'
+          : 'We could not read that image. Try saving it as a JPG.'
+      );
+    } finally {
+      setReading(false);
     }
   }
 
@@ -114,14 +204,23 @@ export default function AdAnalyser() {
     if (!picked) return setError('Upload the ad you want analysed.');
     setError(null);
     setBusy(true);
-    trackTool('free_tool_run', { tool: 'ad-analyser', placement });
+    trackTool('free_tool_run', { tool: 'ad-analyser', kind: picked.kind, placement });
     try {
+      const payload =
+        picked.kind === 'video'
+          ? { kind: 'video', frames: picked.frames, frameTimes: picked.times, duration: picked.duration }
+          : { kind: 'image', image: picked.dataUrl };
       const data = await postTool<{ analysis: AdAnalysis }>(
         '/api/tools/ad-analyse',
-        { image: picked.dataUrl, width: picked.width, height: picked.height, placement, copy },
+        { ...payload, width: picked.width, height: picked.height, placement, copy },
         await getToken()
       );
-      setResult({ analysis: data.analysis, image: picked.dataUrl, placement });
+      setResult({
+        analysis: data.analysis,
+        image: picked.dataUrl,
+        frames: picked.kind === 'video' ? picked.frames.map((src, i) => ({ src, t: picked.times[i] })) : undefined,
+        placement,
+      });
       resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       setError(err instanceof ToolError ? err.message : 'Something went wrong. Please try again.');
@@ -147,8 +246,8 @@ export default function AdAnalyser() {
             Free AI ad <Accent>analyser.</Accent>
           </h1>
           <p className="mx-auto mt-5 max-w-[620px] text-[18px] leading-[28px] text-white/55 md:text-[20px] md:leading-[30px]">
-            Upload an ad and an AI agent reviews it like a performance marketer: a score, what works, what
-            doesn&rsquo;t, and the exact fixes to make before you spend.
+            Upload an image or UGC video ad and an AI agent reviews it like a performance marketer: a score,
+            what works, what doesn&rsquo;t, and the exact fixes to make before you spend.
           </p>
         </motion.div>
 
@@ -171,7 +270,7 @@ export default function AdAnalyser() {
             <input
               ref={fileRef}
               type="file"
-              accept={ACCEPT.join(',')}
+              accept={[...IMAGE_TYPES, ...VIDEO_TYPES].join(',')}
               className="hidden"
               onChange={(e) => {
                 pick(e.target.files?.[0]);
@@ -185,12 +284,14 @@ export default function AdAnalyser() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[16px] text-white">{picked.name}</p>
                   <p className="mt-1 text-[14px] text-white/45">
-                    {picked.width} × {picked.height}px · click to change
+                    {picked.kind === 'video'
+                      ? `Video · ${Math.round(picked.duration)}s · ${picked.frames.length} frames read · click to change`
+                      : `${picked.width} × ${picked.height}px · click to change`}
                   </p>
                 </div>
                 <button
                   type="button"
-                  aria-label="Remove image"
+                  aria-label="Remove file"
                   onClick={(e) => {
                     e.stopPropagation();
                     setPicked(null);
@@ -200,13 +301,15 @@ export default function AdAnalyser() {
                   <X className="h-4 w-4" />
                 </button>
               </div>
+            ) : reading ? (
+              <p className="py-6 text-[16px] text-white/60">Reading your ad…</p>
             ) : (
               <>
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#2a2a2a] bg-[#1a1a1a] text-[#00da7f]">
                   <ImagePlus className="h-6 w-6" strokeWidth={1.6} />
                 </span>
                 <p className="text-[16px] text-white">Drop your ad here, or click to upload</p>
-                <p className="text-[14px] text-white/40">JPG, PNG or WebP · static image ads</p>
+                <p className="text-[14px] text-white/40">Image (JPG, PNG, WebP) or UGC video (MP4, MOV, WebM)</p>
               </>
             )}
           </div>
@@ -227,7 +330,7 @@ export default function AdAnalyser() {
               </select>
               <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/45">▾</span>
             </div>
-            <button type="submit" disabled={busy || !ready} className={submitClass}>
+            <button type="submit" disabled={busy || reading || !ready} className={submitClass}>
               {busy ? 'Analysing…' : ready ? 'Analyse my ad' : 'Verifying…'}
             </button>
           </div>
@@ -253,7 +356,7 @@ export default function AdAnalyser() {
           )}
 
           <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
-          <p className="mt-4 text-center text-[14px] text-white/40">Free, no sign-up. Your image is analysed, never stored.</p>
+          <p className="mt-4 text-center text-[14px] text-white/40">Free, no sign-up. Your ad is analysed, never stored. Video sound is not analysed.</p>
           {(error || (failed && !ready)) && (
             <p
               role="alert"
@@ -302,6 +405,20 @@ export default function AdAnalyser() {
                   <span className="h-24 w-10 rounded-[14px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_10px_30px_rgba(255,120,40,0.35)]" />
                   <p className="mt-4 text-[15px] font-medium text-white">Glow Serum</p>
                   <p className="text-[11px] text-white/40">30% off today</p>
+                </div>
+              )}
+              {result?.frames && (
+                <div className="mx-auto mt-3 max-w-[240px] md:max-w-none">
+                  <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">Frames reviewed</p>
+                  <div className="mt-2 grid grid-cols-5 gap-1.5">
+                    {result.frames.map((f) => (
+                      <figure key={f.t} className="min-w-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={f.src} alt="" className="aspect-[9/16] w-full rounded-md border border-[#2a2a2a] object-cover" />
+                        <figcaption className="mt-0.5 text-center text-[10px] tabular-nums text-white/40">{f.t.toFixed(1)}s</figcaption>
+                      </figure>
+                    ))}
+                  </div>
                 </div>
               )}
               <div className="mt-5 flex items-end gap-2">

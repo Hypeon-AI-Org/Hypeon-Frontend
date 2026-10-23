@@ -15,7 +15,7 @@ export const TOOL_CATALOG = [
   {
     slug: 'ad-analyser',
     title: 'AI ad analyser',
-    body: 'Upload an ad and an AI agent reviews it like a performance marketer: a score, what works, what doesn’t, and the fixes to make.',
+    body: 'Upload an image or UGC video ad and an AI agent reviews it like a performance marketer: a score, what works, what doesn’t, and the fixes to make.',
     live: true,
   },
   {
