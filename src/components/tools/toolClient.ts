@@ -46,9 +46,8 @@ function loadScript(): Promise<void> {
 }
 
 /**
- * Mounts an invisible Turnstile widget into the returned ref (it only shows a
- * checkbox when Cloudflare is unsure). `getToken` resolves with a fresh token,
- * or null when no site key is configured.
+ * Mounts a Turnstile widget into the returned ref. `getToken` resolves with a
+ * fresh token, or null when no site key is configured.
  */
 export function useTurnstile() {
   const ref = useRef<HTMLDivElement>(null);
@@ -64,7 +63,9 @@ export function useTurnstile() {
         if (cancelled || !ref.current || !window.turnstile) return;
         widgetId.current = window.turnstile.render(ref.current, {
           sitekey: SITE_KEY,
-          appearance: 'interaction-only',
+          // Always visible, so visitors see "Verifying… / Success!" instead of a silent wait.
+          appearance: 'always',
+          theme: 'dark',
           'refresh-expired': 'auto',
           callback: (t: string) => {
             token.current = t;
