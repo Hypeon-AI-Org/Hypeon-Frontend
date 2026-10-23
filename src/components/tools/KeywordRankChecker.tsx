@@ -25,6 +25,7 @@ type RankResponse = {
 const ease = [0.22, 1, 0.36, 1] as const;
 /** The rank meter runs over the depth the tool searches. */
 const METER_MAX = 30;
+const COLLAPSED = 10;
 
 /** What visitors see before they run the tool. Fictional site, illustrative ranking. */
 const EXAMPLE: RankResponse = {
@@ -58,26 +59,29 @@ function Favicon({ domain }: { domain: string }) {
   );
 }
 
-/** A 1-30 track split into Google's three pages, with a marker at the domain's position. */
+/**
+ * A 1-30 track split into Google's three pages, with a marker at the domain's
+ * position; a domain outside the top 30 gets a red marker past the end.
+ */
 function RankMeter({ position }: { position: number | null }) {
-  const pct = position ? ((Math.min(position, METER_MAX) - 0.5) / METER_MAX) * 100 : null;
+  const pct = position ? ((Math.min(position, METER_MAX) - 0.5) / METER_MAX) * 100 : 100;
   return (
-    <div className="w-full">
+    <div className="w-full pr-2">
       <div className="relative h-2.5 rounded-full bg-[#f1f1f1]">
         <div className="absolute inset-y-0 left-0 w-1/3 rounded-l-full bg-[#00da7f]/25" />
-        {pct !== null && (
-          <motion.span
-            initial={{ left: '0%', opacity: 0 }}
-            animate={{ left: `${pct}%`, opacity: 1 }}
-            transition={{ duration: 0.9, ease }}
-            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-[#121212] shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
-          />
-        )}
+        <motion.span
+          initial={{ left: '0%', opacity: 0 }}
+          animate={{ left: `${pct}%`, opacity: 1 }}
+          transition={{ duration: 0.9, ease }}
+          className={`absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_2px_8px_rgba(0,0,0,0.25)] ${
+            position ? 'bg-[#121212]' : 'bg-[#e5484d]'
+          }`}
+        />
       </div>
       <div className="mt-2 grid grid-cols-3 text-[12px] text-[#8a8a8a]">
         <span>Page 1</span>
         <span className="text-center">Page 2</span>
-        <span className="text-right">Page 3</span>
+        <span className={`text-right ${position ? '' : 'font-medium text-[#b4232a]'}`}>{position ? 'Page 3' : 'Beyond page 3'}</span>
       </div>
     </div>
   );
@@ -110,6 +114,7 @@ export default function KeywordRankChecker() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<RankResponse | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -118,6 +123,7 @@ export default function KeywordRankChecker() {
     if (!country) return setError('Choose the country to check.');
     setError(null);
     setBusy(true);
+    setShowAll(false);
     trackTool('free_tool_run', { tool: 'keyword-rank-checker' });
     try {
       const data = await postTool<RankResponse>('/api/tools/rank-check', { domain, keyword, country }, await getToken());
@@ -132,6 +138,10 @@ export default function KeywordRankChecker() {
 
   const shown = result ?? EXAMPLE;
   const page = shown.position ? Math.ceil(shown.position / 10) : null;
+  /** Ten rows first; the rest on request, so a long list does not swamp the summary. */
+  const visible = showAll ? shown.top : shown.top.slice(0, COLLAPSED);
+  const own = shown.top.find((r) => isSameSite(r.domain, shown.domain));
+  const toBeat = shown.top.filter((r) => !isSameSite(r.domain, shown.domain)).slice(0, 3);
 
   return (
     <section className="pb-6 pt-[112px] md:pt-[150px]">
@@ -219,29 +229,33 @@ export default function KeywordRankChecker() {
               {/* position summary: stays in view beside the long results list */}
               <div className="md:sticky md:top-28 md:self-start">
                 <p className={labelClass}>Your position</p>
-                <div className="mt-3 flex items-end gap-3">
-                  <span
-                    className={`text-[72px] font-medium leading-none tracking-[-0.05em] ${
-                      shown.position ? 'text-[#121212]' : 'text-[#b4232a]'
-                    }`}
-                  >
-                    {shown.position ? `#${shown.position}` : '—'}
-                  </span>
-                  {page && <span className="pb-2 text-[15px] text-[#8a8a8a]">page {page}</span>}
-                </div>
-                <p className="mt-3 text-[16px] leading-[24px] text-[#333333]">
-                  {shown.position ? (
-                    <>
-                      <span className="font-medium text-[#121212]">{shown.domain}</span> ranks #{shown.position} for this
-                      search.
-                    </>
-                  ) : (
-                    <>
-                      <span className="font-medium text-[#121212]">{shown.domain}</span> is not in the top{' '}
-                      {shown.depth || METER_MAX}. These sites win it instead.
-                    </>
-                  )}
-                </p>
+                {shown.position ? (
+                  <>
+                    <div className="mt-3 flex items-end gap-3">
+                      <span className="text-[72px] font-medium leading-none tracking-[-0.05em] text-[#121212]">
+                        #{shown.position}
+                      </span>
+                      {page && <span className="pb-2 text-[15px] text-[#8a8a8a]">page {page}</span>}
+                    </div>
+                    <p className="mt-3 text-[16px] leading-[24px] text-[#333333]">
+                      <span className="font-medium text-[#121212]">{shown.domain}</span> ranks #{shown.position} for
+                      this search.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#fdeaea] px-3 py-1 text-[13px] font-medium text-[#b4232a]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#e5484d]" />
+                      Not in the top {shown.depth || METER_MAX}
+                    </span>
+                    <p className="mt-3 text-[30px] font-medium leading-[1.15] tracking-[-0.02em] text-[#121212]">Not ranking yet</p>
+                    <p className="mt-2 text-[15px] leading-[24px] text-[#545454]">
+                      Searchers in {shown.country} won&rsquo;t find{' '}
+                      <span className="font-medium text-[#121212]">{shown.domain}</span> for this keyword. The sites on
+                      the right win it instead.
+                    </p>
+                  </>
+                )}
                 <div className="mt-6">
                   <RankMeter position={shown.position} />
                 </div>
@@ -256,25 +270,53 @@ export default function KeywordRankChecker() {
                     Ranking page: {shown.url.replace(/^https?:\/\//, '')}
                   </a>
                 )}
+                {(!shown.position || shown.position > 3) && toBeat.length > 0 && (
+                  <div className="mt-6 rounded-2xl border border-[#ececec] p-4">
+                    <p className={labelClass}>Top 3 to beat</p>
+                    <ul className="mt-3 space-y-2.5">
+                      {toBeat.map((r) => (
+                        <li key={`${r.position}-${r.domain}`} className="flex items-center gap-2.5 text-[14px] text-[#121212]">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#121212] text-[12px] font-medium text-white">
+                            {r.position}
+                          </span>
+                          <Favicon domain={r.domain} />
+                          <span className="truncate">{r.domain}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               {/* who ranks */}
               <div className="min-w-0">
-                <p className={labelClass}>Who ranks today · top {shown.top.length}</p>
+                <p className={labelClass}>Who ranks on Google today</p>
                 <ol className="mt-2 space-y-0.5">
-                  {shown.top.map((r) => (
+                  {visible.map((r) => (
                     <ResultLine key={`${r.position}-${r.url || r.domain}`} r={r} you={isSameSite(r.domain, shown.domain)} />
                   ))}
-                  {/* Ranked below the list (21-30): show the visitor's own row after a gap. */}
-                  {shown.position && shown.position > shown.top.length && (
+                  {/* Ranked below the rows on screen: show the visitor's own row after a gap. */}
+                  {shown.position && shown.position > visible.length && (
                     <>
                       <li aria-hidden className="py-1 text-center text-[15px] tracking-[0.3em] text-[#c4c4c4]">
                         ⋯
                       </li>
-                      <ResultLine r={{ position: shown.position, title: shown.title || '', domain: shown.domain }} you />
+                      <ResultLine
+                        r={{ position: shown.position, title: own?.title || shown.title || '', domain: shown.domain }}
+                        you
+                      />
                     </>
                   )}
                 </ol>
+                {shown.top.length > COLLAPSED && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAll(!showAll)}
+                    className="mt-3 w-full rounded-xl border border-[#e4e4e4] py-2.5 text-[14px] font-medium text-[#121212] transition-colors hover:bg-[#f7f7f7]"
+                  >
+                    {showAll ? 'Show top 10 only' : `Show positions ${COLLAPSED + 1}–${shown.top.length}`}
+                  </button>
+                )}
               </div>
             </div>
           </ResultShell>
