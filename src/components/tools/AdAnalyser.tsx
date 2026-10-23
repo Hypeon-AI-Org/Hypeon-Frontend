@@ -2,12 +2,13 @@
 
 import { useRef, useState, type DragEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ImagePlus, X } from 'lucide-react';
+import { ArrowRight, Clapperboard, Film, ImagePlus, X } from 'lucide-react';
 
-import { Accent, Container, STUDIO_URL } from '@/components/home/ui';
+import { Container, STUDIO_URL } from '@/components/home/ui';
 import { PLACEMENTS, type AdAnalysis, type Grade, type PlacementId } from '@/lib/tools/adRubric';
+import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
-import { inputClass, submitClass } from './ui';
+import { inputClass, labelClass, submitClass } from './ui';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 /** Longest side sent to the model: plenty for judging an ad, and keeps uploads small. */
@@ -137,16 +138,49 @@ function extractFrames(file: File): Promise<Picked> {
   });
 }
 
-const GRADE: Record<Grade, { label: string; text: string; badge: string }> = {
-  good: { label: 'Strong', text: 'text-[#00da7f]', badge: 'border-[#00da7f]/30 bg-[#00da7f]/10 text-[#00da7f]' },
-  ok: { label: 'Needs work', text: 'text-white/70', badge: 'border-white/15 bg-white/[0.06] text-white/80' },
-  poor: { label: 'Weak', text: 'text-[#ff8f9c]', badge: 'border-[#ff8f9c]/30 bg-[#ff8f9c]/10 text-[#ff8f9c]' },
+const GRADE: Record<Grade, { label: string; badge: string }> = {
+  good: { label: 'Strong', badge: 'bg-[#e3f9ee] text-[#007a45]' },
+  ok: { label: 'Needs work', badge: 'bg-[#fdf2df] text-[#94600b]' },
+  poor: { label: 'Weak', badge: 'bg-[#fdeaea] text-[#b4232a]' },
 };
 
-function scoreColour(score: number): string {
-  if (score >= 70) return 'text-[#00da7f]';
-  if (score >= 45) return 'text-white';
-  return 'text-[#ff8f9c]';
+function scoreTone(score: number): { ring: string; label: string } {
+  if (score >= 70) return { ring: '#00b86b', label: 'Ready to scale' };
+  if (score >= 45) return { ring: '#f2a93b', label: 'Fix before you spend' };
+  return { ring: '#e5484d', label: 'Needs a rework' };
+}
+
+/** Animated ring for the 0-100 ad score. */
+function ScoreRing({ score }: { score: number }) {
+  const size = 132;
+  const stroke = 11;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const tone = scoreTone(score);
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90" aria-hidden>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#f1f1f1" strokeWidth={stroke} />
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={tone.ring}
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c - (c * score) / 100 }}
+          transition={{ duration: 1.1, ease }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-[38px] font-medium leading-none tracking-[-0.03em] text-[#121212]">{score}</span>
+        <span className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#9a9a9a]">of 100</span>
+      </div>
+    </div>
+  );
 }
 
 export default function AdAnalyser() {
@@ -201,7 +235,7 @@ export default function AdAnalyser() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!picked) return setError('Upload the ad you want analysed.');
+    if (!picked) return setError('Upload the ad you want scored.');
     setError(null);
     setBusy(true);
     trackTool('free_tool_run', { tool: 'ad-analyser', kind: picked.kind, placement });
@@ -231,141 +265,136 @@ export default function AdAnalyser() {
 
   const shown = result?.analysis ?? EXAMPLE;
   const shownPlacement = PLACEMENTS.find((p) => p.id === (result?.placement ?? 'meta-feed'));
+  const tone = scoreTone(shown.score);
 
   return (
-    <section className="relative overflow-hidden pb-10 pt-[120px] md:pt-[160px]">
-      <Container className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
-          className="text-center"
-        >
-          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tool 03</p>
-          <h1 className="mt-4 text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white md:text-[64px]">
-            Free AI ad <Accent>analyser.</Accent>
-          </h1>
-          <p className="mx-auto mt-5 max-w-[620px] text-[18px] leading-[28px] text-white/55 md:text-[20px] md:leading-[30px]">
-            Upload an image or UGC video ad and an AI agent reviews it like a performance marketer: a score,
-            what works, what doesn&rsquo;t, and the exact fixes to make before you spend.
-          </p>
-        </motion.div>
-
-        <form onSubmit={onSubmit} className="mx-auto mt-9 max-w-[760px]">
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => fileRef.current?.click()}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && fileRef.current?.click()}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragging(true);
-            }}
-            onDragLeave={() => setDragging(false)}
-            onDrop={onDrop}
-            className={`relative flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border border-dashed px-6 py-8 text-center transition-colors ${
-              dragging ? 'border-[#00da7f]/60 bg-[#00da7f]/[0.06]' : 'border-[#3a3a3a] bg-[#161616] hover:border-white/30'
-            }`}
+    <section className="pb-6 pt-[112px] md:pt-[150px]">
+      <Container>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
+          <ToolHero
+            slug="ad-analyser"
+            title="Score your ad"
+            accent="before you spend."
+            sub="Upload an image or UGC video and an AI creative strategist scores it, explains what works and what doesn’t, and hands you the fixes."
+            points={['Image & UGC video', 'Score out of 100', 'Your ad is never stored']}
           >
-            <input
-              ref={fileRef}
-              type="file"
-              accept={[...IMAGE_TYPES, ...VIDEO_TYPES].join(',')}
-              className="hidden"
-              onChange={(e) => {
-                pick(e.target.files?.[0]);
-                e.target.value = '';
-              }}
-            />
-            {picked ? (
-              <div className="flex w-full items-center gap-4 text-left">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={picked.dataUrl} alt="Your ad" className="h-20 w-20 shrink-0 rounded-lg object-cover" />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[16px] text-white">{picked.name}</p>
-                  <p className="mt-1 text-[14px] text-white/45">
-                    {picked.kind === 'video'
-                      ? `Video · ${Math.round(picked.duration)}s · ${picked.frames.length} frames read · click to change`
-                      : `${picked.width} × ${picked.height}px · click to change`}
-                  </p>
-                </div>
+            <form onSubmit={onSubmit}>
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => fileRef.current?.click()}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && fileRef.current?.click()}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragging(true);
+                }}
+                onDragLeave={() => setDragging(false)}
+                onDrop={onDrop}
+                className={`relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed px-5 py-7 text-center transition-colors ${
+                  dragging ? 'border-[#00b86b] bg-[#e3f9ee]' : 'border-[#dcdcdc] bg-[#fafafa] hover:border-[#9a9a9a]'
+                }`}
+              >
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept={[...IMAGE_TYPES, ...VIDEO_TYPES].join(',')}
+                  className="hidden"
+                  onChange={(e) => {
+                    pick(e.target.files?.[0]);
+                    e.target.value = '';
+                  }}
+                />
+                {picked ? (
+                  <div className="flex w-full items-center gap-4 text-left">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={picked.dataUrl} alt="Your ad" className="h-16 w-16 shrink-0 rounded-lg object-cover ring-1 ring-[#e4e4e4]" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[15px] font-medium text-[#121212]">{picked.name}</p>
+                      <p className="mt-0.5 text-[13px] text-[#8a8a8a]">
+                        {picked.kind === 'video'
+                          ? `Video · ${Math.round(picked.duration)}s · ${picked.frames.length} frames read · click to change`
+                          : `${picked.width} × ${picked.height}px · click to change`}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Remove file"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPicked(null);
+                      }}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#8a8a8a] ring-1 ring-[#e4e4e4] hover:text-[#121212]"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : reading ? (
+                  <p className="py-4 text-[15px] text-[#545454]">Reading your ad…</p>
+                ) : (
+                  <>
+                    <span className="flex gap-2">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#121212] text-white">
+                        <ImagePlus className="h-5 w-5" strokeWidth={1.7} />
+                      </span>
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-[#121212] ring-1 ring-[#e4e4e4]">
+                        <Film className="h-5 w-5" strokeWidth={1.7} />
+                      </span>
+                    </span>
+                    <p className="mt-2 text-[16px] font-medium text-[#121212]">Drop your ad, or click to upload</p>
+                    <p className="text-[13px] text-[#8a8a8a]">JPG, PNG, WebP · MP4, MOV, WebM</p>
+                  </>
+                )}
+              </div>
+
+              <div className="relative mt-3">
+                <select
+                  aria-label="Where the ad will run"
+                  value={placement}
+                  onChange={(e) => setPlacement(e.target.value as PlacementId)}
+                  className={`${inputClass} appearance-none pr-10`}
+                >
+                  {PLACEMENTS.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#8a8a8a]">▾</span>
+              </div>
+
+              {showCopy ? (
+                <textarea
+                  aria-label="Ad copy (optional)"
+                  placeholder="Paste the ad's primary text and headline (optional)"
+                  value={copy}
+                  onChange={(e) => setCopy(e.target.value)}
+                  maxLength={500}
+                  rows={3}
+                  className={`${inputClass} mt-3 h-auto resize-none py-3`}
+                />
+              ) : (
                 <button
                   type="button"
-                  aria-label="Remove file"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setPicked(null);
-                  }}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/60 hover:text-white"
+                  onClick={() => setShowCopy(true)}
+                  className="mt-3 text-[14px] text-[#545454] underline underline-offset-4 hover:text-[#121212]"
                 >
-                  <X className="h-4 w-4" />
+                  + Add the ad copy for a fuller review
                 </button>
-              </div>
-            ) : reading ? (
-              <p className="py-6 text-[16px] text-white/60">Reading your ad…</p>
-            ) : (
-              <>
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#2a2a2a] bg-[#1a1a1a] text-[#00da7f]">
-                  <ImagePlus className="h-6 w-6" strokeWidth={1.6} />
-                </span>
-                <p className="text-[16px] text-white">Drop your ad here, or click to upload</p>
-                <p className="text-[14px] text-white/40">Image (JPG, PNG, WebP) or UGC video (MP4, MOV, WebM)</p>
-              </>
-            )}
-          </div>
+              )}
 
-          <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-            <div className="relative sm:flex-1">
-              <select
-                aria-label="Where the ad will run"
-                value={placement}
-                onChange={(e) => setPlacement(e.target.value as PlacementId)}
-                className={`${inputClass} appearance-none pr-10 [&>option]:bg-[#1a1a1a] [&>option]:text-white`}
-              >
-                {PLACEMENTS.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/45">▾</span>
-            </div>
-            <button type="submit" disabled={busy || reading || !ready} className={submitClass}>
-              {busy ? 'Analysing…' : ready ? 'Analyse my ad' : 'Verifying…'}
-            </button>
-          </div>
-
-          {showCopy ? (
-            <textarea
-              aria-label="Ad copy (optional)"
-              placeholder="Paste the ad's primary text and headline (optional)"
-              value={copy}
-              onChange={(e) => setCopy(e.target.value)}
-              maxLength={500}
-              rows={3}
-              className={`${inputClass} mt-3 h-auto resize-none py-3`}
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={() => setShowCopy(true)}
-              className="mt-3 text-[14px] text-white/50 underline underline-offset-4 hover:text-white"
-            >
-              + Add the ad copy for a fuller review (optional)
-            </button>
-          )}
-
-          <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
-          <p className="mt-4 text-center text-[14px] text-white/40">Free, no sign-up. Your ad is analysed, never stored. Video sound is not analysed.</p>
-          {(error || (failed && !ready)) && (
-            <p
-              role="alert"
-              className="mt-4 rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-center text-[15px] text-[#ffb3bc]"
-            >
-              {error ?? 'The security check could not load. Please refresh the page.'}
-            </p>
-          )}
-        </form>
+              <button type="submit" disabled={busy || reading || !ready} className={`${submitClass} mt-4 w-full`}>
+                {busy ? 'Scoring your ad…' : ready ? 'Score my ad' : 'Verifying…'}
+                {ready && !busy && <ArrowRight className="h-4 w-4" />}
+              </button>
+              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              {(error || (failed && !ready)) && (
+                <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
+                  {error ?? 'The security check could not load. Please refresh the page.'}
+                </p>
+              )}
+            </form>
+          </ToolHero>
+        </motion.div>
 
         <motion.div
           ref={resultRef}
@@ -373,135 +402,129 @@ export default function AdAnalyser() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
-          className="mt-14 scroll-mt-28 overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#161616]/90 backdrop-blur md:mt-20"
+          className="mt-14 scroll-mt-28 md:mt-20"
         >
-          {/* window bar */}
-          <div className="flex items-center gap-3 border-b border-[#2a2a2a] px-5 py-3.5">
-            <span className="flex gap-1.5" aria-hidden>
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-            </span>
-            <p className="truncate text-[14px] text-white/50">Ad review · {shownPlacement?.name}</p>
-            {!result && (
-              <span className="ml-auto shrink-0 rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/40">
-                Example
-              </span>
-            )}
-          </div>
+          <ResultShell
+            icon={Clapperboard}
+            title={result ? 'Your ad scorecard' : 'Ad scorecard · Glow Serum'}
+            meta={shownPlacement?.name}
+            example={!result}
+            footer={
+              result ? (
+                <>
+                  <p className="text-[15px] text-[#545454]">Want a version with these fixes? HypeOn Studio builds it for you.</p>
+                  <a href={STUDIO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
+                    Make a better ad <ArrowRight className="h-4 w-4" />
+                  </a>
+                </>
+              ) : undefined
+            }
+          >
+            <div className="grid gap-8 p-5 md:grid-cols-[260px_minmax(0,1fr)] md:p-6">
+              {/* the ad, its frames and the score */}
+              <div>
+                {result ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={result.image}
+                    alt="Your ad"
+                    className="mx-auto w-full max-w-[240px] rounded-xl object-contain ring-1 ring-[#e4e4e4] md:max-w-none"
+                  />
+                ) : (
+                  <div className="mx-auto flex aspect-[4/5] w-full max-w-[240px] flex-col items-center justify-center rounded-xl bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center md:max-w-none">
+                    <span className="h-24 w-10 rounded-[14px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_10px_30px_rgba(255,120,40,0.35)]" />
+                    <p className="mt-4 text-[15px] font-medium text-white">Glow Serum</p>
+                    <p className="text-[11px] text-white/40">30% off today</p>
+                  </div>
+                )}
+                {result?.frames && (
+                  <div className="mx-auto mt-3 max-w-[240px] md:max-w-none">
+                    <p className={labelClass}>Frames reviewed</p>
+                    <div className="mt-2 grid grid-cols-5 gap-1.5">
+                      {result.frames.map((f) => (
+                        <figure key={f.t} className="min-w-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={f.src} alt="" className="aspect-[9/16] w-full rounded-md object-cover ring-1 ring-[#e4e4e4]" />
+                          <figcaption className="mt-0.5 text-center text-[10px] tabular-nums text-[#9a9a9a]">{f.t.toFixed(1)}s</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
-          <div className="grid gap-6 p-5 md:grid-cols-[260px_minmax(0,1fr)] md:gap-8 md:p-7">
-            {/* the ad + score; on phones the ad is capped at 240px so the score stays near the top */}
-            <div>
-              {result ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={result.image}
-                  alt="Your ad"
-                  className="mx-auto w-full max-w-[240px] rounded-xl border border-[#2a2a2a] object-contain md:max-w-none"
-                />
-              ) : (
-                <div className="mx-auto flex aspect-[4/5] w-full max-w-[240px] flex-col items-center justify-center rounded-xl md:max-w-none border border-[#2a2a2a] bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center">
-                  <span className="h-24 w-10 rounded-[14px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_10px_30px_rgba(255,120,40,0.35)]" />
-                  <p className="mt-4 text-[15px] font-medium text-white">Glow Serum</p>
-                  <p className="text-[11px] text-white/40">30% off today</p>
-                </div>
-              )}
-              {result?.frames && (
-                <div className="mx-auto mt-3 max-w-[240px] md:max-w-none">
-                  <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">Frames reviewed</p>
-                  <div className="mt-2 grid grid-cols-5 gap-1.5">
-                    {result.frames.map((f) => (
-                      <figure key={f.t} className="min-w-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={f.src} alt="" className="aspect-[9/16] w-full rounded-md border border-[#2a2a2a] object-cover" />
-                        <figcaption className="mt-0.5 text-center text-[10px] tabular-nums text-white/40">{f.t.toFixed(1)}s</figcaption>
-                      </figure>
-                    ))}
+              <div className="min-w-0">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+                  <ScoreRing score={shown.score} />
+                  <div>
+                    <p className="text-[13px] font-medium" style={{ color: tone.ring }}>
+                      {tone.label}
+                    </p>
+                    <p className="mt-1 text-[17px] leading-[26px] text-[#121212]">{shown.summary}</p>
                   </div>
                 </div>
-              )}
-              <div className="mt-5 flex items-end gap-2">
-                <span className={`text-[56px] font-medium leading-none tracking-[-0.04em] ${scoreColour(shown.score)}`}>
-                  {shown.score}
-                </span>
-                <span className="pb-1.5 text-[15px] text-white/45">/ 100 ad score</span>
-              </div>
-              <p className="mt-3 text-[15px] leading-[24px] text-white/70">{shown.summary}</p>
-            </div>
 
-            {/* checks, fixes, rewrites */}
-            <div className="min-w-0">
-              <ul className="divide-y divide-[#2a2a2a] rounded-xl border border-[#2a2a2a]">
-                {shown.checks.map((c) => (
-                  // Phones: badge + name on one line, reason below. sm+: three fixed columns,
-                  // so every badge, name and reason starts at the same x whatever its length.
-                  <li
-                    key={c.id}
-                    className="flex flex-col gap-1.5 px-4 py-3.5 sm:grid sm:grid-cols-[92px_150px_minmax(0,1fr)] sm:items-start sm:gap-x-4"
-                  >
-                    <div className="flex items-center gap-2 sm:contents">
-                      <span
-                        className={`inline-flex h-6 w-fit items-center whitespace-nowrap rounded-md border px-2 text-[12px] font-medium sm:mt-px ${GRADE[c.grade].badge}`}
-                      >
-                        {GRADE[c.grade].label}
-                      </span>
-                      <span className="text-[15px] font-medium leading-[23px] text-white">{c.name}</span>
-                    </div>
-                    <p className="text-[15px] leading-[23px] text-white/60">{c.reason}</p>
-                  </li>
-                ))}
-              </ul>
-
-              {shown.fixes.length > 0 && (
-                <div className="mt-6">
-                  <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">Top fixes</p>
-                  <ol className="mt-3 space-y-2.5">
-                    {shown.fixes.map((f, i) => (
-                      <li key={f} className="flex gap-3 text-[15px] leading-[23px] text-white/80">
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#00da7f]/10 text-[13px] font-medium text-[#00da7f]">
-                          {i + 1}
+                <ul className="mt-6 divide-y divide-[#f1f1f1] rounded-2xl border border-[#ececec]">
+                  {shown.checks.map((c) => (
+                    // Phones: badge + name on one line, reason below. sm+: three fixed columns.
+                    <li
+                      key={c.id}
+                      className="flex flex-col gap-1.5 px-4 py-3.5 sm:grid sm:grid-cols-[96px_160px_minmax(0,1fr)] sm:items-start sm:gap-x-4"
+                    >
+                      <div className="flex items-center gap-2 sm:contents">
+                        <span
+                          className={`inline-flex w-fit items-center whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-medium ${GRADE[c.grade].badge}`}
+                        >
+                          {GRADE[c.grade].label}
                         </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              )}
+                        <span className="text-[15px] font-medium leading-[24px] text-[#121212]">{c.name}</span>
+                      </div>
+                      <p className="text-[15px] leading-[24px] text-[#545454]">{c.reason}</p>
+                    </li>
+                  ))}
+                </ul>
 
-              {(shown.headlines.length > 0 || shown.cta) && (
-                <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
-                  <div className="rounded-xl border border-[#2a2a2a] bg-[#121212] p-4">
-                    <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">Try these headlines</p>
-                    <ul className="mt-2 space-y-1.5">
-                      {shown.headlines.map((h) => (
-                        <li key={h} className="text-[15px] text-white">
-                          “{h}”
+                {shown.fixes.length > 0 && (
+                  <div className="mt-6">
+                    <p className={labelClass}>Fix these first</p>
+                    <ol className="mt-3 space-y-2.5">
+                      {shown.fixes.map((f, i) => (
+                        <li key={f} className="flex gap-3 text-[15px] leading-[24px] text-[#333333]">
+                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#121212] text-[12px] font-medium text-white">
+                            {i + 1}
+                          </span>
+                          {f}
                         </li>
                       ))}
-                    </ul>
+                    </ol>
                   </div>
-                  {shown.cta && (
-                    <div className="rounded-xl border border-[#2a2a2a] bg-[#121212] p-4">
-                      <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">Button</p>
-                      <span className="mt-2 inline-flex rounded-lg bg-white px-3 py-1.5 text-[14px] font-medium text-[#121212]">
-                        {shown.cta}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
+                )}
 
-          {result && (
-            <div className="flex flex-col gap-4 border-t border-[#2a2a2a] px-5 py-5 md:flex-row md:items-center md:justify-between md:px-7">
-              <p className="text-[16px] text-white/60">Want a version with these fixes? HypeOn Studio builds it for you.</p>
-              <a href={STUDIO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
-                Make a better ad <ArrowRight className="h-4 w-4" />
-              </a>
+                {(shown.headlines.length > 0 || shown.cta) && (
+                  <div className="mt-6 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+                    <div className="rounded-2xl bg-[#f5f5f5] p-4">
+                      <p className={labelClass}>Headlines to test</p>
+                      <ul className="mt-2 space-y-1.5">
+                        {shown.headlines.map((h) => (
+                          <li key={h} className="text-[15px] font-medium text-[#121212]">
+                            “{h}”
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {shown.cta && (
+                      <div className="rounded-2xl bg-[#f5f5f5] p-4">
+                        <p className={labelClass}>Button</p>
+                        <span className="mt-2 inline-flex rounded-xl bg-[#121212] px-3.5 py-2 text-[14px] font-medium text-white">
+                          {shown.cta}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </ResultShell>
         </motion.div>
       </Container>
     </section>

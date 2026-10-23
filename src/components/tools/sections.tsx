@@ -1,36 +1,155 @@
 import type { ReactNode } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
-import { Minus, Plus } from 'lucide-react';
+import { ArrowRight, Check, Clapperboard, Minus, Plus, Radar, Search, Sparkles, Swords } from 'lucide-react';
 
-import { Accent, Container, DEMO_URL, STUDIO_URL } from '@/components/home/ui';
+import { Accent, Container, DarkButton, DarkCard, DEMO_URL, LightButton, STUDIO_URL } from '@/components/home/ui';
 import { TOOL_CATALOG, type ToolSlug } from '@/lib/tools/catalog';
-import logo from '../../../assets/HypeOn_Logo.png';
 
 /*
- * Page sections shared by every free tool page, in this order:
- * hero (per tool) → results → how it works → reading the results → live check
- * → FAQ → more free tools → closing CTA. All on the dark #121212 page.
+ * Page sections shared by every free tool page, in the site's light theme:
+ * hero (copy left, tool card right) → result card → how it works → tool-specific
+ * sections → FAQ → more tools → the home page's dark closing band.
  */
 
+/** Hypeon's dark gradient button, for links on the light sections. */
 export const pillButton =
-  'inline-flex h-[50px] items-center justify-center gap-2 rounded-2xl bg-white px-6 text-[16px] font-medium text-[#121212] transition-colors hover:bg-[#ececec]';
+  'inline-flex h-[48px] items-center justify-center gap-2 rounded-2xl border border-[#464646] bg-gradient-to-b from-[#373737] to-[#121212] px-5 text-[15px] font-medium text-white transition-[filter] duration-200 hover:brightness-125';
 
-export function SectionHead({ title, accent, sub }: { title: string; accent: string; sub: string }) {
+export const TOOL_ICON: Record<ToolSlug, LucideIcon> = {
+  'ai-citation-checker': Sparkles,
+  'keyword-rank-checker': Search,
+  'ad-analyser': Clapperboard,
+  'seo-competitor-analysis': Swords,
+};
+
+function ToolEyebrow({ slug }: { slug: ToolSlug }) {
+  const Icon = TOOL_ICON[slug];
+  const tool = TOOL_CATALOG.find((t) => t.slug === slug);
   return (
-    <div>
-      <h2 className="text-[32px] font-normal leading-[1.15] tracking-[-0.02em] text-white md:text-[48px]">
+    <div className="inline-flex h-9 items-center gap-2 rounded-full bg-white px-3 text-[14px] text-[#121212] shadow-[0_1px_2px_rgba(16,24,40,0.06)] ring-1 ring-[#e4e4e4]">
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#121212] text-white">
+        <Icon className="h-3 w-3" strokeWidth={2} />
+      </span>
+      {tool?.title}
+      <span className="rounded-full bg-[#e3f9ee] px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-[#007a45]">Free</span>
+    </div>
+  );
+}
+
+/**
+ * Two-column tool hero: the pitch on the left, the tool itself in a white card
+ * on the right (stacked on phones, tool card second).
+ */
+export function ToolHero({
+  slug,
+  title,
+  accent,
+  sub,
+  points,
+  children,
+}: {
+  slug: ToolSlug;
+  title: string;
+  accent: string;
+  sub: string;
+  points: string[];
+  children: ReactNode;
+}) {
+  return (
+    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)] lg:gap-14">
+      <div>
+        <ToolEyebrow slug={slug} />
+        <h1 className="mt-5 text-[38px] font-medium leading-[1.06] tracking-[-0.03em] text-black md:text-[56px]">
+          {title} <Accent>{accent}</Accent>
+        </h1>
+        <p className="mt-5 max-w-[520px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">{sub}</p>
+        <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2.5">
+          {points.map((p) => (
+            <li key={p} className="flex items-center gap-2 text-[15px] text-[#333333]">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#00da7f]/15 text-[#007a45]">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
+              {p}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="rounded-[20px] border border-[#e4e4e4] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_60px_-20px_rgba(16,24,40,0.22)] md:p-6">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** Frame for a tool's result: a header strip (title, context chips, Example tag) over the content. */
+export function ResultShell({
+  icon: Icon,
+  title,
+  meta,
+  example,
+  children,
+  footer,
+}: {
+  icon: LucideIcon;
+  title: string;
+  meta?: string;
+  example?: boolean;
+  children: ReactNode;
+  footer?: ReactNode;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[20px] border border-[#e4e4e4] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_16px_40px_-16px_rgba(16,24,40,0.14)]">
+      <div className="flex items-center gap-3 border-b border-[#ececec] bg-[#fafafa] px-5 py-3.5 md:px-6">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#121212] text-white">
+          <Icon className="h-4 w-4" strokeWidth={1.8} />
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-[15px] font-medium text-[#121212]">{title}</p>
+          {meta && <p className="truncate text-[13px] text-[#8a8a8a]">{meta}</p>}
+        </div>
+        {example && (
+          <span className="ml-auto shrink-0 rounded-full bg-[#f1f1f1] px-2.5 py-1 text-[12px] font-medium text-[#8a8a8a]">
+            Example
+          </span>
+        )}
+      </div>
+      {children}
+      {footer && (
+        <div className="flex flex-col gap-4 border-t border-[#ececec] bg-[#fafafa] px-5 py-5 md:flex-row md:items-center md:justify-between md:px-6">
+          {footer}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function SectionHead({
+  title,
+  accent,
+  sub,
+  center = false,
+}: {
+  title: string;
+  accent: string;
+  sub?: string;
+  center?: boolean;
+}) {
+  return (
+    <div className={center ? 'text-center' : ''}>
+      <h2 className="text-[32px] font-normal leading-[1.15] tracking-[-0.01em] text-black md:text-[44px]">
         {title} <Accent>{accent}</Accent>
       </h2>
-      <p className="mt-3 max-w-[520px] text-[17px] leading-[27px] text-white/50 md:text-[18px]">{sub}</p>
+      {sub && (
+        <p className={`mt-3 max-w-[540px] text-[18px] leading-[28px] text-[#545454] ${center ? 'mx-auto' : ''}`}>{sub}</p>
+      )}
     </div>
   );
 }
 
 export function ToolSection({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <section className={`py-14 md:py-20 ${className}`}>
+    <section className={`py-14 md:py-[88px] ${className}`}>
       <Container>{children}</Container>
     </section>
   );
@@ -38,24 +157,23 @@ export function ToolSection({ children, className = '' }: { children: ReactNode;
 
 export type Step = { icon: LucideIcon; title: string; body: string };
 
+/** Three numbered step cards in a row, joined by a hairline on desktop. */
 export function HowItWorks({ steps, sub }: { steps: Step[]; sub: string }) {
   return (
     <ToolSection>
-      <SectionHead title="How it" accent="works." sub={sub} />
-      <div className="mt-10 overflow-hidden rounded-2xl border border-[#2a2a2a]">
+      <SectionHead title="Three steps," accent="no account." sub={sub} center />
+      <div className="relative mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
+        <div aria-hidden className="absolute left-[16%] right-[16%] top-[44px] hidden h-px bg-[#d9d9d9] md:block" />
         {steps.map((s, i) => (
-          <div
-            key={s.title}
-            className="grid gap-4 border-b border-[#2a2a2a] bg-[#121212] px-6 py-7 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1.1fr)] md:items-center md:gap-8 md:px-8"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-[14px] tabular-nums text-white/40">0{i + 1}</span>
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] text-[#00da7f]">
-                <s.icon className="h-5 w-5" strokeWidth={1.6} />
+          <div key={s.title} className="relative rounded-2xl border border-[#e4e4e4] bg-white p-6">
+            <div className="flex items-center justify-between">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#121212] text-white">
+                <s.icon className="h-5 w-5" strokeWidth={1.7} />
               </span>
+              <span className="font-accent text-[40px] italic leading-none text-[#d4d4d4]">0{i + 1}</span>
             </div>
-            <p className="text-[20px] font-medium text-white md:text-[22px]">{s.title}</p>
-            <p className="text-[16px] leading-[26px] text-white/50 md:text-[17px]">{s.body}</p>
+            <p className="mt-6 text-[20px] font-medium text-[#121212]">{s.title}</p>
+            <p className="mt-2 text-[16px] leading-[26px] text-[#545454]">{s.body}</p>
           </div>
         ))}
       </div>
@@ -66,91 +184,93 @@ export function HowItWorks({ steps, sub }: { steps: Step[]; sub: string }) {
 export function ToolFaq({ items }: { items: { q: string; a: string }[] }) {
   return (
     <ToolSection>
-      <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)] md:gap-12">
-        <h2 className="text-[32px] font-normal leading-[1.15] text-white md:text-[48px]">
-          <Accent>FAQ</Accent>
-        </h2>
-        <div className="overflow-hidden rounded-2xl border border-[#2a2a2a]">
-          {items.map((f, i) => (
-            <details
-              key={f.q}
-              open={i === 0}
-              className="group border-b border-[#2a2a2a] bg-[#121212] last:border-b-0 open:bg-[#161616] [&_summary::-webkit-details-marker]:hidden"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-[17px] font-medium text-white md:text-[18px]">
-                {f.q}
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20 text-white/80">
-                  <Plus className="h-3.5 w-3.5 group-open:hidden" />
-                  <Minus className="hidden h-3.5 w-3.5 group-open:block" />
-                </span>
-              </summary>
-              <p className="px-5 pb-6 text-[16px] leading-[26px] text-white/55">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </ToolSection>
-  );
-}
-
-export function MoreTools({ current }: { current: ToolSlug }) {
-  const others = TOOL_CATALOG.filter((t) => t.slug !== current);
-  return (
-    <ToolSection className="!py-8">
-      {/* One column per other tool; with three, each cell stacks its button under the title. */}
-      <div
-        className={`grid overflow-hidden rounded-2xl border border-[#2a2a2a] ${
-          others.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
-        }`}
-      >
-        {others.map((t) => (
-          <div
-            key={t.slug}
-            className={`flex justify-between gap-4 border-b border-[#2a2a2a] bg-[#121212] px-6 py-7 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 ${
-              others.length >= 3 ? 'items-center md:flex-col md:items-start' : 'items-center'
-            }`}
-          >
-            <div>
-              <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">More free tools</p>
-              <p className="mt-2 text-[20px] font-medium text-white">{t.title}</p>
-            </div>
-            {t.live ? (
-              <Link href={`/tools/${t.slug}`} className={`${pillButton} h-[42px] shrink-0 px-5 text-[15px]`}>
-                Open
-              </Link>
-            ) : (
-              <span className="shrink-0 whitespace-nowrap rounded-2xl border border-[#2a2a2a] px-4 py-2.5 text-[14px] text-white/45">
-                Coming soon
+      <SectionHead title="Good" accent="questions." center />
+      <div className="mx-auto mt-10 max-w-[820px] divide-y divide-[#ececec] overflow-hidden rounded-2xl border border-[#e4e4e4] bg-white">
+        {items.map((f, i) => (
+          <details key={f.q} open={i === 0} className="group [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[17px] font-medium text-[#121212] transition-colors hover:bg-[#fafafa]">
+              {f.q}
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f1f1f1] text-[#121212] transition-colors group-open:bg-[#121212] group-open:text-white">
+                <Plus className="h-4 w-4 group-open:hidden" />
+                <Minus className="hidden h-4 w-4 group-open:block" />
               </span>
-            )}
-          </div>
+            </summary>
+            <p className="px-6 pb-6 text-[16px] leading-[26px] text-[#545454]">{f.a}</p>
+          </details>
         ))}
       </div>
     </ToolSection>
   );
 }
 
+/** The other free tools as cards, live ones linked. */
+export function MoreTools({ current }: { current: ToolSlug }) {
+  const others = TOOL_CATALOG.filter((t) => t.slug !== current);
+  return (
+    <ToolSection className="!pt-0">
+      <div className="flex items-end justify-between gap-4">
+        <SectionHead title="More free" accent="tools." />
+        <Link href="/tools" className="hidden shrink-0 items-center gap-1.5 text-[15px] font-medium text-[#121212] hover:opacity-70 sm:inline-flex">
+          All tools <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {others.map((t) => {
+          const Icon = TOOL_ICON[t.slug];
+          const inner = (
+            <>
+              <div className="flex items-center justify-between">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#121212] text-white">
+                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                </span>
+                {t.live ? (
+                  <ArrowRight className="h-5 w-5 text-[#121212] transition-transform group-hover:translate-x-1" />
+                ) : (
+                  <span className="rounded-full bg-[#f1f1f1] px-2.5 py-1 text-[12px] font-medium text-[#8a8a8a]">Coming soon</span>
+                )}
+              </div>
+              <p className="mt-5 text-[13px] text-[#8a8a8a]">{t.tagline}</p>
+              <p className="mt-1 text-[19px] font-medium text-[#121212]">{t.title}</p>
+              <p className="mt-2 text-[15px] leading-[24px] text-[#545454]">{t.body}</p>
+            </>
+          );
+          const box = 'group flex h-full flex-col rounded-2xl border border-[#e4e4e4] bg-white p-6 transition-shadow';
+          return t.live ? (
+            <Link key={t.slug} href={`/tools/${t.slug}`} className={`${box} hover:shadow-[0_16px_40px_-16px_rgba(16,24,40,0.2)]`}>
+              {inner}
+            </Link>
+          ) : (
+            <div key={t.slug} className={`${box} opacity-80`}>
+              {inner}
+            </div>
+          );
+        })}
+      </div>
+    </ToolSection>
+  );
+}
+
+/** The home page's dark closing band: a DarkCard with the pitch and two actions. */
 export function ToolCta({ title, accent, body }: { title: string; accent: string; body: string }) {
   return (
-    <section className="py-20 md:py-[120px]">
-      <Container className="text-center">
-        <Image src={logo} alt="" width={56} height={56} className="mx-auto h-14 w-14 object-contain" />
-        <h2 className="mt-6 text-[36px] font-normal leading-[1.1] tracking-[-0.02em] text-white md:text-[56px]">
-          {title} <Accent>{accent}</Accent>
-        </h2>
-        <p className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[28px] text-white/50">{body}</p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href={DEMO_URL} className={pillButton}>
-            Book a demo
-          </a>
-          <a
-            href={STUDIO_URL}
-            className="inline-flex h-[50px] items-center justify-center rounded-2xl border border-[#464646] bg-gradient-to-b from-[#373737] to-[#121212] px-6 text-[16px] font-medium text-white transition-[filter] hover:brightness-125"
-          >
-            Try HypeOn free
-          </a>
-        </div>
-        <p className="mt-4 text-[14px] text-white/35">No credit card or sign-up required.</p>
+    <section className="bg-[linear-gradient(#121212,#191919)] py-16 md:py-[110px]">
+      <Container>
+        <DarkCard className="px-6 py-14 text-center md:py-20">
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px max-w-[420px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-3 py-1 text-[13px] text-white/60 ring-1 ring-inset ring-white/10">
+            <Radar className="h-3.5 w-3.5 text-[#00da7f]" /> Free insight, real growth
+          </span>
+          <h2 className="mt-5 text-[32px] font-normal leading-[1.15] text-white md:text-[48px]">
+            {title} <Accent>{accent}</Accent>
+          </h2>
+          <p className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[28px] text-white/50">{body}</p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+            <DarkButton href={STUDIO_URL}>Try HypeOn free</DarkButton>
+            <LightButton href={DEMO_URL}>
+              Book a demo <ArrowRight className="h-4 w-4" />
+            </LightButton>
+          </div>
+        </DarkCard>
       </Container>
     </section>
   );

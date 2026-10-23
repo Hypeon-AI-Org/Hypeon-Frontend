@@ -1,64 +1,44 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Accent, Container } from '@/components/home/ui';
-import { pillButton, ToolCta } from '@/components/tools/sections';
+import { pillButton, TOOL_ICON, ToolCta } from '@/components/tools/sections';
+import { VerdictText } from '@/components/tools/ui';
 import { TOOL_CATALOG, type ToolSlug } from '@/lib/tools/catalog';
+import type { Verdict } from '@/lib/tools/engines';
 
 export const metadata: Metadata = {
-  title: 'Free SEO & AI Visibility Tools | HypeOn',
+  title: 'Free Growth Tools: AI Visibility, Google Rankings & Ad Scoring | HypeOn',
   description:
-    'Free tools with live data on how Google and AI assistants see your brand: SEO competitor analysis, keyword rank checker and AI citation checker. No sign-up.',
+    'Free HypeOn tools with live data: AI Visibility Scanner, Google Rank Finder and Ad Creative Scorer. See how AI assistants, Google and your ads perform. No sign-up.',
   alternates: { canonical: '/tools' },
 };
 
-/* Preview mocks: fictional brands, illustrative numbers. */
+/* Preview mocks inside each card: fictional brands, illustrative numbers. */
 
 function Frame({ children }: { children: ReactNode }) {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#161616] p-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]">
-      {children}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#161616] to-transparent" />
-    </div>
-  );
+  return <div className="rounded-xl bg-[#f5f5f5] p-4">{children}</div>;
 }
 
-function Chip({ children }: { children: ReactNode }) {
-  return <span className="shrink-0 whitespace-nowrap rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/60">{children}</span>;
-}
-
-function CompetitorPreview() {
-  const gaps = ['organic coffee subscription', 'best decaf beans uk', 'coffee gift box delivery'];
+function VisibilityPreview() {
+  const rows: [string, Verdict][] = [
+    ['ChatGPT', 'cited'],
+    ['Claude', 'mentioned'],
+    ['Gemini', 'not_found'],
+    ['Perplexity', 'cited'],
+  ];
   return (
     <Frame>
-      <div className="flex items-center justify-between gap-3 text-[13px]">
-        <span className="min-w-0 truncate text-white/80">
-          brewhouse.co <span className="text-white/35">vs</span> beanroute.com
-        </span>
-        <Chip>United Kingdom</Chip>
-      </div>
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        <div>
-          <p className="text-[12px] text-white/40">Organic keywords</p>
-          <p className="mt-1 text-[26px] font-medium text-white">
-            1,426 <span className="text-[13px] text-[#00da7f]">▲ 184</span>
-          </p>
-        </div>
-        <div>
-          <p className="text-[12px] text-white/40">Competitor keywords</p>
-          <p className="mt-1 text-[26px] font-medium text-white">
-            2,318 <span className="text-[13px] text-[#ff8f9c]">gap 892</span>
-          </p>
-        </div>
-      </div>
-      <ul className="mt-3 divide-y divide-[#2a2a2a] text-[13px]">
-        {gaps.map((g) => (
-          <li key={g} className="flex justify-between gap-3 py-2">
-            <span className="min-w-0 truncate text-white/80">“{g}”</span>
-            <span className="shrink-0 whitespace-nowrap text-[#ff8f9c]">they rank · you don’t</span>
+      <p className="text-[13px] text-[#8a8a8a]">“best vitamin c serum for dull skin”</p>
+      <ul className="mt-2 space-y-1.5">
+        {rows.map(([e, v]) => (
+          <li key={e} className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-[14px] text-[#121212]">
+            {e}
+            <VerdictText verdict={v} />
           </li>
         ))}
       </ul>
@@ -67,82 +47,70 @@ function CompetitorPreview() {
 }
 
 function RankPreview() {
-  const rows = [
-    ['wikipedia.org', 'Reference'],
-    ['runnersworld.com', 'Publisher'],
-    ['stridefit.co', 'You'],
-    ['sportsdirect.com', 'Retailer'],
-  ];
+  const rows = ['runnersworld.com', 'healthline.com', 'stridefit.co', 'nytimes.com'];
   return (
     <Frame>
-      <div className="flex items-center justify-between gap-3 text-[13px]">
-        <span className="min-w-0 truncate text-white/80">“best running shoes for flat feet”</span>
-        <Chip>United States</Chip>
+      <div className="flex items-end gap-2">
+        <span className="text-[40px] font-medium leading-none tracking-[-0.04em] text-[#121212]">#3</span>
+        <span className="pb-1 text-[13px] text-[#8a8a8a]">“running shoes for flat feet”</span>
       </div>
-      <p className="mt-3 text-[36px] font-medium leading-none text-white">
-        #3 <span className="text-[13px] font-normal text-white/40">on Google today</span>
-      </p>
-      <ul className="mt-3 divide-y divide-[#2a2a2a] text-[13px]">
-        {rows.map(([d, k], i) => (
-          <li key={d} className="flex justify-between py-2">
-            <span className={k === 'You' ? 'text-[#00da7f]' : 'text-white/80'}>
-              <span className="mr-3 text-white/35">{i + 1}</span>
-              {d}
-            </span>
-            <span className={k === 'You' ? 'text-[#00da7f]' : 'text-white/40'}>{k}</span>
+      <ol className="mt-3 space-y-1.5">
+        {rows.map((d, i) => (
+          <li
+            key={d}
+            className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[14px] ${
+              d === 'stridefit.co' ? 'bg-[#e3f9ee] font-medium text-[#007a45]' : 'bg-white text-[#121212]'
+            }`}
+          >
+            <span className="w-4 tabular-nums text-[#9a9a9a]">{i + 1}</span>
+            {d}
+            {d === 'stridefit.co' && <span className="ml-auto rounded-full bg-[#121212] px-2 py-0.5 text-[11px] text-white">You</span>}
           </li>
         ))}
-      </ul>
-    </Frame>
-  );
-}
-
-function CitationPreview() {
-  const rows: [string, string, string][] = [
-    ['ChatGPT', 'Cited', 'text-[#00da7f]'],
-    ['Claude', 'Mentioned', 'text-white/55'],
-    ['Gemini', 'Not mentioned', 'text-[#ff8f9c]'],
-    ['Perplexity', 'Cited', 'text-[#00da7f]'],
-  ];
-  return (
-    <Frame>
-      <div className="flex items-center justify-between gap-3 text-[13px]">
-        <span className="text-white/80">lumenskin.com</span>
-        <Chip>Skincare · London</Chip>
-      </div>
-      <ul className="mt-3 divide-y divide-[#2a2a2a] text-[14px]">
-        {rows.map(([e, v, c]) => (
-          <li key={e} className="flex justify-between py-2.5">
-            <span className="text-white/80">{e}</span>
-            <span className={c}>{v}</span>
-          </li>
-        ))}
-      </ul>
+      </ol>
     </Frame>
   );
 }
 
 function AdPreview() {
   const checks: [string, string, string][] = [
-    ['Hook', 'Strong', 'text-[#00da7f]'],
-    ['Message', 'Could be clearer', 'text-white/55'],
-    ['Call to action', 'Missing', 'text-[#ff8f9c]'],
+    ['Hook', 'Strong', 'bg-[#e3f9ee] text-[#007a45]'],
+    ['Message', 'Needs work', 'bg-[#fdf2df] text-[#94600b]'],
+    ['Call to action', 'Weak', 'bg-[#fdeaea] text-[#b4232a]'],
   ];
   return (
     <Frame>
-      <div className="flex items-center justify-between gap-3 text-[13px]">
-        <span className="min-w-0 truncate text-white/80">summer-sale-ad.jpg</span>
-        <Chip>Meta · Feed</Chip>
+      <div className="flex items-center gap-4">
+        <div className="relative h-16 w-16 shrink-0">
+          <svg viewBox="0 0 36 36" className="h-16 w-16 -rotate-90" aria-hidden>
+            <circle cx="18" cy="18" r="15.5" fill="none" stroke="#e4e4e4" strokeWidth="3.5" />
+            <circle cx="18" cy="18" r="15.5" fill="none" stroke="#00b86b" strokeWidth="3.5" strokeLinecap="round" strokeDasharray="97.4" strokeDashoffset="27.3" />
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center text-[18px] font-medium text-[#121212]">72</span>
+        </div>
+        <ul className="min-w-0 flex-1 space-y-1.5">
+          {checks.map(([k, v, c]) => (
+            <li key={k} className="flex items-center justify-between gap-2 text-[14px] text-[#121212]">
+              {k}
+              <span className={`whitespace-nowrap rounded-full px-2 py-0.5 text-[12px] font-medium ${c}`}>{v}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="mt-3 flex items-end gap-2">
-        <span className="text-[36px] font-medium leading-none text-white">72</span>
-        <span className="pb-0.5 text-[13px] text-white/40">/ 100 ad score</span>
-      </div>
-      <ul className="mt-3 divide-y divide-[#2a2a2a] text-[14px]">
-        {checks.map(([k, v, c]) => (
-          <li key={k} className="flex justify-between gap-3 py-2.5">
-            <span className="text-white/80">{k}</span>
-            <span className={`whitespace-nowrap ${c}`}>{v}</span>
+    </Frame>
+  );
+}
+
+function GapPreview() {
+  const gaps = ['organic coffee subscription', 'best decaf beans uk', 'coffee gift box delivery'];
+  return (
+    <Frame>
+      <p className="text-[13px] text-[#8a8a8a]">brewhouse.co vs beanroute.com</p>
+      <ul className="mt-2 space-y-1.5">
+        {gaps.map((g) => (
+          <li key={g} className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2 text-[14px] text-[#121212]">
+            <span className="min-w-0 truncate">“{g}”</span>
+            <span className="shrink-0 rounded-full bg-[#fdeaea] px-2 py-0.5 text-[12px] font-medium text-[#b4232a]">gap</span>
           </li>
         ))}
       </ul>
@@ -151,56 +119,78 @@ function AdPreview() {
 }
 
 const PREVIEW: Record<ToolSlug, () => ReactNode> = {
-  'seo-competitor-analysis': CompetitorPreview,
+  'ai-citation-checker': VisibilityPreview,
   'keyword-rank-checker': RankPreview,
-  'ai-citation-checker': CitationPreview,
   'ad-analyser': AdPreview,
+  'seo-competitor-analysis': GapPreview,
 };
 
 export default function ToolsPage() {
+  const live = TOOL_CATALOG.filter((t) => t.live).length;
   return (
-    <main className="relative bg-[#121212]">
+    <main className="relative bg-[#ededed]">
       <Navbar />
 
-      <section className="relative overflow-hidden pb-16 pt-[120px] md:pb-20 md:pt-[160px]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-[360px] h-[620px] w-[1100px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(0,218,127,0.09),rgba(120,90,255,0.04)_60%,transparent)] blur-2xl"
-        />
-        <Container className="relative">
-          <div className="text-center">
-            <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tools</p>
-            <h1 className="mt-4 text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white md:text-[64px]">
-              See where you <Accent>stand.</Accent>
+      <section className="pb-16 pt-[112px] md:pb-[88px] md:pt-[150px]">
+        <Container>
+          <div className="max-w-[720px]">
+            <div className="inline-flex h-9 items-center gap-2 rounded-full bg-white px-3 text-[14px] text-[#121212] shadow-[0_1px_2px_rgba(16,24,40,0.06)] ring-1 ring-[#e4e4e4]">
+              <span className="font-accent italic">HypeOn</span> free tools
+            </div>
+            <h1 className="mt-5 text-[40px] font-medium leading-[1.06] tracking-[-0.03em] text-black md:text-[60px]">
+              Growth tools, <Accent>on the house.</Accent>
             </h1>
-            <p className="mx-auto mt-5 max-w-[600px] text-[18px] leading-[28px] text-white/55 md:text-[20px] md:leading-[30px]">
-              Free tools with live data, no sign-up. Find where Google and AI leave you out, then let HypeOn close
-              the gap.
+            <p className="mt-5 max-w-[580px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">
+              See how AI assistants, Google and your ads really perform, with live data and no sign-up. Then let HypeOn
+              close the gap.
             </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {[`${live} live tools`, 'Live data', 'No sign-up', 'Free forever'].map((s) => (
+                <span key={s} className="rounded-full bg-white px-3 py-1.5 text-[14px] text-[#333333] ring-1 ring-[#e4e4e4]">
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-14 overflow-hidden rounded-2xl border border-[#2a2a2a] md:mt-20">
+          <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2 md:gap-6">
             {TOOL_CATALOG.map((t) => {
+              const Icon = TOOL_ICON[t.slug];
               const Preview = PREVIEW[t.slug];
               return (
                 <div
                   key={t.slug}
-                  className="grid items-center gap-8 border-b border-[#2a2a2a] bg-[#121212] px-6 py-10 last:border-b-0 md:grid-cols-2 md:gap-14 md:px-10 md:py-12"
+                  className={`flex flex-col rounded-[20px] border border-[#e4e4e4] bg-white p-6 transition-shadow md:p-7 ${
+                    t.live ? 'hover:shadow-[0_24px_60px_-24px_rgba(16,24,40,0.25)]' : ''
+                  }`}
                 >
-                  <div>
-                    <h2 className="text-[26px] font-medium tracking-[-0.01em] text-white md:text-[32px]">{t.title}</h2>
-                    <p className="mt-3 max-w-[440px] text-[17px] leading-[27px] text-white/55 md:text-[18px]">{t.body}</p>
-                    {t.live ? (
-                      <Link href={`/tools/${t.slug}`} className={`${pillButton} mt-7`}>
-                        Open tool
-                      </Link>
-                    ) : (
-                      <span className="mt-7 inline-flex h-[50px] items-center rounded-2xl border border-[#2a2a2a] px-6 text-[16px] text-white/45">
-                        Coming soon
-                      </span>
-                    )}
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#121212] text-white">
+                      <Icon className="h-5 w-5" strokeWidth={1.7} />
+                    </span>
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-[12px] font-medium ${
+                        t.live ? 'bg-[#e3f9ee] text-[#007a45]' : 'bg-[#f1f1f1] text-[#8a8a8a]'
+                      }`}
+                    >
+                      {t.live ? 'Live' : 'Coming soon'}
+                    </span>
                   </div>
-                  <Preview />
+                  <p className="mt-5 text-[14px] text-[#8a8a8a]">{t.tagline}</p>
+                  <h2 className="mt-1 text-[26px] font-medium tracking-[-0.01em] text-[#121212]">{t.title}</h2>
+                  <p className="mt-2 text-[16px] leading-[26px] text-[#545454]">{t.body}</p>
+                  <div className="mt-6 flex-1">
+                    <Preview />
+                  </div>
+                  {t.live ? (
+                    <Link href={`/tools/${t.slug}`} className={`${pillButton} mt-6 self-start`}>
+                      Open {t.title} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  ) : (
+                    <span className="mt-6 inline-flex h-[48px] items-center self-start rounded-2xl bg-[#f1f1f1] px-5 text-[15px] text-[#8a8a8a]">
+                      Coming soon
+                    </span>
+                  )}
                 </div>
               );
             })}
@@ -211,7 +201,7 @@ export default function ToolsPage() {
       <ToolCta
         title="From insight to"
         accent="action."
-        body="Finding the gap is step one. HypeOn helps you close it, on Google and in AI answers."
+        body="Finding the gap is step one. HypeOn helps you close it, on Google, in AI answers and in your ads."
       />
       <Footer />
     </main>

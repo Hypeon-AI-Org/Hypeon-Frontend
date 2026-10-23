@@ -6,16 +6,17 @@ import Footer from '@/components/Footer';
 import AiCitationChecker from '@/components/tools/AiCitationChecker';
 import LiveCheck from '@/components/tools/LiveCheck';
 import { HowItWorks, MoreTools, SectionHead, ToolCta, ToolFaq, ToolSection } from '@/components/tools/sections';
-import { ToolTargetProvider } from '@/components/tools/ui';
+import { ToolTargetProvider, VerdictText } from '@/components/tools/ui';
+import type { Verdict } from '@/lib/tools/engines';
 
 export const metadata: Metadata = {
-  title: 'Free AI Citation Checker: Does ChatGPT Recommend You? | HypeOn',
+  title: 'AI Visibility Scanner: Free AI Citation Checker for ChatGPT & More | HypeOn',
   description:
-    'Free AI citation checker. See the questions buyers ask ChatGPT, Claude, Gemini and Perplexity about your market, and whether each one cites your website. No sign-up.',
+    'Free AI visibility scanner. See the questions buyers ask ChatGPT, Claude, Gemini and Perplexity about your market, and whether each one recommends your website. No sign-up.',
   alternates: { canonical: '/tools/ai-citation-checker' },
   openGraph: {
-    title: 'Free AI Citation Checker | HypeOn',
-    description: 'Check live whether ChatGPT, Claude, Gemini and Perplexity cite your website. Free, no sign-up.',
+    title: 'AI Visibility Scanner | HypeOn',
+    description: 'Check live whether ChatGPT, Claude, Gemini and Perplexity recommend your brand. Free, no sign-up.',
     url: '/tools/ai-citation-checker',
   },
 };
@@ -23,62 +24,62 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     icon: Globe,
-    title: 'Enter your domain',
-    body: 'We read your homepage to work out what you sell, who you sell it to and where.',
+    title: 'Enter your website',
+    body: 'We read your homepage to work out what you sell, who buys it and where.',
   },
   {
     icon: MessagesSquare,
-    title: 'Get the prompts buyers ask',
-    body: 'AI writes the questions a real customer in your country would ask an assistant before buying, and checks each one.',
+    title: 'We find buyer questions',
+    body: 'AI writes the questions a real customer in your country asks an assistant before buying, and checks each one.',
   },
   {
     icon: Radar,
-    title: 'Check any prompt live',
-    body: 'Type your own question. We ask ChatGPT, Claude, Gemini and Perplexity with web search on and show each answer with its sources.',
+    title: 'See who AI recommends',
+    body: 'ChatGPT, Claude, Gemini and Perplexity answer live with web search on. You see where you appear and who wins instead.',
   },
 ];
 
-const VERDICTS = [
+/* Each outcome with a tiny illustrative answer, so the difference is obvious at a glance. */
+const OUTCOMES: { verdict: Verdict; body: string; answer: string; sources: { name: string; you?: boolean }[] }[] = [
   {
-    label: 'Cited',
-    className: 'border-[#00da7f]/30 bg-[#00da7f]/10 text-[#00da7f]',
-    body: 'Your page is one of the sources the assistant used. This is the win: it carries trust, brand exposure and clicks.',
+    verdict: 'cited',
+    body: 'AI names you and links to your site as a source. This is the win: trust, exposure and clicks.',
+    answer: '“…Lumen Skin’s vitamin C serum is a top pick for dull skin…”',
+    sources: [{ name: 'lumenskin.com', you: true }, { name: 'allure.com' }],
   },
   {
-    label: 'Mentioned',
-    className: 'border-white/15 bg-white/[0.06] text-white/80',
-    body: 'Your brand is named in the answer, but the assistant took its facts from other websites. Close, and easy to lose.',
+    verdict: 'mentioned',
+    body: 'AI names your brand, but took its facts from other websites. Close, and easy to lose.',
+    answer: '“…popular options include Lumen Skin, Glow Co and Dewlab…”',
+    sources: [{ name: 'byrdie.com' }, { name: 'reddit.com' }],
   },
   {
-    label: 'Not mentioned',
-    className: 'border-[#ff8f9c]/30 bg-[#ff8f9c]/10 text-[#ff8f9c]',
-    body: 'You are absent from this answer. Whoever is cited instead is getting the customer you wanted.',
+    verdict: 'not_found',
+    body: 'You are not in the answer. Whoever is named instead gets the customer you wanted.',
+    answer: '“…the best serums for dull skin are Glow Co and Dewlab…”',
+    sources: [{ name: 'glowco.com' }, { name: 'vogue.co.uk' }],
   },
 ];
 
 const FAQS = [
   {
-    q: 'Where do the suggested prompts come from?',
-    a: 'We read your homepage, work out your category and market, and use AI to write the questions a potential customer is most likely to ask an assistant. The verdicts come from asking ChatGPT, Claude, Gemini and Perplexity live.',
+    q: 'Where do the buyer questions come from?',
+    a: 'We read your homepage, work out your category and market, and use AI to write the questions a potential customer is most likely to ask an assistant. The results come from asking ChatGPT, Claude, Gemini and Perplexity live.',
   },
   {
     q: 'What is an AI citation?',
     a: 'When an AI assistant searches the web to answer a question, it lists the pages it used as sources. If your page is one of them, you are cited. Cited sites earn trust and clicks from people who never open Google.',
   },
   {
-    q: 'Is the check live data or a stored database?',
-    a: 'Live. Every question is sent to the four assistants when you run the check, with web search switched on. To keep the tool free, the same question asked again within 24 hours returns the saved answer.',
+    q: 'Is this live data?',
+    a: 'Yes. Every question is sent to the four assistants when you run the scan, with web search switched on. To keep the tool free, the same question asked again within 24 hours returns the saved answer.',
   },
   {
-    q: 'Why does the answer differ from what I see in my own ChatGPT?',
-    a: 'AI answers change between runs and depend on location, chat history and model version. We use each vendor’s standard API model with web search, so treat a result as a sample and run important questions more than once.',
+    q: 'Why is my result different from what I see in ChatGPT?',
+    a: 'AI answers change between runs and depend on location, chat history and model version. We use the same models as the consumer apps with web search, so treat a result as a strong sample, and run important questions more than once.',
   },
   {
-    q: 'What does “mentioned” mean exactly?',
-    a: 'Your brand or domain appears in the answer text, but your website was not one of the sources. Cited is stronger: the assistant links to you and relies on your content.',
-  },
-  {
-    q: 'How do I get AI assistants to cite my site?',
+    q: 'How do I get AI assistants to recommend my brand?',
     a: 'Publish clear, specific pages that answer the exact questions buyers ask, get mentioned on the sites assistants already trust, and keep your facts consistent everywhere. This is generative engine optimisation (GEO), and HypeOn runs it for brands.',
   },
   {
@@ -89,24 +90,34 @@ const FAQS = [
 
 export default function AiCitationCheckerPage() {
   return (
-    <main className="relative bg-[#121212]">
+    <main className="relative bg-[#ededed]">
       <Navbar />
       <ToolTargetProvider>
         <AiCitationChecker />
-        <HowItWorks steps={STEPS} sub="Three steps, about a minute, no account." />
+        <HowItWorks steps={STEPS} sub="Your AI visibility report in about a minute." />
 
-        <ToolSection>
-          <SectionHead title="How to read the" accent="results." sub="Three outcomes per assistant, per prompt." />
-          <div className="mt-10 grid overflow-hidden rounded-2xl border border-[#2a2a2a] md:grid-cols-3">
-            {VERDICTS.map((v) => (
-              <div
-                key={v.label}
-                className="border-b border-[#2a2a2a] bg-[#121212] p-7 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
-              >
-                <span className={`inline-flex h-7 items-center rounded-md border px-2 text-[13px] font-medium ${v.className}`}>
-                  {v.label}
-                </span>
-                <p className="mt-5 text-[17px] leading-[27px] text-white/55">{v.body}</p>
+        <ToolSection className="!pt-0">
+          <SectionHead title="What your results" accent="mean." sub="Every assistant gets one of three results for every question." center />
+          <div className="mt-12 grid gap-4 md:grid-cols-3 md:gap-6">
+            {OUTCOMES.map((o) => (
+              <div key={o.verdict} className="flex flex-col rounded-2xl border border-[#e4e4e4] bg-white p-6">
+                <VerdictText verdict={o.verdict} />
+                <p className="mt-4 text-[16px] leading-[26px] text-[#545454]">{o.body}</p>
+                <div className="mt-6 rounded-xl bg-[#f5f5f5] p-4">
+                  <p className="text-[14px] italic leading-[22px] text-[#333333]">{o.answer}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {o.sources.map((s) => (
+                      <span
+                        key={s.name}
+                        className={`rounded-full px-2.5 py-1 text-[12px] ${
+                          s.you ? 'bg-[#e3f9ee] font-medium text-[#007a45]' : 'bg-white text-[#545454] ring-1 ring-[#e4e4e4]'
+                        }`}
+                      >
+                        {s.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -118,8 +129,8 @@ export default function AiCitationCheckerPage() {
       <ToolFaq items={FAQS} />
       <MoreTools current="ai-citation-checker" />
       <ToolCta
-        title="Not cited yet?"
-        accent="Let’s fix that."
+        title="Not recommended yet?"
+        accent="Let’s change that."
         body="HypeOn builds the pages and the presence AI assistants pick up and cite, so buyers find you first."
       />
       <Footer />

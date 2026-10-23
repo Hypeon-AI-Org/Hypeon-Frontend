@@ -72,7 +72,7 @@ export function useTurnstile() {
           sitekey: SITE_KEY,
           // Always visible, so visitors see "Verifying… / Success!" instead of a silent wait.
           appearance: 'always',
-          theme: 'dark',
+          theme: 'light',
           'refresh-expired': 'auto',
           callback: (t: string) => {
             token.current = t;

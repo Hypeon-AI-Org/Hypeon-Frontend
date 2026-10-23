@@ -2,14 +2,14 @@
 
 import { useRef, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Globe, Search } from 'lucide-react';
 
-import { Accent, Container, DEMO_URL } from '@/components/home/ui';
-import { countryName } from '@/lib/tools/countries';
+import { Container, DEMO_URL } from '@/components/home/ui';
 import { isSameSite } from '@/lib/tools/domain';
 import type { OrganicResult } from '@/lib/tools/serper';
+import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
-import { CountrySelect, inputClass, submitClass, useToolTarget } from './ui';
+import { CountrySelect, inputClass, labelClass, submitClass, useToolTarget } from './ui';
 
 type RankResponse = {
   domain: string;
@@ -23,6 +23,8 @@ type RankResponse = {
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
+/** The rank meter runs over the depth the tool searches. */
+const METER_MAX = 30;
 
 /** What visitors see before they run the tool. Fictional site, illustrative ranking. */
 const EXAMPLE: RankResponse = {
@@ -41,6 +43,63 @@ const EXAMPLE: RankResponse = {
     { position: 5, title: 'Best shoes for flat feet, according to experts', domain: 'nytimes.com', url: '' },
   ],
 };
+
+function Favicon({ domain }: { domain: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+      alt=""
+      width={16}
+      height={16}
+      loading="lazy"
+      className="h-4 w-4 shrink-0 rounded-sm"
+    />
+  );
+}
+
+/** A 1-30 track split into Google's three pages, with a marker at the domain's position. */
+function RankMeter({ position }: { position: number | null }) {
+  const pct = position ? ((Math.min(position, METER_MAX) - 0.5) / METER_MAX) * 100 : null;
+  return (
+    <div className="w-full">
+      <div className="relative h-2.5 rounded-full bg-[#f1f1f1]">
+        <div className="absolute inset-y-0 left-0 w-1/3 rounded-l-full bg-[#00da7f]/25" />
+        {pct !== null && (
+          <motion.span
+            initial={{ left: '0%', opacity: 0 }}
+            animate={{ left: `${pct}%`, opacity: 1 }}
+            transition={{ duration: 0.9, ease }}
+            className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-[#121212] shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
+          />
+        )}
+      </div>
+      <div className="mt-2 grid grid-cols-3 text-[12px] text-[#8a8a8a]">
+        <span>Page 1</span>
+        <span className="text-center">Page 2</span>
+        <span className="text-right">Page 3</span>
+      </div>
+    </div>
+  );
+}
+
+function ResultLine({ r, you }: { r: { position: number; title: string; domain: string }; you: boolean }) {
+  return (
+    <li className={`flex items-center gap-4 rounded-xl px-3 py-3 ${you ? 'bg-[#e3f9ee]' : ''}`}>
+      <span className={`w-6 shrink-0 text-[15px] tabular-nums ${you ? 'font-medium text-[#007a45]' : 'text-[#9a9a9a]'}`}>
+        {r.position}
+      </span>
+      <Favicon domain={r.domain} />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[16px] text-[#121212]">{r.title || r.domain}</span>
+        <span className="mt-0.5 block truncate text-[13px] text-[#8a8a8a]">{r.domain}</span>
+      </span>
+      {you && (
+        <span className="shrink-0 rounded-full bg-[#121212] px-2.5 py-1 text-[12px] font-medium text-white">You</span>
+      )}
+    </li>
+  );
+}
 
 export default function KeywordRankChecker() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
@@ -63,7 +122,7 @@ export default function KeywordRankChecker() {
     try {
       const data = await postTool<RankResponse>('/api/tools/rank-check', { domain, keyword, country }, await getToken());
       setResult(data);
-      resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       setError(err instanceof ToolError ? err.message : 'Something went wrong. Please try again.');
     } finally {
@@ -72,58 +131,58 @@ export default function KeywordRankChecker() {
   }
 
   const shown = result ?? EXAMPLE;
+  const page = shown.position ? Math.ceil(shown.position / 10) : null;
 
   return (
-    <section className="relative overflow-hidden pb-10 pt-[120px] md:pt-[160px]">
-      <Container className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
-          className="text-center"
-        >
-          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tool 02</p>
-          <h1 className="mt-4 text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white md:text-[64px]">
-            Free keyword rank <Accent>checker.</Accent>
-          </h1>
-          <p className="mx-auto mt-5 max-w-[620px] text-[18px] leading-[28px] text-white/55 md:text-[20px] md:leading-[30px]">
-            Find where any website ranks on Google for a keyword in your country, and see exactly who holds the
-            spots above it today.
-          </p>
-
-          <form onSubmit={onSubmit} className="mx-auto mt-9 flex max-w-[860px] flex-col gap-3 md:flex-row">
-            <input
-              aria-label="Domain"
-              placeholder="Domain"
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              autoComplete="url"
-              inputMode="url"
-              className={`${inputClass} md:w-[200px]`}
-            />
-            <input
-              aria-label="Keyword"
-              placeholder="Keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              maxLength={100}
-              className={`${inputClass} md:flex-1`}
-            />
-            <CountrySelect value={country} onChange={setCountry} className="md:w-[190px]" />
-            <button type="submit" disabled={busy || !ready} className={submitClass}>
-              {busy ? 'Checking…' : ready ? 'Check ranking' : 'Verifying…'}
-            </button>
-          </form>
-          <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
-          <p className="mt-4 text-[14px] text-white/40">Free, no sign-up. Checks the live Google top 30.</p>
-          {(error || (failed && !ready)) && (
-            <p
-              role="alert"
-              className="mx-auto mt-4 max-w-[620px] rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[15px] text-[#ffb3bc]"
-            >
-              {error ?? 'The security check could not load. Please refresh the page.'}
-            </p>
-          )}
+    <section className="pb-6 pt-[112px] md:pt-[150px]">
+      <Container>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
+          <ToolHero
+            slug="keyword-rank-checker"
+            title="Where do you"
+            accent="rank on Google?"
+            sub="Check any website’s live Google position for a keyword in your country, and see exactly who holds the spots above you today."
+            points={['Live Google results', '40+ countries', 'Top 30 checked']}
+          >
+            <form onSubmit={onSubmit}>
+              <p className="text-[18px] font-medium text-[#121212]">Find a ranking</p>
+              <p className="mt-1 text-[14px] text-[#8a8a8a]">Results in a few seconds.</p>
+              <div className="relative mt-5">
+                <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
+                <input
+                  aria-label="Domain"
+                  placeholder="yourbrand.com"
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
+                  autoComplete="url"
+                  inputMode="url"
+                  className={`${inputClass} pl-10`}
+                />
+              </div>
+              <div className="relative mt-3">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
+                <input
+                  aria-label="Keyword"
+                  placeholder="best running shoes"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  maxLength={100}
+                  className={`${inputClass} pl-10`}
+                />
+              </div>
+              <CountrySelect value={country} onChange={setCountry} className="mt-3" />
+              <button type="submit" disabled={busy || !ready} className={`${submitClass} mt-4 w-full`}>
+                {busy ? 'Searching Google…' : ready ? 'Find my ranking' : 'Verifying…'}
+                {ready && !busy && <ArrowRight className="h-4 w-4" />}
+              </button>
+              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              {(error || (failed && !ready)) && (
+                <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
+                  {error ?? 'The security check could not load. Please refresh the page.'}
+                </p>
+              )}
+            </form>
+          </ToolHero>
         </motion.div>
 
         <motion.div
@@ -132,119 +191,91 @@ export default function KeywordRankChecker() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease }}
-          className="mt-14 overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#161616]/90 backdrop-blur md:mt-20"
+          className="mt-14 scroll-mt-28 md:mt-20"
         >
-          {/* window bar */}
-          <div className="flex items-center gap-3 border-b border-[#2a2a2a] px-5 py-3.5">
-            <span className="flex gap-1.5" aria-hidden>
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-            </span>
-            <p className="truncate text-[14px] text-white/50">
-              Google · “{shown.keyword}” · {shown.country || countryName(country) || ''}
-            </p>
-            {!result && (
-              <span className="ml-auto shrink-0 rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/40">
-                Example
-              </span>
-            )}
-          </div>
-
-          {/* headline */}
-          <div className="flex flex-col gap-4 border-b border-[#2a2a2a] px-5 py-7 md:flex-row md:items-center md:gap-8 md:px-7">
-            <p
-              className={`shrink-0 text-[64px] font-medium leading-none tracking-[-0.04em] ${
-                shown.position ? 'text-white' : 'text-[#ff8f9c]'
-              }`}
-            >
-              {shown.position ? `#${shown.position}` : '—'}
-            </p>
-            <div className="min-w-0">
-              <p className="text-[20px] font-medium leading-[1.3] text-white md:text-[24px]">
-                {shown.position
-                  ? `${shown.domain} ranks #${shown.position} for “${shown.keyword}”.`
-                  : `${shown.domain} is not in the top ${shown.depth || 30} for “${shown.keyword}”.`}
-              </p>
-              {shown.url ? (
-                <a
-                  href={shown.url}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="mt-2 block truncate text-[15px] text-white/45 hover:text-white/70"
-                >
-                  {shown.url}
-                </a>
-              ) : (
-                <p className="mt-2 text-[15px] text-white/45">These sites hold the first page instead.</p>
-              )}
-            </div>
-          </div>
-
-          {/* top results */}
-          <div className="px-5 pb-3 pt-5 md:px-7">
-            <p className="text-[14px] text-white/45">
-              Who ranks today: the top {shown.top.length} organic results in {shown.country}.
-            </p>
-            <ol className="mt-3">
-              {shown.top.map((r) => {
-                const you = isSameSite(r.domain, shown.domain);
-                return (
-                  <li
-                    key={`${r.position}-${r.url || r.domain}`}
-                    className="flex items-center gap-4 border-b border-[#2a2a2a] py-3.5 last:border-b-0"
-                  >
-                    <span className="w-6 shrink-0 text-[15px] tabular-nums text-white/35">{r.position}</span>
-                    <span className="min-w-0 flex-1">
-                      <span className={`block truncate text-[16px] ${you ? 'text-white' : 'text-white/85'}`}>
-                        {r.title || r.domain}
-                      </span>
-                      {/* phones have no room for the domain column, so it sits under the title */}
-                      <span className="mt-0.5 block truncate text-[13px] text-white/45 sm:hidden">{r.domain}</span>
-                    </span>
-                    {you && (
-                      <span className="shrink-0 rounded-md border border-[#00da7f]/30 bg-[#00da7f]/10 px-2 py-0.5 text-[12px] font-medium text-[#00da7f]">
-                        You
-                      </span>
-                    )}
-                    <span className="hidden shrink-0 text-[14px] text-white/45 sm:block">{r.domain}</span>
-                  </li>
-                );
-              })}
-              {/* Ranked below the list (21-30): show the visitor's own row after a gap. */}
-              {shown.position && shown.position > shown.top.length && (
+          <ResultShell
+            icon={Search}
+            title={`“${shown.keyword}”`}
+            meta={`Google · ${shown.country}`}
+            example={!result}
+            footer={
+              result ? (
                 <>
-                  <li aria-hidden className="py-1 text-center text-[15px] tracking-[0.3em] text-white/25">
-                    ⋯
-                  </li>
-                  <li className="flex items-center gap-4 border-t border-[#2a2a2a] py-3.5">
-                    <span className="w-6 shrink-0 text-[15px] tabular-nums text-white/35">{shown.position}</span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[16px] text-white">{shown.title || shown.domain}</span>
-                      <span className="mt-0.5 block truncate text-[13px] text-white/45 sm:hidden">{shown.domain}</span>
-                    </span>
-                    <span className="shrink-0 rounded-md border border-[#00da7f]/30 bg-[#00da7f]/10 px-2 py-0.5 text-[12px] font-medium text-[#00da7f]">
-                      You
-                    </span>
-                    <span className="hidden shrink-0 text-[14px] text-white/45 sm:block">{shown.domain}</span>
-                  </li>
+                  <p className="text-[15px] text-[#545454]">
+                    {result.position && result.position <= 3
+                      ? 'You are in the top 3. Now make sure AI assistants recommend you too.'
+                      : 'Want to move up? HypeOn builds the pages that win these searches.'}
+                  </p>
+                  <a href={DEMO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
+                    Rank higher <ArrowRight className="h-4 w-4" />
+                  </a>
                 </>
-              )}
-            </ol>
-          </div>
+              ) : undefined
+            }
+          >
+            <div className="grid gap-8 p-5 md:grid-cols-[300px_minmax(0,1fr)] md:p-6">
+              {/* position summary */}
+              <div>
+                <p className={labelClass}>Your position</p>
+                <div className="mt-3 flex items-end gap-3">
+                  <span
+                    className={`text-[72px] font-medium leading-none tracking-[-0.05em] ${
+                      shown.position ? 'text-[#121212]' : 'text-[#b4232a]'
+                    }`}
+                  >
+                    {shown.position ? `#${shown.position}` : '—'}
+                  </span>
+                  {page && <span className="pb-2 text-[15px] text-[#8a8a8a]">page {page}</span>}
+                </div>
+                <p className="mt-3 text-[16px] leading-[24px] text-[#333333]">
+                  {shown.position ? (
+                    <>
+                      <span className="font-medium text-[#121212]">{shown.domain}</span> ranks #{shown.position} for this
+                      search.
+                    </>
+                  ) : (
+                    <>
+                      <span className="font-medium text-[#121212]">{shown.domain}</span> is not in the top{' '}
+                      {shown.depth || METER_MAX}. These sites win it instead.
+                    </>
+                  )}
+                </p>
+                <div className="mt-6">
+                  <RankMeter position={shown.position} />
+                </div>
+                {shown.url && (
+                  <a
+                    href={shown.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="mt-6 block truncate rounded-xl bg-[#f5f5f5] px-3 py-2.5 text-[13px] text-[#545454] hover:text-[#121212]"
+                    title={shown.url}
+                  >
+                    Ranking page: {shown.url.replace(/^https?:\/\//, '')}
+                  </a>
+                )}
+              </div>
 
-          {result && (
-            <div className="flex flex-col gap-4 border-t border-[#2a2a2a] px-5 py-5 md:flex-row md:items-center md:justify-between md:px-7">
-              <p className="text-[16px] text-white/60">
-                {result.position && result.position <= 3
-                  ? 'You are in the top 3. Now make sure AI assistants cite you too.'
-                  : 'Want to move up? HypeOn builds the pages that win these searches.'}
-              </p>
-              <a href={DEMO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
-                Rank higher <ArrowRight className="h-4 w-4" />
-              </a>
+              {/* who ranks */}
+              <div className="min-w-0">
+                <p className={labelClass}>Who ranks today · top {shown.top.length}</p>
+                <ol className="mt-2 space-y-0.5">
+                  {shown.top.map((r) => (
+                    <ResultLine key={`${r.position}-${r.url || r.domain}`} r={r} you={isSameSite(r.domain, shown.domain)} />
+                  ))}
+                  {/* Ranked below the list (21-30): show the visitor's own row after a gap. */}
+                  {shown.position && shown.position > shown.top.length && (
+                    <>
+                      <li aria-hidden className="py-1 text-center text-[15px] tracking-[0.3em] text-[#c4c4c4]">
+                        ⋯
+                      </li>
+                      <ResultLine r={{ position: shown.position, title: shown.title || '', domain: shown.domain }} you />
+                    </>
+                  )}
+                </ol>
+              </div>
             </div>
-          )}
+          </ResultShell>
         </motion.div>
       </Container>
     </section>

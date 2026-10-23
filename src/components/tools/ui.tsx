@@ -7,17 +7,20 @@ import { COUNTRIES } from '@/lib/tools/countries';
 import type { Verdict } from '@/lib/tools/engines';
 
 /*
- * Form controls and verdict styles shared by the free tools. The tool pages
- * are dark, using the home page's dark tokens:
- *   bg #121212 · card #161616 · hairline #2a2a2a · muted text white/50 · accent #00da7f
+ * Form controls, cards and verdict styles shared by the free tools, in the
+ * site's light theme (see components/home/ui.tsx):
+ *   page #ededed · white cards · hairline #e4e4e4 · ink #121212 · body #545454 · accent #00da7f
  */
 
 export const inputClass =
-  'h-[52px] w-full rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] px-5 text-[16px] text-white placeholder:text-white/35 outline-none transition-colors focus:border-white/40';
+  'h-[52px] w-full rounded-xl border border-[#dcdcdc] bg-white px-4 text-[16px] text-[#121212] placeholder:text-[#9a9a9a] outline-none transition-[border-color,box-shadow] focus:border-[#121212] focus:shadow-[0_0_0_4px_rgba(18,18,18,0.06)]';
 
-/** Hypeon's white button (the home hero's secondary action), used as the tools' primary action. */
+/** Hypeon's dark gradient button (the home hero's primary action). */
 export const submitClass =
-  'inline-flex h-[52px] shrink-0 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-[16px] font-medium text-[#121212] transition-colors hover:bg-[#ececec] disabled:cursor-not-allowed disabled:opacity-60';
+  'inline-flex h-[52px] shrink-0 items-center justify-center gap-2 rounded-2xl border border-[#464646] bg-gradient-to-b from-[#373737] to-[#121212] px-6 text-[16px] font-medium text-white shadow-[0_3.667px_11px_rgba(16,24,40,0.1)] transition-[filter] duration-200 hover:brightness-125 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100';
+
+/** Small uppercase label used above lists inside cards. */
+export const labelClass = 'text-[12px] font-medium uppercase tracking-[0.14em] text-[#8a8a8a]';
 
 export function CountrySelect({
   value,
@@ -34,7 +37,7 @@ export function CountrySelect({
         aria-label="Country"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${inputClass} appearance-none pr-10 [&>option]:bg-[#1a1a1a] [&>option]:text-white ${value ? '' : 'text-white/35'}`}
+        className={`${inputClass} appearance-none pr-10 ${value ? '' : 'text-[#9a9a9a]'}`}
       >
         <option value="" disabled>
           Select country
@@ -45,7 +48,7 @@ export function CountrySelect({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/45" />
+      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]" />
     </div>
   );
 }
@@ -57,41 +60,36 @@ export const VERDICT_LABEL: Record<Verdict, string> = {
   error: 'Unavailable',
 };
 
-const VERDICT_TEXT: Record<Verdict, string> = {
-  cited: 'text-[#00da7f]',
-  mentioned: 'text-white/55',
-  not_found: 'text-[#ff8f9c]',
-  error: 'text-white/30',
+const VERDICT_STYLE: Record<Verdict, { dot: string; badge: string }> = {
+  cited: { dot: 'bg-[#00da7f]', badge: 'bg-[#e3f9ee] text-[#007a45]' },
+  mentioned: { dot: 'bg-[#f2a93b]', badge: 'bg-[#fdf2df] text-[#94600b]' },
+  not_found: { dot: 'bg-[#e5484d]', badge: 'bg-[#fdeaea] text-[#b4232a]' },
+  error: { dot: 'bg-[#c4c4c4]', badge: 'bg-[#f1f1f1] text-[#8a8a8a]' },
 };
 
-/** Plain coloured verdict, as used in the results table. `idle` is a prompt not checked yet. */
+/** Compact verdict pill with a status dot, as used in results tables. `idle` is a prompt not checked yet. */
 export function VerdictText({ verdict }: { verdict: Verdict | 'pending' | 'idle' }) {
-  if (verdict === 'idle') return <span className="text-[15px] text-white/25">—</span>;
-  if (verdict === 'pending') return <Loader2 className="h-4 w-4 animate-spin text-white/30" aria-label="Checking" />;
-  return <span className={`whitespace-nowrap text-[15px] ${VERDICT_TEXT[verdict]}`}>{VERDICT_LABEL[verdict]}</span>;
+  if (verdict === 'idle') return <span className="text-[15px] text-[#c4c4c4]">—</span>;
+  if (verdict === 'pending') return <Loader2 className="h-4 w-4 animate-spin text-[#b0b0b0]" aria-label="Checking" />;
+  const s = VERDICT_STYLE[verdict];
+  return (
+    <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-[13px] font-medium ${s.badge}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
+      {VERDICT_LABEL[verdict]}
+    </span>
+  );
 }
 
-const VERDICT_BADGE: Record<Verdict, string> = {
-  cited: 'border-[#00da7f]/30 bg-[#00da7f]/10 text-[#00da7f]',
-  mentioned: 'border-white/15 bg-white/[0.06] text-white/80',
-  not_found: 'border-[#ff8f9c]/30 bg-[#ff8f9c]/10 text-[#ff8f9c]',
-  error: 'border-white/10 bg-white/[0.04] text-white/40',
-};
-
-/** Small boxed verdict label, as used in the legend and the live answers. */
+/** Verdict pill for answer cards; shows a spinner while the assistant is still answering. */
 export function VerdictBadge({ verdict }: { verdict: Verdict | 'pending' }) {
   if (verdict === 'pending') {
     return (
-      <span className="inline-flex h-7 items-center gap-1.5 rounded-md border border-white/10 px-2 text-[13px] text-white/40">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f1f1f1] px-2.5 py-1 text-[13px] text-[#8a8a8a]">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Asking
       </span>
     );
   }
-  return (
-    <span className={`inline-flex h-7 items-center rounded-md border px-2 text-[13px] font-medium ${VERDICT_BADGE[verdict]}`}>
-      {VERDICT_LABEL[verdict]}
-    </span>
-  );
+  return <VerdictText verdict={verdict} />;
 }
 
 /** The domain and country the visitor last checked, shared by every tool form on a page. */

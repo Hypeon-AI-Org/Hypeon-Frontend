@@ -17,7 +17,7 @@ function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   // Dark navbar variant - only on the Studio page (dark background).
-  const isDark = pathname === "/studio" || pathname.startsWith("/tools");
+  const isDark = pathname === "/studio";
 
   const closeMobile = useCallback(() => {
     setMobileMenuOpen(false);

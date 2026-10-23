@@ -2,13 +2,15 @@
 
 import { useRef, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, Globe, Sparkles } from 'lucide-react';
 
-import { Accent, Container, DEMO_URL } from '@/components/home/ui';
+import { Container, DEMO_URL } from '@/components/home/ui';
 import { isSameSite } from '@/lib/tools/domain';
 import { ENGINES, type EngineResult, type Verdict } from '@/lib/tools/engines';
+import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
-import { CountrySelect, inputClass, submitClass, useToolTarget, VerdictText } from './ui';
+import { CountrySelect, inputClass, labelClass, submitClass, useToolTarget, VerdictText } from './ui';
+import { EngineMark } from './visuals';
 
 type PromptSet = { domain: string; brand: string; industry: string; prompts: string[] };
 type CheckResponse = { results: EngineResult[] };
@@ -24,6 +26,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 /** What visitors see before they run the tool. Fictional brand, illustrative verdicts. */
 const EXAMPLE = {
+  brand: 'lumenskin.com',
   title: 'Skincare · United Kingdom',
   rows: [
     { prompt: 'best vitamin c serum for dull skin', verdicts: ['cited', 'mentioned', 'cited', 'cited'] },
@@ -34,7 +37,7 @@ const EXAMPLE = {
   ] as { prompt: string; verdicts: Verdict[] }[],
 };
 
-const GRID = 'md:grid-cols-[minmax(0,1fr)_repeat(4,120px)]';
+const GRID = 'md:grid-cols-[minmax(0,1fr)_repeat(4,128px)]';
 
 export default function AiCitationChecker() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
@@ -106,54 +109,44 @@ export default function AiCitationChecker() {
   const mentioned = all.filter((r) => r.verdict === 'mentioned').length;
 
   return (
-    <section className="relative overflow-hidden pb-10 pt-[120px] md:pt-[160px]">
-      {/* soft glow behind the results table */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[520px] h-[520px] w-[1100px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(0,218,127,0.10),rgba(120,90,255,0.05)_60%,transparent)] blur-2xl"
-      />
-
-      <Container className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
-          className="text-center"
-        >
-          <p className="text-[13px] font-medium uppercase tracking-[0.2em] text-white/45">Free tool 01</p>
-          <h1 className="mt-4 text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-white md:text-[64px]">
-            Free AI citation <Accent>checker.</Accent>
-          </h1>
-          <p className="mx-auto mt-5 max-w-[620px] text-[18px] leading-[28px] text-white/55 md:text-[20px] md:leading-[30px]">
-            Find the questions buyers ask AI about your market, then see whether ChatGPT, Claude, Gemini and
-            Perplexity cite your website in the answer, and who they send people to instead.
-          </p>
-
-          <form onSubmit={onSubmit} className="mx-auto mt-9 flex max-w-[760px] flex-col gap-3 sm:flex-row">
-            <input
-              aria-label="Your domain"
-              placeholder="Your domain"
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              autoComplete="url"
-              inputMode="url"
-              className={`${inputClass} sm:flex-1`}
-            />
-            <CountrySelect value={country} onChange={setCountry} className="sm:w-[200px]" />
-            <button type="submit" disabled={busy || !ready} className={submitClass}>
-              {busy ? 'Checking…' : ready ? 'Find the prompts' : 'Verifying…'}
-            </button>
-          </form>
-          <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
-          <p className="mt-4 text-[14px] text-white/40">Free, no sign-up. Every answer is checked live with web search on.</p>
-          {(error || (failed && !ready)) && (
-            <p
-              role="alert"
-              className="mx-auto mt-4 max-w-[620px] rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[15px] text-[#ffb3bc]"
-            >
-              {error ?? 'The security check could not load. Please refresh the page.'}
-            </p>
-          )}
+    <section className="pb-6 pt-[112px] md:pt-[150px]">
+      <Container>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
+          <ToolHero
+            slug="ai-citation-checker"
+            title="Is AI recommending"
+            accent="your brand?"
+            sub="Buyers now ask ChatGPT before Google. We find the questions they ask about your market and check, live, whether AI sends them to you or to a competitor."
+            points={['ChatGPT, Claude, Gemini & Perplexity', 'Live web answers', 'No sign-up']}
+          >
+            <form onSubmit={onSubmit}>
+              <p className="text-[18px] font-medium text-[#121212]">Scan your brand</p>
+              <p className="mt-1 text-[14px] text-[#8a8a8a]">Takes about a minute. We check your top 3 buyer questions.</p>
+              <div className="relative mt-5">
+                <Globe className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9a9a9a]" />
+                <input
+                  aria-label="Your domain"
+                  placeholder="yourbrand.com"
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
+                  autoComplete="url"
+                  inputMode="url"
+                  className={`${inputClass} pl-10`}
+                />
+              </div>
+              <CountrySelect value={country} onChange={setCountry} className="mt-3" />
+              <button type="submit" disabled={busy || !ready} className={`${submitClass} mt-4 w-full`}>
+                {busy ? 'Scanning…' : ready ? 'Scan my AI visibility' : 'Verifying…'}
+                {ready && !busy && <ArrowRight className="h-4 w-4" />}
+              </button>
+              <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
+              {(error || (failed && !ready)) && (
+                <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
+                  {error ?? 'The security check could not load. Please refresh the page.'}
+                </p>
+              )}
+            </form>
+          </ToolHero>
         </motion.div>
 
         <motion.div
@@ -161,79 +154,77 @@ export default function AiCitationChecker() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease }}
-          className="mt-14 overflow-hidden rounded-2xl border border-[#2a2a2a] bg-[#161616]/90 backdrop-blur md:mt-20"
+          className="mt-14 scroll-mt-28 md:mt-20"
         >
-          {/* window bar */}
-          <div className="flex items-center gap-3 border-b border-[#2a2a2a] px-5 py-3.5">
-            <span className="flex gap-1.5" aria-hidden>
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-            </span>
-            <p className="truncate text-[14px] text-white/50">
-              Prompts people ask AI · {set ? `${set.brand}${set.industry ? ` · ${set.industry}` : ''}` : EXAMPLE.title}
-            </p>
-            {!set && (
-              <span className="ml-auto shrink-0 rounded-md border border-white/10 px-2 py-0.5 text-[12px] text-white/40">
-                Example
-              </span>
-            )}
-          </div>
-
-          <div className="px-2 pb-2 md:px-4">
-            <div className={`hidden gap-4 border-b border-[#2a2a2a] px-3 py-4 text-[14px] text-white/45 md:grid ${GRID}`}>
-              <span>Prompt</span>
-              {ENGINES.map((e) => (
-                <span key={e.id}>{e.name}</span>
-              ))}
-            </div>
-
-            {set
-              ? rows.map((row, i) => (
-                  <ResultRow
-                    key={row.prompt}
-                    row={row}
-                    domain={set.domain}
-                    open={open === i}
-                    onToggle={() => setOpen(open === i ? null : i)}
-                  />
-                ))
-              : EXAMPLE.rows.map((row) => (
-                  <div
-                    key={row.prompt}
-                    className={`grid gap-3 border-b border-[#2a2a2a] px-3 py-4 last:border-b-0 md:items-center md:gap-4 ${GRID}`}
-                  >
-                    <span className="text-[16px] text-white">“{row.prompt}”</span>
-                    <Verdicts verdicts={row.verdicts} />
+          <ResultShell
+            icon={Sparkles}
+            title={set ? `AI visibility · ${set.brand}` : `AI visibility · ${EXAMPLE.brand}`}
+            meta={set ? set.industry || set.domain : EXAMPLE.title}
+            example={!set}
+            footer={
+              done ? (
+                <>
+                  <div className="flex items-center gap-4">
+                    <div className="text-[36px] font-medium leading-none tracking-[-0.03em] text-[#121212]">
+                      {cited}
+                      <span className="text-[18px] text-[#9a9a9a]">/{all.length}</span>
+                    </div>
+                    <p className="text-[15px] leading-[22px] text-[#545454]">
+                      answers cite <span className="font-medium text-[#121212]">{set?.brand}</span>
+                      <br />
+                      {mentioned} more mention it. Open a question to see who wins instead.
+                    </p>
                   </div>
+                  <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                    {unchecked > 0 && (
+                      <button
+                        type="button"
+                        onClick={checkMore}
+                        className="inline-flex h-[46px] items-center justify-center rounded-2xl border border-[#d4d4d4] bg-white px-5 text-[15px] font-medium text-[#121212] transition-colors hover:bg-[#f5f5f5]"
+                      >
+                        Check {unchecked} more
+                      </button>
+                    )}
+                    <a href={DEMO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
+                      Get cited by AI <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                </>
+              ) : undefined
+            }
+          >
+            <div className="px-3 pb-2 md:px-4">
+              <div className={`hidden items-center gap-4 border-b border-[#ececec] px-3 py-3.5 md:grid ${GRID}`}>
+                <span className={labelClass}>Buyer question</span>
+                {ENGINES.map((e) => (
+                  <span key={e.id} className="flex items-center gap-2 text-[14px] font-medium text-[#333333]">
+                    <EngineMark id={e.id} size={20} />
+                    {e.name}
+                  </span>
                 ))}
-          </div>
-
-          {done && (
-            <div className="flex flex-col gap-4 border-t border-[#2a2a2a] px-5 py-5 md:flex-row md:items-center md:justify-between md:px-7">
-              <p className="text-[16px] text-white/60">
-                <span className="text-white">{set?.brand}</span> is cited in{' '}
-                <span className="text-[#00da7f]">
-                  {cited} of {all.length}
-                </span>{' '}
-                answers and mentioned in {mentioned}. Open a prompt to see who AI cites instead.
-              </p>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                {unchecked > 0 && (
-                  <button
-                    type="button"
-                    onClick={checkMore}
-                    className="inline-flex h-[46px] items-center justify-center rounded-2xl border border-[#464646] px-5 text-[15px] font-medium text-white transition-colors hover:bg-white/[0.06]"
-                  >
-                    Check {unchecked} more
-                  </button>
-                )}
-                <a href={DEMO_URL} className={`${submitClass} h-[46px] text-[15px]`}>
-                  Get cited by AI <ArrowRight className="h-4 w-4" />
-                </a>
               </div>
+
+              {set
+                ? rows.map((row, i) => (
+                    <ResultRow
+                      key={row.prompt}
+                      row={row}
+                      domain={set.domain}
+                      open={open === i}
+                      onToggle={() => setOpen(open === i ? null : i)}
+                    />
+                  ))
+                : EXAMPLE.rows.map((row) => (
+                    <div
+                      key={row.prompt}
+                      className={`grid gap-3 border-b border-[#f1f1f1] px-3 py-4 last:border-b-0 md:items-center md:gap-4 ${GRID}`}
+                    >
+                      <span className="text-[16px] text-[#121212]">“{row.prompt}”</span>
+                      <Verdicts verdicts={row.verdicts} />
+                    </div>
+                  ))}
             </div>
-          )}
+          </ResultShell>
         </motion.div>
       </Container>
     </section>
@@ -242,11 +233,11 @@ export default function AiCitationChecker() {
 
 function Verdicts({ verdicts }: { verdicts: (Verdict | 'pending' | 'idle')[] }) {
   return (
-    <span className="grid grid-cols-2 gap-x-4 gap-y-1.5 md:contents">
+    <span className="grid grid-cols-2 gap-x-4 gap-y-2 md:contents">
       {ENGINES.map((e, i) => (
         // Phones: engine name above its verdict, two engines per row; md+: one table column each.
-        <span key={e.id} className="flex flex-col items-start gap-0.5 md:block">
-          <span className="text-[12px] text-white/35 md:hidden">{e.name}</span>
+        <span key={e.id} className="flex flex-col items-start gap-1 md:block">
+          <span className="text-[12px] text-[#8a8a8a] md:hidden">{e.name}</span>
           <VerdictText verdict={verdicts[i]} />
         </span>
       ))}
@@ -257,17 +248,17 @@ function Verdicts({ verdicts }: { verdicts: (Verdict | 'pending' | 'idle')[] }) 
 function ResultRow({ row, domain, open, onToggle }: { row: Row; domain: string; open: boolean; onToggle: () => void }) {
   const results = ENGINES.map((e) => row.results?.find((r) => r.engine === e.id));
   return (
-    <div className="border-b border-[#2a2a2a] last:border-b-0">
+    <div className="border-b border-[#f1f1f1] last:border-b-0">
       <button
         type="button"
         onClick={onToggle}
         disabled={!row.results}
         aria-expanded={open}
-        className={`grid w-full gap-3 rounded-xl px-3 py-4 text-left transition-colors hover:bg-white/[0.03] disabled:hover:bg-transparent md:items-center md:gap-4 ${GRID}`}
+        className={`grid w-full gap-3 rounded-xl px-3 py-4 text-left transition-colors hover:bg-[#fafafa] disabled:hover:bg-transparent md:items-center md:gap-4 ${GRID}`}
       >
-        <span className="flex items-start gap-2 text-[16px] text-white">
+        <span className="flex items-start gap-2 text-[16px] text-[#121212]">
           <ChevronDown
-            className={`mt-1 h-4 w-4 shrink-0 text-white/30 transition-transform ${open ? 'rotate-180' : ''} ${
+            className={`mt-1 h-4 w-4 shrink-0 text-[#b0b0b0] transition-transform ${open ? 'rotate-180' : ''} ${
               row.results ? '' : 'opacity-0'
             }`}
           />
@@ -291,9 +282,11 @@ function ResultRow({ row, domain, open, onToggle }: { row: Row; domain: string; 
                   (d) => !isSameSite(d, domain)
                 );
                 return (
-                  <div key={e.id} className="rounded-xl border border-[#2a2a2a] bg-[#121212] p-3">
-                    <p className="text-[12px] uppercase tracking-[0.14em] text-white/35">{e.name} cited</p>
-                    <p className="mt-1.5 text-[14px] leading-[21px] text-white/70">
+                  <div key={e.id} className="rounded-xl bg-[#f7f7f7] p-3">
+                    <p className="flex items-center gap-2 text-[13px] font-medium text-[#121212]">
+                      <EngineMark id={e.id} size={18} /> {e.name} cited
+                    </p>
+                    <p className="mt-1.5 text-[14px] leading-[21px] text-[#545454]">
                       {others.length
                         ? others.slice(0, 4).join(' · ')
                         : results[i]?.verdict === 'cited'
