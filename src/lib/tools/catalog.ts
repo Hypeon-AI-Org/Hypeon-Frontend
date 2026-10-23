@@ -5,6 +5,13 @@
  */
 export const TOOL_CATALOG = [
   {
+    slug: 'ad-analyser',
+    title: 'AI Ad Analyser',
+    tagline: 'Will this ad work?',
+    body: 'Upload an image or UGC video ad and an AI strategist scores it, explains what works and what doesn’t, and tells you what to fix.',
+    live: true,
+  },
+  {
     slug: 'ai-citation-checker',
     title: 'AI Visibility Scanner',
     tagline: 'Is AI recommending you?',
@@ -16,13 +23,6 @@ export const TOOL_CATALOG = [
     title: 'Google Rank Finder',
     tagline: 'Where do you rank?',
     body: 'Find where any website ranks on Google for a keyword in your country, and exactly who holds the spots above you.',
-    live: true,
-  },
-  {
-    slug: 'ad-analyser',
-    title: 'AI Ad Analyser',
-    tagline: 'Will this ad work?',
-    body: 'Upload an image or UGC video ad and an AI strategist scores it, explains what works and what doesn’t, and tells you what to fix.',
     live: true,
   },
   {
