@@ -133,18 +133,18 @@ export default function ToolsPage() {
 
       <section className="pb-16 pt-[112px] md:pb-[88px] md:pt-[150px]">
         <Container>
-          <div className="max-w-[720px]">
+          <div className="mx-auto max-w-[760px] text-center">
             <div className="inline-flex h-9 items-center gap-2 rounded-full bg-white px-3 text-[14px] text-[#121212] shadow-[0_1px_2px_rgba(16,24,40,0.06)] ring-1 ring-[#e4e4e4]">
               <span className="font-accent italic">HypeOn</span> free tools
             </div>
             <h1 className="mt-5 text-[40px] font-medium leading-[1.06] tracking-[-0.03em] text-black md:text-[60px]">
               Growth tools, <Accent>on the house.</Accent>
             </h1>
-            <p className="mt-5 max-w-[580px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">
+            <p className="mx-auto mt-5 max-w-[580px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">
               See how AI assistants, Google and your ads really perform, with live data and no sign-up. Then let HypeOn
               close the gap.
             </p>
-            <div className="mt-7 flex flex-wrap gap-2">
+            <div className="mt-7 flex flex-wrap justify-center gap-2">
               {[`${live} live tools`, 'Live data', 'No sign-up', 'Free forever'].map((s) => (
                 <span key={s} className="rounded-full bg-white px-3 py-1.5 text-[14px] text-[#333333] ring-1 ring-[#e4e4e4]">
                   {s}
