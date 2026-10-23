@@ -105,8 +105,7 @@ export async function POST(req: Request) {
   });
   const messages = [{ role: 'user' as const, content }];
 
-  let analysis: ReturnType<typeof toAnalysis> = null;
-  for (const model of [AD_MODEL, FALLBACK_MODEL]) {
+  const review = async (model: string): Promise<ReturnType<typeof toAnalysis>> => {
     try {
       const data = await chat(model, messages, {
         temperature: 0,
@@ -115,12 +114,14 @@ export async function POST(req: Request) {
         jsonSchema: replySchema(kind),
       });
       const text = data.choices?.[0]?.message?.content ?? '';
-      analysis = toAnalysis(JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}'), kind);
-      if (analysis) break;
+      return toAnalysis(JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] ?? '{}'), kind);
     } catch (e) {
       console.error('ad-analyse', kind, model, e);
+      return null;
     }
-  }
+  };
+
+  const analysis = (await review(AD_MODEL)) ?? (await review(FALLBACK_MODEL));
 
   if (analysis === 'not_an_ad') {
     return toolError('This does not look like an ad. Upload the image or video you plan to run.', 422);

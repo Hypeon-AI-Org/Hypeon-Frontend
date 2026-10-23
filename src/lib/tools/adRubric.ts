@@ -69,42 +69,54 @@ export const CHECKS = [
   },
 ] as const;
 
+/*
+ * Video checks spell out all three grades. With only good/poor anchors ("ok =
+ * anything in between") the model split about 50/50 on borderline videos, e.g.
+ * a face from 0.1s with no hook text graded good one run and ok the next,
+ * moving the score by 30 points. Explicit "ok" definitions remove that gap.
+ */
 export const VIDEO_CHECKS = [
   {
     id: 'hook', name: 'Hook (first 3 seconds)', weight: 25,
     ask: 'Do the opening frames (0-3s) give a reason to keep watching?',
-    good: 'the first frames show a face talking to camera, bold hook text, a surprising moment or the product in action',
-    poor: 'a slow, generic or logo-first opening where nothing happens in the first three seconds',
+    good: 'within the first 3 seconds a face or the product is on screen AND there is a hook: bold on-screen text, a surprising moment, or the product visibly in action',
+    ok: 'a face or the product is on screen in the first 3 seconds, but there is no hook text, surprise or action',
+    poor: 'nothing happens in the first 3 seconds: an empty scene, a logo intro, or the person or product only appears after 3 seconds',
   },
   {
     id: 'product', name: 'Product & benefit', weight: 20,
     ask: 'Is the product clearly shown, ideally in use, with its benefit visible or written on screen?',
-    good: 'the product is shown clearly and in use, and its benefit is obvious',
+    good: 'the product is clearly visible AND shown being used or its result is shown',
+    ok: 'the product is visible but only held up or shown briefly, not in use',
     poor: 'the product is barely visible or never shown',
   },
   {
     id: 'captions', name: 'Captions & on-screen text', weight: 15,
     ask: 'Would the message land with the sound off (most people watch muted)?',
-    good: 'large, readable captions or text carry the message through most of the video',
-    poor: 'no captions or text, or text too small to read on a phone',
+    good: 'readable captions or text appear in most of the frames',
+    ok: 'text appears in only a few frames, such as a label or a single title',
+    poor: 'no captions or on-screen text in any frame, or text too small to read on a phone',
   },
   {
     id: 'trust', name: 'Authenticity & proof', weight: 15,
     ask: 'Does it feel native and believable, with proof such as a demo, result, before/after or review?',
-    good: 'a real person, native phone-shot feel, and visible proof the product works',
-    poor: 'feels like stock footage or a polished TV spot with nothing that proves the claim',
+    good: 'a real person in a native, phone-shot style AND visible proof on screen: a before/after, a demonstrated result, or a review or rating',
+    ok: 'a real person in a native style, but no visible proof on screen',
+    poor: 'feels like stock footage or a polished TV spot, with no real person and no proof',
   },
   {
     id: 'cta', name: 'Call to action', weight: 15,
     ask: 'Do the final frames tell viewers what to do next?',
-    good: 'the ending shows a clear next step or offer (Shop now, link in bio, 20% off)',
-    poor: 'the video ends with no instruction, offer or next step',
+    good: 'the final frames show an explicit next step or offer in text (Shop now, link in bio, 20% off)',
+    ok: 'the ending shows the product or brand, but no explicit instruction or offer',
+    poor: 'the video ends with no product, brand, instruction or offer',
   },
   {
     id: 'fit', name: 'Platform fit', weight: 10,
     ask: 'Do the shape, framing and safe zones suit the chosen placement?',
-    good: 'vertical 9:16 for Stories, Reels and TikTok, with faces and text inside the safe zones',
-    poor: 'the wrong shape for the placement, or faces and text where the app covers them',
+    good: 'the right shape for the placement (9:16 for Stories, Reels and TikTok) with faces and text inside the safe zones',
+    ok: 'the right shape, but some text or a face sits near an edge where the app may cover it',
+    poor: 'the wrong shape for the placement, or key content clearly under the app buttons',
   },
 ] as const;
 
@@ -181,7 +193,7 @@ ${video ? 'Video' : 'Image'} size: ${opts.width}x${opts.height} px, aspect ratio
 ${opts.copy ? `Ad copy supplied by the advertiser: """${opts.copy}"""` : `No ad copy was supplied; judge the ${video ? 'video' : 'image'} alone.`}
 
 Grade each check as good, ok or poor, judging only what is visible. Use these fixed definitions:
-${checks.map((c) => `- ${c.id}: ${c.ask}\n    good = ${c.good}\n    poor = ${c.poor}\n    ok = anything in between`).join('\n')}
+${checks.map((c) => `- ${c.id}: ${c.ask}\n    good = ${c.good}\n    ok = ${'ok' in c ? c.ok : 'anything in between'}\n    poor = ${c.poor}`).join('\n')}
 
 Rules:
 - Return every check exactly once, in the order above.
@@ -215,18 +227,20 @@ export function toAnalysis(raw: RawReply, kind: AdKind): AdAnalysis | 'not_an_ad
   if (checks.some((c) => !c)) return null;
   const graded = checks as AdAnalysis['checks'];
 
-  const score = Math.round(
-    graded.reduce((sum, c) => sum + POINTS[c.grade] * (list.find((x) => x.id === c.id)?.weight ?? 0), 0)
-  );
   const clean = (list: unknown, n: number) =>
     (Array.isArray(list) ? list : []).filter((s): s is string => typeof s === 'string' && !!s.trim()).slice(0, n).map((s) => s.trim().slice(0, 200));
 
   return {
-    score,
+    score: scoreOf(graded, kind),
     summary: String(raw.summary ?? '').slice(0, 240),
     checks: graded,
     fixes: clean(raw.fixes, 3),
     headlines: clean(raw.headlines, 2),
     cta: String(raw.cta ?? '').slice(0, 40),
   };
+}
+
+function scoreOf(checks: AdAnalysis['checks'], kind: AdKind): number {
+  const list = checksFor(kind);
+  return Math.round(checks.reduce((sum, c) => sum + POINTS[c.grade] * (list.find((x) => x.id === c.id)?.weight ?? 0), 0));
 }
