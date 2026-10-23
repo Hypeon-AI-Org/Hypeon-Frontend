@@ -138,7 +138,7 @@ export default function ToolsPage() {
               <span className="font-accent italic">HypeOn</span> free tools
             </div>
             <h1 className="mt-5 text-[40px] font-medium leading-[1.06] tracking-[-0.03em] text-black md:text-[60px]">
-              Growth tools, <Accent>on the house.</Accent>
+              Growth tools <Accent>on the house.</Accent>
             </h1>
             <p className="mx-auto mt-5 max-w-[580px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">
               See how AI assistants, Google and your ads really perform, with live data and no sign-up. Then let HypeOn
