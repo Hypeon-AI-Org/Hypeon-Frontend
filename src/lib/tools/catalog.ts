@@ -18,6 +18,12 @@ export const TOOL_CATALOG = [
     body: 'Put your site next to any competitor and see their keywords, traffic and the searches they win that you don’t.',
     live: false,
   },
+  {
+    slug: 'ad-analyser',
+    title: 'AI ad analyser',
+    body: 'Upload an ad and an AI agent reviews it like a performance marketer: a score, what works, what doesn’t, and the fixes to make.',
+    live: false,
+  },
 ] as const;
 
 export type ToolSlug = (typeof TOOL_CATALOG)[number]['slug'];

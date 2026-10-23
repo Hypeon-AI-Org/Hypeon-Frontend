@@ -122,10 +122,39 @@ function CitationPreview() {
   );
 }
 
+function AdPreview() {
+  const checks: [string, string, string][] = [
+    ['Hook', 'Strong', 'text-[#00da7f]'],
+    ['Message', 'Could be clearer', 'text-white/55'],
+    ['Call to action', 'Missing', 'text-[#ff8f9c]'],
+  ];
+  return (
+    <Frame>
+      <div className="flex items-center justify-between gap-3 text-[13px]">
+        <span className="min-w-0 truncate text-white/80">summer-sale-ad.jpg</span>
+        <Chip>Meta · Feed</Chip>
+      </div>
+      <div className="mt-3 flex items-end gap-2">
+        <span className="text-[36px] font-medium leading-none text-white">72</span>
+        <span className="pb-0.5 text-[13px] text-white/40">/ 100 ad score</span>
+      </div>
+      <ul className="mt-3 divide-y divide-[#2a2a2a] text-[14px]">
+        {checks.map(([k, v, c]) => (
+          <li key={k} className="flex justify-between gap-3 py-2.5">
+            <span className="text-white/80">{k}</span>
+            <span className={`whitespace-nowrap ${c}`}>{v}</span>
+          </li>
+        ))}
+      </ul>
+    </Frame>
+  );
+}
+
 const PREVIEW: Record<ToolSlug, () => ReactNode> = {
   'seo-competitor-analysis': CompetitorPreview,
   'keyword-rank-checker': RankPreview,
   'ai-citation-checker': CitationPreview,
+  'ad-analyser': AdPreview,
 };
 
 export default function ToolsPage() {

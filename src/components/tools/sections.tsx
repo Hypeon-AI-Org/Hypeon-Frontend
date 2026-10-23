@@ -97,11 +97,18 @@ export function MoreTools({ current }: { current: ToolSlug }) {
   const others = TOOL_CATALOG.filter((t) => t.slug !== current);
   return (
     <ToolSection className="!py-8">
-      <div className="grid overflow-hidden rounded-2xl border border-[#2a2a2a] md:grid-cols-2">
+      {/* One column per other tool; with three, each cell stacks its button under the title. */}
+      <div
+        className={`grid overflow-hidden rounded-2xl border border-[#2a2a2a] ${
+          others.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+        }`}
+      >
         {others.map((t) => (
           <div
             key={t.slug}
-            className="flex items-center justify-between gap-4 border-b border-[#2a2a2a] bg-[#121212] px-6 py-7 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
+            className={`flex justify-between gap-4 border-b border-[#2a2a2a] bg-[#121212] px-6 py-7 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 ${
+              others.length >= 3 ? 'items-center md:flex-col md:items-start' : 'items-center'
+            }`}
           >
             <div>
               <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-white/40">More free tools</p>
