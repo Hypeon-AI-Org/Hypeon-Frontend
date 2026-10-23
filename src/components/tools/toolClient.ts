@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 /*
  * Browser side of the free tools' bot check (see src/lib/tools/captcha.ts).
@@ -45,15 +45,22 @@ function loadScript(): Promise<void> {
   return scriptPromise;
 }
 
+/** How long a click waits for Cloudflare before telling the visitor to retry. */
+const TOKEN_WAIT_MS = 10_000;
+
 /**
- * Mounts a Turnstile widget into the returned ref. `getToken` resolves with a
- * fresh token, or null when no site key is configured.
+ * Mounts a Turnstile widget into the returned ref. `ready` is false while
+ * Cloudflare is still verifying, so forms can disable their button instead of
+ * letting a click wait silently. `getToken` resolves with a fresh token (null
+ * when no token is needed) or throws a ToolError the form can show.
  */
 export function useTurnstile() {
   const ref = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
   const token = useRef<string | null>(null);
   const waiters = useRef<((t: string | null) => void)[]>([]);
+  const [tokenReady, setTokenReady] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (!SITE_KEY || !ref.current) return;
@@ -69,14 +76,24 @@ export function useTurnstile() {
           'refresh-expired': 'auto',
           callback: (t: string) => {
             token.current = t;
+            setTokenReady(true);
+            setFailed(false);
             waiters.current.splice(0).forEach((w) => w(t));
           },
           'expired-callback': () => {
             token.current = null;
+            setTokenReady(false);
+          },
+          // Without this a widget error left clicks waiting with no message.
+          'error-callback': () => {
+            token.current = null;
+            setTokenReady(false);
+            setFailed(true);
+            waiters.current.splice(0).forEach((w) => w(null));
           },
         });
       })
-      .catch(() => {});
+      .catch(() => setFailed(true));
     return () => {
       cancelled = true;
       if (widgetId.current && window.turnstile) window.turnstile.remove(widgetId.current);
@@ -90,14 +107,18 @@ export function useTurnstile() {
       token.current ??
       (await new Promise<string | null>((resolve) => {
         waiters.current.push(resolve);
-        setTimeout(() => resolve(null), 15_000);
+        setTimeout(() => resolve(null), TOKEN_WAIT_MS);
       }));
+    if (!t) throw new ToolError('The security check did not finish. Please wait a moment and try again.');
     token.current = null;
+    setTokenReady(false);
     if (widgetId.current && window.turnstile) window.turnstile.reset(widgetId.current);
     return t;
   }, []);
 
-  return { ref, getToken };
+  /** A valid tool session from an earlier check on this page skips the captcha. */
+  const ready = !SITE_KEY || Boolean(session) || tokenReady;
+  return { ref, getToken, ready, failed };
 }
 
 export class ToolError extends Error {}

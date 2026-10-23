@@ -44,7 +44,7 @@ const EXAMPLE: RankResponse = {
 
 export default function KeywordRankChecker() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
-  const { ref: captchaRef, getToken } = useTurnstile();
+  const { ref: captchaRef, getToken, ready, failed } = useTurnstile();
   const resultRef = useRef<HTMLDivElement>(null);
 
   const [keyword, setKeyword] = useState('');
@@ -110,18 +110,18 @@ export default function KeywordRankChecker() {
               className={`${inputClass} md:flex-1`}
             />
             <CountrySelect value={country} onChange={setCountry} className="md:w-[190px]" />
-            <button type="submit" disabled={busy} className={submitClass}>
-              {busy ? 'Checking…' : 'Check ranking'}
+            <button type="submit" disabled={busy || !ready} className={submitClass}>
+              {busy ? 'Checking…' : ready ? 'Check ranking' : 'Verifying…'}
             </button>
           </form>
           <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
           <p className="mt-4 text-[14px] text-white/40">Free, no sign-up. Checks the live Google top 30.</p>
-          {error && (
+          {(error || (failed && !ready)) && (
             <p
               role="alert"
               className="mx-auto mt-4 max-w-[620px] rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[15px] text-[#ffb3bc]"
             >
-              {error}
+              {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
         </motion.div>

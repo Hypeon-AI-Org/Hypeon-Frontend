@@ -17,7 +17,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 /** Ask one question of your own and read every assistant's full answer and sources. */
 export default function LiveCheck() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
-  const { ref: captchaRef, getToken } = useTurnstile();
+  const { ref: captchaRef, getToken, ready, failed } = useTurnstile();
 
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
@@ -67,8 +67,8 @@ export default function LiveCheck() {
               maxLength={300}
               className={`${inputClass} md:flex-1`}
             />
-            <button type="submit" disabled={loading} className={submitClass}>
-              {loading ? 'Asking…' : 'Check AI citations live'}
+            <button type="submit" disabled={loading || !ready} className={submitClass}>
+              {loading ? 'Asking…' : ready ? 'Check AI citations live' : 'Verifying…'}
             </button>
           </div>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 md:max-w-[520px]">
@@ -83,9 +83,9 @@ export default function LiveCheck() {
             <CountrySelect value={country} onChange={setCountry} className="[&_select]:h-[46px] [&_select]:text-[15px]" />
           </div>
           <div ref={captchaRef} className="mt-3 empty:hidden" />
-          {error && (
+          {(error || (failed && !ready)) && (
             <p role="alert" className="mt-4 rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[15px] text-[#ffb3bc]">
-              {error}
+              {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
         </form>

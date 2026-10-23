@@ -38,7 +38,7 @@ const GRID = 'md:grid-cols-[minmax(0,1fr)_repeat(4,120px)]';
 
 export default function AiCitationChecker() {
   const { domain, setDomain, country, setCountry } = useToolTarget();
-  const { ref: captchaRef, getToken } = useTurnstile();
+  const { ref: captchaRef, getToken, ready, failed } = useTurnstile();
   const tableRef = useRef<HTMLDivElement>(null);
 
   const [busy, setBusy] = useState(false);
@@ -140,18 +140,18 @@ export default function AiCitationChecker() {
               className={`${inputClass} sm:flex-1`}
             />
             <CountrySelect value={country} onChange={setCountry} className="sm:w-[200px]" />
-            <button type="submit" disabled={busy} className={submitClass}>
-              {busy ? 'Checking…' : 'Find the prompts'}
+            <button type="submit" disabled={busy || !ready} className={submitClass}>
+              {busy ? 'Checking…' : ready ? 'Find the prompts' : 'Verifying…'}
             </button>
           </form>
           <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
           <p className="mt-4 text-[14px] text-white/40">Free, no sign-up. Every answer is checked live with web search on.</p>
-          {error && (
+          {(error || (failed && !ready)) && (
             <p
               role="alert"
               className="mx-auto mt-4 max-w-[620px] rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-[15px] text-[#ffb3bc]"
             >
-              {error}
+              {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
         </motion.div>

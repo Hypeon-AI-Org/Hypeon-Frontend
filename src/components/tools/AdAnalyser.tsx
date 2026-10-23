@@ -78,7 +78,7 @@ function scoreColour(score: number): string {
 }
 
 export default function AdAnalyser() {
-  const { ref: captchaRef, getToken } = useTurnstile();
+  const { ref: captchaRef, getToken, ready, failed } = useTurnstile();
   const fileRef = useRef<HTMLInputElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -227,8 +227,8 @@ export default function AdAnalyser() {
               </select>
               <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/45">▾</span>
             </div>
-            <button type="submit" disabled={busy} className={submitClass}>
-              {busy ? 'Analysing…' : 'Analyse my ad'}
+            <button type="submit" disabled={busy || !ready} className={submitClass}>
+              {busy ? 'Analysing…' : ready ? 'Analyse my ad' : 'Verifying…'}
             </button>
           </div>
 
@@ -254,12 +254,12 @@ export default function AdAnalyser() {
 
           <div ref={captchaRef} className="mt-4 flex justify-center empty:hidden" />
           <p className="mt-4 text-center text-[14px] text-white/40">Free, no sign-up. Your image is analysed, never stored.</p>
-          {error && (
+          {(error || (failed && !ready)) && (
             <p
               role="alert"
               className="mt-4 rounded-2xl border border-[#ff8f9c]/25 bg-[#ff8f9c]/10 px-4 py-3 text-center text-[15px] text-[#ffb3bc]"
             >
-              {error}
+              {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
         </form>
@@ -288,13 +288,17 @@ export default function AdAnalyser() {
           </div>
 
           <div className="grid gap-6 p-5 md:grid-cols-[260px_minmax(0,1fr)] md:gap-8 md:p-7">
-            {/* the ad + score */}
+            {/* the ad + score; on phones the ad is capped at 240px so the score stays near the top */}
             <div>
               {result ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={result.image} alt="Your ad" className="w-full rounded-xl border border-[#2a2a2a] object-contain" />
+                <img
+                  src={result.image}
+                  alt="Your ad"
+                  className="mx-auto w-full max-w-[240px] rounded-xl border border-[#2a2a2a] object-contain md:max-w-none"
+                />
               ) : (
-                <div className="flex aspect-[4/5] w-full flex-col items-center justify-center rounded-xl border border-[#2a2a2a] bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center">
+                <div className="mx-auto flex aspect-[4/5] w-full max-w-[240px] flex-col items-center justify-center rounded-xl md:max-w-none border border-[#2a2a2a] bg-[linear-gradient(160deg,#2b1d14,#121212_70%)] text-center">
                   <span className="h-24 w-10 rounded-[14px] bg-gradient-to-b from-[#ff9a3c] to-[#e2581b] shadow-[0_10px_30px_rgba(255,120,40,0.35)]" />
                   <p className="mt-4 text-[15px] font-medium text-white">Glow Serum</p>
                   <p className="text-[11px] text-white/40">30% off today</p>
