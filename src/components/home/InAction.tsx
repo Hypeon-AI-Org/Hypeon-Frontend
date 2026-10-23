@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ScanSearch, Wand2 } from 'lucide-react';
-import LazyVideo from '@/components/LazyVideo';
+import AdIntelDemo from './AdIntelDemo';
+import StudioDemo from './StudioDemo';
 import { Accent, Container, H2 } from './ui';
 
 const DEMOS = [
@@ -12,18 +13,14 @@ const DEMOS = [
     name: 'Ad Intelligence',
     role: 'Decode any competitor',
     icon: ScanSearch,
-    video: '/hypeon-dem.mp4',
-    poster: '/hypeon-dem.jpg',
-    fit: 'object-contain bg-white',
+    Demo: AdIntelDemo,
   },
   {
     key: 'studio',
     name: 'HypeOn Studio',
     role: 'Create ads in seconds',
     icon: Wand2,
-    video: '/hypeon-studio.mp4',
-    poster: '/hypeon-studio-poster.jpg',
-    fit: 'object-cover',
+    Demo: StudioDemo,
   },
 ];
 
@@ -92,7 +89,7 @@ export default function InAction() {
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 className="absolute inset-0"
               >
-                <LazyVideo src={demo.video} poster={demo.poster} className={`h-full w-full ${demo.fit}`} />
+                <demo.Demo />
               </motion.div>
             </AnimatePresence>
           </div>
