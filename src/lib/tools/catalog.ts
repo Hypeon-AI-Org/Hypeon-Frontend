@@ -7,15 +7,15 @@ export const TOOL_CATALOG = [
     live: true,
   },
   {
-    slug: 'seo-competitor-analysis',
-    title: 'SEO competitor analysis',
-    body: 'Put your site next to any competitor and see their keywords, traffic and the searches they win that you don’t.',
-    live: false,
-  },
-  {
     slug: 'keyword-rank-checker',
     title: 'Keyword rank checker',
     body: 'Find where any website ranks on Google for a keyword in your country, and who holds the spots above you.',
+    live: true,
+  },
+  {
+    slug: 'seo-competitor-analysis',
+    title: 'SEO competitor analysis',
+    body: 'Put your site next to any competitor and see their keywords, traffic and the searches they win that you don’t.',
     live: false,
   },
 ] as const;
