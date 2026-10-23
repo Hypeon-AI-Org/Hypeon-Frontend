@@ -15,10 +15,20 @@ type Completion = {
   error?: { message?: string };
 };
 
+/** A message is plain text, or text plus images (data: URLs) for vision models. */
+export type ContentPart = { type: 'text'; text: string } | { type: 'image_url'; image_url: { url: string } };
+
 export async function chat(
   model: string,
-  messages: { role: 'system' | 'user'; content: string }[],
-  opts: { webSearch?: 'plugin' | 'native'; maxTokens?: number; timeoutMs?: number } = {}
+  messages: { role: 'system' | 'user'; content: string | ContentPart[] }[],
+  opts: {
+    webSearch?: 'plugin' | 'native';
+    maxTokens?: number;
+    timeoutMs?: number;
+    temperature?: number;
+    /** Forces a reply matching this JSON schema (structured outputs). */
+    jsonSchema?: { name: string; schema: Record<string, unknown> };
+  } = {}
 ): Promise<Completion> {
   const key = process.env.OPENROUTER_API_KEY?.trim();
   if (!key) throw new Error('OPENROUTER_API_KEY is not set');
@@ -28,6 +38,10 @@ export async function chat(
     messages,
     max_tokens: opts.maxTokens ?? 1200,
   };
+  if (opts.temperature !== undefined) body.temperature = opts.temperature;
+  if (opts.jsonSchema) {
+    body.response_format = { type: 'json_schema', json_schema: { ...opts.jsonSchema, strict: true } };
+  }
   if (opts.webSearch === 'plugin') body.plugins = [{ id: 'web', max_results: 5 }];
   if (opts.webSearch === 'native') body.web_search_options = { search_context_size: 'low' };
   // Keep reasoning short where the model supports it; OpenRouter drops it elsewhere.
