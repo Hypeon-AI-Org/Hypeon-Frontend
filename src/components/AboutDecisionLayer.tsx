@@ -62,18 +62,18 @@ export default function AboutDecisionLayer() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-white pb-16 sm:pb-20 lg:pb-24">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section ref={ref} className="bg-white pb-16 md:pb-20 lg:pb-24">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {cards.map((card, i) => (
             <div
               key={card.label}
-              className={`rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all duration-700 ease-out sm:p-8 ${
+              className={`rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all duration-700 ease-out md:p-8 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <p className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+              <p className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
                 <Counter value={card.value} visible={visible} />
               </p>
               <p className="mt-1.5 text-sm text-slate-500">{card.label}</p>

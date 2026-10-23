@@ -29,13 +29,13 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <section className="bg-white px-6 py-12 sm:px-10 sm:py-16">
+        <section className="bg-white px-4 py-16 md:px-10">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={reveal}
-                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[#0a0a0c] px-6 py-10 sm:px-10 sm:py-14 lg:px-14"
+                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[#0a0a0c] p-6 md:px-10 md:py-14 lg:px-14"
             >
                 {/* decorative concentric rings */}
                 <div className="pointer-events-none absolute -right-24 top-1/2 hidden h-[460px] w-[460px] -translate-y-1/2 rounded-full border border-white/[0.06] lg:block">
@@ -49,16 +49,16 @@ export function TabHoppingSection() {
                         <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white/70">
                             Save 10+ hours a week
                         </span>
-                        <h2 className="mt-5 text-2xl font-bold leading-[1.1] tracking-tighter text-white sm:text-4xl">
+                        <h2 className="mt-5 text-[32px] font-bold leading-[1.2] tracking-tighter text-white md:text-4xl">
                             Stop tab hopping<br className="hidden sm:block text-white" /> between five libraries
                         </h2>
-                        <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60">
+                        <p className="mt-4 max-w-md text-lg leading-7 text-white/60 md:text-sm md:leading-relaxed">
                             Meta, TikTok, Google, LinkedIn, Instagram - competitive analysis, aggregated
                             reach, and daily creative change tracking, all in one view.
                         </p>
                         <a
                             href="https://app.hypeon.ai/studio/login"
-                            className="group relative mt-7 inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+                            className="group relative mt-7 inline-flex items-center gap-2 h-[50px] overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold md:h-auto text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                         >
                             <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
                             <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
@@ -72,7 +72,7 @@ export function TabHoppingSection() {
                     {/* comparison cards */}
                     <div className="relative">
                         {/* Before */}
-                        <div className="relative z-10 rounded-2xl bg-white p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
+                        <div className="relative z-10 rounded-2xl bg-white p-6 md:p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
                             <div className="flex items-start justify-between gap-2 sm:gap-4">
                                 <div>
                                     <p className="text-[11px] font-semibold text-slate-400">Before</p>
@@ -80,8 +80,8 @@ export function TabHoppingSection() {
                                         Five tabs. Five logins.<br />Zero share-of-voice
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
-                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-500 sm:px-2.5 sm:text-[11px]">8–12 h per week</span>
-                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-500 sm:px-2.5 sm:text-[11px]">Fragmented data</span>
+                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[11px] font-medium text-slate-500 sm:px-2.5">8–12 h per week</span>
+                                        <span className="whitespace-nowrap rounded-full border border-slate-200 px-2 py-1 text-[11px] font-medium text-slate-500 sm:px-2.5">Fragmented data</span>
                                     </div>
                                 </div>
                                 <div className="relative h-[142px] w-[150px] flex-shrink-0">
@@ -114,7 +114,7 @@ export function TabHoppingSection() {
                         </div>
 
                         {/* With HypeOn */}
-                        <div className="relative z-0 mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#232326] to-[#0a0a0c] p-5 ring-1 ring-white/10">
+                        <div className="relative z-0 mt-3 overflow-hidden rounded-2xl bg-gradient-to-br from-[#232326] to-[#0a0a0c] p-6 md:p-5 ring-1 ring-white/10">
                             {/* dashed concentric rings radiating from the node */}
                             <div className="pointer-events-none absolute right-[42px] top-1/2 -translate-y-1/2">
                                 {[110, 190, 280, 380].map((s) => (
@@ -133,8 +133,8 @@ export function TabHoppingSection() {
                                         One workspace.<br />One source of truth
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">
-                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[10px] font-medium text-white/80 sm:px-2.5 sm:text-[11px]">Under 30 min per week</span>
-                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[10px] font-medium text-white/80 sm:px-2.5 sm:text-[11px]">One source of truth</span>
+                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[11px] font-medium text-white/80 sm:px-2.5">Under 30 min per week</span>
+                                        <span className="whitespace-nowrap rounded-full border border-white/20 px-2 py-1 text-[11px] font-medium text-white/80 sm:px-2.5">One source of truth</span>
                                     </div>
                                 </div>
                                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
@@ -157,13 +157,13 @@ export function AskCopilotSection() {
     ];
 
     return (
-        <section className="bg-white px-6 py-12 sm:px-10 sm:py-16">
+        <section className="bg-white px-4 py-16 md:px-10">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={reveal}
-                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-10 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.18)] sm:px-10 sm:py-14 lg:px-14"
+                className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.18)] md:px-10 md:py-14 lg:px-14"
             >
                 {/* faint dot-grid texture */}
                 <div
@@ -186,10 +186,10 @@ export function AskCopilotSection() {
                         <span className="inline-block rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                             Your AI ad-intel analyst
                         </span>
-                        <h2 className="mt-5 text-2xl font-bold leading-[1.1] tracking-tighter text-[#1B1C3A] sm:text-4xl">
+                        <h2 className="mt-5 text-[32px] font-bold leading-[1.2] tracking-tighter text-[#1B1C3A] md:text-4xl">
                             Skip the dashboard.<br />Just ask Copilot
                         </h2>
-                        <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-500">
+                        <p className="mt-4 max-w-md text-lg leading-7 text-slate-500 md:text-sm md:leading-relaxed">
                             What new angles is Nike testing this month? Or where is Adidas shifting budget?
                             Copilot pulls real ad data across Meta, TikTok, Google, and LinkedIn and answers
                             in seconds.
@@ -197,7 +197,7 @@ export function AskCopilotSection() {
                         <div className="mt-7 flex flex-wrap gap-3">
                             <a
                                 href="https://app.hypeon.ai/studio/login"
-                                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+                                className="group relative inline-flex items-center gap-2 h-[50px] overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-5 py-2.5 text-sm font-bold md:h-auto text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
                             >
                                 <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
                                 <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
@@ -208,7 +208,7 @@ export function AskCopilotSection() {
                             </a>
                             <a
                                 href="https://app.hypeon.ai/studio/login"
-                                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-[#1B1C3A] transition-colors hover:bg-slate-50"
+                                className="inline-flex h-[50px] items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm md:h-auto font-semibold text-[#1B1C3A] transition-colors hover:bg-slate-50"
                             >
                                 See Copilot in action
                             </a>

@@ -1,804 +1,262 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowUp,
-  PanelLeft,
-  TrendingDown,
-  ArrowRight,
-  Lock,
-  Activity,
-  Search,
-  Calendar,
-  Clock,
-  Users,
-  LayoutGrid,
-  X,
-  Maximize2,
-  Crosshair,
-  User as UserIcon,
-  MessageCircle,
-  Plus,
-  Zap,
-  ChevronDown,
-  BadgeCheck,
-  BarChart3
-} from 'lucide-react';
-import { motion, AnimatePresence, useReducedMotion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { VolumeX } from 'lucide-react';
 import { primeIOSVideo } from '@/lib/videoAutoplay';
 import { onIntroDone } from '@/lib/introSignal';
+import { DarkButton, LightButton, STUDIO_URL } from '@/components/home/ui';
 
-type ShowcaseCard = {
-  src: string;
-  poster: string;
-  caption: string;
-  left: string;
-  top: string;
-  width: number;
+/*
+ * Desktop field, laid out on an 880px-tall stage. `dx` is the card's left edge
+ * relative to the horizontal centre; every value is a measured px offset.
+ */
+type Card = { src: string; poster: string; dx: number; top: number; w: number; h: number; rot: number };
+
+// Every card is 156x277; positions are the untilted box, worked back from each
+// card's measured centre (a tilted card's on-screen box is larger than the card).
+const CARDS: Card[] = [
+  { src: '/hero/ind-vid/wellness.mp4', poster: '/hero/ind-vid/posters/wellness.jpg', dx: -628, top: 66, w: 156, h: 277, rot: -2 },
+  { src: '/hero/ind-vid/beauty.mp4', poster: '/hero/ind-vid/posters/beauty.jpg', dx: -98, top: -126, w: 156, h: 277, rot: -1 },
+  { src: '/hero/ind-vid/fashion.mp4', poster: '/hero/ind-vid/posters/fashion.jpg', dx: 452, top: 40, w: 156, h: 277, rot: 6 },
+  { src: '/hero/ind-vid/food.mp4', poster: '/hero/ind-vid/posters/food.jpg', dx: -514, top: 477, w: 156, h: 277, rot: 2 },
+  { src: '/hero/ind-vid/home.mp4', poster: '/hero/ind-vid/posters/home.jpg', dx: -77, top: 574, w: 156, h: 277, rot: 0 },
+  { src: '/carousel/045e53458f4485d2.mp4', poster: '/carousel/posters/045e53458f4485d2.jpg', dx: 328, top: 478, w: 156, h: 277, rot: -1 },
+];
+
+// Out-of-focus cards behind the field: faint (30-40% opacity), heavily blurred faces.
+const BLURRED = [
+  { poster: '/carousel/posters/50b18d1681e20f36.jpg', dx: -399, top: -51, w: 128, h: 192, opacity: 0.4, blur: 30 },
+  { poster: '/carousel/posters/51ebaa4623434df4.jpg', dx: 285, top: 64, w: 96, h: 143, opacity: 0.3, blur: 30 },
+  { poster: '/carousel/posters/23f0d4105b094537.jpg', dx: 205, top: 398, w: 96, h: 143, opacity: 0.3, blur: 20 },
+  { poster: '/carousel/posters/b22cdc25095d2d23.jpg', dx: -819, top: 401, w: 160, h: 240, opacity: 0.3, blur: 30 },
+];
+
+// Where the stack sits before it bursts: a 156x277 card, centred, 205px down.
+const STACK = { w: 156, h: 277, top: 205 };
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Intro timeline, matched frame by frame to the reference:
+//   0     first card fades in alone, centred, at 1.8x
+//   0.48  the other cards land on the stack one after another (the image flips)
+//   0.9   the stack has shrunk to 1x
+//   1.0   cards burst out to their spots (0.9s); headline + copy fade in with it
+const T = { firstFade: 0.45, stackIn: 0.48, stackStep: 0.06, shrink: 0.9, burst: 1.0, burstDur: 0.9 };
+// The first card is the one that appears alone; the rest stack on top of it in this order.
+const STACK_ORDER = [4, 0, 5, 2, 3, 1];
+
+const HEADLINE = 'Find & create winning ads';
+const ACCENT = 'with AI';
+
+/** Deterministic 0..1 noise so server and client agree on the letter order. */
+const noise = (i: number) => {
+  const x = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
 };
 
-// Scattered showcase cards behind the hero copy - real AI-actor ad clips,
-// positioned loosely around the text like a wall of UGC creatives.
-// Left/right cards flank the (max-w-2xl, ~21%-79% of the 1180px container) text
-// column, so they never fight it horizontally. Only the two center cards sit
-// directly above/below the copy, so THEY are the ones tuned to clear it vertically.
-const CARD_WIDTH = 140;
-
-const SHOWCASE_CARDS: ShowcaseCard[] = [
-  { src: '/hero/ind-vid/wellness.mp4', poster: '/hero/ind-vid/posters/wellness.jpg', caption: '', left: '2%', top: '7%', width: CARD_WIDTH },
-  { src: '/hero/ind-vid/beauty.mp4', poster: '/hero/ind-vid/posters/beauty.jpg', caption: '', left: '40%', top: '-6%', width: CARD_WIDTH },
-  { src: '/hero/ind-vid/fashion.mp4', poster: '/hero/ind-vid/posters/fashion.jpg', caption: '', left: '84%', top: '3%', width: CARD_WIDTH },
-  { src: '/hero/ind-vid/food.mp4', poster: '/hero/ind-vid/posters/food.jpg', caption: '', left: '4%', top: '58%', width: CARD_WIDTH },
-  { src: '/hero/ind-vid/home.mp4', poster: '/hero/ind-vid/posters/home.jpg', caption: '', left: '42%', top: '78%', width: CARD_WIDTH },
-  { src: '/carousel/045e53458f4485d2.mp4', poster: '/carousel/posters/045e53458f4485d2.jpg', caption: '', left: '80%', top: '54%', width: CARD_WIDTH },
-];
-
-// Where each card starts before it "deals out" - clustered/overlapping near the
-// center with a slight messy jitter + rotation, like a fanned stack of cards.
-const CLUSTER_START = [
-  { left: '40%', top: '32%', rotate: -8 },
-  { left: '46%', top: '28%', rotate: 5 },
-  { left: '52%', top: '34%', rotate: -5 },
-  { left: '38%', top: '46%', rotate: 6 },
-  { left: '47%', top: '50%', rotate: -6 },
-  { left: '54%', top: '44%', rotate: 4 },
-] as const;
-
-// Extra dusty-glass smudges spread across the FULL viewport width (percentages
-// here are relative to the 100vw wrapper, not the 1180px content column), so the
-// frosted haze reaches the far left/right edges of the hero, not just the cards.
-const FULL_BLEED_BLOBS = [
-  { left: '2%', top: '22%', size: 260 },
-  { left: '10%', top: '58%', size: 220 },
-  { left: '22%', top: '42%', size: 200 },
-  { left: '90%', top: '20%', size: 240 },
-  { left: '95%', top: '54%', size: 260 },
-  { left: '80%', top: '70%', size: 200 },
-] as const;
-
-const NikeSwoosh = ({ className }: { className?: string }) => (
-  <Image
-    src="/logos/nike_logo.jpg"
-    alt="Nike"
-    width={48}
-    height={18}
-    className={className}
-   
-    unoptimized
-  />
-);
-
-type AdItem = {
-  brand: string;
-  status: 'Active' | 'Inactive';
-  date: string;
-  duration: string;
-  productName: string;
-  description: string;
-  reach: string;
-  spend: string;
-  ageRange: string;
-  gender: 'Male' | 'Female' | 'All';
-  image: string;
-  imageBg: string;
-};
-
-const TOP_ADS: AdItem[] = [
-  
-  {
-    brand: 'Nike',
-    status: 'Active',
-    date: 'Apr 20, 2026',
-    duration: '13 days',
-    productName: 'Stay Light in Nike Ava X',
-    description: 'Responsive cushioning meets everyday running comfort, mile after mile.',
-    reach: '18.9K',
-    spend: '€548',
-    ageRange: '25-44',
-    gender: 'Male',
-    image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=400&q=80',
-    imageBg: 'bg-neutral-100',
-    
-   
-  },
-  {
-    brand: 'Nike',
-    status: 'Inactive',
-    date: 'Mar 30, 2026',
-    duration: '8 days',
-    productName: 'Nike Dri-FIT Move',
-    description: 'Train through every layer of the season with breathable performance fabric.',
-    reach: '14.6K',
-    spend: '€421',
-    ageRange: '18-34',
-    gender: 'All',
-    image: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=400&q=80',
-    imageBg: 'bg-neutral-100',
-  },
-  {
-    brand: 'Nike',
-    status: 'Active',
-    date: 'Apr 24, 2026',
-    duration: '9 days',
-    productName: 'Air Max Plus',
-    description: 'Bold lines, all-day cushioning, unmistakably icon - the Air Max Plus is back.',
-    reach: '12.3K',
-    spend: '€388',
-    ageRange: '18-34',
-    gender: 'Male',
-    image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80',
-    imageBg: 'bg-neutral-100',
-  },
-  {
-    brand: 'Nike',
-    status: 'Active',
-    date: 'Apr 25, 2026',
-    duration: '8 days',
-    productName: 'SB Force 58',
-    description: 'Built for skate, dressed for the streets - low-pro support meets street style.',
-    reach: '9.8K',
-    spend: '€311',
-    ageRange: '18-34',
-    gender: 'Male',
-    image: 'https://images.unsplash.com/photo-1605408499391-6368c628ef42?auto=format&fit=crop&w=400&q=80',
-    imageBg: 'bg-neutral-100',
-  },
-];
-
-type ArtifactTab =  'topAds' | 'gender' | 'age' ;
-
-type BarDatum = { label: string; value: number; color: string };
-
-const NIKE_GENDER: BarDatum[] = [
-  { label: 'male', value: 145700, color: '#22C55E' },
-  { label: 'female', value: 47200, color: '#3B82F6' },
-  { label: 'unknown', value: 5800, color: '#A855F7' },
-];
-
-const NIKE_AGE: BarDatum[] = [
-  { label: '35-44', value: 71500, color: '#22C55E' },
-  { label: '25-34', value: 62500, color: '#3B82F6' },
-  { label: '18-24', value: 32400, color: '#A855F7' },
-  { label: '45-54', value: 18700, color: '#F97316' },
-  { label: '55-64', value: 9200, color: '#EC4899' },
-  { label: '65+', value: 3100, color: '#14B8A6' },
-  { label: 'Unknown', value: 1300, color: '#94A3B8' },
-];
-
-const formatStat = (n: number) => {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
-  return `${n}`;
-};
-
-function ChartArtifact({
-  title,
-  axisLabel,
-  perLabel,
-  data,
-}: {
-  title: string;
-  axisLabel: string;
-  perLabel: string;
-  data: BarDatum[];
-}) {
-  const max = Math.max(...data.map((d) => d.value));
-  const total = data.reduce((s, d) => s + d.value, 0);
-  const avg = Math.round(total / data.length);
-  const highest = data.reduce((p, c) => (c.value > p.value ? c : p));
-
+function SplitLetters({ text, start, play, offset = 0 }: { text: string; start: number; play: boolean; offset?: number }) {
+  // Letters are grouped per word so a wrapping line never breaks mid-word.
+  let n = offset;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="flex-1 flex flex-col min-h-0"
-    >
-      <div className="px-5 pt-5 pb-3 flex items-start justify-between gap-3 bg-[#fafafa]">
-        <div className="min-w-0">
-          <h4 className="text-[15px] font-semibold text-slate-900 tracking-tight truncate">{title}</h4>
-          <p className="text-xs text-slate-500 mt-0.5">(Assistant)</p>
-        </div>
-        <button type="button" className="flex-shrink-0 p-1.5 rounded-md border border-slate-200 bg-white text-slate-500 hover:text-slate-900 transition-colors">
-          <Maximize2 className="w-3.5 h-3.5" />
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-5 pb-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        <div className="bg-white border border-slate-200 rounded-xl p-4">
-          <div className="relative h-56 flex pl-10 pr-1">
-            <div className="absolute left-0 top-0 bottom-7 w-9 flex flex-col justify-between text-[10px] text-slate-400 text-right pr-1.5">
-              <span>{formatStat(max)}</span>
-              <span>{formatStat(Math.round(max / 2))}</span>
-              <span>0</span>
-            </div>
-            <div className="flex-1 flex items-end justify-around gap-2 pb-7 border-l border-slate-100 pl-2">
-              {data.map((d) => {
-                const heightPct = max > 0 ? (d.value / max) * 100 : 0;
-                return (
-                  <div key={d.label} className="flex flex-col items-center justify-end h-full flex-1 max-w-[42px] relative">
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: `${heightPct}%` }}
-                      transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
-                      className="w-full rounded-t-sm"
-                      style={{ backgroundColor: d.color, minHeight: d.value > 0 ? 3 : 0 }}
-                    />
-                    <span className="absolute bottom-0 text-[10px] text-slate-600 truncate max-w-full translate-y-5">{d.label}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <p className="text-center text-[10px] text-slate-400 mt-2">{axisLabel}</p>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4 mt-5 px-1">
-          <div>
-            <p className="text-[10px] text-slate-500">Total</p>
-            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(total)}</p>
-            <p className="text-[10px] text-slate-500 mt-0.5">Reach</p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500">Average</p>
-            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(avg)}</p>
-            <p className="text-[10px] text-slate-500 mt-0.5">{perLabel}</p>
-          </div>
-          <div>
-            <p className="text-[10px] text-slate-500">Highest</p>
-            <p className="text-lg font-semibold text-slate-900 mt-0.5">{formatStat(highest.value)}</p>
-            <p className="text-[10px] text-slate-500 mt-0.5">{highest.label}</p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+    <>
+      {text.split(' ').map((word, w, words) => (
+        <span key={w} className="inline-block whitespace-nowrap">
+          {word.split('').map((ch) => {
+            const i = n++;
+            return (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={play ? { opacity: 1 } : { opacity: 0 }}
+                // each letter fades on its own, in a scattered (not left-to-right) order
+                transition={{ duration: 0.3, delay: start + noise(i) * 0.8, ease: 'easeOut' }}
+                className="inline-block"
+              >
+                {ch}
+              </motion.span>
+            );
+          })}
+          {w < words.length - 1 ? ' ' : null}
+        </span>
+      ))}
+    </>
   );
 }
 
-// Shared entrance motion for the hero copy cluster
-const heroParentVariants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
-};
-const heroChildVariants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-};
-
-// Real metric that counts up once when scrolled into view
-function CountUpStat({
-  value,
-  prefix = '',
-  suffix = '',
-  label,
-  reduce,
-}: {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  reduce: boolean | null;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-40px' });
-  const mv = useMotionValue(0);
-  const rounded = useTransform(mv, (v) => Math.round(v));
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    const unsub = rounded.on('change', (v) => setDisplay(v));
-    return () => unsub();
-  }, [rounded]);
-
-  useEffect(() => {
-    if (reduce) {
-      setDisplay(value);
-      return;
-    }
-    if (inView) {
-      const controls = animate(mv, value, { duration: 1.4, ease: [0.22, 1, 0.36, 1] });
-      return () => controls.stop();
-    }
-  }, [inView, reduce, value, mv]);
-
+function Video({ src, poster }: { src: string; poster: string }) {
   return (
-    <span ref={ref} className="inline-flex items-baseline gap-1.5 text-slate-500">
-      <span className="text-slate-900 font-semibold tabular-nums">
-        {prefix}
-        {reduce ? value : display}
-        {suffix}
-      </span>
-      {label}
-    </span>
+    <video
+      src={src}
+      poster={poster}
+      autoPlay
+      muted
+      loop
+      playsInline
+      disablePictureInPicture
+      disableRemotePlayback
+      preload="auto"
+      onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
+      className="h-full w-full object-cover"
+    />
   );
 }
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const dashboardRef = useRef<HTMLDivElement>(null);
-  const heroSectionRef = useRef<HTMLDivElement>(null);
 
-  const [inputValue, setInputValue] = useState('');
-  const [chatStep, setChatStep] = useState(0);
-  const [setupPhase, setSetupPhase] = useState(0);
-  const [searchValue, setSearchValue] = useState('');
-  const [hasContext, setHasContext] = useState(false);
-  // null until the media query resolves, so the very first paint never
-  // mounts the wrong breakpoint's <video> elements and wastes bandwidth on them.
-  const [isLgUp, setIsLgUp] = useState<boolean | null>(null);
-  const [activeArtifact, setActiveArtifact] = useState<ArtifactTab>('topAds');
-  const [chatCycle, setChatCycle] = useState(0);
+  // Hold everything until the site-wide black curtain (<SiteIntro/>) lifts.
+  const [ready, setReady] = useState(false);
+  useEffect(() => onIntroDone(() => setReady(true)), []);
+  const play = ready || Boolean(reduce);
 
-  // The chat demo types a character every 35ms and re-renders this whole
-  // section (plus its motion nodes) each time - forever, whether or not the
-  // hero is still on screen. Once you have scrolled past it that work is
-  // invisible but still competes with the scroll for the main thread, which
-  // is felt as stutter further down the page. Run it only while it is visible.
-  const [heroInView, setHeroInView] = useState(true);
-  useEffect(() => {
-    const el = heroSectionRef.current;
-    if (!el || typeof IntersectionObserver === 'undefined') return;
-    const io = new IntersectionObserver(
-      ([entry]) => setHeroInView(entry.isIntersecting),
-      { rootMargin: '150px 0px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // Coming back to a half-finished cycle would show a stray chip or a
-  // half-typed question, so re-entering the viewport restarts it cleanly.
-  useEffect(() => {
-    if (!heroInView) return;
-    setInputValue('');
-    setSearchValue('');
-    setHasContext(false);
-    setSetupPhase(0);
-    setActiveArtifact('topAds');
-    setChatStep(0);
-  }, [heroInView]);
-
+  // Only mount the breakpoint's own videos.
+  const [isLg, setIsLg] = useState<boolean | null>(null);
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
-    const update = () => setIsLgUp(mq.matches);
+    const update = () => setIsLg(mq.matches);
     update();
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   }, []);
 
-  // Nothing below should animate while <SiteIntro/>'s black curtain is still
-  // covering the screen - wait for its "done" signal before starting.
-  const [siteIntroDone, setSiteIntroDone] = useState(false);
-  useEffect(() => onIntroDone(() => setSiteIntroDone(true)), []);
+  const textStart = reduce ? 0 : isLg ? T.burst : 0.15;
 
-  // Entrance sequence: single card flickers through the library → all 6 pop
-  // in clustered at center → they deal outward into place. (The black
-  // curtain → logo beat now plays once, site-wide, in <SiteIntro />.)
-  const [introPhase, setIntroPhase] = useState<1 | 2>(1);
-  useEffect(() => {
-    if (reduce) { setIntroPhase(2); return; }
-    if (!siteIntroDone) return;
-    const t2 = setTimeout(() => setIntroPhase(2), 1300);
-    return () => clearTimeout(t2);
-  }, [reduce, siteIntroDone]);
+  const headline = useMemo(
+    () => (
+      <>
+        <SplitLetters text={HEADLINE} start={textStart} play={play} />{' '}
+        <span className="font-accent italic tracking-normal">
+          <SplitLetters text={ACCENT} start={textStart} play={play} offset={HEADLINE.length + 1} />
+        </span>
+      </>
+    ),
+    [play, textStart]
+  );
 
-  // Rapid flicker through the showcase posters while phase 1 is on screen -
-  // the "slot machine" flash right before the cards deal out.
-  const [shuffleIndex, setShuffleIndex] = useState(0);
-  useEffect(() => {
-    if (introPhase !== 1 || reduce || !siteIntroDone || !heroInView) return;
-    const id = setInterval(() => {
-      setShuffleIndex((i) => (i + 1) % SHOWCASE_CARDS.length);
-    }, 130);
-    return () => clearInterval(id);
-  }, [introPhase, reduce, siteIntroDone, heroInView]);
-
-  const textToType = 'What are the top performing ads and audience demographics?';
-
-  useEffect(() => {
-    if (!siteIntroDone && !reduce) return;
-    if (!heroInView) return;
-    let isActive = true;
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const after = (ms: number, fn: () => void) => {
-      const id = setTimeout(() => { if (isActive) fn(); }, ms);
-      timers.push(id);
-    };
-
-    // Phase 1: open Add context popover
-    // Delayed enough that the prior cycle's exit animations (messages,
-    // artifacts panel, chat width) finish before the next cycle starts.
-    after(1400, () => setSetupPhase(1));
-
-    // Phase 1b: type "nike" into the search
-    const searchWord = 'nike';
-    let baseDelay = 2100;
-    for (let i = 1; i <= searchWord.length; i++) {
-      const slice = searchWord.slice(0, i);
-      after(baseDelay, () => setSearchValue(slice));
-      baseDelay += 90;
-    }
-
-    // Phase 2: show brand suggestions
-    after(baseDelay + 300, () => setSetupPhase(2));
-
-    // Phase 3: select Nike → chip appears, popover closes
-    after(baseDelay + 1500, () => {
-      setHasContext(true);
-      setSetupPhase(3);
-    });
-
-    // Phase 4: start typing the question
-    after(baseDelay + 2300, () => {
-      let currentText = '';
-      let idx = 0;
-      const typeChar = () => {
-        if (!isActive) return;
-        if (idx < textToType.length) {
-          currentText += textToType.charAt(idx);
-          setInputValue(currentText);
-          idx++;
-          const id = setTimeout(typeChar, 35);
-          timers.push(id);
-        } else {
-          if (isActive) setChatStep(1);
-          const id = setTimeout(() => { if (isActive) setChatStep(2); }, 600);
-          timers.push(id);
-        }
-      };
-      typeChar();
-    });
-
-    return () => {
-      isActive = false;
-      timers.forEach(clearTimeout);
-    };
-  }, [textToType, chatCycle, siteIntroDone, reduce, heroInView]);
-
-  useEffect(() => {
-    if (!heroInView) return;
-    let isActive = true;
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const after = (ms: number, fn: () => void) => {
-      const id = setTimeout(() => { if (isActive) fn(); }, ms);
-      timers.push(id);
-    };
-
-    if (chatStep === 2) {
-      setInputValue('');
-      after(400, () => setChatStep(3));
-    } else if (chatStep === 3) {
-      after(1500, () => setChatStep(4));
-    } else if (chatStep === 4) {
-      after(1100, () => setChatStep(5));
-    } else if (chatStep === 5) {
-      after(5000, () => {
-        setInputValue('');
-        setSearchValue('');
-        setHasContext(false);
-        setSetupPhase(0);
-        setActiveArtifact('topAds');
-        setChatStep(0);
-        setChatCycle((c) => c + 1);
-      });
-    }
-
-    return () => {
-      isActive = false;
-      timers.forEach(clearTimeout);
-    };
-  }, [chatStep, heroInView]);
-
-  useEffect(() => {
-    const heroSection = heroSectionRef.current;
-    const dashboard = dashboardRef.current;
-    if (!heroSection || !dashboard) return;
-
-    let rafId: number | null = null;
-    let lastX = 0;
-    let lastY = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!window.matchMedia('(min-width: 1024px)').matches) return;
-      if (rafId === null) {
-        rafId = requestAnimationFrame(() => {
-          const xAxis = (window.innerWidth / 2 - e.pageX) / 60;
-          const yAxis = (window.innerHeight / 2 - e.pageY) / 60;
-          const clampX = Math.max(-2, Math.min(2, xAxis));
-          const clampY = Math.max(-2, Math.min(2, yAxis));
-          if (Math.abs(clampX - lastX) > 0.1 || Math.abs(clampY - lastY) > 0.1) {
-            dashboard.style.transform = `rotateY(${clampX}deg) rotateX(${clampY}deg)`;
-            lastX = clampX;
-            lastY = clampY;
-          }
-          rafId = null;
-        });
-      }
-    };
-
-    const handleMouseLeave = () => {
-      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
-      dashboard.style.transform = 'rotateY(0deg) rotateX(0deg)';
-      lastX = 0; lastY = 0;
-    };
-
-    heroSection.addEventListener('mousemove', handleMouseMove, { passive: true });
-    heroSection.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      heroSection.removeEventListener('mousemove', handleMouseMove);
-      heroSection.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
+  const blockFade = {
+    initial: { opacity: 0 },
+    animate: play ? { opacity: 1 } : { opacity: 0 },
+    transition: { duration: reduce ? 0 : 0.9, delay: reduce ? 0 : textStart + 0.05, ease: 'easeInOut' as const },
+  };
 
   return (
-    <section ref={heroSectionRef} className="relative bg-white pt-14 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-24">
-        <div className="relative mx-auto w-full max-w-[1180px] min-h-[420px] lg:min-h-[900px] overflow-hidden lg:overflow-visible">
-
-          {/* Full-bleed dusty-glass wash - spans the entire viewport width (not just
-              the 1180px content column) so the frosted-glass haze fills the whole
-              hero background, left edge to right edge. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen hidden lg:block overflow-hidden"
-            style={{
-              maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
-            }}
-          >
-            {FULL_BLEED_BLOBS.map((b, i) => (
-              <motion.div
-                key={`edge-blob-${i}`}
-                initial={{ opacity: 0 }}
-                animate={
-                  reduce
-                    ? { opacity: 0.2 }
-                    : introPhase >= 2
-                      ? { opacity: [0, 0.24, 0.2], y: [0, -12, 0] }
-                      : { opacity: 0 }
-                }
-                transition={{
-                  opacity: { duration: 1.3, delay: 0.5 + i * 0.07 },
-                  y: { duration: 9 + i, repeat: Infinity, ease: 'easeInOut', delay: 1.6 },
-                }}
-                className="absolute rounded-[40%] blur-3xl bg-[#b7ada2]"
-                style={{
-                  left: b.left,
-                  top: b.top,
-                  width: b.size,
-                  height: b.size * 1.3,
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Ambient dusty-glass blur behind each card - soft, low-contrast, neutral
-              taupe smudges (not a color glow) so it reads like frosted glass. */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-            {SHOWCASE_CARDS.map((c, i) => (
-              <motion.div
-                key={`blob-${c.src}`}
-                initial={{ opacity: 0 }}
-                animate={
-                  reduce
-                    ? { opacity: 0.18 }
-                    : introPhase >= 2
-                      ? { opacity: [0, 0.22, 0.18], y: [0, -8, 0] }
-                      : { opacity: 0 }
-                }
-                transition={{
-                  opacity: { duration: 1.2, delay: 0.5 + i * 0.08 },
-                  y: { duration: 8 + i, repeat: Infinity, ease: 'easeInOut', delay: 1.6 },
-                }}
-                className="absolute rounded-[38%] blur-3xl bg-[#b7ada2]"
-                style={{
-                  left: c.left,
-                  top: c.top,
-                  width: c.width * 1.4,
-                  height: c.width * 1.4 * (16 / 9),
-                  transform: 'translate(-14%, -10%)',
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Showcase cards - pop in clustered/overlapping at center like a dealt
-              deck, then fan outward into their final scattered spots. */}
-          <div className="pointer-events-none absolute inset-0 hidden lg:block">
-            {isLgUp && SHOWCASE_CARDS.map((c, i) => {
-              const start = CLUSTER_START[i];
-              const revealed = introPhase >= 2 || reduce;
-              return (
-                <motion.div
-                  key={c.src}
-                  initial={
-                    reduce
-                      ? undefined
-                      : { opacity: 0, scale: 1.15, left: start.left, top: start.top, rotate: start.rotate }
-                  }
-                  animate={
-                    revealed
-                      ? { opacity: 1, scale: 1, left: c.left, top: c.top, rotate: 0 }
-                      : { opacity: 0, scale: 1.15, left: start.left, top: start.top, rotate: start.rotate }
-                  }
-                  transition={{
-                    opacity: { duration: 0.15, delay: i * 0.03 },
-                    default: { duration: 0.85, delay: 0.05 + i * 0.05, ease: [0.22, 1, 0.36, 1] },
-                  }}
-                  className="absolute rounded-2xl overflow-hidden shadow-[0_18px_40px_rgba(15,23,42,0.18)] ring-1 ring-black/5 bg-neutral-200"
-                  style={{ width: c.width }}
-                >
-                  <div className="relative w-full aspect-[9/16]">
-                    <video
-                      src={c.src}
-                      poster={c.poster}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      disablePictureInPicture
-                      disableRemotePlayback
-                      preload="auto"
-                      onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
-                      <p className="text-white text-[11px] font-medium leading-snug text-center drop-shadow">
-                        {c.caption}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Center copy */}
-          <div className="relative z-20 flex items-center justify-center min-h-[420px] lg:min-h-[900px] px-3">
+    <section className="relative overflow-hidden bg-[#ededed] lg:h-[880px]">
+      {/* ── desktop card field ── */}
+      {isLg && (
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          {/* soft white haze at the top centre, behind the top card */}
+          <div className="absolute left-[calc(50%-207px)] top-[-201px] h-[404px] w-[414px] rounded-full blur-2xl bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.5)_50%,rgba(255,255,255,0))]" />
+          {BLURRED.map((b) => (
             <motion.div
-              className="max-w-2xl mx-auto text-center w-full flex flex-col items-center px-2"
-              variants={reduce ? undefined : heroParentVariants}
-              initial={reduce ? false : 'hidden'}
-              animate={reduce || introPhase >= 2 ? 'show' : 'hidden'}
+              key={b.poster}
+              initial={{ opacity: 0 }}
+              animate={play ? { opacity: b.opacity } : { opacity: 0 }}
+              transition={{ duration: T.burstDur, delay: reduce ? 0 : T.burst }}
+              className="absolute overflow-hidden rounded-2xl"
+              style={{ left: `calc(50% + ${b.dx}px)`, top: b.top, width: b.w, height: b.h, filter: `blur(${b.blur}px)` }}
             >
-              {/* Badge */}
-              <motion.div
-                variants={reduce ? undefined : heroChildVariants}
-                className="inline-flex items-center gap-1 rounded-full bg-slate-100 border border-slate-200 px-4 py-1.5 mb-6 sm:mb-8 text-[13px] sm:text-sm text-slate-600"
-              >
-                <span className="italic font-serif text-slate-900">HypeOn</span>
-                <span>is live</span>
-              </motion.div>
-
-              {/* Headline */}
-              <motion.h1
-                variants={reduce ? undefined : heroChildVariants}
-                className="text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight leading-[1.1] text-neutral-900"
-              >
-                Find &amp; create winning ads{' '}
-                <span className=" font-serif font-normal">with AI</span>
-              </motion.h1>
-
-              {/* Subheadline */}
-              <motion.p
-                variants={reduce ? undefined : heroChildVariants}
-                className="max-w-[560px] mx-auto mt-5 sm:mt-6 text-base sm:text-lg text-slate-600 leading-relaxed"
-              >
-                Spy on any brand's ads, find what's working, and create your own
-                launch-ready static, video & UGC ads - all in one place.
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                variants={reduce ? undefined : heroChildVariants}
-                className="mt-8 sm:mt-10 flex flex-nowrap sm:flex-wrap items-center justify-center gap-2.5 sm:gap-3"
-              >
-                <a
-                  href="https://app.hypeon.ai/studio/login"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-4 py-3 text-[13px] whitespace-nowrap sm:px-6 sm:py-3.5 font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:text-base"
-                >
-                  <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
-                  <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
-                    <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">Create Your AI Ad</span>
-                    <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">Create Your AI Ad</span>
-                  </span>
-                  <Zap className="relative w-4 h-4" />
-                </a>
-                <a
-                  href="/studio"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 px-4 py-3 text-[13px] whitespace-nowrap sm:px-6 sm:py-3.5 sm:text-base font-semibold transition-colors"
-                >
-                  <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
-                    <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">See it in action</span>
-                    <span aria-hidden className="absolute left-0 top-full block transition-transform duration-300 ease-out group-hover:-translate-y-full">See it in action</span>
-                  </span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </motion.div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={b.poster} alt="" className="h-full w-full object-cover" />
             </motion.div>
-          </div>
+          ))}
 
-          {/* Mobile: compact 4-across row of real ad clips beneath the CTAs -
-              the desktop scattered showcase field is lg:hidden, so mobile gets
-              this simple in-flow row instead of nothing. */}
-          <div className="relative z-20 mt-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 sm:px-6 lg:hidden [&::-webkit-scrollbar]:hidden">
-            {isLgUp === false && SHOWCASE_CARDS.slice(0, 4).map((c) => (
-              <div
-                key={c.src}
-                className="relative aspect-[9/16] w-[calc(50vw-0.75rem)] shrink-0 snap-start overflow-hidden rounded-2xl bg-neutral-200 shadow-[0_8px_20px_rgba(15,23,42,0.15)] sm:w-[calc(33.333vw-1rem)]"
-              >
-                <video
-                  src={c.src}
-                  poster={c.poster}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  disablePictureInPicture
-                  disableRemotePlayback
-                  preload="auto"
-                  onLoadedData={(e) => primeIOSVideo(e.currentTarget)}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Intro sequence - a single card flickers through the library, then
-              fades out the instant the cluster pops in behind it. (The black
-              curtain → logo beat now plays once, site-wide, before this.) */}
-          <AnimatePresence>
-            {introPhase < 2 && !reduce && (
+          {CARDS.map((c, i) => {
+            // offset from the card's final spot back to the shared centre stack
+            const sx = -STACK.w / 2 - c.dx + (STACK.w - c.w) / 2;
+            const sy = STACK.top - c.top + (STACK.h - c.h) / 2;
+            // Every card is held at exactly the stack's 156x277 while stacked, so none
+            // peeks out from behind another; each grows to its own size only in the burst.
+            const fx = STACK.w / c.w;
+            const fy = STACK.h / c.h;
+            const total = T.burst + T.burstDur;
+            const times = [0, T.shrink / total, T.burst / total, 1];
+            const sizeEase = [[0.6, 0, 0.4, 0.9], 'linear', EASE] as const;
+            const order = STACK_ORDER.indexOf(i);
+            const first = order === 0;
+            return (
               <motion.div
-                key="hero-intro-overlay"
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ opacity: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } }}
-                className="absolute inset-0 z-30 flex items-center justify-center bg-white"
+                key={c.src}
+                initial={reduce ? false : { x: sx, y: sy, scaleX: 1.8 * fx, scaleY: 1.8 * fy, rotate: 0, opacity: 0 }}
+                animate={
+                  play
+                    ? {
+                        x: 0,
+                        y: 0,
+                        rotate: c.rot,
+                        opacity: 1,
+                        // 1.8x stack -> 1x stack (shrink) -> hold -> own size (burst)
+                        scaleX: [1.8 * fx, fx, fx, 1],
+                        scaleY: [1.8 * fy, fy, fy, 1],
+                      }
+                    : undefined
+                }
+                transition={{
+                  // first card fades in; the rest hard-cut onto the stack one by one
+                  opacity: first
+                    ? { duration: T.firstFade, ease: 'linear' }
+                    : { duration: 0, delay: T.stackIn + (order - 1) * T.stackStep },
+                  scaleX: { duration: total, times, ease: [...sizeEase] },
+                  scaleY: { duration: total, times, ease: [...sizeEase] },
+                  default: { duration: T.burstDur, delay: T.burst, ease: EASE },
+                }}
+                className="absolute overflow-hidden rounded-[10px] bg-[#dcdcdc]"
+                style={{ left: `calc(50% + ${c.dx}px)`, top: c.top, width: c.w, height: c.h, zIndex: order + 1 }}
               >
-                <motion.div
-                  key="intro-shuffle"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative w-[220px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl bg-neutral-200"
-                >
-                  {/* Hard-cut key swap (no crossfade) - matches the fast slot-machine flicker */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    key={shuffleIndex}
-                    src={SHOWCASE_CARDS[shuffleIndex].poster}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                </motion.div>
+                <Video src={c.src} poster={c.poster} />
               </motion.div>
-            )}
-          </AnimatePresence>
+            );
+          })}
         </div>
+      )}
+
+      {/* ── copy ── */}
+      <div className="relative z-10 mx-auto flex max-w-[1032px] flex-col items-center px-4 pt-[112px] text-center lg:absolute lg:inset-x-0 lg:top-[262px] lg:pt-0">
+        <motion.div
+          {...blockFade}
+          className="inline-flex h-9 items-center rounded-full bg-[#e2e2e2] px-3 text-[16px] leading-6 text-[#121212]"
+        >
+          <span className="font-accent italic">HypeOn</span>&nbsp;is live
+        </motion.div>
+
+        <h1 className="mt-2 max-w-[320px] text-[36px] font-medium leading-[1.1] tracking-[-0.02em] text-black sm:max-w-none lg:text-[56px]">
+          {headline}
+        </h1>
+
+        <motion.p
+          {...blockFade}
+          className="mt-2 max-w-[320px] text-[18px] leading-[28px] text-[#545454] md:mt-0 md:text-[20px] md:leading-[30px] sm:max-w-none lg:whitespace-nowrap"
+        >
+          Spy on any brand&apos;s ads, then create winning static, video &amp; UGC ads
+        </motion.p>
+
+        <motion.div
+          {...blockFade}
+          className="mt-6 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:gap-8 lg:mt-[62px]"
+        >
+          <DarkButton href={STUDIO_URL} size="lg" className="w-full sm:w-auto">
+            Create Your AI Ad
+          </DarkButton>
+          <LightButton href="/studio" className="w-full sm:w-auto">
+            See it in action
+          </LightButton>
+        </motion.div>
+      </div>
+
+      {/* ── phones/tablets: a sideways row of the same clips ── */}
+      <motion.div
+        {...blockFade}
+        className="mt-12 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-16 [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+      >
+        {isLg === false &&
+          CARDS.map((c) => (
+            <div key={c.src} className="relative h-[277px] w-[156px] shrink-0 snap-start overflow-hidden rounded-[10px] bg-[#dcdcdc]">
+              <Video src={c.src} poster={c.poster} />
+              <span className="absolute right-2.5 top-2.5 flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white/10 backdrop-blur-sm ring-1 ring-white/30">
+                <VolumeX className="h-4 w-4 text-white" strokeWidth={1.75} />
+              </span>
+            </div>
+          ))}
+      </motion.div>
     </section>
   );
 }

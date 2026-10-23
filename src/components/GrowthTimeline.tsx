@@ -53,18 +53,18 @@ export default function GrowthTimeline() {
   }, [visible]);
 
   return (
-    <section ref={ref} className="bg-white pt-16 pb-6 sm:pt-20 sm:pb-8 lg:pt-28 lg:pb-10">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section ref={ref} className="bg-white pt-16 pb-16 md:pt-20 md:pb-8 lg:pt-28 lg:pb-10">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div
           className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">The Road Ahead</p>
-          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold tracking-tight text-slate-900">
             From idea to industry <span className="text-slate-900">standard.</span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-500">
+          <p className="mt-3 text-lg leading-7 md:text-base text-slate-500">
             We&apos;re building for durability, not shortcuts.
           </p>
         </div>
@@ -93,10 +93,10 @@ export default function GrowthTimeline() {
                   style={{ transitionDelay: `${500 + i * 100}ms` }}
                 />
 
-                <div className="w-full flex-1 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                <div className="w-full flex-1 rounded-2xl border border-slate-200 bg-white p-6 md:p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
                   <p className="text-xs font-bold uppercase tracking-wider text-slate-400">{m.year}</p>
-                  <h3 className="mt-1 text-base font-semibold text-slate-900">{m.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{m.desc}</p>
+                  <h3 className="mt-1 text-2xl leading-8 md:text-base font-semibold text-slate-900">{m.title}</h3>
+                  <p className="mt-1.5 text-base leading-6 md:text-sm md:leading-relaxed text-slate-500">{m.desc}</p>
                 </div>
               </div>
             ))}

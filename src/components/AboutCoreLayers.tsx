@@ -65,18 +65,18 @@ export default function AboutCoreLayers() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-white py-16 sm:py-20 lg:py-28">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section ref={ref} className="bg-white py-16 md:py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div
           className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400 mb-3">The Platform</p>
-          <h2 className="text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-slate-900">
+          <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold md:leading-tight tracking-tight text-slate-900">
             Two engines. <span className="text-slate-900">One growth system.</span>
           </h2>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-500">
+          <p className="mt-4 text-lg leading-7 md:text-base md:leading-relaxed text-slate-500">
             Intelligence for finding and decoding what&apos;s actually working - every
             competitor&apos;s spend, reach and winning angles. Studio for turning those insights
             into creative that converts. Two engines that replace guesswork with evidence, then
@@ -88,7 +88,7 @@ export default function AboutCoreLayers() {
           {layers.map((layer, i) => (
             <div
               key={layer.title}
-              className={`rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-500 sm:p-8 ${
+              className={`rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-500 md:p-8 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
               style={{ transitionDelay: `${i * 120}ms` }}
@@ -97,10 +97,10 @@ export default function AboutCoreLayers() {
                 {layer.tag}
               </span>
 
-              <h3 className="mt-4 text-xl font-semibold text-slate-900">{layer.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">{layer.description}</p>
+              <h3 className="mt-4 text-2xl leading-8 md:text-xl font-semibold text-slate-900">{layer.title}</h3>
+              <p className="mt-2 text-base leading-6 md:text-sm md:leading-relaxed text-slate-500">{layer.description}</p>
 
-              <ul className="mt-5 space-y-3 text-sm text-slate-600">
+              <ul className="mt-5 space-y-3 text-base md:text-sm text-slate-600">
                 {layer.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <span className="mt-[3px] text-slate-900">

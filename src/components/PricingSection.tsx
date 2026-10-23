@@ -255,7 +255,7 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <section id="pricing" className="scroll-mt-24 rounded-t-[28px] bg-neutral-100 pb-8 pt-16 sm:rounded-t-[56px] sm:pb-10 sm:pt-24 lg:pb-12 lg:pt-28">
+    <section id="pricing" className="scroll-mt-24 bg-[#ededed] pb-8 pt-12 sm:pb-10 sm:pt-16 lg:pb-12 lg:pt-20">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

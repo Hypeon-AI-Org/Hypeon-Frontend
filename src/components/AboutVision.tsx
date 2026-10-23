@@ -174,18 +174,18 @@ export default function AboutVision() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-white py-16 sm:py-20 lg:py-28">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section ref={ref} className="bg-white py-16 md:py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div
           className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-2">What HypeOn Does</p>
-          <h2 className="text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-slate-900">
+          <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold md:leading-tight tracking-tight text-slate-900">
             12 decisions. <span className="text-slate-900">Zero guesswork.</span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base leading-relaxed text-slate-500">
+          <p className="mt-3 text-lg leading-7 md:text-base md:leading-relaxed text-slate-500">
             Two engines, one workflow - every capability answers a question your team asks every
             week, with evidence, not opinion.
           </p>
@@ -203,8 +203,8 @@ export default function AboutVision() {
               <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-slate-100 text-slate-700">
                 <DecisionIcon name={item.icon} className="h-5 w-5" />
               </div>
-              <h3 className="text-base font-semibold text-slate-900">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">{item.description}</p>
+              <h3 className="text-2xl leading-8 md:text-base font-semibold text-slate-900">{item.title}</h3>
+              <p className="mt-2 text-base leading-6 md:text-sm md:leading-relaxed text-slate-500">{item.description}</p>
             </div>
           ))}
         </div>

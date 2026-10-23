@@ -69,7 +69,7 @@ export default function PromoCountdown({
       role="timer"
       aria-live="off"
       aria-label={`${label} ${value}`}
-      className={`inline-flex items-center gap-2 rounded-md bg-amber-100 px-2.5 py-1 text-[12px] font-semibold text-amber-900 ${className}`}
+      className={`inline-flex max-md:max-w-full max-md:flex-wrap items-center gap-2 rounded-md bg-amber-100 px-2.5 py-1 text-[12px] font-semibold text-amber-900 ${className}`}
     >
       <span aria-hidden className="relative flex h-2 w-2">
         <span className="absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-70 motion-safe:animate-ping" />

@@ -185,7 +185,7 @@ export default function TikTokScrollSection() {
   };
 
   return (
-    <section className="relative w-full rounded-[28px] bg-[#0a0a0c] text-white py-12 sm:rounded-[56px] sm:py-16 font-sans overflow-hidden select-none flex flex-col justify-center">
+    <section className="relative w-full rounded-[28px] bg-[#0a0a0c] text-white py-16 sm:rounded-[56px] font-sans overflow-hidden select-none flex flex-col justify-center">
       
       {/* 3D Hardware Accelerated Stage CSS */}
       <style>{`
@@ -206,17 +206,17 @@ export default function TikTokScrollSection() {
       `}</style>
 
       {/* Header Copy Section */}
-      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 z-20">
+      <div className="relative mx-auto max-w-3xl px-4 text-center md:px-6 z-20">
         <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-white/40">
           Winning creatives
         </p>
 
-        <h1 className="text-2xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl]">
+        <h1 className="text-[32px] leading-[1.2] font-bold tracking-tighter text-white md:text-4xl md:text-5xl]">
           We understand and<br className="hidden sm:block" /> analyze Ads so{' '}
           you don&apos;t have to.
         </h1>
 
-        <p className="mt-4 mx-auto max-w-2xl text-sm sm:text-base text-white/50 leading-relaxed font-normal">
+        <p className="mt-4 mx-auto max-w-2xl text-lg leading-7 md:text-base text-white/50 font-normal">
           Our Ads Insights tool, powered by proprietary AI, offers a unique
           ability to track and capitalize on Ads trends.
         </p>
@@ -288,7 +288,7 @@ export default function TikTokScrollSection() {
 
                   {/* Top Brand Pill Tag */}
                   <div className="absolute top-3.5 left-3.5 z-20">
-                    <span className="px-2.5 py-1 text-[10px] font-black tracking-widest bg-black/40 backdrop-blur-md text-white rounded-md uppercase border border-white/10">
+                    <span className="px-2.5 py-1 text-[11px] md:text-[10px] font-black tracking-widest bg-black/40 backdrop-blur-md text-white rounded-md uppercase border border-white/10">
                       {card.brand}
                     </span>
                   </div>
@@ -296,7 +296,7 @@ export default function TikTokScrollSection() {
                   {/* Bottom Text Content & Badges */}
                   <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-col gap-1.5">
                     {card.badge && (
-                      <span className="self-start px-2 py-0.5 text-[10px] font-black tracking-wide bg-[#22C55E] text-black rounded uppercase shadow-md">
+                      <span className="self-start px-2 py-0.5 text-[11px] md:text-[10px] font-black tracking-wide bg-[#22C55E] text-black rounded uppercase shadow-md">
                         {card.badge}
                       </span>
                     )}

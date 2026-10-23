@@ -33,7 +33,7 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-24 lg:py-28 text-[14px] font-sans antialiased">
+    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:py-24 lg:py-28 text-[14px] font-sans antialiased">
       {/* Faint dot-grid texture */}
       <div
         aria-hidden
@@ -52,20 +52,20 @@ const TechnologySection = () => {
         aria-hidden
         className="pointer-events-none absolute right-0 bottom-0 hidden h-[420px] w-[420px] translate-x-1/3 translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.14),rgba(52,211,153,0)_70%)] blur-2xl lg:block"
       />
-    <div className="relative mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-10 px-4 sm:px-6 md:grid-cols-[340px_1fr] md:gap-14 lg:px-10">
+    <div className="relative mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-10 px-4 md:px-6 md:grid-cols-[340px_1fr] md:gap-14 lg:px-10">
 
       {/* LEFT COPY */}
-      <div className="reveal-left">
+      <div className="reveal-left max-md:!transform-none">
         <div className="text-[13px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-3">Technology</div>
-        <h2 className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-white mb-[18px]">
+        <h2 className="text-[32px] leading-[1.2] md:text-4xl lg:text-4xl tracking-tight text-white mb-[18px]">
           Understand what your market wants - <span className="text-white/50  font-serif">before it peaks.</span>
         </h2>
-        <p className="text-[14px] text-white/50 leading-[1.72] mb-7">
+        <p className="text-lg leading-7 md:text-[14px] text-white/50 md:leading-[1.72] mb-7">
           We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
         </p>
         <a
           href="https://app.hypeon.ai/studio/login"
-          className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+          className="group relative inline-flex h-[50px] items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3 text-sm md:h-auto font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
         >
           <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
           <span className="relative inline-block h-[1.2em] overflow-hidden align-top">
@@ -76,8 +76,8 @@ const TechnologySection = () => {
       </div>
 
       {/* RIGHT PANEL – big decorative rounded card */}
-      <div className="px-6 py-12 sm:px-10 sm:py-16">
-        <div className="w-full border border-white/10 rounded-[16px] overflow-hidden bg-[#ffffff] min-w-0 font-inter reveal-right shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
+      <div className="md:px-10 md:py-16">
+        <div className="w-full border border-white/10 rounded-[16px] overflow-hidden bg-[#ffffff] min-w-0 font-inter reveal-right max-md:!transform-none shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
 
           {/* TAB GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -230,16 +230,16 @@ const Panel1 = () => {
       <div className="p-[10px_14px_6px] bg-white">
         <div className="h-[95px] relative">
           <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between pointer-events-none py-[2px] z-10">
-            {["10k", "7.5k", "5k", "2.5k", "0k"].map(v => <span key={v} className="text-[10px] text-[#d8d8d8]">{v}</span>)}
+            {["10k", "7.5k", "5k", "2.5k", "0k"].map(v => <span key={v} className="text-[11px] md:text-[10px] text-[#d8d8d8]">{v}</span>)}
           </div>
           <canvas ref={canvasRef} className="w-full h-full block" />
         </div>
       </div>
       <div className="flex gap-[14px] p-[6px_14px_8px] border-top border-[#f5f5f5] flex-wrap">
-        <div className="flex items-center gap-[5px] text-[10.5px] text-[#999]"><div className="w-2 h-2 rounded-full bg-[#4f8ef7]" />Search Volume</div>
-        <div className="flex items-center gap-[5px] text-[10.5px] text-[#999]"><div className="w-[14px] border-t-2 border-dashed border-[#4f8ef7] opacity-50" />Search Trend</div>
-        <div className="flex items-center gap-[5px] text-[10.5px] text-[#999]"><div className="w-2 h-2 rounded-full bg-[#e1306c]" />Social Posts</div>
-        <div className="flex items-center gap-[5px] text-[10.5px] text-[#999]"><div className="w-[14px] border-t-2 border-dashed border-[#e1306c] opacity-50" />Social Trend</div>
+        <div className="flex items-center gap-[5px] text-[11px] md:text-[10.5px] text-[#999]"><div className="w-2 h-2 rounded-full bg-[#4f8ef7]" />Search Volume</div>
+        <div className="flex items-center gap-[5px] text-[11px] md:text-[10.5px] text-[#999]"><div className="w-[14px] border-t-2 border-dashed border-[#4f8ef7] opacity-50" />Search Trend</div>
+        <div className="flex items-center gap-[5px] text-[11px] md:text-[10.5px] text-[#999]"><div className="w-2 h-2 rounded-full bg-[#e1306c]" />Social Posts</div>
+        <div className="flex items-center gap-[5px] text-[11px] md:text-[10.5px] text-[#999]"><div className="w-[14px] border-t-2 border-dashed border-[#e1306c] opacity-50" />Social Trend</div>
       </div>
       <div className="bg-[#fafafa] border-t border-[#f0f0f0] p-[12px_14px_14px]">
         <div className="flex justify-between items-center text-[13px] font-bold mb-[3px]">Accelerated Growth <a href="#" className="text-[11px] font-medium text-[#aaa] hover:text-[#555]">View in Summary Table ›</a></div>
@@ -341,9 +341,9 @@ const Panel2 = () => {
           { lbl: "Avg Engagement", val: counts.eng.toFixed(1) + "%", chg: "↑ above baseline" }
         ].map((s, i) => (
           <div key={i} className="flex-1 p-[10px_12px] bg-[#fafafa] border border-[#eee] rounded-[8px]">
-            <div className="text-[10px] text-[#bbb] font-medium mb-1 tracking-wider">{s.lbl}</div>
+            <div className="text-[11px] md:text-[10px] text-[#bbb] font-medium mb-1 tracking-wider">{s.lbl}</div>
             <div className="text-[20px] font-extrabold text-[#111] leading-none">{s.val}</div>
-            <div className="text-[10px] font-semibold text-[#111] mt-[3px]">{s.chg}</div>
+            <div className="text-[11px] md:text-[10px] font-semibold text-[#111] mt-[3px]">{s.chg}</div>
           </div>
         ))}
       </div>
@@ -415,7 +415,7 @@ const Panel3 = () => {
             ].map((s, i) => (
               <div key={i} className={`p-2 rounded-[7px] border transition-all text-center cursor-pointer ${s.trending ? "bg-[#111] text-white border-[#111]" : "bg-white text-[#111] border-[#e5e5e5] hover:border-[#111]"}`}>
                 <div className="text-[11px] font-semibold">{s.name}</div>
-                <div className={`text-[10px] font-bold mt-[2px] ${s.trending ? "text-[#ddd]" : "text-gray-400"}`}>{s.pct}</div>
+                <div className={`text-[11px] md:text-[10px] font-bold mt-[2px] ${s.trending ? "text-[#ddd]" : "text-gray-400"}`}>{s.pct}</div>
               </div>
             ))}
           </div>

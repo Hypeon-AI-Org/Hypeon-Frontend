@@ -5,7 +5,7 @@ import { ArrowRight, Zap, DollarSign, ShieldCheck } from 'lucide-react';
 
 export default function TrendalyticsSection() {
   return (
-    <section className="relative overflow-hidden bg-white pt-24 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-28">
+    <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pb-24 lg:pt-32 lg:pb-28">
       {/* ambient dot-grid backdrop, matching the reference video - two parallax layers for a 3D depth feel */}
       <div
         aria-hidden
@@ -30,7 +30,7 @@ export default function TrendalyticsSection() {
         }}
       />
 
-      <div className="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 items-start gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(340px,380px)_minmax(0,900px)] lg:gap-24 lg:pl-40 lg:pr-6">
+      <div className="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 items-start gap-12 px-4 md:px-6 lg:grid-cols-[minmax(340px,380px)_minmax(0,900px)] lg:gap-24 lg:pl-40 lg:pr-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,17 +41,17 @@ export default function TrendalyticsSection() {
           <span className="mb-5 inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-[11px] font-medium text-slate-500">
             Marketing is now software
           </span>
-          <h1 className="text-2xl sm:text-4xl lg:text-[2.1rem] font-bold tracking-tighter leading-tight mb-4 text-[#1a1a1a]">
+          <h1 className="text-[36px] md:text-4xl lg:text-[2.1rem] font-bold tracking-tighter leading-[1.1] mb-4 text-[#1a1a1a]">
             All your Competitor ads<br />
             <span className="text-[#1a1a1a]">Across every platform</span>
           </h1>
-          <p className="text-base text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
+          <p className="text-lg leading-7 md:text-base text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
            Access 200M ads with share of voice, reach, creative and estimated spend data.
           </p>
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-5">
             <a
               href="https://app.hypeon.ai/studio/login"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] pl-2 pr-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+              className="group relative inline-flex items-center gap-2 h-[50px] overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] pl-2 pr-5 py-2 text-sm md:h-auto font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
             >
               <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
               <span className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#0a0a0c]">
@@ -64,7 +64,7 @@ export default function TrendalyticsSection() {
             </a>
             <a
               href="https://app.hypeon.ai/studio/login"
-              className="inline-flex items-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-[#1a1a1a] transition-colors hover:bg-slate-50"
+              className="inline-flex h-[50px] items-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm md:h-auto font-semibold text-[#1a1a1a] transition-colors hover:bg-slate-50"
             >
               Talk to sales
             </a>

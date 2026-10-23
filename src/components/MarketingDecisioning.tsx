@@ -11,14 +11,14 @@ import { motion } from 'framer-motion';
 
 export default function CTASection() {
   return (
-    <section className="bg-white pb-16 sm:pb-24 lg:pb-28">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section className="bg-white pb-16 md:pb-24 lg:pb-28">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl bg-[#0a0a0c] px-6 py-16 text-center sm:px-10 sm:py-20"
+          className="relative overflow-hidden rounded-3xl bg-[#0a0a0c] p-6 text-center md:px-10 md:py-20"
         >
           <div
             aria-hidden
@@ -39,13 +39,13 @@ export default function CTASection() {
             }}
           />
 
-          <h2 className="relative text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="relative text-[32px] font-bold leading-[1.2] tracking-tight text-white md:text-4xl lg:text-5xl">
             Stop researching with
             <br />
             <span className=" font-serif font-normal text-white/50">yesterday&apos;s data.</span>
           </h2>
 
-          <p className="relative mx-auto mt-5 max-w-xl text-sm text-white/50 sm:text-base">
+          <p className="relative mx-auto mt-5 max-w-xl text-lg leading-7 text-white/50 md:text-base">
             The day you connect HypeOn Intelligence, you start seeing the signals your
             competitors haven&apos;t found yet. That&apos;s the only edge that matters.
           </p>
@@ -56,7 +56,7 @@ export default function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative mt-8 inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-8 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:text-base"
+            className="group relative mt-8 inline-flex h-[50px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-8 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)] sm:text-base md:h-auto"
           >
             <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
             <span className="relative inline-block h-[1.2em] overflow-hidden align-top">

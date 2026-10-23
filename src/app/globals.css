@@ -971,3 +971,17 @@ html.is-scrolling .float-preview {
     transform: translateY(0);
   }
 }
+
+/* Home workflow canvas: a highlight dash travelling along each connector. */
+@keyframes flow {
+  from { stroke-dashoffset: 64; }
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[flow_2\.4s_linear_infinite\] { animation: none; }
+}
+
+/* Editorial serif accent for one phrase per heading (Source Serif 4, see layout.tsx). */
+.font-accent {
+  font-family: var(--font-accent), Georgia, serif;
+}

@@ -56,7 +56,7 @@ const itemVariants = {
 
 export default function FeatureGrid() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-white py-16 md:py-24 lg:py-28">
       {/* faint dot-grid backdrop, matching the reference layout */}
       <div
         aria-hidden
@@ -67,7 +67,7 @@ export default function FeatureGrid() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -75,11 +75,11 @@ export default function FeatureGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-display text-3xl md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-tight">
+            <h2 className="font-display text-[32px] md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-[1.2]">
               Intelligence for how you actually <span className=''>sell.</span>
             </h2>
 
-            <p className="text-slate-500 text-[15px] max-w-2xl mx-auto leading-relaxed">
+            <p className="text-slate-500 text-lg leading-7 md:text-[15px] max-w-2xl mx-auto md:leading-relaxed">
               Whether you're on your own site, Amazon, TikTok Shop, or all three - HypeOn Intelligence works the way your business works.
             </p>
           </motion.div>
@@ -97,15 +97,15 @@ export default function FeatureGrid() {
                 viewport={{ once: true, margin: "-100px" }}
                 whileHover={{ y: -4, boxShadow: '0 20px 40px -16px rgba(15,23,42,0.14)' }}
                 transition={{ duration: 0.2 }}
-                className="rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] sm:p-7"
+                className="rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] md:p-7"
               >
                 <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
                   <Icon size={iconSize} strokeWidth={1.75} />
                 </div>
-                <h3 className="font-display text-[17px] font-semibold text-slate-900 mb-3 tracking-tight">
+                <h3 className="font-display text-2xl leading-8 md:text-[17px] md:leading-[inherit] font-semibold text-slate-900 mb-3 tracking-tight">
                   {feature.title}
                 </h3>
-                <p className="text-slate-500 text-[14px] leading-relaxed">
+                <p className="text-slate-500 text-base leading-6 md:text-[14px] md:leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>

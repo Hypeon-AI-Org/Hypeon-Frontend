@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import Script from "next/script";
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -23,6 +23,15 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+// Editorial serif used for the accent words in headings ("with AI", etc.).
+const accent = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-accent",
 });
 
 const CONSENT_KEY = "hypeon_cookie_consent_v1";
@@ -85,7 +94,7 @@ export default async function RootLayout({
   );
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${accent.variable}`}>
       <head>
         <Script id="google-consent-mode-default" strategy="beforeInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}

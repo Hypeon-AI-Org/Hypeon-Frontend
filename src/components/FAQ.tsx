@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Accent, Container, DarkButton, DEMO_URL, H2 } from '@/components/home/ui';
 
 const faqData = [
     {
@@ -38,52 +39,48 @@ export default function FAQ() {
     };
 
     return (
-        <section className="bg-white pt-16 pb-4 sm:pt-20 sm:pb-5 lg:pt-24 lg:pb-6">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-[160px_1fr] md:gap-16 lg:px-10">
+        <section className="bg-[#ededed] py-16 md:py-[120px]">
+            <Container className="grid gap-8 md:grid-cols-[300px_1fr] md:gap-12">
+                <div>
+                    <H2 className="text-black">
+                        Frequently asked <Accent>questions</Accent>
+                    </H2>
+                    <p className="mt-3 text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">
+                        Still curious? Talk to the team.
+                    </p>
+                    <DarkButton href={DEMO_URL} className="mt-6">
+                        Book a demo
+                    </DarkButton>
+                </div>
 
-            {/* Left column: title + contact button */}
-            <div className="flex flex-col items-start md:pl-8 lg:pl-12">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4 sm:text-3xl">FAQ</h2>
-                <a
-                    href="https://calendly.com/yash-hypeon/30min"
-                    className="inline-flex items-center rounded-full bg-[#0a0a0c] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-black/80"
-                >
-                    Contact us
-                </a>
-            </div>
-
-            {/* Right column: compact accordion list */}
-            <div className="border-t border-slate-200 font-sans text-black">
-                {faqData.map((faq, index) => (
-                    <div
-                        key={index}
-                        className="border-b border-slate-200"
-                    >
-                        <button
-                            type="button"
-                            onClick={() => toggleFAQ(index)}
-                            className="w-full flex items-center justify-between py-4 text-left hover:text-slate-600 transition-colors group cursor-pointer"
-                        >
-                            <span className="text-[13px] sm:text-sm font-medium text-slate-800 group-hover:text-slate-600 transition-colors pr-8">
-                                {faq.question}
-                            </span>
-                            <ChevronDown
-                                className={`ml-4 h-4 w-4 flex-shrink-0 text-slate-400 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
-                            />
-                        </button>
-
-                        <div
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] pb-4 opacity-100' : 'max-h-0 opacity-0'
-                                }`}
-                        >
-                            <p className="text-[13px] text-slate-500 leading-relaxed pr-8">
-                                {faq.answer}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+                <div className="border-t border-black/10">
+                    {faqData.map((faq, index) => {
+                        const open = openIndex === index;
+                        return (
+                            <div key={index} className="border-b border-black/10">
+                                <button
+                                    type="button"
+                                    onClick={() => toggleFAQ(index)}
+                                    aria-expanded={open}
+                                    className="group flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left"
+                                >
+                                    <span className="text-[18px] leading-[26px] text-[#121212] transition-opacity group-hover:opacity-70">
+                                        {faq.question}
+                                    </span>
+                                    <ChevronDown
+                                        className={`h-5 w-5 shrink-0 text-[#545454] transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+                                    />
+                                </button>
+                                <div
+                                    className={`overflow-hidden transition-all duration-300 ease-in-out ${open ? 'max-h-[600px] pb-5 opacity-100' : 'max-h-0 opacity-0'}`}
+                                >
+                                    <p className="pr-8 text-[16px] leading-[26px] text-[#545454]">{faq.answer}</p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </Container>
         </section>
     );
 }

@@ -13,7 +13,7 @@ const partners = [
 
 export default function AboutIntro() {
   return (
-    <section className="relative overflow-hidden bg-white pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pb-24">
+    <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pt-32 md:pb-20 lg:pb-24">
       {/* Soft ambient glows behind the headline - same dusty-glass language as the home hero */}
       <div
         aria-hidden
@@ -28,18 +28,18 @@ export default function AboutIntro() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-[13px] text-slate-600 sm:text-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-[13px] text-slate-600 md:text-sm">
             <span className="italic font-serif text-slate-900">HypeOn</span>
             <span>is who we build for you</span>
           </span>
 
-          <h1 className="mt-6 text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight leading-[1.1] text-neutral-900">
+          <h1 className="mt-6 text-[36px] md:text-7xl font-normal tracking-tight leading-[1.1] text-neutral-900">
             Scale Smarter. <span className=" font-normal text-neutral-900">Scale Faster.</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-[560px] text-base sm:text-lg leading-relaxed text-slate-600">
+          <p className="mx-auto mt-5 max-w-[560px] text-lg leading-7 md:leading-relaxed text-slate-600">
             HypeOn AI is the AI ad platform that decodes your competitors&apos; playbook and
             turns it into scroll-stopping creative so you spend less, sell more, and keep
             what you earn.
@@ -48,7 +48,7 @@ export default function AboutIntro() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href="https://calendly.com/yash-hypeon/30min"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
+              className="group relative inline-flex h-[50px] items-center gap-2 overflow-hidden rounded-full md:h-auto bg-gradient-to-b from-[#2b2b2b] to-[#0a0a0c] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(0,0,0,0.6)] ring-1 ring-white/10 transition-shadow duration-200 ease-out hover:from-[#333333] hover:to-[#141414] hover:shadow-[0_12px_26px_-8px_rgba(0,0,0,0.65)]"
             >
               <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/20 to-transparent" />
               <span className="relative inline-block h-[1.2em] overflow-hidden align-top">

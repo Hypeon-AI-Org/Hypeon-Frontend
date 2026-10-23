@@ -100,7 +100,7 @@ export default function EveryPlatformSignal() {
     ];
 
     return (
-        <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] pt-16 pb-10 sm:rounded-[56px] sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-16">
+        <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:pt-24 md:pb-14 lg:pt-28 lg:pb-16">
             {/* Faint dot-grid texture */}
             <div
                 aria-hidden
@@ -115,7 +115,7 @@ export default function EveryPlatformSignal() {
                 aria-hidden
                 className="pointer-events-none absolute right-0 top-0 hidden h-[460px] w-[460px] -translate-y-1/3 translate-x-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
             />
-        <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="relative mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
             {/* heading */}
             <div className="text-center">
                 <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 backdrop-blur-sm">
@@ -127,13 +127,13 @@ export default function EveryPlatformSignal() {
                         Unified Data
                     </span>
                 </span>
-                <h2 className="text-2xl font-bold tracking-tighter text-white sm:text-4xl md:text-5xl">
+                <h2 className="text-[32px] leading-[1.2] font-bold tracking-tighter text-white md:text-5xl">
                     Every platform, every signal
                 </h2>
                 <p className="mt-1 font-serif text-2xl  text-white/50 sm:text-3xl">
                     One source of truth
                 </p>
-                <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/50">
+                <p className="mx-auto mt-4 max-w-md text-lg leading-7 text-white/50 md:text-sm md:leading-relaxed">
                     We track Meta, Google, and TikTok 24/7 extracting the signals that matter,
                     structured and searchable.
                 </p>

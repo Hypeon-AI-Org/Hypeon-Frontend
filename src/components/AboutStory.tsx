@@ -86,7 +86,7 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-28">
+    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:py-20 lg:py-28">
       {/* Faint dot-grid texture */}
       <div
         aria-hidden
@@ -102,7 +102,7 @@ export default function AboutStory() {
         className="pointer-events-none absolute left-0 top-0 hidden h-[460px] w-[460px] -translate-x-1/3 -translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(340px,460px)_1fr] lg:items-stretch lg:gap-14">
           {/* image */}
           <div
@@ -125,7 +125,7 @@ export default function AboutStory() {
             </p>
 
             <h2
-              className={`text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-white transition-all ${
+              className={`text-[32px] leading-[1.2] md:text-3xl lg:text-4xl font-bold md:leading-tight tracking-tight text-white transition-all ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
@@ -133,7 +133,7 @@ export default function AboutStory() {
             </h2>
 
             <p
-              className={`mt-3 text-[15px] leading-relaxed text-white/50 transition-all ${
+              className={`mt-3 text-lg leading-7 md:text-[15px] md:leading-relaxed text-white/50 transition-all ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
@@ -145,7 +145,7 @@ export default function AboutStory() {
               {cards.map((card, i) => (
                 <div
                   key={card.title}
-                  className={`rounded-2xl border border-white/10 bg-[#131316] p-5 transition-all ${
+                  className={`rounded-2xl border border-white/10 bg-[#131316] p-6 md:p-5 transition-all ${
                     visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                   }`}
                   style={{ transitionDelay: `${200 + i * 80}ms` }}
@@ -153,8 +153,8 @@ export default function AboutStory() {
                   <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-md bg-white/10 text-white">
                     <StoryIcon name={card.icon} />
                   </div>
-                  <h3 className="text-base font-semibold text-white">{card.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-white/50">{card.description}</p>
+                  <h3 className="text-2xl leading-8 md:text-base font-semibold text-white">{card.title}</h3>
+                  <p className="mt-1 text-base leading-6 md:text-sm md:leading-relaxed text-white/50">{card.description}</p>
                 </div>
               ))}
             </div>

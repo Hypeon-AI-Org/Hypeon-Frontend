@@ -129,7 +129,7 @@ const analyticsPricing: Record<
 
 function CheckIcon() {
   return (
-    <span className="inline-flex items-center justify-center w-[18px] h-[18px] bg-emerald-50 rounded-full shrink-0 mt-px">
+    <span className="inline-flex items-center justify-center w-[18px] h-[18px] bg-emerald-50 rounded-full shrink-0 mt-[3px] md:mt-px">
       <svg viewBox="0 0 12 12" fill="none" className="w-[10px] h-[10px]">
         <path
           d="M2 6.5L4.5 9L10 3"
@@ -323,20 +323,20 @@ export default function PricingPage() {
         <div className="antialiased leading-relaxed text-gray-900">
           {/* ─── HERO ─── */}
           <Reveal>
-            <section className="text-center pt-24 pb-12 px-6 max-w-[1200px] mx-auto">
+            <section className="text-center pt-36 pb-8 px-4 md:pt-24 md:pb-12 md:px-6 max-w-[1200px] mx-auto">
               <div className="inline-flex items-center gap-2 text-gray-600 text-sm font-medium mb-6">
                 <span className="flex items-center justify-center w-5 h-5 rounded-md bg-black text-white shrink-0">
                   <Activity className="w-3 h-3" />
                 </span>
                 Built on millions of data signals
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tighter mb-4 text-gray-900">
+              <h1 className="text-[36px] md:text-5xl font-bold leading-[1.1] tracking-tighter mb-4 text-gray-900">
                 Plans and <span className="text-[#696863]">pricing</span>
               </h1>
-              <p className="text-base text-gray-600 max-w-[520px] leading-relaxed mb-1.5 mx-auto">
+              <p className="text-lg leading-7 md:text-base text-gray-600 max-w-[520px] md:leading-relaxed mb-1.5 mx-auto">
                 Get started with HypeOn
               </p>
-              <p className="text-sm text-gray-400 max-w-[520px] font-normal mx-auto">
+              <p className="text-base md:text-sm text-gray-400 max-w-[520px] font-normal mx-auto">
                 Improve your conversion rate and Profit
               </p>
             </section>
@@ -344,7 +344,7 @@ export default function PricingPage() {
 
           {/* ─── TOGGLE ─── */}
           <Reveal delayMs={80}>
-            <div className="flex justify-center px-6 pb-4">
+            <div className="flex justify-center px-4 md:px-6 pb-4">
               <div
                 ref={toggleContainerRef}
                 className="relative flex items-stretch bg-white border border-gray-200 rounded-full p-1 shadow-sm"
@@ -379,8 +379,8 @@ export default function PricingPage() {
           </Reveal>
 
           <Reveal delayMs={120}>
-            <div className="text-center pt-2 px-6 mb-10">
-              <p className="text-sm text-gray-400">
+            <div className="text-center pt-2 px-4 md:px-6 mb-10">
+              <p className="text-base md:text-sm text-gray-400">
                 {activeTab === "intelligence"
                   ? "Competitor intelligence, ad creation and launch in one workspace"
                   : "Cross-channel attribution, true ROAS & budget optimization"}
@@ -401,20 +401,20 @@ export default function PricingPage() {
               {/* Studio plan cards: one card per STUDIO_PLANS entry. Growth
                   carries the launch offer while `offerLive`. */}
               <Reveal delayMs={120}>
-                <section className="max-w-[1200px] mx-auto px-6 pb-16">
+                <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8 max-md:max-w-[480px] max-md:mx-auto">
                   {STUDIO_PLANS.map((plan, i) => {
                     const isFree = plan.monthly === 0;
                     const highlighted = plan.key === "PRO";
                     const offer = plan.key === "GROWTH" && offerLive ? GROWTH_OFFER : null;
                     const cardClass = highlighted
-                      ? "bg-white border-gray-900 border rounded-2xl p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp"
-                      : `bg-white border rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp ${
+                      ? "bg-white border-gray-900 border rounded-2xl p-6 md:p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp"
+                      : `bg-white border rounded-2xl p-6 md:p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp ${
                           offer ? "border-amber-400 shadow-md" : "border-gray-200 hover:border-gray-300"
                         }`;
                     const ctaClass = highlighted || offer
-                      ? "block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
-                      : "block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none";
+                      ? "block w-full py-3.5 max-md:h-[50px] max-md:flex max-md:items-center max-md:justify-center rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
+                      : "block w-full py-3.5 max-md:h-[50px] max-md:flex max-md:items-center max-md:justify-center rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none";
                     return (
                       <div
                         key={plan.key}
@@ -427,8 +427,8 @@ export default function PricingPage() {
                             {plan.badge}
                           </div>
                         )}
-                        <div className="text-xl font-bold mb-3">{plan.name}</div>
-                        <div className="text-sm text-gray-600 mb-6 min-h-[60px]">{plan.blurb}</div>
+                        <div className="text-2xl md:text-xl font-bold mb-3">{plan.name}</div>
+                        <div className="text-base md:text-sm text-gray-600 mb-6 min-h-[60px]">{plan.blurb}</div>
 
                         {offer ? (
                           <>
@@ -475,7 +475,7 @@ export default function PricingPage() {
                           {plan.includesLabel}
                         </div>
                         {plan.features.map((f) => (
-                          <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
+                          <div key={f} className="flex items-start gap-2.5 text-base leading-6 md:text-sm text-gray-600 mb-3 md:leading-snug">
                             <CheckIcon />
                             {f}
                           </div>
@@ -484,7 +484,7 @@ export default function PricingPage() {
                     );
                   })}
                 </div>
-                <p className="text-center text-[13px] text-gray-400 mb-12">
+                <p className="text-center text-[13px] text-gray-400 mb-0 md:mb-12">
                   A credit is one unit of generation. Static ad ~50 credits · Video or UGC ad
                   ~150-200 · Competitor deep-dive ~100. Unused credits roll over one month; top up
                   anytime at $19 per 500. Need custom limits or a dedicated manager?{" "}
@@ -511,8 +511,8 @@ export default function PricingPage() {
             <div>
               {/* Revenue Selector */}
               <Reveal delayMs={60}>
-                <section className="text-center mb-12 px-6">
-                  <h3 className="text-base font-semibold mb-4 text-gray-900">
+                <section className="text-center mb-12 px-4 md:px-6">
+                  <h3 className="text-lg md:text-base font-semibold mb-4 text-gray-900">
                     What&apos;s your tracked monthly revenue?
                   </h3>
                   <div className="flex flex-wrap gap-2 justify-center">
@@ -547,12 +547,12 @@ export default function PricingPage() {
 
               {/* Analytics Cards */}
               <Reveal delayMs={100}>
-                <section className="max-w-[1200px] mx-auto px-6 pb-16">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-20 max-md:max-w-[480px] max-md:mx-auto">
+                <section className="max-w-[1200px] mx-auto px-4 md:px-6 pb-16">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-0 md:mb-20max-md:max-w-[480px] max-md:mx-auto">
                   {/* Starter */}
-                  <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:50ms]">
-                  <div className="text-xl font-bold mb-3">Starter</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:50ms]">
+                  <div className="text-2xl md:text-xl font-bold mb-3">Starter</div>
+                    <div className="text-base md:text-sm text-gray-600 mb-6 min-h-[60px]">
                       See your real numbers. Stop trusting platform-reported data blindly.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
@@ -567,7 +567,7 @@ export default function PricingPage() {
                     <div className="mb-5" />
                     <a
                       href="https://calendly.com/yash-hypeon/30min"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none"
+                      className="block w-full py-3.5 max-md:h-[50px] max-md:flex max-md:items-center max-md:justify-center rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline bg-transparent border-2 border-gray-200 text-gray-900 mb-7 transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color,background-color,color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300 motion-reduce:transition-none motion-reduce:transform-none"
                     >
                       Get Started
                     </a>
@@ -588,7 +588,7 @@ export default function PricingPage() {
                       "2 users",
                       "Email support",
                     ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
+                      <div key={f} className="flex items-start gap-2.5 text-base leading-6 md:text-sm text-gray-600 mb-3 md:leading-snug">
                         <CheckIcon />
                         {f}
                       </div>
@@ -596,12 +596,12 @@ export default function PricingPage() {
                   </div>
 
                   {/* Growth (recommended) */}
-                  <div className="bg-white border-gray-900 border rounded-2xl p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:120ms]">
+                  <div className="bg-white border-gray-900 border rounded-2xl p-6 md:p-9 flex flex-col relative shadow-lg transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-xl motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:120ms]">
                   <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-semibold px-5 py-1.5 rounded-b-[10px] tracking-wide">
                       Most Popular
                     </div>
-                  <div className="text-xl font-bold mb-3">Pro</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
+                  <div className="text-2xl md:text-xl font-bold mb-3">Pro</div>
+                    <div className="text-base md:text-sm text-gray-600 mb-6 min-h-[60px]">
                       Daily campaign-level decisions. Know exactly what to scale, hold, or cut.
                     </div>
                     <div className="mb-1 flex items-baseline gap-1">
@@ -616,7 +616,7 @@ export default function PricingPage() {
                     <div className="mb-5" />
                     <a
                       href="https://calendly.com/yash-hypeon/30min"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
+                      className="block w-full py-3.5 max-md:h-[50px] max-md:flex max-md:items-center max-md:justify-center rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"
                     >
                       Get Started
                     </a>
@@ -636,7 +636,7 @@ export default function PricingPage() {
                       "Guided setup call",
                       "5 users · Priority chat support",
                     ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
+                      <div key={f} className="flex items-start gap-2.5 text-base leading-6 md:text-sm text-gray-600 mb-3 md:leading-snug">
                         <CheckIcon />
                         {f}
                       </div>
@@ -644,9 +644,9 @@ export default function PricingPage() {
                   </div>
 
                   {/* Enterprise */}
-                  <div className="bg-white border border-gray-200 rounded-2xl p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:190ms]">
-                  <div className="text-xl font-bold mb-3">Enterprise</div>
-                    <div className="text-sm text-gray-600 mb-6 min-h-[60px]">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-9 flex flex-col relative transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,border-color] motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gray-300 hover:shadow-md motion-safe:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none motion-safe:animate-fadeUp [animation-delay:190ms]">
+                  <div className="text-2xl md:text-xl font-bold mb-3">Enterprise</div>
+                    <div className="text-base md:text-sm text-gray-600 mb-6 min-h-[60px]">
                       Tailored to your needs - custom limits, integrations, and dedicated
                       support. Let&apos;s build a plan that fits.
                     </div>
@@ -668,7 +668,7 @@ export default function PricingPage() {
                     <div className="mb-5" />
                     <a
                       href="https://calendly.com/yash-hypeon/30min"
-                      className="block w-full py-3.5 rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"                    >
+                      className="block w-full py-3.5 max-md:h-[50px] max-md:flex max-md:items-center max-md:justify-center rounded-full text-[15px] font-semibold cursor-pointer text-center no-underline mb-7 bg-slate-800 text-white transform-gpu will-change-transform motion-safe:transition-[transform,box-shadow,background-color] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:hover:-translate-y-0.5 hover:shadow-md hover:bg-slate-900 motion-reduce:transition-none motion-reduce:transform-none"                    >
                       Talk to Sales
                     </a>
                     <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-4 pb-3 border-b border-gray-200">
@@ -687,7 +687,7 @@ export default function PricingPage() {
                       "Unlimited users · Dedicated account manager",
                       "SLA & uptime guarantee",
                     ].map((f) => (
-                      <div key={f} className="flex items-start gap-2.5 text-sm text-gray-600 mb-3 leading-snug">
+                      <div key={f} className="flex items-start gap-2.5 text-base leading-6 md:text-sm text-gray-600 mb-3 md:leading-snug">
                         <CheckIcon />
                         {f}
                       </div>
@@ -706,8 +706,8 @@ export default function PricingPage() {
 
           {/* ─── FAQ ─── */}
           <Reveal delayMs={80}>
-            <section className="max-w-[980px] mx-auto px-6 pb-[72px]">
-              <h2 className="text-center text-2xl md:text-4xl font-bold tracking-tight mb-10">
+            <section className="max-w-[980px] mx-auto px-4 pb-16 md:px-6 md:pb-[72px]">
+              <h2 className="text-center text-[32px] leading-[1.2] md:text-4xl font-bold tracking-tight mb-10">
                 Got questions? <span className="text-[#696863]">We got answers.</span>
               </h2>
               <div className="bg-white/70 border border-gray-200 rounded-[20px] shadow-sm overflow-hidden">
@@ -811,7 +811,7 @@ export default function PricingPage() {
                     <div key={item.q} className="border-b border-gray-200 last:border-b-0">
                       <button
                         type="button"
-                        className="flex justify-between items-start gap-4 p-[22px] cursor-pointer text-[17px] font-semibold text-gray-900 bg-transparent border-none w-full text-left leading-snug transition-colors duration-150 hover:bg-gray-900/[0.02] focus-visible:outline focus-visible:outline-3 focus-visible:outline-gray-900/20 focus-visible:-outline-offset-[3px]"
+                        className="flex justify-between items-start gap-4 p-6 md:p-[22px] cursor-pointer text-[17px] font-semibold text-gray-900 bg-transparent border-none w-full text-left leading-snug transition-colors duration-150 hover:bg-gray-900/[0.02] focus-visible:outline focus-visible:outline-3 focus-visible:outline-gray-900/20 focus-visible:-outline-offset-[3px]"
                         onClick={() => setOpenFaq((v) => (v === idx ? null : idx))}
                       >
                         <span className="flex-1 min-w-0">{item.q}</span>
@@ -824,10 +824,10 @@ export default function PricingPage() {
                         </span>
                       </button>
                       <div
-                        className={`overflow-hidden text-[15px] text-gray-600 leading-relaxed transform-gpu will-change-[transform,opacity] motion-safe:transition-[max-height,opacity,transform,padding] motion-safe:duration-[520ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+                        className={`overflow-hidden text-base leading-6 md:text-[15px] text-gray-600 md:leading-relaxed transform-gpu will-change-[transform,opacity] motion-safe:transition-[max-height,opacity,transform,padding] motion-safe:duration-[520ms] motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
                           isOpen
-                            ? "max-h-[520px] pb-[22px] px-[22px] opacity-100 translate-y-0"
-                            : "max-h-0 pb-0 px-[22px] opacity-0 -translate-y-1"
+                            ? "max-h-[520px] pb-6 px-6 md:pb-[22px] md:px-[22px] opacity-100 translate-y-0"
+                            : "max-h-0 pb-0 px-6 md:px-[22px] opacity-0 -translate-y-1"
                         }`}
                       >
                         {item.a}
@@ -841,7 +841,7 @@ export default function PricingPage() {
 
           {/* StartToday / CTA */}
           <Reveal delayMs={60}>
-            <div className="-mt-8 max-sm:-mt-4">
+            <div className="md:-mt-8">
               <StartToday />
             </div>
           </Reveal>
@@ -858,10 +858,10 @@ export default function PricingPage() {
    ────────────────────────────────────────────── */
 function CompareIntelligenceTable({}: { analyticsTier?: unknown }) {
   return (
-    <section className="max-w-[1200px] mx-auto px-6 pb-24">
+    <section className="max-w-[1200px] mx-auto px-4 pb-16 md:px-6 md:pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Studio Plans</h2>
-        <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
+        <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold tracking-tight">Compare Studio Plans</h2>
+        <p className="text-gray-600 text-lg md:text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
         <table className="w-full min-w-[600px] md:min-w-[960px] border-collapse">
@@ -935,10 +935,10 @@ function CompareAnalyticsTable({
   analyticsTier: { starter: number; growth: number; pro: number | "Custom" };
 }) {
   return (
-    <section className="max-w-[1200px] mx-auto px-6 pb-24">
+    <section className="max-w-[1200px] mx-auto px-4 pb-16 md:px-6 md:pb-24">
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-[#696863]">Plans</span></h2>
-        <p className="text-gray-600 text-base mt-2">Every feature, side by side</p>
+        <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold tracking-tight">Compare Analytics <span className="text-[#696863]">Plans</span></h2>
+        <p className="text-gray-600 text-lg md:text-base mt-2">Every feature, side by side</p>
       </div>
       <div className="w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
         <table className="w-full min-w-[480px] md:min-w-[860px] border-collapse">

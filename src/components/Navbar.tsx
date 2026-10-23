@@ -50,13 +50,6 @@ function Navbar() {
     router.push("/products#copilot");
   };
 
-  const goToPricing = useCallback((e: React.MouseEvent) => {
-    closeMobile();
-    if (pathname === "/") {
-      e.preventDefault();
-      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [pathname, closeMobile]);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -81,9 +74,38 @@ function Navbar() {
 
   return (
     <>
+      {/* PHONES (< md): a plain full-width bar - logo left, one button right, no menu. */}
+      <div
+        className={`md:hidden fixed inset-x-0 top-[var(--promo-h,0px)] z-50 flex h-[65px] items-center justify-between px-4 backdrop-blur-md ${
+          isDark ? "bg-[#121212]/85" : "bg-[#ededed]/85"
+        }`}
+      >
+        <Link href="/" className="flex items-center gap-2" aria-label="HypeOn home">
+          <Image src={logo} alt="HypeOn AI Logo" width={32} height={32} className="h-8 w-8 object-contain" />
+          <span className={`text-[20px] font-semibold leading-none tracking-tight ${isDark ? "text-white" : "text-[#121212]"}`}>
+            HypeOn
+          </span>
+        </Link>
+        <div className="flex items-center gap-1">
+          {/* opens the product menu panel below */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
+              isDark ? "text-white active:bg-white/10" : "text-[#121212] active:bg-black/[0.06]"
+            }`}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" strokeWidth={2} /> : <Menu className="h-5 w-5" strokeWidth={2} />}
+          </button>
+        </div>
+      </div>
+
       <nav
         className={`
-    fixed left-1/2 -translate-x-1/2 z-50 w-full
+    max-md:hidden fixed left-1/2 -translate-x-1/2 z-50 w-full
     transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
 
     ${isScrolled
@@ -184,14 +206,6 @@ function Navbar() {
                 </div>
               </div>
             </div>
-
-            <Link
-              href="/#pricing"
-              onClick={goToPricing}
-              className={`text-sm sm:text-base font-medium hover:opacity-70 transition-opacity cursor-pointer ${isDark ? "text-white" : "text-black"}`}
-            >
-              Pricing
-            </Link>
 
 
 
@@ -315,16 +329,6 @@ function Navbar() {
                 </div>
               </div>
             </div>
-
-            <nav className="mt-3 space-y-0.5" aria-label="Primary">
-              <Link
-                href="/#pricing"
-                onClick={goToPricing}
-                className={`flex min-h-[48px] items-center rounded-xl px-3 text-[15px] font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${isDark ? "text-white hover:bg-white/[0.06] active:bg-white/10 focus-visible:ring-white/20" : "text-slate-900 hover:bg-slate-100 active:bg-slate-200/80 focus-visible:ring-black/15"}`}
-              >
-                Pricing
-              </Link>
-            </nav>
 
             <div className={`my-4 h-px w-full ${isDark ? "bg-white/10" : "bg-slate-200"}`} />
 

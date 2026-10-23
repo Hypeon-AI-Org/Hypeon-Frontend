@@ -20,7 +20,7 @@ export default function WhoWeAreBuildingFor() {
   }, []);
 
   return (
-    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-28">
+    <section ref={ref} className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:py-20 lg:py-28">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
@@ -34,7 +34,7 @@ export default function WhoWeAreBuildingFor() {
         className="pointer-events-none absolute left-0 top-1/2 hidden h-[460px] w-[460px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
           <div
             className={`text-center transition-all duration-700 lg:order-2 lg:text-left ${
@@ -42,10 +42,10 @@ export default function WhoWeAreBuildingFor() {
             }`}
           >
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">Our Mission</p>
-            <h2 className="mt-3 text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-white">
+            <h2 className="mt-3 text-[32px] leading-[1.2] md:text-4xl font-bold md:leading-tight tracking-tight text-white">
               Make growth predictable <span className="text-white/40">not guessed.</span>
             </h2>
-            <p className="mt-4 max-w-lg text-sm sm:text-base leading-relaxed text-white/50 lg:max-w-none">
+            <p className="mt-4 max-w-lg text-lg leading-7 md:text-base md:leading-relaxed text-white/50 lg:max-w-none">
               We&apos;re building two engines that work as one - Hypeon Intelligence to decode
               your competitor&apos;s playbook, and HypeOn Studio to turn that insight into
               creative that converts. Spend less, sell more, and keep what you earn.

@@ -31,7 +31,7 @@ function Platform({ label, src }: { label: string; src: string }) {
 
 export default function AboutDataSources() {
   return (
-    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:py-20 lg:py-24">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)]"
@@ -45,11 +45,11 @@ export default function AboutDataSources() {
         className="pointer-events-none absolute right-0 top-1/2 hidden h-[460px] w-[460px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12),rgba(255,255,255,0)_70%)] blur-2xl lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 text-center sm:px-6 lg:px-10">
-        <h2 className="text-2xl sm:text-4xl font-bold tracking-tighter text-white">
+      <div className="relative mx-auto w-full max-w-[1280px] px-4 text-center md:px-6 lg:px-10">
+        <h2 className="text-[32px] leading-[1.2] md:text-4xl font-bold tracking-tighter text-white">
           Millions of signals <span className="text-white/40">Every day.</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white/50">
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-7 md:text-base md:leading-relaxed text-white/50">
           HypeOn Intelligence tracks the platforms where money actually moves - decoding 200M+
           ads to surface every competitor&apos;s spend, reach and winning angles, 24/7.
         </p>

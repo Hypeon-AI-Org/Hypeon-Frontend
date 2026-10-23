@@ -1,46 +1,29 @@
 import dynamic from 'next/dynamic';
-import Background from '@/components/Background';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import AboutCTA from "../components/AboutCTA";
-import FAQ from "../components/FAQ";
-import TeamsAchieve from "../components/TeamsAchieve";
-import FounderDecisionMap from '../components/FounderDecisionMap';
-import AdIntelReplica from '@/components/AdIntelReplica';
-import DashboardCTA from '@/components/DashboardCTA';
-import ProductEngines from '@/components/ProductEngines';
-import BuiltForBrands from '@/components/BuiltForBrands';
-import OnePlaceEveryPlatform from '@/components/OnePlaceEveryPlatform';
-import PricingSection from '@/components/PricingSection';
-import MidnightCTA from '@/components/MidnightCTA';
-import HowItWorks from '@/components/HowItWorks';
+import ToolReel from '@/components/home/ToolReel';
+import FeatureTrio from '@/components/home/FeatureTrio';
+import DarkShowcase from '@/components/home/DarkShowcase';
+import InAction from '@/components/home/InAction';
+import DarkBento from '@/components/home/DarkBento';
+import BigNumber from '@/components/home/BigNumber';
+import FinalCTA from '@/components/home/FinalCTA';
 
 // Lazy load below-the-fold components
-const Partners = dynamic(() => import('@/components/Partners'));
 const Footer = dynamic(() => import('@/components/Footer'));
-
 
 export default function Home() {
   return (
-    <main className="relative">
-      <Background />
+    <main className="relative bg-[#ededed]">
       <Navbar />
       <Hero />
-      <ProductEngines />
-            <HowItWorks />
-      <BuiltForBrands />
-<AdIntelReplica />
-      <FounderDecisionMap />
-      <Partners />
-   
-      <OnePlaceEveryPlatform />
-   
-
-     <PricingSection/>
-     <MidnightCTA/>
-
-      <FAQ />
-      <DashboardCTA />
+      <ToolReel />
+      <FeatureTrio />
+      <DarkShowcase />
+      <InAction />
+      <DarkBento />
+      <BigNumber />
+      <FinalCTA />
       <Footer />
     </main>
   );

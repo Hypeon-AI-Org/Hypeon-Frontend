@@ -22,8 +22,8 @@ export default function AboutImpact() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-white pt-6 pb-6 sm:pt-8 sm:pb-8 lg:pt-10 lg:pb-10">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+    <section ref={ref} className="bg-white pt-16 pb-16 md:pt-8 md:pb-8 lg:pt-10 lg:pb-10">
+      <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(240px,300px)_1fr] lg:gap-14">
           {/* bio card */}
           <div className="lg:sticky lg:top-24 lg:self-start">
@@ -37,8 +37,8 @@ export default function AboutImpact() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
 
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900">Yash Kumar</h3>
+              <div className="p-6 md:p-5">
+                <h3 className="text-2xl leading-8 md:text-lg font-bold text-slate-900">Yash Kumar</h3>
                 <p className="mt-1 text-xs font-semibold text-slate-500">Founder & CEO</p>
 
                 <div className="mt-3 space-y-1 text-xs text-slate-500">
@@ -69,13 +69,13 @@ export default function AboutImpact() {
               }`}
             >
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">Built by</p>
-              <h2 className="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-slate-900">
+              <h2 className="mt-2 text-[32px] leading-[1.2] md:text-4xl font-bold md:leading-tight tracking-tight text-slate-900">
                 The founder who turns ad chaos into winning creative.
               </h2>
             </header>
 
             <div
-              className={`space-y-4 text-sm leading-relaxed text-slate-600 transition-all duration-700 delay-200 ${
+              className={`space-y-4 text-base leading-6 md:text-sm md:leading-relaxed text-slate-600 transition-all duration-700 delay-200 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
@@ -104,12 +104,12 @@ export default function AboutImpact() {
               </p>
 
               <blockquote
-                className={`relative rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition-all duration-700 delay-300 ${
+                className={`relative rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-5 shadow-sm transition-all duration-700 delay-300 ${
                   visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
               >
                 <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-slate-900" />
-                <p className="text-base italic leading-relaxed text-slate-800">
+                <p className="text-base italic leading-6 md:leading-relaxed text-slate-800">
                   &quot;Most teams don&apos;t lose because they lack ideas. They lose because they
                   start from a blank page. We built HypeOn so the winning angle is found - and
                   built - before you spend.&quot;
