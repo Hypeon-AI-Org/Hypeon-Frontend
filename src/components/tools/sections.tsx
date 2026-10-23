@@ -57,19 +57,23 @@ export function ToolHero({
   children: ReactNode;
 }) {
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)] lg:gap-14">
+    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-12">
       <div>
         <ToolEyebrow slug={slug} />
-        <h1 className="mt-5 text-[38px] font-medium leading-[1.06] tracking-[-0.03em] text-black md:text-[56px]">
-          {title} <Accent>{accent}</Accent>
+        {/* The accent phrase always starts its own line; balance keeps the first line from orphaning a word. */}
+        <h1 className="mt-5 text-[38px] font-medium leading-[1.05] tracking-[-0.03em] text-black [text-wrap:balance] md:text-[52px] lg:text-[50px]">
+          {title}
+          <br />
+          <Accent>{accent}</Accent>
         </h1>
-        <p className="mt-5 max-w-[520px] text-[18px] leading-[28px] text-[#545454] md:text-[20px] md:leading-[30px]">{sub}</p>
-        <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2.5">
+        <p className="mt-5 max-w-[500px] text-[17px] leading-[27px] text-[#545454] md:text-[19px] md:leading-[29px]">{sub}</p>
+        <ul className="mt-7 flex flex-wrap gap-2">
           {points.map((p) => (
-            <li key={p} className="flex items-center gap-2 text-[15px] text-[#333333]">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#00da7f]/15 text-[#007a45]">
-                <Check className="h-3 w-3" strokeWidth={3} />
-              </span>
+            <li
+              key={p}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[14px] text-[#333333] ring-1 ring-[#e4e4e4]"
+            >
+              <Check className="h-3.5 w-3.5 text-[#00b86b]" strokeWidth={3} />
               {p}
             </li>
           ))}
