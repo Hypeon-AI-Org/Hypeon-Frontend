@@ -37,7 +37,7 @@ const PARTNERS: Partner[] = [
   { name: 'Sejuna', slug: 'sejuna' },
   { name: 'Trustbadgely', slug: 'trustbadgely', file: '/logos/partners/trustbadgely.svg' },
   { name: 'Wallpassion', slug: 'wallpassion' },
-  { name: 'Familjetapeter', slug: 'familjetapeter' },
+  { name: 'Familjetapeter', slug: 'familjetapeter', file: '/logos/partners/familjetapeter.svg' },
   { name: 'Adroot', slug: 'adroot' },
   { name: 'Bl1xt', slug: 'bl1xt' },
   { name: '11Sight', slug: '11sight' },
