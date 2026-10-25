@@ -14,7 +14,8 @@ import { SiAmazon, SiAmul, SiHp, SiTata, SiUdemy, SiUnacademy } from 'react-icon
  * shows automatically; until then the chip shows a lettered badge.
  */
 
-type Partner = { name: string; slug: string; Icon?: IconType; color?: string; file?: string };
+/** `wordmark`: the file is a wide logo that already spells the name, shown alone. */
+type Partner = { name: string; slug: string; Icon?: IconType; color?: string; file?: string; wordmark?: boolean };
 
 /** Google's four-colour "G". */
 function GoogleG({ className }: { className?: string }) {
@@ -38,7 +39,7 @@ const PARTNERS: Partner[] = [
   { name: 'Trustbadgely', slug: 'trustbadgely', file: '/logos/partners/trustbadgely.svg' },
   { name: 'Wallpassion', slug: 'wallpassion' },
   { name: 'Familjetapeter', slug: 'familjetapeter', file: '/logos/partners/familjetapeter.svg' },
-  { name: 'Adroot', slug: 'adroot' },
+  { name: 'Adroot', slug: 'adroot', file: '/logos/partners/adroot.svg', wordmark: true },
   { name: 'Bl1xt', slug: 'bl1xt' },
   { name: '11Sight', slug: '11sight' },
   { name: 'PureMarketing', slug: 'puremarketing' },
@@ -77,8 +78,15 @@ function Logo({ p }: { p: Partner }) {
 function Chip({ p }: { p: Partner }) {
   return (
     <span className="inline-flex h-[50px] shrink-0 items-center gap-2 rounded-lg border border-[#c9c9c9] px-4 text-[14px] font-medium leading-none text-black">
-      <Logo p={p} />
-      {p.name}
+      {p.wordmark && p.file ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={p.file} alt={p.name} className="h-[18px] w-auto" />
+      ) : (
+        <>
+          <Logo p={p} />
+          {p.name}
+        </>
+      )}
     </span>
   );
 }
