@@ -269,10 +269,10 @@ function StudioHero() {
                         <path d="M12 1.5 L13.4 10.6 L22.5 12 L13.4 13.4 L12 22.5 L10.6 13.4 L1.5 12 L10.6 10.6 Z" />
                     </svg>
 
-                    <h1 className="text-left font-sans text-[24px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
+                    <h1 className="text-left font-sans text-[20px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
                         AI that<br />creates
                     </h1>
-                    <h2 className="mt-5 text-right font-sans text-[24px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
+                    <h2 className="mt-5 text-right font-sans text-[20px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
                         runs your<br />winning ads
                     </h2>
                 </div>
