@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
-import { ArrowRight, Check, Clapperboard, Minus, Plus, Radar, Search, Sparkles, Swords } from 'lucide-react';
+import { ArrowRight, Check, Clapperboard, Minus, Plus, Radar, Search, Sparkles, Swords, Timer } from 'lucide-react';
 
 import { Accent, Container, DarkButton, DarkCard, DEMO_URL, LightButton, STUDIO_URL } from '@/components/home/ui';
 import { TOOL_CATALOG, type ToolSlug } from '@/lib/tools/catalog';
@@ -20,6 +20,7 @@ export const TOOL_ICON: Record<ToolSlug, LucideIcon> = {
   'ai-citation-checker': Sparkles,
   'keyword-rank-checker': Search,
   'ad-analyser': Clapperboard,
+  'hook-analyzer': Timer,
   'seo-competitor-analysis': Swords,
 };
 
@@ -224,7 +225,7 @@ export function MoreTools({ current }: { current: ToolSlug }) {
           All tools <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {others.map((t) => {
           const Icon = TOOL_ICON[t.slug];
           const inner = (

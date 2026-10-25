@@ -14,7 +14,7 @@ import type { Verdict } from '@/lib/tools/engines';
 export const metadata: Metadata = {
   title: 'Free Growth Tools: AI Visibility, Google Rankings & Ad Scoring | HypeOn',
   description:
-    'Free HypeOn tools with live data: AI Visibility Scanner, Google Rank Finder and AI Ad Analyser. See how AI assistants, Google and your ads perform. No sign-up.',
+    'Free HypeOn tools with live data: AI Ad Analyser, Hook Analyser for Reels & TikTok, AI Visibility Scanner and Google Rank Finder. See how your ads, videos, AI answers and Google rankings perform. No sign-up.',
   alternates: { canonical: '/tools' },
 };
 
@@ -106,6 +106,37 @@ function AdPreview() {
   );
 }
 
+function HookPreview() {
+  const marks: [string, string][] = [
+    ['0s', 'bg-[#00b86b]'],
+    ['1s', 'bg-[#00b86b]'],
+    ['2s', 'bg-[#f2a93b]'],
+    ['3s', 'bg-[#e5484d]'],
+  ];
+  return (
+    <Frame>
+      <div className="flex items-end justify-between">
+        <p className="text-[13px] text-[#8a8a8a]">First 3 seconds</p>
+        <p className="text-[13px] text-[#121212]">
+          <span className="text-[22px] font-medium tracking-[-0.03em]">68</span>/100
+        </p>
+      </div>
+      <div className="mt-2 grid grid-cols-4 gap-1.5">
+        {marks.map(([t, c]) => (
+          <div key={t}>
+            <div className="aspect-[9/14] rounded-md bg-[linear-gradient(160deg,#3a2a20,#121212_75%)]" />
+            <div className="mt-1 flex items-center gap-1 text-[11px] text-[#8a8a8a]">
+              <span className={`h-1.5 w-1.5 rounded-full ${c}`} />
+              {t}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-2 rounded-lg bg-[#f6f6f6] px-3 py-1.5 text-[13px] text-[#121212]">“I tried this for 7 days…”</p>
+    </Frame>
+  );
+}
+
 function GapPreview() {
   const gaps = ['organic coffee subscription', 'best decaf beans uk', 'coffee gift box delivery'];
   return (
@@ -127,6 +158,7 @@ const PREVIEW: Record<ToolSlug, () => ReactNode> = {
   'ai-citation-checker': VisibilityPreview,
   'keyword-rank-checker': RankPreview,
   'ad-analyser': AdPreview,
+  'hook-analyzer': HookPreview,
   'seo-competitor-analysis': GapPreview,
 };
 

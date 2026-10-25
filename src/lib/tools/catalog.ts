@@ -12,6 +12,13 @@ export const TOOL_CATALOG = [
     live: true,
   },
   {
+    slug: 'hook-analyzer',
+    title: 'Hook Analyser',
+    tagline: 'Will they keep watching?',
+    body: 'Upload a Reel, TikTok or Short and AI grades its first 3 seconds, the part that decides who swipes away, then writes you better hook lines.',
+    live: true,
+  },
+  {
     slug: 'ai-citation-checker',
     title: 'AI Visibility Scanner',
     tagline: 'Is AI recommending you?',

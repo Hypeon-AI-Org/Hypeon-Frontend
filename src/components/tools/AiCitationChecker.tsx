@@ -9,6 +9,7 @@ import { isSameSite } from '@/lib/tools/domain';
 import { ENGINES, type EngineResult, type Verdict } from '@/lib/tools/engines';
 import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
+import { ToolProgress } from './ToolProgress';
 import { CountrySelect, inputClass, labelClass, submitClass, useToolTarget, VerdictText } from './ui';
 import { EngineMark } from './visuals';
 
@@ -45,6 +46,8 @@ export default function AiCitationChecker() {
   const tableRef = useRef<HTMLDivElement>(null);
 
   const [busy, setBusy] = useState(false);
+  /** True while the buyer questions are being found, before any engine is asked. */
+  const [finding, setFinding] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [set, setSet] = useState<PromptSet | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
@@ -81,8 +84,10 @@ export default function AiCitationChecker() {
     setBusy(true);
     setOpen(null);
     trackTool('free_tool_run', { tool: 'ai-citation-checker' });
+    setFinding(true);
     try {
       const found = await postTool<PromptSet>('/api/tools/ai-prompts', { domain, country }, await getToken());
+      setFinding(false);
       setSet(found);
       setRows(found.prompts.map((prompt) => ({ prompt, results: null, queued: false })));
       tableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -90,6 +95,7 @@ export default function AiCitationChecker() {
     } catch (err) {
       setError(err instanceof ToolError ? err.message : 'Something went wrong. Please try again.');
     } finally {
+      setFinding(false);
       setBusy(false);
     }
   }
@@ -103,6 +109,10 @@ export default function AiCitationChecker() {
   }
 
   const unchecked = rows.filter((r) => !r.queued).length;
+  // Real progress: finding the questions is the first ~10%, then each answered question.
+  const queued = rows.filter((r) => r.queued);
+  const answered = queued.filter((r) => r.results).length;
+  const progress = finding || !queued.length ? 0 : 0.1 + 0.9 * (answered / queued.length);
   const done = set !== null && !busy && rows.every((r) => r.results || !r.queued);
   const all = rows.flatMap((r) => r.results ?? []);
   const cited = all.filter((r) => r.verdict === 'cited').length;
@@ -141,6 +151,19 @@ export default function AiCitationChecker() {
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
               </div>
+              <ToolProgress
+                active={busy}
+                expected={queued.length > AUTO_CHECK ? 90 : 60}
+                fraction={progress}
+                steps={[
+                  {
+                    at: 0,
+                    label: !finding && queued.length
+                      ? `Asking ChatGPT, Claude, Gemini and Perplexity · ${answered} of ${queued.length} questions done`
+                      : 'Finding the questions buyers ask about your market',
+                  },
+                ]}
+              />
               <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">

@@ -9,6 +9,7 @@ import { isSameSite } from '@/lib/tools/domain';
 import type { OrganicResult } from '@/lib/tools/serper';
 import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
+import { ToolProgress } from './ToolProgress';
 import { CountrySelect, inputClass, labelClass, submitClass, useToolTarget } from './ui';
 
 type RankResponse = {
@@ -187,6 +188,15 @@ export default function KeywordRankChecker() {
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
               </div>
+              <ToolProgress
+                active={busy}
+                expected={6}
+                steps={[
+                  { at: 0, label: 'Searching Google live' },
+                  { at: 2, label: 'Reading the top 30 results' },
+                  { at: 4, label: 'Finding your position' },
+                ]}
+              />
               <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">

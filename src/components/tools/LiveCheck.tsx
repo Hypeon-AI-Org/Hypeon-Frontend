@@ -8,6 +8,7 @@ import { Accent, Container, GradientFrame } from '@/components/home/ui';
 import { isSameSite, normalizeDomain } from '@/lib/tools/domain';
 import { ENGINES, type EngineResult } from '@/lib/tools/engines';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
+import { ToolProgress } from './ToolProgress';
 import { CountrySelect, darkInputClass, useToolTarget, VerdictBadge } from './ui';
 import { cleanAnswer, EngineMark, Highlight, TypingDots } from './visuals';
 
@@ -117,7 +118,18 @@ export default function LiveCheck() {
               {error ?? 'The security check could not load. Please refresh the page.'}
             </p>
           )}
-          {loading && <p className="mt-3 text-center text-[14px] text-white/45">Asking four assistants…</p>}
+          <div className="px-2">
+            <ToolProgress
+              dark
+              active={loading}
+              expected={25}
+              steps={[
+                { at: 0, label: 'Sending your question' },
+                { at: 2, label: 'ChatGPT, Claude, Gemini and Perplexity are searching the web' },
+                { at: 15, label: 'Reading the answers and sources' },
+              ]}
+            />
+          </div>
         </form>
         <div className="mx-auto mt-4 flex max-w-[820px] flex-wrap justify-center gap-2">
           {SUGGESTIONS.map((s) => (

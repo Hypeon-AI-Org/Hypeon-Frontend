@@ -6,19 +6,17 @@ import { ArrowRight, Clapperboard, Film, ImagePlus, X } from 'lucide-react';
 
 import { Container, STUDIO_URL } from '@/components/home/ui';
 import { PLACEMENTS, type AdAnalysis, type Grade, type PlacementId } from '@/lib/tools/adRubric';
+import { GRADE, scoreColor, ScoreRing } from './scorecard';
 import { ResultShell, ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
+import { ToolProgress } from './ToolProgress';
 import { inputClass, labelClass, submitClass } from './ui';
+import { extractFrames as grabFrames, MAX_VIDEO_BYTES, VIDEO_TYPES } from './videoFrames';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 /** Longest side sent to the model: plenty for judging an ad, and keeps uploads small. */
 const MAX_SIDE = 1600;
-/** Video frames are smaller: ten of them have to fit in one upload. */
-const FRAME_SIDE = 640;
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-const VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
-/** Only the frames leave the browser, so the file itself can be large. */
-const MAX_VIDEO_BYTES = 500 * 1024 * 1024;
 /** Seconds sampled at the start, where the hook lives; the middle and end are added per clip. */
 const HOOK_TIMES = [0.1, 0.5, 1, 1.5, 2, 3];
 
@@ -82,105 +80,17 @@ function frameTimes(duration: number): number[] {
   return [...new Set(picks.map((t) => Math.round(t * 10) / 10))].sort((a, b) => a - b).filter((t, i, all) => i === 0 || t - all[i - 1] >= 0.4);
 }
 
-/**
- * Plays nothing and uploads nothing: seeks a hidden <video> to each timestamp
- * and draws that frame to a canvas. Only these small JPEG frames are sent.
- */
-function extractFrames(file: File): Promise<Picked> {
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const video = document.createElement('video');
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = 'auto';
-    const fail = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error('decode'));
-    };
-    video.onerror = fail;
-    video.onloadeddata = async () => {
-      try {
-        const duration = video.duration;
-        if (!Number.isFinite(duration) || duration <= 0 || !video.videoWidth) return fail();
-        const scale = Math.min(1, FRAME_SIDE / Math.max(video.videoWidth, video.videoHeight));
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.round(video.videoWidth * scale);
-        canvas.height = Math.round(video.videoHeight * scale);
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return fail();
-        const times = frameTimes(duration);
-        const frames: string[] = [];
-        for (const t of times) {
-          await new Promise<void>((done) => {
-            video.onseeked = () => done();
-            video.currentTime = Math.min(t, duration - 0.05);
-          });
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          frames.push(canvas.toDataURL('image/jpeg', 0.72));
-        }
-        URL.revokeObjectURL(url);
-        const thumb = frames[Math.min(2, frames.length - 1)];
-        resolve({
-          kind: 'video',
-          dataUrl: thumb,
-          frames,
-          times,
-          duration,
-          width: video.videoWidth,
-          height: video.videoHeight,
-          name: file.name,
-        });
-      } catch {
-        fail();
-      }
-    };
-    video.src = url;
-  });
+/** Samples the video in the browser; the thumbnail is an early frame, inside the hook. */
+async function extractFrames(file: File): Promise<Picked> {
+  const v = await grabFrames(file, frameTimes);
+  return { kind: 'video', dataUrl: v.frames[Math.min(2, v.frames.length - 1)], ...v, name: file.name };
 }
-
-const GRADE: Record<Grade, { label: string; badge: string }> = {
-  good: { label: 'Strong', badge: 'bg-[#e3f9ee] text-[#007a45]' },
-  ok: { label: 'Needs work', badge: 'bg-[#fdf2df] text-[#94600b]' },
-  poor: { label: 'Weak', badge: 'bg-[#fdeaea] text-[#b4232a]' },
-};
 
 function scoreTone(score: number): { ring: string; label: string } {
-  if (score >= 70) return { ring: '#00b86b', label: 'Ready to scale' };
-  if (score >= 45) return { ring: '#f2a93b', label: 'Fix before you spend' };
-  return { ring: '#e5484d', label: 'Needs a rework' };
-}
-
-/** Animated ring for the 0-100 ad score. */
-function ScoreRing({ score }: { score: number }) {
-  const size = 132;
-  const stroke = 11;
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  const tone = scoreTone(score);
-  return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90" aria-hidden>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#f1f1f1" strokeWidth={stroke} />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke={tone.ring}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: c - (c * score) / 100 }}
-          transition={{ duration: 1.1, ease }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[38px] font-medium leading-none tracking-[-0.03em] text-[#121212]">{score}</span>
-        <span className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#9a9a9a]">of 100</span>
-      </div>
-    </div>
-  );
+  const ring = scoreColor(score);
+  if (score >= 70) return { ring, label: 'Ready to scale' };
+  if (score >= 45) return { ring, label: 'Fix before you spend' };
+  return { ring, label: 'Needs a rework' };
 }
 
 export default function AdAnalyser() {
@@ -389,6 +299,16 @@ export default function AdAnalyser() {
                 {busy ? 'Scoring your ad…' : ready ? 'Score my ad' : 'Verifying…'}
                 {ready && !busy && <ArrowRight className="h-4 w-4" />}
               </button>
+              <ToolProgress
+                active={busy}
+                expected={picked?.kind === 'video' ? 18 : 12}
+                steps={[
+                  { at: 0, label: picked?.kind === 'video' ? 'Sending your video frames' : 'Sending your ad' },
+                  { at: 2, label: 'Agent is analysing your ad' },
+                  { at: picked?.kind === 'video' ? 10 : 7, label: 'Grading the six checks' },
+                  { at: picked?.kind === 'video' ? 15 : 10, label: 'Writing your fixes' },
+                ]}
+              />
               <div ref={captchaRef} className="mt-4 empty:hidden" />
               {(error || (failed && !ready)) && (
                 <p role="alert" className="mt-4 rounded-xl bg-[#fdeaea] px-4 py-3 text-[14px] text-[#b4232a]">
