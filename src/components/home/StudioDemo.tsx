@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
-import { Clapperboard, Image as ImageIcon, Link2, Palette, Sparkles, Video, Wand2 } from 'lucide-react';
+import { Clapperboard, Image as ImageIcon, Link2, Palette, Video, Wand2 } from 'lucide-react';
 import { SiGoogle, SiMeta, SiTiktok } from 'react-icons/si';
 import { Accent } from './ui';
 
@@ -20,12 +20,10 @@ type Scene = {
   cy: number;
   zoom: number;
   ms: number;
-  title?: boolean;
   caption?: { a: string; b: string; side: 'left' | 'right' };
 };
 
 const SCENES: Scene[] = [
-  { cx: 850, cy: 500, zoom: 0.56, ms: 1800, title: true },
   { cx: 850, cy: 500, zoom: 0.56, ms: 2600 },
   { cx: 470, cy: 470, zoom: 1.0, ms: 3800, caption: { a: 'Drop', b: 'a product link', side: 'right' } },
   { cx: 1120, cy: 330, zoom: 0.95, ms: 3600 },
@@ -114,7 +112,7 @@ export default function StudioDemo() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { margin: '-10% 0px' });
   const reduce = useReducedMotion();
-  const [i, setI] = useState(reduce ? 4 : 0);
+  const [i, setI] = useState(reduce ? 3 : 0);
   const [k, setK] = useState(1);
 
   useEffect(() => {
@@ -133,9 +131,9 @@ export default function StudioDemo() {
 
   const s = SCENES[i];
   // each panel fills once the camera reaches it, and stays filled until the loop restarts
-  const briefing = i >= 2;
-  const creating = i >= 3;
-  const launching = i >= 4;
+  const briefing = i >= 1;
+  const creating = i >= 2;
+  const launching = i >= 3;
   const camera = { scale: s.zoom, x: FRAME.w / 2 - s.cx * s.zoom, y: FRAME.h / 2 - s.cy * s.zoom };
 
   return (
@@ -154,7 +152,7 @@ export default function StudioDemo() {
           </svg>
 
           {/* brief */}
-          <Panel p={P.brief} label="Brief" glow={i === 2}>
+          <Panel p={P.brief} label="Brief" glow={i === 1}>
             <div className="flex h-full flex-col justify-center gap-4 px-7">
               <p className="flex items-center gap-2 text-[15px] text-white/60">
                 <Wand2 className="h-4 w-4 text-white" />
@@ -170,7 +168,7 @@ export default function StudioDemo() {
           </Panel>
 
           {/* brand kit */}
-          <Panel p={P.brand} label="Brand kit" glow={i === 2}>
+          <Panel p={P.brand} label="Brand kit" glow={i === 1}>
             <div className="grid h-full grid-cols-3 gap-5 p-6">
               <div>
                 <p className="flex items-center gap-1.5 text-[13px] text-white/45">
@@ -214,7 +212,7 @@ export default function StudioDemo() {
           </Panel>
 
           {/* creatives */}
-          <Panel p={P.creatives} label="Creatives · generated from your brief" glow={i === 3}>
+          <Panel p={P.creatives} label="Creatives · generated from your brief" glow={i === 2}>
             <div className="grid h-full grid-cols-6 gap-3 p-5">
               {CREATIVES.map((c, n) => {
                 const KindIcon = c.kind === 'Static' ? ImageIcon : c.kind === 'UGC' ? Clapperboard : Video;
@@ -244,7 +242,7 @@ export default function StudioDemo() {
           </Panel>
 
           {/* launch */}
-          <Panel p={P.launch} label="Launch" glow={i === 4}>
+          <Panel p={P.launch} label="Launch" glow={i === 3}>
             <div className="flex h-full flex-col justify-center gap-4 p-6">
               {CHANNELS.map(({ Icon, name }, n) => (
                 <div key={name} className="flex items-center gap-4">
@@ -308,25 +306,6 @@ export default function StudioDemo() {
               <br />
               <span className="text-white/45">{s.caption.b}</span>
             </motion.p>
-          )}
-        </AnimatePresence>
-
-        {/* title card */}
-        <AnimatePresence>
-          {s.title && (
-            <motion.div
-              key="title"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 z-40 flex items-center justify-center bg-[#0b0b0b]"
-            >
-              <span className="relative rounded-full border border-white/25 bg-[linear-gradient(#1f1f1f,#0a0a0a)] px-10 py-4 text-[32px] uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_-12px_rgba(255,255,255,0.25)]">
-                <Accent>Studio</Accent>
-                <Sparkles className="absolute -right-2 -top-2 h-5 w-5 text-white/70" />
-              </span>
-            </motion.div>
           )}
         </AnimatePresence>
       </div>

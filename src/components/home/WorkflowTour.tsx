@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
-import { Flame, MousePointer2, ScanSearch, Sparkles } from 'lucide-react';
+import { Flame, MousePointer2, ScanSearch } from 'lucide-react';
 import LazyVideo from '@/components/LazyVideo';
 import { Accent } from './ui';
 
 /*
- * A looping "camera tour" over a node canvas: a title card, the whole flow,
+ * A looping "camera tour" over a node canvas: the whole flow,
  * then zooms and pans onto single nodes with a caption over each. The canvas
  * ("world") is laid out in px on a 1400x800 board; the camera is a transform.
  */
@@ -23,11 +23,9 @@ type Scene = {
   ms: number;
   caption?: { a: string; b: string; side: 'left' | 'right' };
   cursors?: boolean;
-  title?: boolean;
 };
 
 const SCENES: Scene[] = [
-  { cx: 700, cy: 400, zoom: 0.62, ms: 1800, title: true },
   { cx: 700, cy: 400, zoom: 0.62, ms: 2800 },
   { cx: 1340, cy: 350, zoom: 1.35, ms: 3000, caption: { a: 'Automate', b: 'every step', side: 'right' } },
   { cx: 330, cy: 360, zoom: 1.2, ms: 3200, caption: { a: 'Work', b: 'together', side: 'left' }, cursors: true },
@@ -100,7 +98,7 @@ export default function WorkflowTour() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { margin: '-15% 0px' });
   const reduce = useReducedMotion();
-  const [i, setI] = useState(reduce ? 1 : 0);
+  const [i, setI] = useState(0);
 
   // The board is drawn at 880px wide and scaled to the frame's real width.
   const [k, setK] = useState(1);
@@ -157,7 +155,7 @@ export default function WorkflowTour() {
             <img src="/carousel/posters/b22cdc25095d2d23.jpg" alt="" className="h-full w-full object-cover" />
           </NodeBox>
 
-          <NodeBox n={N.score} label="Hype Score" glow={i === 4}>
+          <NodeBox n={N.score} label="Hype Score" glow={i === 3}>
             <div className="flex h-full flex-col items-center justify-center gap-1">
               <Flame className="h-7 w-7 text-orange-400" />
               <span className="text-[34px] font-medium text-white">94</span>
@@ -170,7 +168,7 @@ export default function WorkflowTour() {
             </div>
           </NodeBox>
 
-          <NodeBox n={N.ad} label="Your ad" glow={i === 2}>
+          <NodeBox n={N.ad} label="Your ad" glow={i === 1}>
             <LazyVideo src="/carousel/df79c081631cc38a.mp4" poster="/carousel/posters/df79c081631cc38a.jpg" className="h-full w-full object-cover" />
           </NodeBox>
 
@@ -215,25 +213,6 @@ export default function WorkflowTour() {
               <br />
               <span className="text-white/45">{s.caption.b}</span>
             </motion.p>
-          )}
-        </AnimatePresence>
-
-        {/* title card */}
-        <AnimatePresence>
-          {s.title && (
-            <motion.div
-              key="title"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 z-40 flex items-center justify-center bg-[#0b0b0b]"
-            >
-              <span className="relative rounded-full border border-white/25 bg-[linear-gradient(#1f1f1f,#0a0a0a)] px-10 py-4 text-[34px] uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_-12px_rgba(255,255,255,0.25)]">
-                <Accent>Workflow</Accent>
-                <Sparkles className="absolute -right-2 -top-2 h-5 w-5 text-white/70" />
-              </span>
-            </motion.div>
           )}
         </AnimatePresence>
       </div>

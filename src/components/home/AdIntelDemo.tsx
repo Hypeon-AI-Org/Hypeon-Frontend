@@ -20,12 +20,10 @@ type Scene = {
   cy: number;
   zoom: number;
   ms: number;
-  title?: boolean;
   caption?: { a: string; b: string; side: 'left' | 'right' };
 };
 
 const SCENES: Scene[] = [
-  { cx: 850, cy: 500, zoom: 0.56, ms: 1800, title: true },
   { cx: 850, cy: 500, zoom: 0.56, ms: 2600 },
   { cx: 505, cy: 430, zoom: 1.1, ms: 3600, caption: { a: 'Ask', b: 'anything', side: 'right' } },
   { cx: 1170, cy: 330, zoom: 0.95, ms: 3600 },
@@ -133,7 +131,7 @@ export default function AdIntelDemo() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { margin: '-10% 0px' });
   const reduce = useReducedMotion();
-  const [i, setI] = useState(reduce ? 4 : 0);
+  const [i, setI] = useState(reduce ? 3 : 0);
   const [k, setK] = useState(1);
 
   useEffect(() => {
@@ -152,9 +150,9 @@ export default function AdIntelDemo() {
 
   const s = SCENES[i];
   // each panel "fires" once the camera has reached it, and stays filled for the rest of the loop
-  const asking = i >= 2;
-  const results = i >= 3;
-  const insights = i >= 4;
+  const asking = i >= 1;
+  const results = i >= 2;
+  const insights = i >= 3;
   const camera = { scale: s.zoom, x: FRAME.w / 2 - s.cx * s.zoom, y: FRAME.h / 2 - s.cy * s.zoom };
 
   return (
@@ -173,7 +171,7 @@ export default function AdIntelDemo() {
           </svg>
 
           {/* ask */}
-          <Panel p={P.ask} label="Prompt" glow={i === 2}>
+          <Panel p={P.ask} label="Prompt" glow={i === 1}>
             <div className="flex h-full flex-col justify-center gap-4 px-7">
               <p className="flex items-center gap-2 text-[15px] text-white/60">
                 <Sparkles className="h-4 w-4 text-white" />
@@ -196,7 +194,7 @@ export default function AdIntelDemo() {
           </Panel>
 
           {/* results */}
-          <Panel p={P.results} label="Top scaling ads · Skincare · last 30 days" glow={i === 3}>
+          <Panel p={P.results} label="Top scaling ads · Skincare · last 30 days" glow={i === 2}>
             <div className="grid h-full grid-cols-6 gap-3 p-5">
               {ADS.map((ad, n) => (
                 <motion.div
@@ -227,7 +225,7 @@ export default function AdIntelDemo() {
           </Panel>
 
           {/* answer */}
-          <Panel p={P.answer} label="HypeOn Intelligence" glow={i === 4}>
+          <Panel p={P.answer} label="HypeOn Intelligence" glow={i === 3}>
             <ul className="space-y-4 p-6">
               {ANSWER.map((line, n) => (
                 <motion.li
@@ -245,7 +243,7 @@ export default function AdIntelDemo() {
           </Panel>
 
           {/* insights */}
-          <Panel p={P.insights} label="Market insights" glow={i === 4}>
+          <Panel p={P.insights} label="Market insights" glow={i === 3}>
             <div className="flex h-full flex-col p-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -330,25 +328,6 @@ export default function AdIntelDemo() {
               <br />
               <span className="text-white/45">{s.caption.b}</span>
             </motion.p>
-          )}
-        </AnimatePresence>
-
-        {/* title card */}
-        <AnimatePresence>
-          {s.title && (
-            <motion.div
-              key="title"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 z-40 flex items-center justify-center bg-[#0b0b0b]"
-            >
-              <span className="relative rounded-full border border-white/25 bg-[linear-gradient(#1f1f1f,#0a0a0a)] px-10 py-4 text-[32px] uppercase tracking-[0.12em] text-white shadow-[0_18px_40px_-12px_rgba(255,255,255,0.25)]">
-                <Accent>Ad Intelligence</Accent>
-                <Sparkles className="absolute -right-2 -top-2 h-5 w-5 text-white/70" />
-              </span>
-            </motion.div>
           )}
         </AnimatePresence>
       </div>
