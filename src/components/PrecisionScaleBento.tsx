@@ -162,7 +162,7 @@ export default function PrecisionScaleBento() {
   const [searchReplay, setSearchReplay] = useState(0);
 
   return (
-    <section className="bg-white py-16 md:py-24 lg:py-28 font-sans text-[14px] text-[#111] antialiased">
+    <section className="bg-white py-12 md:py-24 lg:py-28 font-sans text-[14px] text-[#111] antialiased">
     <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-4 px-4 md:px-6 md:grid-cols-3 lg:px-10">
       {/* heading - full width across the bento grid */}
       <div className="md:col-span-3">
@@ -171,10 +171,10 @@ export default function PrecisionScaleBento() {
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="max-w-[640px]"
         >
-          <h2 className="text-[32px] md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.2] mb-[18px]">
+          <h2 className="text-[26px] md:text-4xl lg:text-4xl font-bold tracking-tight text-[#111] leading-[1.2] mb-[18px]">
             Built for precision. <span className="">Designed for scale.</span>
           </h2>
-          <p className="text-lg leading-7 md:text-[14px] text-[#666] md:leading-[1.72] max-w-[520px]">
+          <p className="text-base leading-6 md:text-[14px] text-[#666] md:leading-[1.72] max-w-[520px]">
             We track your competitors&apos; Meta ads 24/7 and pull data on reach, estimated spend,
             demographics, ad copy, creatives, targeting, and overall strategy.
           </p>
@@ -245,7 +245,7 @@ export default function PrecisionScaleBento() {
                 <Sparkles className="h-[18px] w-[18px]" strokeWidth={2} />
               </div>
               <div className="min-w-0 flex-1 pt-1">
-                <h3 className="text-2xl leading-8 md:text-[22px] font-bold text-white md:leading-snug">Estimated Spend</h3>
+                <h3 className="text-[20px] leading-7 md:text-[22px] font-bold text-white md:leading-snug">Estimated Spend</h3>
                 <p className="mt-2 text-base leading-6 md:text-[14px] md:leading-[1.72] text-slate-400">
                   Real-time estimation of spend per campaign and aggregated market share view.
                 </p>
@@ -293,7 +293,7 @@ export default function PrecisionScaleBento() {
               <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
                 <BarChart2 className="h-[15px] w-[15px]" strokeWidth={2} />
               </IconBox>
-              <h3 className="mt-4 text-2xl leading-8 md:text-[17px] font-semibold text-[#111] md:leading-snug">Creative Analysis</h3>
+              <h3 className="mt-4 text-[20px] leading-7 md:text-[17px] font-semibold text-[#111] md:leading-snug">Creative Analysis</h3>
               <p className="mt-2 max-w-[260px] text-base leading-6 md:text-[14px] md:leading-[1.58] text-[#666]">
                 Segmented images &amp; videos, with transcripts and text generated for deeper LLM
                 analysis.
@@ -314,7 +314,7 @@ export default function PrecisionScaleBento() {
               <IconBox variant="white" className="h-9 w-9 rounded-[9px]">
                 <Briefcase className="h-[15px] w-[15px]" strokeWidth={2} />
               </IconBox>
-              <h3 className="mt-4 text-2xl leading-8 md:text-[17px] font-semibold text-[#111] md:leading-snug">Team Sync</h3>
+              <h3 className="mt-4 text-[20px] leading-7 md:text-[17px] font-semibold text-[#111] md:leading-snug">Team Sync</h3>
               <p className="mt-2 max-w-[260px] text-base leading-6 md:text-[14px] md:leading-[1.58] text-[#666]">
                 Share collections with one click. Build your own segmented ad lists and analysis.
               </p>

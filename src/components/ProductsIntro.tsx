@@ -5,7 +5,7 @@ import { ArrowRight, Zap, DollarSign, ShieldCheck } from 'lucide-react';
 
 export default function TrendalyticsSection() {
   return (
-    <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pb-24 lg:pt-32 lg:pb-28">
+    <section className="relative overflow-hidden bg-white pt-28 pb-12 md:pb-24 lg:pt-32 lg:pb-28">
       {/* ambient dot-grid backdrop, matching the reference video - two parallax layers for a 3D depth feel */}
       <div
         aria-hidden
@@ -41,11 +41,11 @@ export default function TrendalyticsSection() {
           <span className="mb-5 inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-[11px] font-medium text-slate-500">
             Marketing is now software
           </span>
-          <h1 className="text-[36px] md:text-4xl lg:text-[2.1rem] font-bold tracking-tighter leading-[1.1] mb-4 text-[#1a1a1a]">
+          <h1 className="text-[30px] md:text-4xl lg:text-[2.1rem] font-bold tracking-tighter leading-[1.1] mb-4 text-[#1a1a1a]">
             All your Competitor ads<br />
             <span className="text-[#1a1a1a]">Across every platform</span>
           </h1>
-          <p className="text-lg leading-7 md:text-base text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
+          <p className="text-base leading-6 md:text-base text-gray-500 max-w-xl mx-auto lg:mx-0 mb-6">
            Access 200M ads with share of voice, reach, creative and estimated spend data.
           </p>
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-5">

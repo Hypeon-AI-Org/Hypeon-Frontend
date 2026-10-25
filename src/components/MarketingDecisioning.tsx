@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 export default function CTASection() {
   return (
-    <section className="bg-white pb-16 md:pb-24 lg:pb-28">
+    <section className="bg-white pb-12 md:pb-24 lg:pb-28">
       <div className="mx-auto w-full max-w-[1280px] px-4 md:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -39,13 +39,13 @@ export default function CTASection() {
             }}
           />
 
-          <h2 className="relative text-[32px] font-bold leading-[1.2] tracking-tight text-white md:text-4xl lg:text-5xl">
+          <h2 className="relative text-[26px] font-bold leading-[1.2] tracking-tight text-white md:text-4xl lg:text-5xl">
             Stop researching with
             <br />
             <span className=" font-serif font-normal text-white/50">yesterday&apos;s data.</span>
           </h2>
 
-          <p className="relative mx-auto mt-5 max-w-xl text-lg leading-7 text-white/50 md:text-base">
+          <p className="relative mx-auto mt-5 max-w-xl text-base leading-6 text-white/50 md:text-base">
             The day you connect HypeOn Intelligence, you start seeing the signals your
             competitors haven&apos;t found yet. That&apos;s the only edge that matters.
           </p>

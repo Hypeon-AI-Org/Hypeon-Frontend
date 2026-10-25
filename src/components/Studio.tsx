@@ -242,7 +242,7 @@ function StudioHero() {
         // Normal-flow hero (no pin) - the field zooms out from centre as the
         // hero scrolls away, and the next section follows immediately, so there
         // is no empty black band to scroll through.
-        <section ref={ref} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505] pb-16 pt-24 text-white md:pb-0 md:pt-0">
+        <section ref={ref} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505] pb-12 pt-24 text-white md:pb-0 md:pt-0">
                 {/* Floating creative field (scales out from centre on scroll) */}
                 <FloatingField progress={scrollYProgress} />
                 {/* Mobile: same scatter, static + smooth (no scroll-zoom/parallax) */}
@@ -269,10 +269,10 @@ function StudioHero() {
                         <path d="M12 1.5 L13.4 10.6 L22.5 12 L13.4 13.4 L12 22.5 L10.6 13.4 L1.5 12 L10.6 10.6 Z" />
                     </svg>
 
-                    <h1 className="text-left font-sans text-[36px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
+                    <h1 className="text-left font-sans text-[30px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
                         AI that<br />creates
                     </h1>
-                    <h2 className="mt-5 text-right font-sans text-[36px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
+                    <h2 className="mt-5 text-right font-sans text-[30px] font-bold uppercase leading-[1.1] tracking-tighter md:text-3xl md:leading-[1.05]">
                         runs your<br />winning ads
                     </h2>
                 </div>
@@ -303,7 +303,7 @@ function StudioHero() {
 /* Mobile (<md) layout standard for the grid Sections: 64px vertical spacing per
    section, and a 16px text gutter = 4px outer container + 1px hairline + 11px
    cell padding. md+ keeps Section/Cell's own values untouched. */
-const STUDIO_SECTION = "text-white py-16 md:py-0 max-md:[&>div]:!px-1";
+const STUDIO_SECTION = "text-white py-12 md:py-0 max-md:[&>div]:!px-1";
 const STUDIO_CELL = "max-md:!px-[11px]";
 
 /* ---------------- Paste → Generate → Ship (light, site UI) ---------------- */
@@ -337,7 +337,7 @@ function StudioScoreboard() {
                         <p className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
                             Paste <ArrowRight className="h-3 w-3" /> Generate <ArrowRight className="h-3 w-3" /> Ship
                         </p>
-                        <h2 className="max-w-xl text-[32px] font-bold leading-[1.2] tracking-tighter md:text-5xl">
+                        <h2 className="max-w-xl text-[26px] font-bold leading-[1.2] tracking-tighter md:text-5xl">
                             Real cuts. Real scores. Pick the winner.
                         </h2>
                     </div>
@@ -498,10 +498,10 @@ function StudioIndustries() {
                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     className="mx-auto max-w-2xl text-center"
                 >
-                    <h2 className="text-[32px] font-bold leading-[1.2] tracking-tight md:text-4xl">
+                    <h2 className="text-[26px] font-bold leading-[1.2] tracking-tight md:text-4xl">
                         One engine. Every industry.
                     </h2>
-                    <p className="mx-auto mt-4 max-w-md text-lg leading-7 text-white/55 md:text-base md:leading-normal">
+                    <p className="mx-auto mt-4 max-w-md text-base leading-6 text-white/55 md:text-base md:leading-normal">
                         Statics and video from the Hypeon system. A taste of what your brand
                         could look like.
                     </p>
@@ -602,8 +602,8 @@ function StudioProduction() {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                        <h2 className="text-[32px] font-bold leading-[1.2] tracking-tighter md:text-5xl">Hypeon Studio</h2>
-                        <p className="mt-4 text-lg leading-7 text-white/80 md:text-base">
+                        <h2 className="text-[26px] font-bold leading-[1.2] tracking-tighter md:text-5xl">Hypeon Studio</h2>
+                        <p className="mt-4 text-base leading-6 text-white/80 md:text-base">
                             Original concepts, campaigns and full creative production.
                         </p>
                         <p className="mt-4 max-w-md text-base leading-6 text-white/50 md:text-[15px] md:leading-relaxed">
@@ -679,10 +679,10 @@ function StudioComparison() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="mx-auto max-w-md text-center"
                 >
-                    <h2 className="text-[32px] font-bold leading-[1.2] tracking-tighter md:text-5xl">
+                    <h2 className="text-[26px] font-bold leading-[1.2] tracking-tighter md:text-5xl">
                         One prompt. <span className="text-white/40">Done!</span>
                     </h2>
-                    <p className="mx-auto mt-4 text-lg leading-7 text-white/50 md:text-base md:leading-normal">
+                    <p className="mx-auto mt-4 text-base leading-6 text-white/50 md:text-base md:leading-normal">
                         Other tools make you do the work step by step. Hypeon works for you.
                     </p>
                 </motion.div>
@@ -785,7 +785,7 @@ function StudioProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="mx-auto max-w-3xl text-center text-[32px] font-medium leading-[1.2] tracking-tight md:text-[2.75rem] md:leading-10"
+                    className="mx-auto max-w-3xl text-center text-[26px] font-medium leading-[1.2] tracking-tight md:text-[2.75rem] md:leading-10"
                 >
                     <span className="text-white/35">Our AI does 80% of the work,</span> <span className="text-white">so you only pay 20% for our service</span>
                 </motion.h2>
@@ -888,7 +888,7 @@ function StudioGallery() {
     });
 
     return (
-        <section ref={ref} className="relative overflow-hidden bg-[#0a0a0a] py-16 text-white md:py-0">
+        <section ref={ref} className="relative overflow-hidden bg-[#0a0a0a] py-12 text-white md:py-0">
             {/* clipped streaming window - single rigid cluster moving straight up */}
             <div className="relative h-[72vh] overflow-hidden">
                 <motion.div style={{ y }} className="absolute inset-x-0 top-0 will-change-transform">

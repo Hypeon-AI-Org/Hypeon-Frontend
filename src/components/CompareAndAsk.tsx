@@ -29,7 +29,7 @@ const reveal = {
 
 export function TabHoppingSection() {
     return (
-        <section className="bg-white px-4 py-16 md:px-10">
+        <section className="bg-white px-4 py-12 md:px-10">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -49,10 +49,10 @@ export function TabHoppingSection() {
                         <span className="inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white/70">
                             Save 10+ hours a week
                         </span>
-                        <h2 className="mt-5 text-[32px] font-bold leading-[1.2] tracking-tighter text-white md:text-4xl">
+                        <h2 className="mt-5 text-[26px] font-bold leading-[1.2] tracking-tighter text-white md:text-4xl">
                             Stop tab hopping<br className="hidden sm:block text-white" /> between five libraries
                         </h2>
-                        <p className="mt-4 max-w-md text-lg leading-7 text-white/60 md:text-sm md:leading-relaxed">
+                        <p className="mt-4 max-w-md text-base leading-6 text-white/60 md:text-sm md:leading-relaxed">
                             Meta, TikTok, Google, LinkedIn, Instagram - competitive analysis, aggregated
                             reach, and daily creative change tracking, all in one view.
                         </p>
@@ -157,7 +157,7 @@ export function AskCopilotSection() {
     ];
 
     return (
-        <section className="bg-white px-4 py-16 md:px-10">
+        <section className="bg-white px-4 py-12 md:px-10">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -186,10 +186,10 @@ export function AskCopilotSection() {
                         <span className="inline-block rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                             Your AI ad-intel analyst
                         </span>
-                        <h2 className="mt-5 text-[32px] font-bold leading-[1.2] tracking-tighter text-[#1B1C3A] md:text-4xl">
+                        <h2 className="mt-5 text-[26px] font-bold leading-[1.2] tracking-tighter text-[#1B1C3A] md:text-4xl">
                             Skip the dashboard.<br />Just ask Copilot
                         </h2>
-                        <p className="mt-4 max-w-md text-lg leading-7 text-slate-500 md:text-sm md:leading-relaxed">
+                        <p className="mt-4 max-w-md text-base leading-6 text-slate-500 md:text-sm md:leading-relaxed">
                             What new angles is Nike testing this month? Or where is Adidas shifting budget?
                             Copilot pulls real ad data across Meta, TikTok, Google, and LinkedIn and answers
                             in seconds.

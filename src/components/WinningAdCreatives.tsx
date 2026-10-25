@@ -185,7 +185,7 @@ export default function TikTokScrollSection() {
   };
 
   return (
-    <section className="relative w-full rounded-[28px] bg-[#0a0a0c] text-white py-16 sm:rounded-[56px] font-sans overflow-hidden select-none flex flex-col justify-center">
+    <section className="relative w-full rounded-[28px] bg-[#0a0a0c] text-white py-12 sm:rounded-[56px] md:py-16 font-sans overflow-hidden select-none flex flex-col justify-center">
       
       {/* 3D Hardware Accelerated Stage CSS */}
       <style>{`
@@ -211,12 +211,12 @@ export default function TikTokScrollSection() {
           Winning creatives
         </p>
 
-        <h1 className="text-[32px] leading-[1.2] font-bold tracking-tighter text-white md:text-4xl md:text-5xl]">
+        <h1 className="text-[26px] leading-[1.25] font-bold tracking-tighter text-white md:text-4xl md:text-5xl]">
           We understand and<br className="hidden sm:block" /> analyze Ads so{' '}
           you don&apos;t have to.
         </h1>
 
-        <p className="mt-4 mx-auto max-w-2xl text-lg leading-7 md:text-base text-white/50 font-normal">
+        <p className="mt-4 mx-auto max-w-2xl text-base leading-6 md:text-base text-white/50 font-normal">
           Our Ads Insights tool, powered by proprietary AI, offers a unique
           ability to track and capitalize on Ads trends.
         </p>

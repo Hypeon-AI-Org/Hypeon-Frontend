@@ -100,7 +100,7 @@ export default function EveryPlatformSignal() {
     ];
 
     return (
-        <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:pt-24 md:pb-14 lg:pt-28 lg:pb-16">
+        <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-12 sm:rounded-[56px] md:pt-24 md:pb-14 lg:pt-28 lg:pb-16">
             {/* Faint dot-grid texture */}
             <div
                 aria-hidden
@@ -127,13 +127,13 @@ export default function EveryPlatformSignal() {
                         Unified Data
                     </span>
                 </span>
-                <h2 className="text-[32px] leading-[1.2] font-bold tracking-tighter text-white md:text-5xl">
+                <h2 className="text-[26px] leading-[1.25] font-bold tracking-tighter text-white md:text-5xl">
                     Every platform, every signal
                 </h2>
                 <p className="mt-1 font-serif text-2xl  text-white/50 sm:text-3xl">
                     One source of truth
                 </p>
-                <p className="mx-auto mt-4 max-w-md text-lg leading-7 text-white/50 md:text-sm md:leading-relaxed">
+                <p className="mx-auto mt-4 max-w-md text-base leading-6 text-white/50 md:text-sm md:leading-relaxed">
                     We track Meta, Google, and TikTok 24/7 extracting the signals that matter,
                     structured and searchable.
                 </p>

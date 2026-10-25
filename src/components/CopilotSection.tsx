@@ -56,7 +56,7 @@ const itemVariants = {
 
 export default function FeatureGrid() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-white py-12 md:py-24 lg:py-28">
       {/* faint dot-grid backdrop, matching the reference layout */}
       <div
         aria-hidden
@@ -75,11 +75,11 @@ export default function FeatureGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-display text-[32px] md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-[1.2]">
+            <h2 className="font-display text-[26px] md:text-4xl lg:text-4xl font-bold text-slate-900 mb-6 tracking-tighter max-w-3xl mx-auto leading-[1.2]">
               Intelligence for how you actually <span className=''>sell.</span>
             </h2>
 
-            <p className="text-slate-500 text-lg leading-7 md:text-[15px] max-w-2xl mx-auto md:leading-relaxed">
+            <p className="text-slate-500 text-base leading-6 md:text-[15px] max-w-2xl mx-auto md:leading-relaxed">
               Whether you're on your own site, Amazon, TikTok Shop, or all three - HypeOn Intelligence works the way your business works.
             </p>
           </motion.div>
@@ -102,7 +102,7 @@ export default function FeatureGrid() {
                 <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 mb-6">
                   <Icon size={iconSize} strokeWidth={1.75} />
                 </div>
-                <h3 className="font-display text-2xl leading-8 md:text-[17px] md:leading-[inherit] font-semibold text-slate-900 mb-3 tracking-tight">
+                <h3 className="font-display text-[20px] leading-7 md:text-[17px] md:leading-[inherit] font-semibold text-slate-900 mb-3 tracking-tight">
                   {feature.title}
                 </h3>
                 <p className="text-slate-500 text-base leading-6 md:text-[14px] md:leading-relaxed">

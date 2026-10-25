@@ -33,7 +33,7 @@ const TechnologySection = () => {
   }, [activeTab]);
 
   return (
-    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-16 sm:rounded-[56px] md:py-24 lg:py-28 text-[14px] font-sans antialiased">
+    <section className="relative overflow-hidden rounded-[28px] bg-[#0a0a0c] py-12 sm:rounded-[56px] md:py-24 lg:py-28 text-[14px] font-sans antialiased">
       {/* Faint dot-grid texture */}
       <div
         aria-hidden
@@ -57,10 +57,10 @@ const TechnologySection = () => {
       {/* LEFT COPY */}
       <div className="reveal-left max-md:!transform-none">
         <div className="text-[13px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-3">Technology</div>
-        <h2 className="text-[32px] leading-[1.2] md:text-4xl lg:text-4xl tracking-tight text-white mb-[18px]">
+        <h2 className="text-[26px] leading-[1.25] md:text-4xl lg:text-4xl tracking-tight text-white mb-[18px]">
           Understand what your market wants - <span className="text-white/50  font-serif">before it peaks.</span>
         </h2>
-        <p className="text-lg leading-7 md:text-[14px] text-white/50 md:leading-[1.72] mb-7">
+        <p className="text-base leading-6 md:text-[14px] text-white/50 md:leading-[1.72] mb-7">
           We make sense of millions of signals across search, social and ads to tell you exactly what to sell, where to sell it, and how to beat your competitors to market.
         </p>
         <a
