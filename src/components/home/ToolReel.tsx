@@ -38,7 +38,7 @@ const PARTNERS: Partner[] = [
   { name: 'Trustbadgely', slug: 'trustbadgely', file: '/logos/partners/trustbadgely.svg' },
   { name: 'Wallpassion', slug: 'wallpassion' },
   { name: 'Familjetapeter', slug: 'familjetapeter', file: '/logos/partners/familjetapeter.svg' },
-  { name: 'Adroot', slug: 'adroot' },
+  { name: 'Adroot', slug: 'adroot', file: '/logos/partners/adroot-se.png' },
   { name: 'Bl1xt', slug: 'bl1xt' },
   { name: '11Sight', slug: '11sight' },
   { name: 'PureMarketing', slug: 'puremarketing' },
