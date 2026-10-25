@@ -10,7 +10,6 @@ import {
   type AdAnalysis,
   type AdKind,
 } from '@/lib/tools/adRubric';
-import { bedrockStructured, isBedrockConfigured } from '@/lib/tools/bedrock';
 import { issueSession, passesBotCheck } from '@/lib/tools/captcha';
 import { getClientIp, toolError } from '@/lib/tools/http';
 import { chat, isOpenRouterConfigured, type ContentPart } from '@/lib/tools/openrouter';
@@ -81,9 +80,7 @@ export async function POST(req: Request) {
     return toolError('That file is too large. Please use one under 3 MB.', 413);
   }
   if (!placement) return toolError('Choose where the ad will run.', 400);
-  if (!isOpenRouterConfigured() && !isBedrockConfigured()) {
-    return toolError('This tool is not available right now. Please try again later.', 503);
-  }
+  if (!isOpenRouterConfigured()) return toolError('This tool is not available right now. Please try again later.', 503);
 
   const ip = getClientIp(req);
   if (!(await passesBotCheck(body, ip))) return toolError('Please complete the security check and try again.', 403);
@@ -124,19 +121,7 @@ export async function POST(req: Request) {
     }
   };
 
-  // Claude on Bedrock first when an AWS key is set (paid from AWS credits), then the
-  // same Claude through OpenRouter, then Gemini as the last resort.
-  const reviewOnBedrock = async (): Promise<ReturnType<typeof toAnalysis>> => {
-    try {
-      return toAnalysis((await bedrockStructured(content, replySchema(kind))) as Parameters<typeof toAnalysis>[0], kind);
-    } catch (e) {
-      console.error('ad-analyse', kind, 'bedrock', e);
-      return null;
-    }
-  };
-  const analysis =
-    (isBedrockConfigured() ? await reviewOnBedrock() : null) ??
-    (isOpenRouterConfigured() ? (await review(AD_MODEL)) ?? (await review(FALLBACK_MODEL)) : null);
+  const analysis = (await review(AD_MODEL)) ?? (await review(FALLBACK_MODEL));
 
   if (analysis === 'not_an_ad') {
     return toolError('This does not look like an ad. Upload the image or video you plan to run.', 422);
