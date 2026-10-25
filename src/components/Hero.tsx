@@ -215,7 +215,7 @@ export default function Hero() {
           {...blockFade}
           className="inline-flex h-9 items-center rounded-full bg-[#e2e2e2] px-3 text-[16px] leading-6 text-[#121212]"
         >
-          Trusted by&nbsp;<span className="font-accent italic">2k+</span>&nbsp;ecommerce brands
+          Trusted by 2k+ ecommerce brands
         </motion.div>
 
         <h1 className="mt-2 max-w-[320px] text-[36px] font-medium leading-[1.1] tracking-[-0.02em] text-black sm:max-w-none lg:text-[56px]">
