@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 52">
+  <style>
+    .s { fill: #171717 } .e { fill: #ffffff }
+    @media (prefers-color-scheme: dark) { .s { fill: #ffffff } .e { fill: #171717 } }
+  </style>
+  <path class="s" d="M24 2l19 7v14c0 12-8 21-19 25C13 44 5 35 5 23V9l19-7z"/>
+  <ellipse class="e" cx="18" cy="25" rx="2.4" ry="3.4"/>
+  <ellipse class="e" cx="30" cy="25" rx="2.4" ry="3.4"/>
+</svg>
