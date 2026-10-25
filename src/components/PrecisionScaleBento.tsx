@@ -195,7 +195,7 @@ export default function PrecisionScaleBento() {
                 <Search className="h-[18px] w-[18px]" strokeWidth={2} />
               </IconBox>
               <div className="min-w-0 flex-1 pt-1">
-                <h3 className="text-2xl font-bold text-[#111] leading-8">
+                <h3 className="text-[20px] font-bold leading-7 text-[#111] md:text-2xl md:leading-8">
                   Semantic Search Engine
                 </h3>
                 <p className="mt-2 text-base leading-6 md:text-[14px] md:leading-[1.72] text-[#666]">

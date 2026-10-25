@@ -697,7 +697,7 @@ function StudioComparison() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8"
                 >
-                        <h3 className="text-2xl font-semibold md:text-lg">Traditional Way</h3>
+                        <h3 className="text-[20px] font-semibold leading-7 md:text-lg">Traditional Way</h3>
                         <p className="mt-2 text-base leading-6 text-white/45 md:text-sm md:leading-relaxed">
                             Multiple tools, multiple steps, hours of manual work for every single ad.
                         </p>
@@ -723,7 +723,7 @@ function StudioComparison() {
                 >
                         <div className="flex items-center gap-2">
                             <Image src={HypeOn_Logo} alt="Hypeon" width={24} height={24} className="h-6 w-6 rounded" />
-                            <h3 className="text-2xl font-semibold md:text-lg">Hypeon Agent</h3>
+                            <h3 className="text-[20px] font-semibold leading-7 md:text-lg">Hypeon Agent</h3>
                         </div>
                         <p className="mt-2 text-base leading-6 text-white/75 md:text-sm md:leading-relaxed">
                             One prompt and the agent researches, creates, and delivers
@@ -844,7 +844,7 @@ function StudioProcess() {
                                         aria-expanded={isOpen}
                                         className="flex w-full items-center justify-between gap-4 py-5 text-left transition-opacity hover:opacity-80"
                                     >
-                                        <h3 className={`text-2xl font-semibold transition-colors md:text-lg ${isOpen ? "text-white" : "text-white/70"}`}>
+                                        <h3 className={`text-[20px] font-semibold leading-7 transition-colors md:text-lg ${isOpen ? "text-white" : "text-white/70"}`}>
                                             {s.title}
                                         </h3>
                                         <span className="text-[11px] font-medium tabular-nums tracking-widest text-white/30">
