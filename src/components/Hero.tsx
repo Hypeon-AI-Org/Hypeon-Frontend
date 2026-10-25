@@ -245,7 +245,7 @@ export default function Hero() {
       {/* ── phones/tablets: a sideways row of the same clips ── */}
       <motion.div
         {...blockFade}
-        className="mt-12 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-16 [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
+        className="mt-12 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-8 [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
       >
         {isLg === false &&
           CARDS.map((c) => (

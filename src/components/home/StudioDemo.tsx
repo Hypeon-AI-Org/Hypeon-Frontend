@@ -25,7 +25,7 @@ type Scene = {
 
 const SCENES: Scene[] = [
   { cx: 850, cy: 500, zoom: 0.56, ms: 2600 },
-  { cx: 470, cy: 470, zoom: 1.0, ms: 3800, caption: { a: 'Drop', b: 'a product link', side: 'right' } },
+  { cx: 575, cy: 470, zoom: 1.0, ms: 3800, caption: { a: 'Drop', b: 'a product link', side: 'right' } },
   { cx: 1120, cy: 330, zoom: 0.95, ms: 3600 },
   { cx: 1160, cy: 770, zoom: 1.05, ms: 3800, caption: { a: 'Launch', b: 'everywhere', side: 'left' } },
 ];

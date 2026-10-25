@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ScanSearch, Wand2 } from 'lucide-react';
+import { ArrowRight, ScanSearch, Wand2 } from 'lucide-react';
 import AdIntelDemo from './AdIntelDemo';
 import StudioDemo from './StudioDemo';
 import { Accent, Container, H2 } from './ui';
@@ -41,39 +41,61 @@ export default function InAction() {
         </div>
 
         <div className="relative mt-10">
-          <div
-            role="tablist"
-            aria-label="Product demos"
-            className="flex gap-8 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:justify-center md:px-0 [&::-webkit-scrollbar]:hidden"
-          >
+          <div role="tablist" aria-label="Product demos" className="flex gap-3 md:justify-center md:gap-6">
             {DEMOS.map((d, i) => {
               const Icon = d.icon;
               const on = i === active;
               return (
-                <button
+                <motion.button
                   key={d.key}
                   type="button"
                   role="tab"
                   aria-selected={on}
                   onClick={() => setActive(i)}
-                  className={`flex h-[90px] w-[301px] shrink-0 items-center gap-5 rounded-2xl border border-white bg-white/70 p-5 text-left transition-opacity duration-200 ${
-                    on ? 'opacity-100' : 'opacity-50 hover:opacity-80'
+                  whileHover={on ? undefined : { y: -3 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+                  className={`group relative flex h-[84px] min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 overflow-hidden rounded-2xl border px-3 text-center outline-none transition-[border-color,box-shadow] duration-300 focus-visible:ring-2 focus-visible:ring-[#121212] focus-visible:ring-offset-2 focus-visible:ring-offset-[#ededed] md:h-[90px] md:w-[301px] md:flex-none md:flex-row md:justify-start md:gap-4 md:px-5 md:text-left ${
+                    on
+                      ? 'border-[#121212] shadow-[0_14px_30px_-12px_rgba(0,0,0,0.45)]'
+                      : 'border-black/15 bg-white shadow-[0_2px_6px_rgba(0,0,0,0.04)] hover:border-black/40 hover:shadow-[0_12px_24px_-12px_rgba(0,0,0,0.25)]'
                   }`}
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e2e2e2]">
-                    <Icon className="h-5 w-5 text-[#121212]" strokeWidth={1.75} />
+                  {/* dark highlight that slides between the tabs */}
+                  {on && (
+                    <motion.span
+                      layoutId="demo-tab-highlight"
+                      aria-hidden
+                      className="absolute inset-0 rounded-[15px] bg-gradient-to-b from-[#2b2b2b] to-[#121212]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <span
+                    className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300 md:h-12 md:w-12 ${
+                      on ? 'bg-white/15 text-white' : 'bg-[#ededed] text-[#121212] group-hover:bg-[#e2e2e2]'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4 md:h-5 md:w-5" strokeWidth={1.75} />
                   </span>
-                  <span>
-                    <span className="block text-[16px] font-medium leading-6 text-black">{d.name}</span>
-                    <span className="block text-[14px] leading-[21px] text-black/70">{d.role}</span>
+                  <span className="relative min-w-0 md:flex-1">
+                    <span className={`block whitespace-nowrap text-[14px] font-semibold leading-5 md:truncate md:leading-6 transition-colors duration-300 md:text-[16px] ${on ? 'text-white' : 'text-[#121212]'}`}>
+                      {d.name}
+                    </span>
+                    <span className={`hidden truncate text-[14px] leading-[21px] transition-colors duration-300 md:block ${on ? 'text-white/65' : 'text-[#545454]'}`}>
+                      {d.role}
+                    </span>
                   </span>
-                </button>
+                  {/* arrow nudges in on hover for the tab you can switch to */}
+                  {!on && (
+                    <ArrowRight
+                      aria-hidden
+                      className="relative hidden h-4 w-4 shrink-0 -translate-x-1 text-[#121212] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 md:block"
+                    />
+                  )}
+                </motion.button>
               );
             })}
           </div>
-          {/* soft edge fades, as on the reference */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[100px] bg-[linear-gradient(90deg,#ededed,rgba(237,237,237,0.8)_43%,rgba(237,237,237,0))] md:hidden" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-[100px] bg-[linear-gradient(270deg,#ededed,rgba(237,237,237,0.8)_43%,rgba(237,237,237,0))] md:hidden" />
         </div>
 
         <div className="mx-auto mt-6 h-px md:mt-[46px] max-w-[480px] bg-[linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0))]" />
