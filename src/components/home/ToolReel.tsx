@@ -114,9 +114,6 @@ export default function ToolReel() {
 
   return (
     <section ref={ref} aria-label="Our partners" className="relative bg-[#ededed] py-8">
-      <p className="mb-4 text-center text-[14px] font-medium uppercase tracking-[0.14em] text-[#545454]">
-        Our partners
-      </p>
       <div className="flex flex-col gap-2 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
         <Row partners={ROW_A} x={xA} />
         <Row partners={ROW_B} x={xB} />
