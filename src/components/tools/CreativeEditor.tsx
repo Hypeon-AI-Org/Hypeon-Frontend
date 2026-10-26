@@ -13,6 +13,7 @@ import {
   Bold,
   Check,
   CircleHelp,
+  Clapperboard,
   Contrast,
   Copy,
   Download,
@@ -34,7 +35,7 @@ import {
   X,
 } from 'lucide-react';
 
-import { Container } from '@/components/home/ui';
+import { Container, STUDIO_URL } from '@/components/home/ui';
 import type { CopyOption } from '@/lib/tools/adCopy';
 import type { FoundBlock } from '@/lib/tools/textErase';
 import {
@@ -812,6 +813,13 @@ export default function CreativeEditor() {
   /** Pictures for logos lifted off an ad, by layer id. */
   const [layerImgs, setLayerImgs] = useState<Record<string, HTMLImageElement>>({});
   const [tipClosed, setTipClosed] = useState(false);
+  /** After a download: invite the visitor to make a UGC video version in HypeOn Studio. */
+  const [studioNudge, setStudioNudge] = useState(false);
+  useEffect(() => {
+    if (!studioNudge) return;
+    const id = setTimeout(() => setStudioNudge(false), 12_000);
+    return () => clearTimeout(id);
+  }, [studioNudge]);
   /** Sizes being fitted right now; the run id drops answers that belong to an image the visitor has since replaced. */
   const [fitting, setFitting] = useState<Partial<Record<AdSizeId, boolean>>>({});
   const fitRun = useRef(0);
@@ -1289,6 +1297,7 @@ export default function CreativeEditor() {
     }
     setExporting(false);
     setToast(sizes.length > 1 ? `Downloaded all ${sizes.length} sizes` : `Downloaded ${sizes[0].name}`);
+    setStudioNudge(true);
   }
 
   const story = 'safe' in size;
@@ -1386,6 +1395,18 @@ export default function CreativeEditor() {
             <span className="hidden min-w-0 max-w-[220px] truncate text-[14px] text-[#8a8a8a] sm:inline">{name ?? 'No image yet'}</span>
 
             <div className="ml-auto flex items-center gap-2">
+              <a
+                href={STUDIO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackTool('free_tool_cta', { tool: 'creative-editor', cta: 'ugc-video-editor', place: 'top-bar' })}
+                title="Make a UGC video ad in HypeOn Studio"
+                aria-label="UGC Video Editor: make a UGC video ad in HypeOn Studio"
+                className="inline-flex h-[40px] items-center gap-1.5 rounded-xl border border-[#464646] bg-gradient-to-b from-[#373737] to-[#121212] px-3 text-[14px] font-medium text-white shadow-[0_3.667px_11px_rgba(16,24,40,0.1)] transition-[filter] hover:brightness-125 sm:px-3.5"
+              >
+                <Clapperboard className="h-4 w-4" />
+                <span className="hidden sm:inline">UGC Video Editor</span>
+              </a>
               <button
                 type="button"
                 onClick={() => setGuide(true)}
@@ -2074,6 +2095,49 @@ export default function CreativeEditor() {
               <Check className="h-3 w-3" strokeWidth={3} />
             </span>
             {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* After a download: one well-timed invite to turn the ad into a UGC video. */}
+      <AnimatePresence>
+        {studioNudge && (
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.35, ease }}
+            className="fixed bottom-20 left-1/2 z-[90] w-[calc(100vw-32px)] max-w-[380px] -translate-x-1/2 rounded-2xl bg-white p-4 shadow-[0_24px_60px_-18px_rgba(16,24,40,0.45)] ring-1 ring-[#e6e6e6] sm:left-auto sm:right-6 sm:translate-x-0"
+          >
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={() => setStudioNudge(false)}
+              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-lg text-[#8a8a8a] hover:bg-[#f3f3f3] hover:text-[#121212]"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+            <div className="flex items-start gap-3 pr-6">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#121212] text-white">
+                <Clapperboard className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[15px] font-medium text-[#121212]">Want a UGC video version?</p>
+                <p className="mt-0.5 text-[13px] leading-[19px] text-[#6b6b6b]">Turn this ad into a scroll-stopping UGC video with HypeOn Studio.</p>
+              </div>
+            </div>
+            <a
+              href={STUDIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackTool('free_tool_cta', { tool: 'creative-editor', cta: 'ugc-video-editor', place: 'after-download' });
+                setStudioNudge(false);
+              }}
+              className={`${submitClass} mt-3 h-[44px] w-full text-[14px]`}
+            >
+              <Clapperboard className="h-4 w-4" /> Open UGC Video Editor
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
