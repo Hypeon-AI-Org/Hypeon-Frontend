@@ -54,7 +54,7 @@ const TOKEN_WAIT_MS = 10_000;
  * letting a click wait silently. `getToken` resolves with a fresh token (null
  * when no token is needed) or throws a ToolError the form can show.
  */
-export function useTurnstile(theme: 'light' | 'dark' = 'light') {
+export function useTurnstile(theme: 'light' | 'dark' = 'light', opts: { hidden?: boolean } = {}) {
   const ref = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
   const token = useRef<string | null>(null);
@@ -70,8 +70,9 @@ export function useTurnstile(theme: 'light' | 'dark' = 'light') {
         if (cancelled || !ref.current || !window.turnstile) return;
         widgetId.current = window.turnstile.render(ref.current, {
           sitekey: SITE_KEY,
-          // Always visible, so visitors see "Verifying… / Success!" instead of a silent wait.
-          appearance: 'always',
+          // Visible by default, so visitors see "Verifying… / Success!" instead of a silent wait. `hidden`
+          // runs it invisibly and shows it only if Cloudflare needs the visitor to click (the editor uses this).
+          appearance: opts.hidden ? 'interaction-only' : 'always',
           theme,
           // Stretches to the form's width instead of a fixed 300px box.
           size: 'flexible',

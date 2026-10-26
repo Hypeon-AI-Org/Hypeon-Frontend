@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
-import { ArrowRight, Check, Clapperboard, Minus, Plus, Radar, Search, Sparkles, Swords, Timer } from 'lucide-react';
+import { ArrowRight, Check, Clapperboard, Crop, Minus, Plus, Radar, Search, Sparkles, Swords, Timer } from 'lucide-react';
 
 import { Accent, Container, DarkButton, DarkCard, DEMO_URL, LightButton, STUDIO_URL } from '@/components/home/ui';
 import { TOOL_CATALOG, type ToolSlug } from '@/lib/tools/catalog';
@@ -21,6 +21,7 @@ export const TOOL_ICON: Record<ToolSlug, LucideIcon> = {
   'keyword-rank-checker': Search,
   'ad-analyser': Clapperboard,
   'hook-analyzer': Timer,
+  'creative-editor': Crop,
   'seo-competitor-analysis': Swords,
 };
 
@@ -55,7 +56,8 @@ export function ToolHero({
   accent: string;
   sub: string;
   points: string[];
-  children: ReactNode;
+  /** The tool card; omit it when the tool lays out its own, wider workspace below. */
+  children?: ReactNode;
 }) {
   return (
     <div className="text-center">
@@ -79,6 +81,7 @@ export function ToolHero({
         ))}
       </ul>
 
+      {children && (
       <div className="relative mt-10 text-left md:mt-12">
         {/* Depth behind the tool card: a soft white glow and a fading dot grid. */}
         <div aria-hidden className="pointer-events-none absolute -inset-x-10 -inset-y-12 hidden sm:block">
@@ -89,6 +92,7 @@ export function ToolHero({
           {children}
         </div>
       </div>
+      )}
     </div>
   );
 }
@@ -225,7 +229,7 @@ export function MoreTools({ current }: { current: ToolSlug }) {
           All tools <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {others.map((t) => {
           const Icon = TOOL_ICON[t.slug];
           const inner = (

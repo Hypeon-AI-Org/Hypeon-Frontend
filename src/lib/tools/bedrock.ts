@@ -33,6 +33,36 @@ function toBlocks(parts: ContentPart[]): ConverseBlock[] {
   });
 }
 
+/** Bedrock's "busy" answers (throttled, overloaded, unavailable) usually clear within seconds. */
+const RETRYABLE = new Set([429, 500, 502, 503, 504]);
+
+/**
+ * Calls a non-chat Bedrock model (e.g. Stability image tools) with its own JSON
+ * body, using the same API key. Busy answers are retried twice with a short
+ * back-off; Stability's image tools returned 503 "unable to process" at times.
+ */
+export async function bedrockInvoke<T>(modelId: string, body: unknown, timeoutMs = 60_000): Promise<T> {
+  const token = process.env.AWS_BEARER_TOKEN_BEDROCK?.trim();
+  const region = process.env.AWS_REGION?.trim() || 'us-east-1';
+  if (!token) throw new Error('Bedrock is not configured');
+  const payload = JSON.stringify(body);
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(`https://bedrock-runtime.${region}.amazonaws.com/model/${encodeURIComponent(modelId)}/invoke`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json', accept: 'application/json' },
+      body: payload,
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    const data = (await res.json().catch(() => ({}))) as T & { message?: string };
+    if (res.ok) return data;
+    if (attempt < 3 && RETRYABLE.has(res.status)) {
+      await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+      continue;
+    }
+    throw new Error(`Bedrock ${modelId} ${res.status}: ${data.message ?? 'request failed'}`);
+  }
+}
+
 /** Asks Claude on Bedrock for a reply matching `schema`; returns the parsed object. */
 export async function bedrockStructured(
   content: ContentPart[],

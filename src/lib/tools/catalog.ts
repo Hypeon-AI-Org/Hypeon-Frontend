@@ -19,6 +19,13 @@ export const TOOL_CATALOG = [
     live: true,
   },
   {
+    slug: 'creative-editor',
+    title: 'Ad Creative Editor',
+    tagline: 'Ready for every placement?',
+    body: 'Turn one image into ads for Instagram, Stories, Facebook, YouTube and Google. Add your headline and button, move anything anywhere, and download every size.',
+    live: true,
+  },
+  {
     slug: 'ai-citation-checker',
     title: 'AI Visibility Scanner',
     tagline: 'Is AI recommending you?',

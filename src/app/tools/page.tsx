@@ -14,7 +14,7 @@ import type { Verdict } from '@/lib/tools/engines';
 export const metadata: Metadata = {
   title: 'Free Growth Tools: AI Visibility, Google Rankings & Ad Scoring | HypeOn',
   description:
-    'Free HypeOn tools with live data: AI Ad Analyser, Hook Analyser for Reels & TikTok, AI Visibility Scanner and Google Rank Finder. See how your ads, videos, AI answers and Google rankings perform. No sign-up.',
+    'Free HypeOn tools with live data: AI Ad Analyser, Hook Analyser for Reels & TikTok, Ad Creative Editor, AI Visibility Scanner and Google Rank Finder. See how your ads, videos, AI answers and Google rankings perform. No sign-up.',
   alternates: { canonical: '/tools' },
 };
 
@@ -137,6 +137,30 @@ function HookPreview() {
   );
 }
 
+function CreativePreview() {
+  const frames: [string, string][] = [
+    ['1:1', 'h-[92px] w-[92px]'],
+    ['4:5', 'h-[115px] w-[92px]'],
+    ['9:16', 'h-[150px] w-[84px]'],
+  ];
+  return (
+    <Frame>
+      <div className="flex items-end justify-center gap-3">
+        {frames.map(([r, c]) => (
+          <div key={r} className="text-center">
+            <div className={`relative flex flex-col items-center justify-end overflow-hidden rounded-md bg-[linear-gradient(160deg,#f7b955,#e8892b)] pb-2 ${c}`}>
+              <span className="absolute left-1/2 top-[22%] h-8 w-4 -translate-x-1/2 rounded-[4px] bg-[#6b3d12]/80" />
+              <span className="h-1 w-3/4 rounded-full bg-white/90" />
+              <span className="mt-1 h-2.5 w-1/2 rounded-full bg-white" />
+            </div>
+            <p className="mt-1.5 text-[11px] text-[#8a8a8a]">{r}</p>
+          </div>
+        ))}
+      </div>
+    </Frame>
+  );
+}
+
 function GapPreview() {
   const gaps = ['organic coffee subscription', 'best decaf beans uk', 'coffee gift box delivery'];
   return (
@@ -159,6 +183,7 @@ const PREVIEW: Record<ToolSlug, () => ReactNode> = {
   'keyword-rank-checker': RankPreview,
   'ad-analyser': AdPreview,
   'hook-analyzer': HookPreview,
+  'creative-editor': CreativePreview,
   'seo-competitor-analysis': GapPreview,
 };
 
