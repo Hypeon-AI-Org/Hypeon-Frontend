@@ -127,6 +127,8 @@ export async function cacheSet(key: string, value: unknown, ttlMs = DAY_MS): Pro
  * within `limit`. The count resets at midnight UTC.
  */
 export async function takeDailyQuota(bucket: string, ip: string, limit: number): Promise<boolean> {
+  // Local development: every request looks like the same visitor, so testing would use up the day's limit.
+  if (process.env.NODE_ENV === 'development') return true;
   const day = new Date().toISOString().slice(0, 10);
   const key = `${bucket}:${ip}:${day}`;
   if (!getSql()) {

@@ -23,7 +23,7 @@ export const maxDuration = 120;
  *   rewrite - Claude rewrites the one piece of text the visitor selected
  *   extend  - Stability Outpaint grows the image to an ad size's shape
  */
-const LIMITS = { grab: 5, write: 20, rewrite: 30, extend: 40 } as const;
+const LIMITS = { grab: 10, write: 20, rewrite: 30, extend: 40 } as const;
 type Action = keyof typeof LIMITS;
 /** The page shrinks images to 1600px first; Vercel rejects bodies over 4.5 MB. */
 const MAX_BYTES = 3 * 1024 * 1024;
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
   const session = issueSession(ip);
 
   const hash = createHash('sha256').update(`${action}|${currentText}|${instruction}|${piece}|${kind}|${action === 'extend' ? ratio.toFixed(3) : ''}|`).update(img.bytes);
-  const cacheKey = `creative:v8:${hash.digest('hex').slice(0, 40)}`;
+  const cacheKey = `creative:v13:${hash.digest('hex').slice(0, 40)}`;
   const cached = await cacheGet<Record<string, unknown>>(cacheKey);
   if (cached) return NextResponse.json({ ...cached, session });
 

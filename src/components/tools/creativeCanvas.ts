@@ -91,6 +91,8 @@ export type Layer = {
    * its shorter side, so the layer moves and scales with the ad's design.
    */
   anchor?: 'image';
+  /** Drawn in the serif font (recreated from a serif headline); otherwise the sans font. */
+  serif?: boolean;
 };
 
 /** An AI-extended background for one size, with where the original image sits inside it (fractions). */
@@ -256,14 +258,16 @@ function drawLayers(
   logo: Source | null | undefined,
   hidden: string | undefined,
   paint = true,
-  images: Record<string, Source> = {}
+  images: Record<string, Source> = {},
+  serif?: string
 ): LayerRect[] {
   const rects: LayerRect[] = [];
   for (const l of layers) {
     const ref = refFor(l, box, W, H);
     // A logo lifted off the ad brings its own picture; the uploaded logo uses `logo`.
     const pic = l.type === 'logo' ? (images[l.id] ?? logo) : null;
-    const m = measure(ctx, l, ref, font, pic);
+    const face = l.serif && serif ? serif : font;
+    const m = measure(ctx, l, ref, face, pic);
     if (!m) continue;
     const at = auto.get(l.id);
     // Placed layers are kept fully inside the frame.
@@ -276,7 +280,7 @@ function drawLayers(
       if (pic) ctx.drawImage(pic, x, y, m.w, m.h);
       continue;
     }
-    ctx.font = `${l.weight} ${m.fs}px ${font}`;
+    ctx.font = `${l.weight} ${m.fs}px ${face}`;
     ctx.textBaseline = 'top';
     if (l.type === 'button') {
       ctx.fillStyle = l.color;
@@ -309,6 +313,8 @@ export function drawCreative(
     font: string;
     scale?: number;
     hidden?: string;
+    /** Font family for layers marked serif. */
+    serif?: string;
     ext?: Extension | null;
   }
 ): { box: Box; rects: LayerRect[] } {
@@ -344,12 +350,12 @@ export function drawCreative(
   // Lay out, measure (so the fade can follow the text), then paint.
   const layers = opts.layers ?? [];
   const auto = autoStack(ctx, layers, d, size, W, H, opts.font);
-  const rects = drawLayers(ctx, layers, auto, box, W, H, opts.font, opts.logo, opts.hidden, false, opts.images);
+  const rects = drawLayers(ctx, layers, auto, box, W, H, opts.font, opts.logo, opts.hidden, false, opts.images, opts.serif);
   if (d.shade) {
     const roleIds = new Set(layers.filter((l) => l.role).map((l) => l.id));
     drawShade(ctx, rects.filter((r) => roleIds.has(r.id)), d.position, W, H);
   }
-  drawLayers(ctx, layers, auto, box, W, H, opts.font, opts.logo, opts.hidden, true, opts.images);
+  drawLayers(ctx, layers, auto, box, W, H, opts.font, opts.logo, opts.hidden, true, opts.images, opts.serif);
   return { box, rects };
 }
 
@@ -396,9 +402,9 @@ export function exportCreative(
   size: AdSize,
   img: Source,
   d: Design,
-  opts: { layers?: Layer[]; logo?: Source | null; images?: Record<string, Source>; font: string; format: 'jpeg' | 'png'; ext?: Extension | null }
+  opts: { layers?: Layer[]; logo?: Source | null; images?: Record<string, Source>; font: string; serif?: string; format: 'jpeg' | 'png'; ext?: Extension | null }
 ): Promise<Blob | null> {
   const canvas = document.createElement('canvas');
-  drawCreative(canvas, size, img, d, { layers: opts.layers, logo: opts.logo, images: opts.images, font: opts.font, ext: opts.ext });
+  drawCreative(canvas, size, img, d, { layers: opts.layers, logo: opts.logo, images: opts.images, font: opts.font, serif: opts.serif, ext: opts.ext });
   return new Promise((resolve) => canvas.toBlob(resolve, `image/${opts.format}`, 0.92));
 }

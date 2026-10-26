@@ -59,6 +59,7 @@ import {
 import { ToolHero } from './sections';
 import { postTool, ToolError, trackTool, useTurnstile } from './toolClient';
 import { ToolProgress } from './ToolProgress';
+import { blobOf, loadWork, saveWork, type SavedWork } from './editorStore';
 import { inputClass, submitClass } from './ui';
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -100,6 +101,47 @@ function toDataUrl(img: HTMLImageElement): string {
 }
 
 const uid = () => Math.random().toString(36).slice(2, 10);
+
+/**
+ * An extended background with `base` pasted over the middle, where the
+ * original ad sits. AI only paints new space around the ad, so after "Edit
+ * its text" the clean ad can replace the old one inside every fitted size:
+ * no second round of fitting, and no extra cost.
+ */
+async function withBase(ext: { img: HTMLImageElement | HTMLCanvasElement; inner: { x: number; y: number; w: number; h: number } }, base: HTMLImageElement) {
+  const src = ext.img;
+  const W = src instanceof HTMLImageElement ? src.naturalWidth : src.width;
+  const H = src instanceof HTMLImageElement ? src.naturalHeight : src.height;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return ext;
+  ctx.drawImage(src, 0, 0, W, H);
+  // The ad fades out over a thin strip on the extended sides, as the server does, so there is no hard line.
+  const bw = Math.round(ext.inner.w * W);
+  const bh = Math.round(ext.inner.h * H);
+  const wide = ext.inner.x > 0.001;
+  const strip = Math.max(4, Math.round((wide ? bw : bh) * 0.04));
+  const layer = document.createElement('canvas');
+  layer.width = bw;
+  layer.height = bh;
+  const lc = layer.getContext('2d');
+  if (lc) {
+    lc.drawImage(base, 0, 0, bw, bh);
+    lc.globalCompositeOperation = 'destination-in';
+    const g = wide ? lc.createLinearGradient(0, 0, bw, 0) : lc.createLinearGradient(0, 0, 0, bh);
+    const f = strip / (wide ? bw : bh);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(f, 'rgba(0,0,0,1)');
+    g.addColorStop(1 - f, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    lc.fillStyle = g;
+    lc.fillRect(0, 0, bw, bh);
+    ctx.drawImage(layer, Math.round(ext.inner.x * W), Math.round(ext.inner.y * H));
+  } else ctx.drawImage(base, ext.inner.x * W, ext.inner.y * H, ext.inner.w * W, ext.inner.h * H);
+  return { img: await loadImage(canvas.toDataURL('image/jpeg', 0.92)), inner: ext.inner };
+}
 
 /** Keeps a drag going outside the element; failing (a pointer the browser no longer tracks) is harmless. */
 function capture(e: { currentTarget: Element; pointerId: number }) {
@@ -148,15 +190,15 @@ const AI_PROGRESS: Record<AiAction, { expected: number; steps: { at: number; lab
  * line wraps where the original did not. Anything on a coloured shape (a
  * "NEW SEASON" pill, a "SHOP NOW" button) becomes a button in that colour.
  */
-function blocksToLayers(blocks: FoundBlock[], img: HTMLImageElement, font: string): Layer[] {
+function blocksToLayers(blocks: FoundBlock[], img: HTMLImageElement, font: string, serif: string): Layer[] {
   const IW = img.naturalWidth;
   const IH = img.naturalHeight;
   const unit = Math.min(IW, IH);
   const ctx = document.createElement('canvas').getContext('2d');
   /** Width of the widest line at a 100px font. */
-  const widest = (text: string, weight: number) => {
+  const widest = (text: string, weight: number, face = font) => {
     if (!ctx) return 0;
-    ctx.font = `${weight} 100px ${font}`;
+    ctx.font = `${weight} 100px ${face}`;
     return Math.max(...text.split('\n').map((line) => ctx.measureText(line.trim()).width));
   };
   return blocks.map((b) => {
@@ -174,7 +216,9 @@ function blocksToLayers(blocks: FoundBlock[], img: HTMLImageElement, font: strin
       return { id: uid(), anchor: 'image', type: 'button', text, x, y, w, size: fs / unit, color: b.bg || '#121212', weight: bw as Layer['weight'], align: 'center' };
     }
     const lines = Math.max(1, b.text.split('\n').length, b.lines);
-    const byWidth = (100 * wPx) / Math.max(1, widest(b.text, weight));
+    // A serif headline is rebuilt in the site's serif face, so it keeps its character.
+    const isSerif = b.font === 'serif';
+    const byWidth = (100 * wPx) / Math.max(1, widest(b.text, weight, isSerif ? serif : font));
     const byHeight = hPx / (LAYER_LINE * (lines - 1) + 0.85);
     const fs = Math.min(byWidth, byHeight);
     // A touch of slack so rounding never wraps a line.
@@ -192,6 +236,7 @@ function blocksToLayers(blocks: FoundBlock[], img: HTMLImageElement, font: strin
       color: b.color,
       weight,
       align: b.align,
+      serif: isSerif || undefined,
     };
   });
 }
@@ -794,6 +839,7 @@ export default function CreativeEditor() {
   const [sizeId, setSizeId] = useState<AdSizeId>('portrait');
   const [format, setFormat] = useState<'jpeg' | 'png'>('jpeg');
   const [font, setFont] = useState('sans-serif');
+  const [serifFont, setSerifFont] = useState('serif');
   const [panning, setPanning] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -803,6 +849,15 @@ export default function CreativeEditor() {
 
   // The security check runs invisibly here; Cloudflare shows it only if a visitor must click.
   const { ref: captchaRef, getToken, ready } = useTurnstile('light', { hidden: true });
+  const readyRef = useRef(false);
+  useEffect(() => {
+    readyRef.current = ready;
+  }, [ready]);
+  /** Waits for the background security check (it can take a while right after the page opens). */
+  const whenReady = async (ms = 30_000) => {
+    const t0 = Date.now();
+    while (!readyRef.current && Date.now() - t0 < ms) await new Promise((r) => setTimeout(r, 250));
+  };
   const [aiBusy, setAiBusy] = useState<AiAction | null>(null);
   const [aiError, setAiError] = useState<string | null>(null);
   const [instruction, setInstruction] = useState('');
@@ -815,6 +870,16 @@ export default function CreativeEditor() {
   const [tipClosed, setTipClosed] = useState(false);
   /** After a download: invite the visitor to make a UGC video version in HypeOn Studio. */
   const [studioNudge, setStudioNudge] = useState(false);
+  /**
+   * The editor just before "Edit its text", kept while the server says the
+   * erase may show a patch, so one click can put everything back.
+   */
+  const [undoGrab, setUndoGrab] = useState<{
+    img: HTMLImageElement;
+    layers: Layer[];
+    ext: Partial<Record<AdSizeId, Extension>>;
+    layerImgs: Record<string, HTMLImageElement>;
+  } | null>(null);
   useEffect(() => {
     if (!studioNudge) return;
     const id = setTimeout(() => setStudioNudge(false), 12_000);
@@ -823,6 +888,11 @@ export default function CreativeEditor() {
   /** Sizes being fitted right now; the run id drops answers that belong to an image the visitor has since replaced. */
   const [fitting, setFitting] = useState<Partial<Record<AdSizeId, boolean>>>({});
   const fitRun = useRef(0);
+  /** The ad the fitted sizes should show in their middle (the clean one after "Edit its text"). */
+  const baseRef = useRef<HTMLImageElement | null>(null);
+  const extRef = useRef<Partial<Record<AdSizeId, Extension>>>({});
+  /** Removed text reached the left/right (h) or top/bottom (v) edge: the AI may have continued it into new space there. */
+  const edgeRef = useRef({ h: false, v: false });
   const frameRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -936,8 +1006,95 @@ export default function CreativeEditor() {
 
   // The page's own font once it has loaded, so canvas text matches the site.
   useEffect(() => {
-    document.fonts?.ready.then(() => setFont(getComputedStyle(document.body).fontFamily || 'sans-serif'));
+    document.fonts?.ready.then(() => {
+      setFont(getComputedStyle(document.body).fontFamily || 'sans-serif');
+      // The serif accent used on the site's headings (a hidden probe, since no heading may be rendered yet).
+      const probe = document.createElement('span');
+      probe.className = 'font-accent';
+      probe.style.display = 'none';
+      document.body.appendChild(probe);
+      setSerifFont(getComputedStyle(probe).fontFamily || 'serif');
+      probe.remove();
+    });
   }, []);
+
+  /*
+   * The visitor's work survives a refresh: it is restored from their own
+   * browser on load, then saved again shortly after every change.
+   */
+  const restoredRef = useRef(false);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const work = await loadWork();
+      if (work && !cancelled) {
+        try {
+          const toImg = (b: Blob) => loadImage(URL.createObjectURL(b));
+          const image = await toImg(work.image);
+          const logoImg = work.logo ? await toImg(work.logo) : null;
+          const pics: Record<string, HTMLImageElement> = {};
+          for (const [id, b] of Object.entries(work.layerImages)) pics[id] = await toImg(b);
+          const exts: Partial<Record<AdSizeId, Extension>> = {};
+          for (const [id, e] of Object.entries(work.extensions)) if (e) exts[id as AdSizeId] = { img: await toImg(e.image), inner: e.inner };
+          if (!cancelled) {
+            baseRef.current = image;
+            setImg(image);
+            setName(work.name);
+            setDesign(work.design);
+            setLayers(work.layers);
+            setSizeId(work.sizeId);
+            setFormat(work.format);
+            setLogo(logoImg);
+            setLayerImgs(pics);
+            setExt(exts);
+            setTipClosed(true);
+            setToast('Restored your last ad');
+          }
+        } catch {}
+      }
+      restoredRef.current = true;
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!restoredRef.current || !img || !name) return;
+    const id = setTimeout(async () => {
+      try {
+        const work: SavedWork = {
+          v: 1,
+          savedAt: Date.now(),
+          name,
+          design,
+          layers,
+          sizeId,
+          format,
+          image: await blobOf(img),
+          logo: logo ? await blobOf(logo) : null,
+          layerImages: Object.fromEntries(
+            await Promise.all(
+              Object.entries(layerImgs)
+                .filter(([lid]) => layers.some((l) => l.id === lid))
+                .map(async ([lid, pic]) => [lid, await blobOf(pic)] as const)
+            )
+          ),
+          extensions: Object.fromEntries(
+            await Promise.all(
+              Object.entries(ext).map(async ([sid, e]) => [sid, { image: await blobOf(e!.img as HTMLImageElement), inner: e!.inner }] as const)
+            )
+          ),
+        };
+        await saveWork(work);
+      } catch {}
+    }, 700);
+    return () => clearTimeout(id);
+  }, [img, name, design, layers, logo, layerImgs, ext, sizeId, format]);
+
+  useEffect(() => {
+    extRef.current = ext;
+  }, [ext]);
 
   // Redraw the preview and every size thumbnail on any change, once per frame.
   useEffect(() => {
@@ -945,16 +1102,16 @@ export default function CreativeEditor() {
     const id = requestAnimationFrame(() => {
       const c = previewRef.current;
       if (c) {
-        const res = drawCreative(c, size, img, design, { layers, logo, font, scale: PREVIEW_SIDE / Math.max(size.w, size.h), hidden: editing ?? undefined, ext: ext[size.id], images: layerImgs });
+        const res = drawCreative(c, size, img, design, { layers, logo, font, scale: PREVIEW_SIDE / Math.max(size.w, size.h), hidden: editing ?? undefined, ext: ext[size.id], images: layerImgs, serif: serifFont });
         setView({ ...res, canvasW: c.width, canvasH: c.height });
       }
       for (const s of AD_SIZES) {
         const t = thumbRefs.current[s.id];
-        if (t) drawCreative(t, s, img, design, { layers, logo, font, scale: THUMB_SIDE / Math.max(s.w, s.h), ext: ext[s.id], images: layerImgs });
+        if (t) drawCreative(t, s, img, design, { layers, logo, font, scale: THUMB_SIDE / Math.max(s.w, s.h), ext: ext[s.id], images: layerImgs, serif: serifFont });
       }
     });
     return () => cancelAnimationFrame(id);
-  }, [img, logo, design, layers, size, font, editing, ext, layerImgs]);
+  }, [img, logo, design, layers, size, font, serifFont, editing, ext, layerImgs]);
 
   const removeSelected = useCallback(() => {
     if (!selected) return;
@@ -1001,6 +1158,8 @@ export default function CreativeEditor() {
       setDesign(next);
       setExt({});
       setTipClosed(false);
+      baseRef.current = loaded;
+      setUndoGrab(null);
       autoFit(loaded);
       bringIntoView();
       // Text pinned to the old image (made editable from a finished ad) goes with it; everything else stays.
@@ -1039,7 +1198,13 @@ export default function CreativeEditor() {
 
   async function makeEditable() {
     setOptions(null);
-    const data = await runAi<{ image: string; blocks: FoundBlock[]; logos?: { image: string; x: number; y: number; w: number; h: number }[] }>('grab');
+    const before = img ? { img, layers, ext: extRef.current, layerImgs } : null;
+    const data = await runAi<{
+      image: string;
+      blocks: FoundBlock[];
+      logos?: { image: string; x: number; y: number; w: number; h: number }[];
+      clean?: boolean;
+    }>('grab');
     if (!data) return;
     let clean: HTMLImageElement;
     try {
@@ -1048,9 +1213,33 @@ export default function CreativeEditor() {
       return setAiError('We could not load the edited image. Please try again.');
     }
     setImg(clean);
-    // Extended backgrounds were made from the old image, text and all: fit every size again from the clean one.
-    setExt({});
-    autoFit(clean);
+    // Fitted sizes keep their AI-painted surroundings; only the middle is swapped for the clean ad.
+    // But where the removed text ran close to an edge, the AI may have carried letters into the new space,
+    // so those sizes are fitted again from the clean ad. Sizes still fitting are handled the same way (see autoFit).
+    baseRef.current = clean;
+    // Within 10% of an edge: on a test ad the AI copied a letter from text that ended 5% from the edge.
+    const near = 100;
+    const boxes = [
+      ...data.blocks.map((b) => ({ x: b.x, y: b.y, w: b.w, h: b.h })),
+      ...(data.logos ?? []).map((l) => ({ x: l.x * 1000, y: l.y * 1000, w: l.w * 1000, h: l.h * 1000 })),
+    ];
+    edgeRef.current = {
+      h: boxes.some((b) => b.x < near || b.x + b.w > 1000 - near),
+      v: boxes.some((b) => b.y < near || b.y + b.h > 1000 - near),
+    };
+    const redo: AdSizeId[] = [];
+    const patched = await Promise.all(
+      Object.entries(extRef.current).map(async ([sid, e]) => {
+        if (!e) return [sid, e] as const;
+        if (needsRefit(e.inner)) {
+          redo.push(sid as AdSizeId);
+          return [sid, undefined] as const;
+        }
+        return [sid, await withBase(e, clean)] as const;
+      })
+    );
+    setExt(Object.fromEntries(patched.filter(([, e]) => e)));
+    if (redo.length) void autoFit(clean, redo);
     // The brand logo comes back as its own cut-out, pinned where it was, so it can be moved and resized.
     const lifted = await Promise.all(
       (data.logos ?? []).map(async (l) => {
@@ -1069,10 +1258,34 @@ export default function CreativeEditor() {
       logoLayers.push({ id: item.id, anchor: 'image', type: 'logo', text: '', x: item.l.x, y: item.l.y, w: item.l.w, size: 0, color: '', weight: 400, align: 'left' });
     }
     setLayerImgs((m) => ({ ...m, ...pics }));
-    setLayers((ls) => [...ls, ...logoLayers, ...blocksToLayers(data.blocks, clean, font)]);
+    setLayers((ls) => [...ls, ...logoLayers, ...blocksToLayers(data.blocks, clean, font, serifFont)]);
     setSelected(null);
     setTipClosed(true);
-    setToast('Text is editable: click to select, double-click to type');
+    // The server checks every erased spot; when one may show a patch, offer to undo instead of hiding it.
+    if (data.clean === false && before) setUndoGrab(before);
+    else {
+      setUndoGrab(null);
+      setToast('Text is editable: click to select, double-click to type');
+    }
+  }
+
+  /** A fitted size whose new space lies on a side the removed text reached. */
+  function needsRefit(inner: Extension['inner']) {
+    const wide = inner.x > 0.001;
+    return wide ? edgeRef.current.h : edgeRef.current.v;
+  }
+
+  function undoMakeEditable() {
+    if (!undoGrab) return;
+    baseRef.current = undoGrab.img;
+    setImg(undoGrab.img);
+    setLayers(undoGrab.layers);
+    setExt(undoGrab.ext);
+    setLayerImgs(undoGrab.layerImgs);
+    setSelected(null);
+    setEditing(null);
+    setUndoGrab(null);
+    setToast('Back to your original ad');
   }
 
   /**
@@ -1082,16 +1295,21 @@ export default function CreativeEditor() {
    * session the others reuse (a security token works once), then two run at a
    * time. A size that fails keeps the whole ad on a soft blurred background.
    */
-  async function autoFit(source: HTMLImageElement) {
-    const run = ++fitRun.current;
+  async function autoFit(source: HTMLImageElement, only?: AdSizeId[]) {
+    // Fitting a few sizes again joins the current run, so sizes still on their way are not dropped.
+    const run = only ? fitRun.current : ++fitRun.current;
     const ratio = source.naturalWidth / source.naturalHeight;
-    const todo = AD_SIZES.filter((s) => Math.abs(ratio - s.w / s.h) / (s.w / s.h) >= 0.03);
-    setFitting(Object.fromEntries(todo.map((s) => [s.id, true])));
+    const todo = AD_SIZES.filter((s) => (!only || only.includes(s.id)) && Math.abs(ratio - s.w / s.h) / (s.w / s.h) >= 0.03);
+    const flags = Object.fromEntries(todo.map((s) => [s.id, true]));
+    setFitting((f) => (only ? { ...f, ...flags } : flags));
     if (!todo.length) return;
     trackTool('free_tool_ai', { tool: 'creative-editor', action: 'auto-fit', sizes: todo.length });
+    // An upload right after the page opens can beat the security check; fitting waits for it instead of failing.
+    await whenReady();
     const image = toDataUrl(source);
     let failed = 0;
     const one = async (s: AdSize) => {
+      let handedOff = false;
       try {
         const data = await postTool<{ image?: string; inner?: Extension['inner']; fits?: boolean }>(
           '/api/tools/creative-ai',
@@ -1099,19 +1317,28 @@ export default function CreativeEditor() {
           await getToken()
         );
         if (fitRun.current !== run || !data.image || !data.inner) return;
-        const extImg = await loadImage(data.image);
-        const inner = data.inner;
-        if (fitRun.current === run) setExt((e) => ({ ...e, [s.id]: { img: extImg, inner } }));
+        let fitted: Extension = { img: await loadImage(data.image), inner: data.inner };
+        const base = baseRef.current;
+        if (base && base !== source) {
+          // The text was made editable while this size was fitting.
+          if (needsRefit(data.inner)) {
+            handedOff = true;
+            void autoFit(base, [s.id]);
+            return;
+          }
+          fitted = await withBase(fitted, base);
+        }
+        if (fitRun.current === run) setExt((e) => ({ ...e, [s.id]: fitted }));
       } catch {
         failed++;
       } finally {
-        if (fitRun.current === run) setFitting((f) => ({ ...f, [s.id]: false }));
+        if (!handedOff && fitRun.current === run) setFitting((f) => ({ ...f, [s.id]: false }));
       }
     };
     await one(todo[0]);
     const rest = todo.slice(1);
     for (let i = 0; i < rest.length; i += 2) await Promise.all(rest.slice(i, i + 2).map(one));
-    if (fitRun.current !== run) return;
+    if (fitRun.current !== run || only) return;
     if (failed) {
       setAiError(`${failed} size${failed > 1 ? 's' : ''} could not be fitted right now and show${failed > 1 ? '' : 's'} the whole ad on a soft background. Use Extend in the Image panel to try again.`);
     } else setToast('Your ad is fitted to every size');
@@ -1290,7 +1517,7 @@ export default function CreativeEditor() {
     trackTool('free_tool_export', { tool: 'creative-editor', sizes: sizes.length, format });
     const base = (name || 'hypeon-ad').replace(/[^\w-]+/g, '-').slice(0, 40);
     for (const s of sizes) {
-      const blob = await exportCreative(s, img, design, { layers, logo, font, format, ext: ext[s.id], images: layerImgs });
+      const blob = await exportCreative(s, img, design, { layers, logo, font, serif: serifFont, format, ext: ext[s.id], images: layerImgs });
       if (blob) download(blob, `${base}-${s.w}x${s.h}.${format === 'jpeg' ? 'jpg' : 'png'}`);
       // Browsers block a burst of downloads; a short gap lets each one through.
       if (sizes.length > 1) await new Promise((r) => setTimeout(r, 350));
@@ -1479,6 +1706,22 @@ export default function CreativeEditor() {
               </div>
               <div className="relative flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-5 pt-4 editor-scroll">
                 {!popupBeside && rewriteTarget && <div className="mb-5">{rewritePopup()}</div>}
+                {undoGrab && (
+                  <div role="alert" className="mb-5 rounded-2xl bg-[#fff7e8] p-4 ring-1 ring-[#f5d9a6]">
+                    <p className="text-[14px] font-medium text-[#121212]">The background behind the text was hard to rebuild</p>
+                    <p className="mt-1 text-[13px] leading-[19px] text-[#6b5a3a]">
+                      Look closely at where the old text was. If you can see a patch, undo to get your original ad back exactly as it was.
+                    </p>
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      <button type="button" onClick={undoMakeEditable} className={`${darkButton} h-[40px]`}>
+                        <Undo2 className="h-4 w-4" /> Undo
+                      </button>
+                      <button type="button" onClick={() => setUndoGrab(null)} className={lightButton}>
+                        Keep it
+                      </button>
+                    </div>
+                  </div>
+                )}
                 {(aiBusy || aiError) && (
                   <div className="mb-5 space-y-3">
                     {aiBusy && <ToolProgress active expected={AI_PROGRESS[aiBusy].expected} steps={AI_PROGRESS[aiBusy].steps} />}
@@ -1992,7 +2235,7 @@ export default function CreativeEditor() {
                               width: Math.max(editingRect.w * cssScale, fs * 4),
                               fontSize: fs,
                               fontWeight: editingLayer.weight,
-                              fontFamily: font,
+                              fontFamily: editingLayer.serif ? serifFont : font,
                               backgroundColor: editingLayer.color,
                               color: contrastOn(editingLayer.color),
                             }}
@@ -2012,7 +2255,7 @@ export default function CreativeEditor() {
                               fontSize: fs,
                               lineHeight: LAYER_LINE,
                               fontWeight: editingLayer.weight,
-                              fontFamily: font,
+                              fontFamily: editingLayer.serif ? serifFont : font,
                               color: editingLayer.color,
                               textAlign: editingLayer.align,
                             }}
