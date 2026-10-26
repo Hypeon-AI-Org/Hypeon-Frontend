@@ -1,9 +1,16 @@
 /**
- * Every free tool, in display order: live tools first. `live: false` shows as
+ * Every free tool, in display order: live tools first (the Ad Creative Editor leads). `live: false` shows as
  * "Coming soon". Slugs keep the plain search terms people type (they are the
  * URLs); `title` is the HypeOn product name shown on the pages.
  */
 export const TOOL_CATALOG = [
+  {
+    slug: 'creative-editor',
+    title: 'Ad Creative Editor',
+    tagline: 'Ready for every platform?',
+    body: 'Upload your ad and AI fits it to every size, makes its text editable and writes new headlines, ready for Instagram, Stories, Facebook, YouTube and Google.',
+    live: true,
+  },
   {
     slug: 'ad-analyser',
     title: 'AI Ad Analyser',
@@ -16,13 +23,6 @@ export const TOOL_CATALOG = [
     title: 'Hook Analyser',
     tagline: 'Will they keep watching?',
     body: 'Upload a Reel, TikTok or Short and AI grades its first 3 seconds, the part that decides who swipes away, then writes you better hook lines.',
-    live: true,
-  },
-  {
-    slug: 'creative-editor',
-    title: 'Ad Creative Editor',
-    tagline: 'Ready for every placement?',
-    body: 'Turn one image into ads for Instagram, Stories, Facebook, YouTube and Google. Add your headline and button, move anything anywhere, and download every size.',
     live: true,
   },
   {

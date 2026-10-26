@@ -23,7 +23,7 @@ export const maxDuration = 120;
  *   rewrite - Claude rewrites the one piece of text the visitor selected
  *   extend  - Stability Outpaint grows the image to an ad size's shape
  */
-const LIMITS = { grab: 5, write: 20, rewrite: 30, extend: 12 } as const;
+const LIMITS = { grab: 5, write: 20, rewrite: 30, extend: 40 } as const;
 type Action = keyof typeof LIMITS;
 /** The page shrinks images to 1600px first; Vercel rejects bodies over 4.5 MB. */
 const MAX_BYTES = 3 * 1024 * 1024;

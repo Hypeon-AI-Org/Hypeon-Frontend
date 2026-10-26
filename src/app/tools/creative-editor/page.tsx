@@ -8,13 +8,13 @@ import { AD_SIZES } from '@/components/tools/creativeCanvas';
 import { HowItWorks, MoreTools, SectionHead, ToolCta, ToolFaq, ToolSection } from '@/components/tools/sections';
 
 export const metadata: Metadata = {
-  title: 'Ad Creative Editor: Free Ad Resizer for Instagram, Stories & Facebook | HypeOn',
+  title: 'Ad Creative Editor: Free AI Ad Resizer & Headline Writer | HypeOn',
   description:
-    'Free ad creative editor. Turn one image into ads for Instagram, Stories, Reels, Facebook, YouTube and Google Display: add a headline and button, then download every size. Runs in your browser, no sign-up.',
+    'Free AI ad editor. Upload your ad: AI fits it to every size for Instagram, Stories, Reels, Facebook, YouTube and Google Display, makes its text editable and writes new headlines. No watermark, no sign-up.',
   alternates: { canonical: '/tools/creative-editor' },
   openGraph: {
     title: 'Ad Creative Editor | HypeOn',
-    description: 'One image, every ad size. Add your headline and button and download ads for every placement. Free, no sign-up.',
+    description: 'Edit any ad with AI: fit it to every size, edit its text and get new headlines. Free, no sign-up.',
     url: '/tools/creative-editor',
   },
 };

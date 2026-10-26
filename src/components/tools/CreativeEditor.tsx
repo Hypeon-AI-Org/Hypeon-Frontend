@@ -812,6 +812,25 @@ export default function CreativeEditor() {
   /** Pictures for logos lifted off an ad, by layer id. */
   const [layerImgs, setLayerImgs] = useState<Record<string, HTMLImageElement>>({});
   const [tipClosed, setTipClosed] = useState(false);
+  /** Sizes being fitted right now; the run id drops answers that belong to an image the visitor has since replaced. */
+  const [fitting, setFitting] = useState<Partial<Record<AdSizeId, boolean>>>({});
+  const fitRun = useRef(0);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * On desktop the editor is exactly one screen tall. Once the visitor starts
+   * using it, the page scrolls it fully into view under the menu bar, so the
+   * side panel scrolls on its own instead of the page scrolling underneath.
+   */
+  const bringIntoView = useCallback(() => {
+    const el = frameRef.current;
+    if (!el || !window.matchMedia('(min-width: 1024px)').matches) return;
+    const r = el.getBoundingClientRect();
+    const top = 76;
+    if (Math.abs(r.top - top) > 8 && (r.top < top || r.bottom > window.innerHeight)) {
+      window.scrollTo({ top: window.scrollY + r.top - top, behavior: 'smooth' });
+    }
+  }, []);
   const selectedRef = useRef<string | null>(null);
 
   const size = AD_SIZES.find((s) => s.id === sizeId) ?? AD_SIZES[0];
@@ -974,6 +993,8 @@ export default function CreativeEditor() {
       setDesign(next);
       setExt({});
       setTipClosed(false);
+      autoFit(loaded);
+      bringIntoView();
       // Text pinned to the old image (made editable from a finished ad) goes with it; everything else stays.
       setLayers((ls) => ls.filter((l) => l.anchor !== 'image'));
       setName(file.name.replace(/\.[^.]+$/, ''));
@@ -1019,8 +1040,9 @@ export default function CreativeEditor() {
       return setAiError('We could not load the edited image. Please try again.');
     }
     setImg(clean);
-    // Extended backgrounds were made from the old image, text and all.
+    // Extended backgrounds were made from the old image, text and all: fit every size again from the clean one.
     setExt({});
+    autoFit(clean);
     // The brand logo comes back as its own cut-out, pinned where it was, so it can be moved and resized.
     const lifted = await Promise.all(
       (data.logos ?? []).map(async (l) => {
@@ -1043,6 +1065,48 @@ export default function CreativeEditor() {
     setSelected(null);
     setTipClosed(true);
     setToast('Text is editable: click to select, double-click to type');
+  }
+
+  /**
+   * Fits the ad to every size by itself: AI extends the ad's own background
+   * so the whole ad shows in each shape, with no crop, blur or colour bars.
+   * Sizes already the ad's shape are skipped. The first request earns the
+   * session the others reuse (a security token works once), then two run at a
+   * time. A size that fails keeps the whole ad on a soft blurred background.
+   */
+  async function autoFit(source: HTMLImageElement) {
+    const run = ++fitRun.current;
+    const ratio = source.naturalWidth / source.naturalHeight;
+    const todo = AD_SIZES.filter((s) => Math.abs(ratio - s.w / s.h) / (s.w / s.h) >= 0.03);
+    setFitting(Object.fromEntries(todo.map((s) => [s.id, true])));
+    if (!todo.length) return;
+    trackTool('free_tool_ai', { tool: 'creative-editor', action: 'auto-fit', sizes: todo.length });
+    const image = toDataUrl(source);
+    let failed = 0;
+    const one = async (s: AdSize) => {
+      try {
+        const data = await postTool<{ image?: string; inner?: Extension['inner']; fits?: boolean }>(
+          '/api/tools/creative-ai',
+          { action: 'extend', image, ratio: s.w / s.h },
+          await getToken()
+        );
+        if (fitRun.current !== run || !data.image || !data.inner) return;
+        const extImg = await loadImage(data.image);
+        const inner = data.inner;
+        if (fitRun.current === run) setExt((e) => ({ ...e, [s.id]: { img: extImg, inner } }));
+      } catch {
+        failed++;
+      } finally {
+        if (fitRun.current === run) setFitting((f) => ({ ...f, [s.id]: false }));
+      }
+    };
+    await one(todo[0]);
+    const rest = todo.slice(1);
+    for (let i = 0; i < rest.length; i += 2) await Promise.all(rest.slice(i, i + 2).map(one));
+    if (fitRun.current !== run) return;
+    if (failed) {
+      setAiError(`${failed} size${failed > 1 ? 's' : ''} could not be fitted right now and show${failed > 1 ? '' : 's'} the whole ad on a soft background. Use Extend in the Image panel to try again.`);
+    } else setToast('Your ad is fitted to every size');
   }
 
   /** Extends the background for each size that does not have one yet; sizes already the image's shape are skipped, and said so. */
@@ -1280,10 +1344,10 @@ export default function CreativeEditor() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
           <ToolHero
             slug="creative-editor"
-            title="One image, every"
-            accent="ad size."
-            sub="Upload a product photo, add your headline and button, move anything anywhere, and download it ready for Instagram, Stories, Facebook, YouTube and Google."
-            points={['6 ad sizes', 'Move anything anywhere', 'No watermark']}
+            title="Edit any ad"
+            accent="with AI."
+            sub="Upload your ad. AI fits it to every size, makes its text editable and writes new headlines, ready for Instagram, Stories, Facebook, YouTube and Google."
+            points={['AI fits every size', 'AI writes headlines', 'No watermark']}
           />
         </motion.div>
       </Container>
@@ -1295,7 +1359,11 @@ export default function CreativeEditor() {
         transition={{ duration: 0.8, delay: 0.1, ease }}
         className="mx-auto mt-10 w-full max-w-[1320px] px-4 md:mt-12"
       >
-        <div className="flex flex-col overflow-hidden rounded-[20px] border border-[#e1e1e1] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.05),0_30px_80px_-30px_rgba(16,24,40,0.35)] lg:h-[min(860px,calc(100vh-84px))] lg:min-h-[620px]">
+        <div
+          ref={frameRef}
+          onPointerDownCapture={bringIntoView}
+          className="flex scroll-mt-[76px] flex-col overflow-hidden rounded-[20px] border border-[#e1e1e1] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.05),0_30px_80px_-30px_rgba(16,24,40,0.35)] lg:h-[min(860px,calc(100vh-92px))] lg:min-h-[560px]"
+        >
           {/* Top bar */}
           <div className="flex flex-wrap items-center gap-3 border-b border-[#ececec] px-4 py-3">
             <input
@@ -1362,7 +1430,10 @@ export default function CreativeEditor() {
                   type="button"
                   role="tab"
                   aria-selected={tab === t.id}
-                  onClick={() => setTab(t.id)}
+                  onClick={() => {
+                    setTab(t.id);
+                    bringIntoView();
+                  }}
                   className={`group flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[12px] transition-colors lg:flex-none lg:py-2 ${
                     tab === t.id ? 'font-medium text-[#121212]' : 'text-[#7a7a7a] hover:text-[#121212]'
                   }`}
@@ -1385,7 +1456,7 @@ export default function CreativeEditor() {
                 <p className="text-[18px] font-medium text-[#121212]">{titles[tab].title}</p>
                 <p className="mt-0.5 text-[13px] text-[#8a8a8a]">{titles[tab].sub}</p>
               </div>
-              <div className="relative flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-5 pt-4 [scrollbar-color:#d6d6d6_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar-thumb:hover]:bg-[#bdbdbd] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#d6d6d6] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:w-[6px]">
+              <div className="relative flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-5 pb-5 pt-4 editor-scroll">
                 {!popupBeside && rewriteTarget && <div className="mb-5">{rewritePopup()}</div>}
                 {(aiBusy || aiError) && (
                   <div className="mb-5 space-y-3">
@@ -1589,7 +1660,7 @@ export default function CreativeEditor() {
                       <div>
                         <p className="text-[15px] font-medium text-[#121212]">AI extend background</p>
                         <p className="mt-0.5 text-[13px] leading-[19px] text-[#8a8a8a]">
-                          Fills each size with more of your ad&rsquo;s own background: nothing cut, no blur.
+                          Done for you after each upload: every size shows your whole ad, with more of its own background. Redo a size here.
                         </p>
                       </div>
                     </div>
@@ -1801,6 +1872,16 @@ export default function CreativeEditor() {
                         </div>
                       )}
 
+                      {fitting[size.id] && !ext[size.id] && (
+                        <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-white/75 text-center leading-normal backdrop-blur-[2px]">
+                          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#7c5cf0,#3b82f6)] text-white">
+                            <Loader2 className="h-5 w-5 animate-spin" />
+                          </span>
+                          <p className="px-4 text-[14px] font-medium text-[#121212]">Fitting your ad to {size.name}…</p>
+                          <p className="px-4 text-[12px] text-[#6b6b6b]">AI is extending its background. About 25 seconds.</p>
+                        </div>
+                      )}
+
                       {/* Click targets for every layer and the auto layout: select, drag, double-click to type. */}
                       {cssScale > 0 &&
                         view.rects.map((r) =>
@@ -1964,6 +2045,7 @@ export default function CreativeEditor() {
                       </span>
                       <span className="whitespace-nowrap text-[12px] font-medium leading-tight text-[#121212]">{s.name}</span>
                       <span className="flex items-center gap-1 text-[11px] text-[#9a9a9a]">
+                        {fitting[s.id] && !ext[s.id] && <Loader2 className="h-3 w-3 animate-spin text-[#7c5cf0]" aria-label="Fitting" />}
                         {ext[s.id] && <Sparkles className="h-3 w-3 text-[#7c5cf0]" aria-label="Extended background" />}
                         {s.ratio}
                       </span>
