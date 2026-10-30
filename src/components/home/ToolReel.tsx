@@ -36,8 +36,6 @@ const PARTNERS: Partner[] = [
   { name: 'Tata', slug: 'tata', Icon: SiTata, color: '#486AAE' },
   { name: 'Sejuna', slug: 'sejuna' },
   { name: 'Trustbadgely', slug: 'trustbadgely', file: '/logos/partners/trustbadgely.svg' },
-  { name: 'Wallpassion', slug: 'wallpassion' },
-  { name: 'Familjetapeter', slug: 'familjetapeter', file: '/logos/partners/familjetapeter.svg' },
   { name: 'Adroot', slug: 'adroot', file: '/logos/partners/adroot-se.png' },
   { name: 'Bl1xt', slug: 'bl1xt' },
   { name: '11Sight', slug: '11sight' },
@@ -48,8 +46,8 @@ const PARTNERS: Partner[] = [
   { name: 'Udemy', slug: 'udemy', Icon: SiUdemy, color: '#A435F0' },
 ];
 
-const ROW_A = PARTNERS.slice(0, 9);
-const ROW_B = PARTNERS.slice(9);
+const ROW_A = PARTNERS.slice(0, 8);
+const ROW_B = PARTNERS.slice(8);
 
 function Logo({ p }: { p: Partner }) {
   // a missing logo file falls back to the lettered badge
