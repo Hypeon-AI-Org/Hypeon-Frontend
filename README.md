@@ -24,6 +24,10 @@ npm run dev
 
 Then open <http://localhost:3000>.
 
+Recent npm releases skip dependency install scripts until they are approved, and warn about
+`sharp` among others. If image optimisation fails, run `npm install-scripts approve sharp`
+and install again.
+
 To build and serve a production bundle locally:
 
 ```bash
