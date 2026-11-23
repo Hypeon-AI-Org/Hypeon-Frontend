@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -100,6 +101,18 @@ export default async function BlogPostPage({
             <h2 className="text-[1.9rem] font-bold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.3rem]">
               {post.title}
             </h2>
+
+            {/* Hero image */}
+            <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <Image
+                src={post.heroImage}
+                alt={post.heroImageAlt}
+                width={1920}
+                height={1080}
+                priority
+                className="h-auto w-full"
+              />
+            </div>
 
             {/* Intro / quick answer (plain lead paragraph) */}
             <p

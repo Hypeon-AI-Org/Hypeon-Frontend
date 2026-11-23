@@ -1,0 +1,38 @@
+{
+  "blocks": [
+    {"type":"callout","variant":"info","text":"“This award proves the idea HypeOn AI is built on: give AI the right signals, and a lean team can grow like a large one,” says Yash Kumar. “That is exactly what we now bring to every brand we work with.”"},
+    {"type":"heading","text":"The award-winning results"},
+    {"type":"paragraph","text":"Google published these figures with the award ([source](https://business.google.com/uk/accelerate/ads-impact-awards/wallpassion/)):"},
+    {"type":"table","headers":["Metric","Result"],"rows":[
+      ["Return on ad spend in Finland","9.75x"],
+      ["Cut in new-market acquisition costs","45%"],
+      ["Local team needed in new territories","None"]
+    ]},
+    {"type":"heading","text":"Challenge"},
+    {"type":"paragraph","text":"Wallpassion had grown about as far as it could in Sweden. The home market was saturated, and each extra krona of ad spend bought less."},
+    {"type":"paragraph","text":"The next step was going abroad, starting with Finland. The usual route is costly: hire a country team, open an office and hope demand shows up. Yash needed a way in that was low-risk and profitable from the start."},
+    {"type":"heading","text":"Approach: one AI engine instead of many country teams"},
+    {"type":"paragraph","text":"Instead of building teams and offices in each market, Yash built one centralised growth engine on Google's Performance Max. Three choices made it work:"},
+    {"type":"list","items":[
+      "**Localised creative.** Google's AI got assets made for each market, so ads felt native to Finnish shoppers, not translated from Swedish.",
+      "**Value-based signals.** Smart Bidding with target ROAS and value-based bidding meant the system chased revenue and profit, not cheap clicks.",
+      "**Test before committing.** ROAS targets were raised step by step, so real local demand was proven before spend scaled."
+    ]},
+    {"type":"paragraph","text":"The result was profitable from the first market, and new-market acquisition costs cut by 45%."},
+    {"type":"heading","text":"What this means for HypeOn AI customers"},
+    {"type":"paragraph","text":"The same principles behind the award now power how HypeOn AI helps e-commerce and DTC brands grow:"},
+    {"type":"list","ordered":true,"items":[
+      "**Better inputs beat bigger budgets.** Most brands underperform because their feeds, creative and conversion values are thin, not because the ad platforms are weak.",
+      "**Growth without extra headcount.** A lean team with the right AI systems can enter markets that once needed whole departments.",
+      "**Profit first.** Optimising for real value, not vanity metrics, is what made this expansion pay back from day one."
+    ]},
+    {"type":"heading","text":"About Yash Kumar"},
+    {"type":"paragraph","text":"Yash Kumar is the Founder & CEO of HypeOn AI and founder of Adroot, a performance marketing agency for DTC brands. He also leads digital and growth across 12 European markets as Head of Digital at Wallpassion."},
+    {"type":"paragraph","text":"His career spans advertising at Amazon, performance marketing at Tata 1mg and marketing leadership at Altered AI in London. He is a Venture Partner at LvlUp Ventures and a Venture Lab mentor at IE Business School."},
+    {"type":"heading","text":"Grow with HypeOn AI"},
+    {"type":"paragraph","text":"If growth has stalled in your home market, or you're paying more each month for the same results, the answer is rarely a bigger budget or team. It's better inputs, smarter bidding and a system that learns faster than your competitors."},
+    {"type":"paragraph","text":"Whether you want to scale profitably at home or test a new country without hiring locally, HypeOn AI can show you how."},
+    {"type":"paragraph","text":"Ready to grow like an award winner? [Book a call with the HypeOn AI team](https://calendly.com/yash-hypeon/30min) or [try our free marketing tools](/tools)."}
+  ],
+  "faq": []
+}

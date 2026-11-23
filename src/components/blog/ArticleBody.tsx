@@ -2,10 +2,24 @@ import Image from "next/image";
 import type { Block } from "@/lib/blog";
 import { slugifyHeading } from "@/lib/blog";
 
-/* ---------- inline **bold** parser ---------- */
+/* ---------- inline **bold** + [link](href) parser ---------- */
 function renderInline(text: string): React.ReactNode {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (link) {
+      const external = /^https?:\/\//.test(link[2]);
+      return (
+        <a
+          key={i}
+          href={link[2]}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="font-medium text-slate-900 underline underline-offset-4 transition-colors hover:text-slate-600"
+        >
+          {link[1]}
+        </a>
+      );
+    }
     if (part.startsWith("**") && part.endsWith("**")) {
       // Emphasis kept as normal-weight text (no bold), per design.
       return <span key={i}>{part.slice(2, -2)}</span>;
