@@ -97,13 +97,8 @@ export default async function BlogPostPage({
 
           {/* Article */}
           <article className="min-w-0 max-w-3xl">
-            {/* Title (repeated, as in reference) */}
-            <h2 className="text-[1.9rem] font-bold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.3rem]">
-              {post.title}
-            </h2>
-
             {/* Hero image */}
-            <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <Image
                 src={post.heroImage}
                 alt={post.heroImageAlt}
