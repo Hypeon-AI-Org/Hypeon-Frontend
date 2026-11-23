@@ -1034,3 +1034,11 @@ html.is-scrolling .float-preview {
     scrollbar-color: #d9d9de transparent;
   }
 }
+
+/* Blog sidebar: still scrolls on short screens, but no visible scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
