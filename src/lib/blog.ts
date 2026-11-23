@@ -59,7 +59,7 @@ const POSTS: PostMeta[] = [
   {
     slug: "yash-kumar-google-ads-impact-award-international-growth",
     title:
-      "HypeOn AI Founder Yash Kumar Named 2026 Google Ads Impact Award Winner for International Growth",
+      "Google Names HypeOn AI CEO Yash Kumar 2026 Ads Impact Award Winner for International Growth",
     category: "Company News",
     excerpt:
       "Yash Kumar, Founder & CEO of HypeOn AI, has won the 2026 Google Ads Impact Award for International Growth in EMEA for an AI-led expansion into Finland that delivered a 9.75x return on ad spend with no local team on the ground.",
